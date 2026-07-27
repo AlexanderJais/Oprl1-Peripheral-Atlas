@@ -1,0 +1,17 @@
+dataset,tissue,assay,gene,unit,mean_level,pct_detected,n_cells,in_matrix
+GSE102443,geniculate,"SMART-seq (full-length, 96 cells)",Oprl1,FPKM,5.7329,91.67,96,True
+GSE102443,geniculate,"SMART-seq (full-length, 96 cells)",Oprm1,FPKM,0.1829,10.42,96,True
+GSE102443,geniculate,"SMART-seq (full-length, 96 cells)",Oprd1,FPKM,0.3051,25.0,96,True
+GSE102443,geniculate,"SMART-seq (full-length, 96 cells)",Oprk1,FPKM,0.8289,25.0,96,True
+GSE102443,geniculate,"SMART-seq (full-length, 96 cells)",Pnoc,FPKM,0.0,0.0,96,False
+GSE102443,geniculate,"SMART-seq (full-length, 96 cells)",Penk,FPKM,166.1963,95.83,96,True
+GSE102443,geniculate,"SMART-seq (full-length, 96 cells)",Pdyn,FPKM,0.06,1.04,96,True
+GSE102443,geniculate,"SMART-seq (full-length, 96 cells)",Pomc,FPKM,1.1103,57.29,96,True
+GSE135801,geniculate,scRNA-seq (454 cells),Oprl1,CPM,18.9825,19.6,454,True
+GSE135801,geniculate,scRNA-seq (454 cells),Oprm1,CPM,0.013,0.22,454,True
+GSE135801,geniculate,scRNA-seq (454 cells),Oprd1,CPM,4.7228,3.08,454,True
+GSE135801,geniculate,scRNA-seq (454 cells),Oprk1,CPM,3.6103,4.19,454,True
+GSE135801,geniculate,scRNA-seq (454 cells),Pnoc,CPM,0.5981,1.1,454,True
+GSE135801,geniculate,scRNA-seq (454 cells),Penk,CPM,31.7511,19.82,454,True
+GSE135801,geniculate,scRNA-seq (454 cells),Pdyn,CPM,0.0004,0.44,454,True
+GSE135801,geniculate,scRNA-seq (454 cells),Pomc,CPM,0.6077,3.08,454,True

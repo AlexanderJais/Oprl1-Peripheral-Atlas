@@ -1,0 +1,9 @@
+tissue,dataset,Oprl1,Pnoc,Oprl1_over_Pnoc,Pnoc_in_matrix
+nodose,NodoMap,11.7486,0.7295,16.105014451077626,True
+jugular,NodoMap,9.5359,3.3618,2.836519258442193,True
+nodose+jugular,NodoMap,11.4068,1.1361,10.040275931887733,True
+nodose+jugular,NodoMap:Bai,11.8375,0.7692,15.389367493333781,True
+nodose+jugular,NodoMap:Buchanan,9.5932,0.7282,13.173078299720958,True
+nodose+jugular,NodoMap:Kupari,11.0939,1.0698,10.369673877696297,True
+nodose+jugular,NodoMap:Zhao,11.9827,1.2297,9.744306092804015,True
+nodose+jugular,NodoMap:inhouse,5.2177,1.4388,3.626422843105555,True

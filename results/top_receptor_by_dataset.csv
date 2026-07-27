@@ -1,0 +1,9 @@
+dataset,tissue_group,prep,top_receptor
+GSE102443,geniculate,whole cell,Oprl1
+GSE135801,geniculate,whole cell,Oprl1
+NodoMap:Bai,nodose/jugular,whole cell,Oprl1
+NodoMap:Buchanan,nodose/jugular,whole cell,Oprl1
+NodoMap:Kupari,nodose/jugular,whole cell,Oprl1
+NodoMap:Zhao,nodose/jugular,whole cell,Oprl1
+NodoMap:inhouse,nodose/jugular,nuclear,Oprm1
+GSE166648,NTS (central),nuclear,Oprm1

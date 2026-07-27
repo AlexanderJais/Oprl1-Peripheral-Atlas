@@ -1,0 +1,9 @@
+gene,genomic_span_kb,whole_cell_CPM,nuclear_CPM,nuclear_over_whole_cell
+Oprl1,6.0,11.127,5.218,0.47
+Oprm1,250.0,8.417,244.495,29.05
+Oprd1,34.0,0.22,5.376,24.44
+Oprk1,18.0,4.853,4.627,0.95
+Pnoc,,0.949,1.439,1.52
+Penk,5.0,2.423,0.955,0.39
+Pdyn,2.0,2.664,2.626,0.99
+Pomc,6.0,10.096,3.639,0.36
