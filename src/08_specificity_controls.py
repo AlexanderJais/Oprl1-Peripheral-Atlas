@@ -40,6 +40,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import scipy.sparse as sp
+from scipy import stats
 
 import atlas_common as ac
 import atlas_style as st
@@ -226,11 +227,71 @@ def main() -> int:
     o = float(np.log2((n_cpm.get("Oprl1", 0) + 0.01) / (g_cpm.get("Oprl1", 0) + 0.01)))
     print(f"  For reference, Oprl1 itself: log2(neuron/glia) = {o:.2f}")
 
-    figures(null_tbl, top)
+    # ----------------------------- 4. is the Nav gradient specific to Oprl1?
+    # Oprl1_CPM and Oprl1_pct correlate at rho = 0.95, so a "gradient" could be
+    # soma size and RNA content rather than regulation of this gene. The test:
+    # do expression-matched control genes show the same Nav1.1/Nav1.8 cluster
+    # gradient? Uses the cluster pseudobulk 06 cached.
+    ann = pd.read_csv(ac.RES / "nodose_oprl1_by_cluster_annotated.csv")
+    z = np.load(ac.DATA / "nodomap_cluster_pseudobulk.npz")
+    _loc = __import__("06_oprl1_localisation")
+    order = list(ann.cluster)
+    ngn = sorted({c for c in cluster[is_nodose] if c.startswith("NGN")},
+                 key=lambda x: int(x[3:]))
+    keep_cl = [c for c in ngn if (is_nodose & (cluster == c)).sum() >= 30]
+    pbf = pd.DataFrame(z["mat"], index=keep_cl, columns=symbols)
+    pbf = pbf.T.groupby(level=0).sum().T
+    nav = ann.set_index("cluster").sodium_channel_type.reindex(pbf.index)
+    m11, m18 = (nav == "Nav1.1").values, (nav == "Nav1.8").values
+
+    ctrl_syms = sorted({symbols[j] for j in control_idx})
+    grows = []
+    for g in ["Oprl1"] + ctrl_syms:
+        if g not in pbf.columns:
+            continue
+        a1, a8 = pbf.loc[m11, g].values, pbf.loc[m18, g].values
+        if a8.mean() <= 0:
+            continue
+        h, pv = stats.kruskal(a1, a8)
+        grows.append({"gene": g, "nav11_mean": round(float(a1.mean()), 3),
+                      "nav18_mean": round(float(a8.mean()), 3),
+                      "ratio": round(float(a1.mean() / a8.mean()), 3),
+                      "kruskal_p": float(pv),
+                      "is_target": g == "Oprl1"})
+    grad = pd.DataFrame(grows)
+    ac.save_table(grad, "nav_gradient_matched_null.csv")
+    tgt = grad[grad.is_target].iloc[0]
+    null = grad[~grad.is_target]
+    pct = float((null.ratio < tgt.ratio).mean() * 100)
+    print(f"\n  Nav1.1/Nav1.8 cluster-mean ratio for Oprl1: {tgt.ratio:.2f}")
+    print(f"  Matched control genes (n = {len(null)}): median ratio "
+          f"{null.ratio.median():.2f}, 95th pct {null.ratio.quantile(0.95):.2f}")
+    print(f"  Oprl1 exceeds {pct:.1f}% of matched genes; "
+          f"{(null.kruskal_p < 0.05).mean() * 100:.0f}% of them are themselves "
+          f"nominally significant")
+
+    # ----------------------- 5. Mantel-Haenszel stability under coarser strata
+    print("\n  Odds-ratio stability against stratum granularity:")
+    srows = []
+    for p_ in ["Cckar", "Glp1r", "Piezo2", "Scn1a"]:
+        if p_ not in sub.columns:
+            continue
+        for nb, lab in ((3, "cluster x depth-tercile"), (2, "cluster x depth-median"),
+                        (1, "cluster only")):
+            st_ = (ac.cluster_depth_strata(cluster[is_nodose], nf, nb) if nb > 1
+                   else cluster[is_nodose])
+            orv, pv, k = ac.stratified_odds_ratio(o_pos, sub[p_].values, st_)
+            srows.append({"partner": p_, "stratification": lab, "n_strata": k,
+                          "odds_ratio": round(float(orv), 3), "p_value": pv})
+    stab = pd.DataFrame(srows)
+    ac.save_table(stab, "vagal_or_stratum_stability.csv")
+    print(stab.to_string(index=False))
+
+    figures(null_tbl, top, ann, grad)
     return 0
 
 
-def figures(null_tbl, top):
+def figures(null_tbl, top, ann=None, grad=None):
     st.set_theme()
     fig, axes = plt.subplots(1, 2, figsize=(13.5, 5.0),
                              gridspec_kw={"width_ratios": [1.15, 1.0]})
@@ -270,6 +331,49 @@ def figures(null_tbl, top):
 
     fig.tight_layout()
     st.save(fig, "figureS4_specificity_controls")
+
+    if ann is None:
+        return
+    # The counterexamples, in a figure rather than left for a referee to find.
+    fig, axes = plt.subplots(1, 2, figsize=(13.0, 5.0))
+    ax = axes[0]
+    d = ann.sort_values("Oprl1_CPM", ascending=False).reset_index(drop=True)
+    colour = {"Nav1.1": st.BAR_BLUE, "Nav1.8": st.BAR_GREY,
+              "Nav1.1/Nav1.8": "#7FB069"}
+    hatch = {"Myelinated": "", "Lightly myelinated": "..", "Unmyelinated": "//"}
+    ax.bar(np.arange(len(d)), d.Oprl1_CPM,
+           color=[colour.get(v, "#CCCCCC") for v in d.sodium_channel_type],
+           hatch=[hatch.get(v, "") for v in d.fibre_type],
+           edgecolor="black", linewidth=1.0, width=0.7)
+    ax.set_xticks(np.arange(len(d)))
+    ax.set_xticklabels(d.cluster, rotation=90, fontsize=9)
+    ax.set_ylabel("Oprl1 (mean CPM per cluster)", fontsize=11)
+    for lab, x in (("Nav1.1", 0), ("Nav1.8", 1)):
+        ax.bar(0, 0, color=colour[lab], edgecolor="black", label=lab)
+    for lab in ("Myelinated", "Lightly myelinated", "Unmyelinated"):
+        ax.bar(0, 0, color="white", edgecolor="black", hatch=hatch[lab], label=lab)
+    ax.legend(fontsize=7.5, ncol=2, loc="upper right")
+    st.panel_letter(ax, "a", dx=-0.10)
+    ax.set_title("Colour tracks Oprl1; the hatching does not", fontsize=11)
+
+    ax = axes[1]
+    show = ["NGN14", "NGN19", "NGN1", "NGN21"]
+    d2 = ann.set_index("cluster").reindex(show).reset_index()
+    ax.bar(np.arange(len(d2)), d2.Oprl1_CPM,
+           color=[colour.get(v, "#CCCCCC") for v in d2.sodium_channel_type],
+           hatch=[hatch.get(v, "") for v in d2.fibre_type],
+           edgecolor="black", linewidth=1.2, width=0.6)
+    ax.set_xticks(np.arange(len(d2)))
+    ax.set_xticklabels(
+        [f"{r.cluster}\n{r.sodium_channel_type}\n{r.fibre_type.split()[0].lower()}"
+         f"\n{r.sensor_type.split('/')[0].lower()}" for r in d2.itertuples()],
+        fontsize=8.5)
+    ax.set_ylabel("Oprl1 (mean CPM per cluster)", fontsize=11)
+    st.panel_letter(ax, "b", dx=-0.18)
+    ax.set_title("Nav1.1 survives these four; myelination\nand sensor type do not",
+                 fontsize=11)
+    fig.tight_layout()
+    st.save(fig, "figure3b_nav_class_counterexamples")
 
 
 if __name__ == "__main__":

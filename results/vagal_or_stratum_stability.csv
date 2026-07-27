@@ -1,0 +1,13 @@
+partner,stratification,n_strata,odds_ratio,p_value
+Cckar,cluster x depth-tercile,51,1.367,1.1505916878920131e-07
+Cckar,cluster x depth-median,37,1.575,2.1927960049484858e-15
+Cckar,cluster only,20,2.252,6.743049075759492e-53
+Glp1r,cluster x depth-tercile,26,1.456,6.937953836888997e-05
+Glp1r,cluster x depth-median,21,1.669,8.809942144539163e-09
+Glp1r,cluster only,15,2.638,2.5056905979331545e-32
+Piezo2,cluster x depth-tercile,41,1.316,0.0004926205834424052
+Piezo2,cluster x depth-median,30,1.532,1.56457053330988e-08
+Piezo2,cluster only,17,2.404,3.789318642343294e-37
+Scn1a,cluster x depth-tercile,51,1.721,2.93110124257925e-20
+Scn1a,cluster x depth-median,36,1.975,2.623800418768724e-32
+Scn1a,cluster only,20,2.894,1.7598582850523683e-90

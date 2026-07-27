@@ -1,10 +1,5 @@
 population,partner,n_cells,n_partner_pos,n_Oprl1_pos,n_double_pos,pct_of_partner_pos_that_are_Oprl1_pos,pct_of_partner_neg_that_are_Oprl1_pos,crude_odds_ratio,depth_stratified_OR,p_value,n_depth_strata,cluster_depth_stratified_OR,p_value_cluster_depth,n_cluster_depth_strata
 nodose,Glp1r,26047,2826,2378,445,15.75,8.32,2.058,1.71,4.890815163297128e-20,6,1.456,6.441717016432094e-05,26
 nodose,Cckar,26047,8825,2378,1129,12.79,7.25,1.876,1.583,9.458233746676009e-25,9,1.365,1.4126369007117353e-07,53
-nodose,Gipr,26047,19,2378,3,15.79,9.12,1.867,1.933,0.5610431195681724,1,,,0
-nodose,Gfral,26047,5,2378,1,20.0,9.13,2.489,,,0,,,0
 nodose,Cckbr,26047,1562,2378,228,14.6,8.78,1.776,1.395,1.822092771320379e-05,4,1.469,3.646094751405678e-05,20
-jugular,Glp1r,4593,31,331,2,6.45,7.21,0.887,0.488,0.7446070406514222,1,2.996,0.8199925097024827,1
 jugular,Cckar,4593,296,331,38,12.84,6.82,2.013,1.544,0.027682092860756062,3,1.483,0.0810848959562784,9
-jugular,Gfral,4593,2,331,0,0.0,7.21,0.0,,,0,,,0
-jugular,Cckbr,4593,7,331,1,14.29,7.2,2.149,,,0,,,0

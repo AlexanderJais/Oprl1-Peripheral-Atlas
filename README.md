@@ -79,54 +79,96 @@ neuronal enrichment **+3.53**, comparable to `Oprk1` +3.49 and `Oprm1` +3.24, fa
 +1.62). The top clusters are NGN14 (43.5 CPM), NGN17 (31.7), NGN6 (30.5) and NGN19 (30.3) —
 figure 2b.
 
-## 3. Within the vagus, `Oprl1` tracks the Nav1.1+ myelinated afferents
+## 3. Within the vagus, `Oprl1` is graded by Nav1.1 — and by nothing else
 
-This is a gradient within a gene that is expressed everywhere, and it is a much smaller effect
-than sections 1 and 2. It is figure 3, not the headline.
+This is a gradient within a gene expressed everywhere, and it is a far smaller effect than
+sections 1 and 2. It is figure 3, not the headline.
 
-Each NodoMap annotation is a property of the **cluster**, not the cell, so the unit of analysis
-is the 21 nodose clusters (`results/nodose_oprl1_annotation_tests.csv`;
-`results/nodose_annotation_group_sizes.csv` gives the group sizes, which are not lopsided —
-Nav1.8 n = 11 against Nav1.1 n = 9, and myelinated/lightly/unmyelinated 4/8/9):
+Each NodoMap annotation is a property of the **cluster**, so the unit of analysis is the 21
+nodose clusters. Effect sizes below are cluster means, computed on the same basis as the test —
+an earlier draft quoted cell-weighted ratios beside cluster-mean *p* values, which inflated the
+fibre-type effect from 2.7× to 5.1×.
 
-| annotation | mean CPM, high vs low | groups | *p* (n = 21 clusters) |
+| annotation | cluster-mean, high vs low | groups | *p* | Bonferroni (×4) |
+|---|---|---|---|---|
+| **sodium channel** | Nav1.1 / Nav1.8 = **4.02×** | 9 / 11 | **0.00095** | **0.0038** |
+| fibre type | Myelinated / Unmyelinated = 2.68× | 4 / 8 / 9 | 0.021 | 0.082 |
+| sensor type | Mechanosensor / Nocisensor | 9 / 8 / 4 | 0.109 | 0.44 |
+| organ projection | Gut 17.56 vs Broad 11.76 | 8 / 9 | 0.336 | 1.0 |
+
+**Only the Nav split survives.** Fibre type fails Bonferroni across the four annotations tested,
+and its effect halves when computed on the same basis as its own *p* value.
+
+**Fibre type is a proxy for Nav class, not an independent axis.** Cross-stratifying the two
+(`results/nodose_nav_fibre_crosstab.csv`) separates them cleanly:
+
+| | Myelinated | Lightly myelinated | Unmyelinated |
 |---|---|---|---|
-| **sodium channel** | Nav1.1 **27.0** vs Nav1.8 **6.8** | 9 / 11 | **0.0010** |
-| **fibre type** | Myelinated **23.1** vs Unmyelinated **4.5** | 4 / 8 / 9 | **0.021** |
-| sensor type | Mechanosensor 18.7 vs Nocisensor 9.3 | 9 / 8 / 4 | 0.109 |
-| organ projection | Pancreas 25.2 vs Jejunum/Ileum 5.3 | 9 / 8 / 1 / 1 / 1 / 1 | 0.336 |
+| **Nav1.1** | 23.01 (n=3) | 25.60 (n=5) | **30.60 (n=1)** |
+| **Nav1.8** | 12.88 (n=1) | 9.01 (n=2) | 4.78 (n=8) |
 
-**The Nav-class split also survives per cell**, which is the test that killed most of section 4.
-Holding cluster identity and capture depth fixed, a nodose neuron expressing `Scn1a` (Nav1.1) is
-**1.72×** more likely to express `Oprl1` — against a null of expression-matched genes with median
-1.36, empirical *p* = **0.0099** (`results/vagal_or_matched_null.csv`). `Scn10a` (Nav1.8) sits at
-1.06 against a null of 1.27, i.e. below chance. The A-fibre association is real and the C-fibre
-one is a genuine depletion.
+Nav class holds inside every fibre stratum (1.8×, 2.8×, 6.4×). Fibre type inside Nav1.1 is
+flat-to-reversed — the *unmyelinated* Nav1.1 cluster is the highest of the nine. The only fibre
+ordering is in the Nav1.8 row and it rests on n = 1 and n = 2. **"Myelinated" is dropped from
+every claim in this document.**
 
-**Organ projection is descriptive only, and the pancreas number is n = 1.** Four of its six
-levels contain a single cluster. Pancreas 25.2 CPM rests on one cluster's annotation in someone
-else's atlas — not tracing, not a replicated cluster. It is a hypothesis for a retrograde-tracing
-experiment and nothing should be built on it.
+The Nav result is robust to the one ambiguous cluster: NGN18 is annotated Nav1.1/Nav1.8 and
+*p* = 0.00095 excluded, 0.00072 assigned to Nav1.1, 0.00084 assigned to Nav1.8.
+
+**Four clusters make the point better than the statistics do:**
+
+| cluster | n | CPM | Nav | fibre | sensor |
+|---|---|---|---|---|---|
+| NGN14 | 730 | 44.15 | Nav1.1 | myelinated | mechanosensor |
+| **NGN19** | 220 | **30.60** | Nav1.1 | **unmyelinated** | **nocisensor** |
+| NGN1 | 4,370 | 15.17 | Nav1.8 | lightly myelinated | nocisensor |
+| **NGN21** | 192 | **5.28** | Nav1.1 | **myelinated** | **mechanosensor** |
+
+NGN19 is an unmyelinated nociceptor and ranks 4th of 21. NGN21 is the textbook myelinated Nav1.1
+mechanosensor and ranks 17th. NGN1 is Nav1.8 and outranks five of the nine Nav1.1 clusters. These
+kill "myelinated" and "mechanosensor" as descriptors and leave Nav1.1 standing.
+
+![Nav class against the counterexamples](figures/figure3b_nav_class_counterexamples.png)
+
+**The Nav-class split also survives per cell, against a matched null.** Holding cluster and depth
+fixed, a neuron expressing `Scn1a` is **1.72×** more likely to express `Oprl1`, against a null of
+expression-matched genes with median 1.36 — empirical *p* = **0.0099**. `Scn10a` (Nav1.8) is 1.06
+against a null of 1.27, i.e. below chance.
+
+**And the gradient is specific to `Oprl1`, not a soma-size artefact.** `Oprl1_CPM` and
+`Oprl1_pct` correlate at rho = 0.95 across clusters, so a "gradient" could be RNA content rather
+than regulation. Testing 550 expression-matched genes for the same Nav1.1/Nav1.8 cluster ratio
+(`results/nav_gradient_matched_null.csv`): the matched median is **1.11** against `Oprl1`'s
+**4.02**, and `Oprl1` exceeds 95.8 % of them. Real, but at the 96th percentile rather than far
+outside — this is a solid effect, not an overwhelming one.
+
+**What this means.** If it is Nav1.1 and not myelination, the claim detaches from conduction
+velocity and from anatomy. What is left is an excitability module: a sodium channel that supports
+high-frequency firing, paired with a Gi-coupled receptor positioned to damp it. That framing
+requires no projection target and no fibre class, and it travels to the geniculate.
+
+**Organ projection is descriptive only.** The *p* = 0.336 above compares the only two levels with
+more than one cluster — Gut (n = 8) against Broad projection (n = 9), 17 clusters, not 21.
+Duodenum, Heart, Jejunum/Ileum and Pancreas have one cluster each and were not in the test. An
+earlier draft printed "Pancreas 25.2 vs Jejunum/Ileum 5.3" beside that *p* value; those are NGN7
+and NGN21, one cluster against one cluster, from levels the test excluded. The pancreas number is
+one cluster's annotation in someone else's atlas — a hypothesis for a retrograde-tracing
+experiment, nothing more.
 
 ![Where Oprl1 sits](figures/figure3_oprl1_localisation.png)
 
 **The transcriptome-wide correlate list needs a warning.** All 54,640 genes were correlated with
 `Oprl1` across the 21 clusters and 2,149 of 16,380 expressed genes reach FDR < 5 %. But NodoMap
 contains ~50,000 satellite and myelinating glia and this pipeline applies **no ambient-RNA
-correction** (no CellBender, SoupX or decontX). Scoring the top 50 correlates against the glial
-compartment of the same ganglion (`results/nodose_top_correlates_ambient_check.csv`), **20 of 50
-are more abundant in glia than in nodose neurons.**
+correction**. Scoring the top 50 correlates against the glial compartment of the same ganglion,
+**20 of 50 are more abundant in glia than in nodose neurons.**
 
-`Adgrg6`/*Gpr126* is the worst case, and it was previously cited here as confirmation: it is
-**8× more abundant in glia than in neurons** (log2 = −2.98). It is the Schwann-cell myelination
-receptor, and its position at the top of the list is the signature of glial ambient RNA, not
-evidence for myelinated neuronal identity. That citation is withdrawn. `Col1a2` (−4.46),
-`Hmgcs2` (−3.58) and `Ptn` (−2.66) are the same problem.
-
-What survives the check are the neuronally enriched correlates: `Cacng5` (log2 +3.38), `Brinp1`
-(+2.79), `Atp1b1` (+2.78), `Eya4` (+2.29), `Dzank1` (+2.16), `Chgb` (+1.98), `Rph3a` (+1.36).
-`Oprl1` itself is +3.48, so the gene of interest is not affected — but the correlate list is,
-and any claim built on it should use the filtered column.
+`Adgrg6`/*Gpr126* is the worst case and was previously cited here as confirmation: it is **8×
+more abundant in glia** (log2 = −2.98). It is the Schwann-cell myelination receptor and its
+position at the top of the list is the signature of ambient RNA, not evidence of myelinated
+neuronal identity. Withdrawn — along with `Col1a2` (−4.46), `Hmgcs2` (−3.58) and `Ptn` (−2.66).
+What survives is `Cacng5` (+3.38), `Brinp1` (+2.79), `Atp1b1` (+2.78), `Eya4` (+2.29), `Chgb`
+(+1.98), `Rph3a` (+1.36). `Oprl1` itself is +3.48, so the gene of interest is unaffected.
 
 ## 4. The satiation-receptor hypothesis is dead
 
@@ -180,9 +222,20 @@ below the matched null per cell. `Oprl1` is on A-fibres and off C-fibres, consis
 independent routes.
 
 **`Piezo2` does not survive.** Cluster-level rho = 0.34 (*q* = 0.31), and per cell the odds ratio
-is 1.32 against a matched null of 1.19 — at chance. An earlier draft reported 2.00 for `Piezo2`;
-that figure came from depth deciles computed over the whole atlas rather than within the nodose
-neurons being analysed, and it does not survive the corrected stratification. It is retracted.
+is 1.32 against a matched null of 1.19 — at chance. An earlier draft reported 2.00; that figure
+came from depth deciles computed over the whole atlas rather than within the nodose neurons being
+analysed. It is retracted. The stratum-granularity table
+(`results/vagal_or_stratum_stability.csv`) shows why the number was seductive: every odds ratio
+here rises monotonically as the stratification coarsens — `Piezo2` reads 1.32 at cluster ×
+depth-tercile, 1.53 at cluster × depth-median and 2.40 at cluster only. The 2.00 was an
+under-adjusted estimate, not a different biological result.
+
+**The co-expression table contains its own accidental negative control.** Fully adjusted, `Cckbr`
+scores **highest** of the three testable partners (1.47, against `Glp1r` 1.46 and `Cckar` 1.37) —
+a spread of 0.10 across all three. `Cckbr` is the gastrin/CCK-B receptor, not a vagal satiation
+receptor in the sense the other two are. A comparator landing on top is the matched-abundance
+null arriving by accident, and it says the residual ~1.4 is a floor rather than biology. The
+formal null agrees: median 1.13–1.36.
 
 **The Gi effector module splits.** `Kcnj9` tracks `Oprl1` (rho = 0.68, *q* = 0.015) but the
 G-protein subunits run the other way — `Gnai2` −0.75, `Gnao1` −0.65, `Cacna1b` −0.52. There is no
@@ -276,6 +329,7 @@ python3 -m pytest tests -q                   # 33 unit tests
 | `figure4_vagal_oprl1_satiation` | `Oprl1` against `Glp1r`/`Cckar`: UMAP, per cluster, odds ratios |
 | `figure5_nts_oprl1` | `Oprl1` in NTS neurons and across the 25 subtypes |
 | `figure6_mechanosensory_brake` | `Piezo2`, the Gi effector module, and the nociceptor control |
+| `figure3b_nav_class_counterexamples` | the four clusters that separate Nav class from fibre type |
 | `figureS4` | the matched null for every odds ratio, and the ambient check |
 | `figureS1`–`figureS3` | supplementary — see [`SUPPLEMENT.md`](SUPPLEMENT.md) |
 
@@ -283,6 +337,9 @@ python3 -m pytest tests -q                   # 33 unit tests
 |---|---|
 | `nodose_oprl1_by_cluster_annotated.csv` | per-cluster `Oprl1` with the atlas's annotations |
 | `nodose_oprl1_annotation_tests.csv` | Kruskal-Wallis over cluster means, per annotation |
+| `nav_gradient_matched_null.csv` | the Nav1.1/Nav1.8 cluster gradient against 550 matched genes |
+| `vagal_or_stratum_stability.csv` | every odds ratio at three stratum granularities |
+| `nodose_nav_fibre_crosstab.csv` | Nav class cross-stratified against fibre type |
 | `vagal_or_matched_null.csv` | every odds ratio against ~100 expression-matched control genes |
 | `nodose_top_correlates_ambient_check.csv` | top correlates scored neuron-vs-glia |
 | `nodose_annotation_group_sizes.csv` | clusters per annotation level |

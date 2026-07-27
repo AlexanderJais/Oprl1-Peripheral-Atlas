@@ -1,0 +1,8 @@
+fibre_type,sodium_channel_type,n_clusters,mean_Oprl1_CPM,clusters
+Myelinated,Nav1.1,3,23.013,NGN12 NGN14 NGN21
+Myelinated,Nav1.8,1,12.878,NGN10
+Lightly myelinated,Nav1.1,5,25.596,NGN15 NGN16 NGN17 NGN6 NGN7
+Lightly myelinated,Nav1.8,2,9.005,NGN1 NGN2
+Lightly myelinated,Nav1.1/Nav1.8,1,14.65,NGN18
+Unmyelinated,Nav1.1,1,30.597,NGN19
+Unmyelinated,Nav1.8,8,4.781,NGN11 NGN13 NGN20 NGN3 NGN4 NGN5 NGN8 NGN9

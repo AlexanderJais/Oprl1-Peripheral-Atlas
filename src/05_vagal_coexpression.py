@@ -50,6 +50,10 @@ CLUSTER_ORDER = _nodose.CLUSTER_ORDER
 
 GENES = ["Oprl1"] + ac.SATIATION_GENES
 N_DEPTH_BINS = 10
+# Below this many partner-positive cells an odds ratio is not worth reporting:
+# Gipr (19 cells), Gfral (5) and the jugular Glp1r (31) / Cckbr (7) rows were
+# noise dressed as an estimate.
+MIN_PARTNER_POS = 100
 NODOSE_CLUSTERS = [c for c in CLUSTER_ORDER if c.startswith("NGN")]
 
 
@@ -70,8 +74,9 @@ def coexpression_table(detected, oprl1_pos, depth, cluster, label):
             continue
         partner = detected[g].values
         n_p, n_o = int(partner.sum()), int(oprl1_pos.sum())
-        if n_p == 0:
-            print(f"  [note] {g} is not detected in any {label} neuron; skipped")
+        if n_p < MIN_PARTNER_POS:
+            print(f"  [note] {g}: only {n_p} positive {label} neurons "
+                  f"(< {MIN_PARTNER_POS}); no odds ratio reported")
             continue
         n_both = int((partner & oprl1_pos).sum())
         or_s, p_s, k = ac.stratified_odds_ratio(oprl1_pos, partner, depth)

@@ -97,6 +97,30 @@ this pipeline, and NodoMap contains ~50,000 satellite and myelinating glia, so t
 carries a contamination component that the gene of interest does not — `Oprl1` itself is
 log2 +3.48 neuron-over-glia.
 
+## Stratum granularity, and the Nav gradient against a matched null
+
+**Every odds ratio in this project rises as the stratification coarsens**
+(`results/vagal_or_stratum_stability.csv`):
+
+| partner | cluster × depth-tercile | cluster × depth-median | cluster only |
+|---|---|---|---|
+| `Scn1a` | 1.72 | 1.98 | 2.89 |
+| `Glp1r` | 1.46 | 1.67 | 2.64 |
+| `Cckar` | 1.37 | 1.58 | 2.25 |
+| `Piezo2` | 1.32 | 1.53 | 2.40 |
+
+The finest stratification is the conservative one and is what the main text quotes. The ordering
+between partners is preserved at every granularity, so `Cckar`'s 51 strata over 26,047 cells
+(~510 per stratum) are not producing an unstable estimate — they are producing the smallest one.
+
+**The Nav1.1 cluster gradient is specific to `Oprl1`** (`results/nav_gradient_matched_null.csv`).
+Because `Oprl1_CPM` and `Oprl1_pct` correlate at rho = 0.95 across clusters, and CPM per detected
+cell also rises with detection (rho = 0.69), a cluster "gradient" could be soma size and RNA
+content rather than regulation of this gene. Running the same Nav1.1/Nav1.8 cluster-mean ratio
+for 550 expression-matched control genes: the matched median is **1.11** against `Oprl1`'s
+**4.02**, and `Oprl1` exceeds 95.8 % of them. A third of the matched genes are themselves
+nominally significant at *p* < 0.05, which is the size of the background this correction removes.
+
 ---
 
 ## Marker-gene checks
