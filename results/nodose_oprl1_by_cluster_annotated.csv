@@ -1,0 +1,22 @@
+cluster,n_cells,Oprl1_CPM,Oprl1_pct,organ_projection,fibre_type,sensor_type,sodium_channel_type
+NGN14,730,44.153,27.81,Gut,Myelinated,Mechanosensor,Nav1.1
+NGN17,345,33.429,15.07,Broad projection,Lightly myelinated,Mechanosensor,Nav1.1
+NGN6,1672,30.81,22.25,Broad projection,Lightly myelinated,Mechanosensor,Nav1.1
+NGN19,220,30.597,21.36,Gut,Unmyelinated,Nocisensor,Nav1.1
+NGN7,1352,25.181,18.64,Pancreas,Lightly myelinated,Mechanosensor,Nav1.1
+NGN16,565,23.466,18.76,Gut,Lightly myelinated,Mechanosensor,Nav1.1
+NGN12,806,19.608,17.87,Duodenum,Myelinated,Mechanosensor/Nocisensor,Nav1.1
+NGN1,4370,15.171,10.78,Broad projection,Lightly myelinated,Nocisensor,Nav1.8
+NGN15,612,15.092,11.44,Heart,Lightly myelinated,Mechanosensor,Nav1.1
+NGN18,271,14.65,16.24,Gut,Lightly myelinated,Mechanosensor/Nocisensor,Nav1.1/Nav1.8
+NGN10,891,12.878,11.34,Gut,Myelinated,Mechanosensor,Nav1.8
+NGN20,205,11.007,8.78,Broad projection,Unmyelinated,Nocisensor,Nav1.8
+NGN9,974,9.922,3.29,Gut,Unmyelinated,Nocisensor,Nav1.8
+NGN4,2292,8.853,8.68,Broad projection,Unmyelinated,Nocisensor,Nav1.8
+NGN21,192,5.277,6.25,Jejunum/Ileum,Myelinated,Mechanosensor,Nav1.1
+NGN2,2914,2.84,3.5,Broad projection,Lightly myelinated,Nocisensor,Nav1.8
+NGN11,909,2.518,2.86,Gut,Unmyelinated,Nocisensor,Nav1.8
+NGN3,2758,2.26,2.68,Gut,Unmyelinated,Mechanosensor,Nav1.8
+NGN13,748,2.122,2.81,Broad projection,Unmyelinated,Nocisensor,Nav1.8
+NGN8,1281,1.09,1.41,Broad projection,Unmyelinated,Mechanosensor/Nocisensor,Nav1.8
+NGN5,1940,0.48,0.72,Broad projection,Unmyelinated,Mechanosensor/Nocisensor,Nav1.8

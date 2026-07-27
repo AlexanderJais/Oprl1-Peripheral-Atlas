@@ -1,0 +1,5 @@
+annotation,n_groups,n_clusters,kruskal_H,p_value
+Organ projection,2,21,0.926,0.3359238131517335
+Fibre type,3,21,7.769,0.020553166552999724
+Sensor type,3,21,4.43,0.10913304004069038
+Sodium channel,2,21,10.922,0.0009502496592265887

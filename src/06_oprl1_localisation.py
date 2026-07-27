@@ -135,6 +135,38 @@ def main() -> int:
         print(f"\n  {pretty}:")
         print(sub[["level", "n_cells", "Oprl1_CPM", "Oprl1_pct"]].to_string(index=False))
 
+    # Every annotation above is constant within a cluster, so a cell-level test
+    # would treat 26,047 correlated observations as independent. The honest unit
+    # is the cluster; the per-cell means are kept only as a description.
+    cl_rows = []
+    for c in pd.unique(cluster[is_nodose]):
+        m = is_nodose & (cluster == c)
+        if m.sum() < MIN_CELLS:
+            continue
+        row = {"cluster": c, "n_cells": int(m.sum()),
+               "Oprl1_CPM": round(float(oprl1_cpm[m].mean()), 3),
+               "Oprl1_pct": round(float(detected[m].mean() * 100), 2)}
+        for col, pretty in ANNOTATIONS:
+            row[col] = str(pd.Series(obs[col].astype(str).values[m]).mode().iloc[0])
+        cl_rows.append(row)
+    per_cluster = pd.DataFrame(cl_rows).sort_values("Oprl1_CPM", ascending=False)
+    ac.save_table(per_cluster, "nodose_oprl1_by_cluster_annotated.csv")
+
+    print("\n  Cluster-level test (n = %d clusters, not cells):" % len(per_cluster))
+    kw_rows = []
+    for col, pretty in ANNOTATIONS:
+        groups = [g["Oprl1_CPM"].values for _, g in per_cluster.groupby(col)
+                  if len(g) >= 2]
+        if len(groups) < 2:
+            continue
+        h, p = stats.kruskal(*groups)
+        kw_rows.append({"annotation": pretty, "n_groups": len(groups),
+                        "n_clusters": len(per_cluster), "kruskal_H": round(float(h), 3),
+                        "p_value": float(p)})
+        print(f"    {pretty:18s} Kruskal-Wallis H = {h:6.3f}  p = {p:.4f}"
+              f"  ({len(groups)} groups)")
+    ac.save_table(pd.DataFrame(kw_rows), "nodose_oprl1_annotation_tests.csv")
+
     # ------------------------------------ 2. transcriptome-wide correlation
     ngn = sorted({c for c in cluster[is_nodose] if c.startswith("NGN")},
                  key=lambda s: int(s[3:]))
@@ -197,43 +229,112 @@ def main() -> int:
             print(f"    {r.gene:8s} rho = {r.spearman_rho:+.3f}  q = {r.q_value:.3f}"
                   f"   rank {pos:,} of {len(corr):,}")
 
-    figures(ann, corr, pb, keep)
+    figures(corr, per_cluster, np.asarray(adata.obsm["X_umap"]), oprl1_cpm,
+            is_nodose, obs["fibre_type"].astype(str).values)
     return 0
 
 
-def figures(ann, corr, pb, clusters):
+def figures(corr, per_cluster, umap, oprl1_cpm, is_nodose, fibre_percell):
+    """Deliberately mixed panel types: an embedding, distributions, a scatter.
+
+    The finding is that several independent annotations agree, and five bar
+    charts side by side make that harder to see, not easier.
+    """
     st.set_theme()
-    fig, axes = plt.subplots(1, 5, figsize=(21.0, 5.0))
+    fig = plt.figure(figsize=(16.5, 9.0))
+    gs = fig.add_gridspec(2, 3, hspace=0.36, wspace=0.30,
+                          height_ratios=[1.05, 0.95])
 
-    for k, (_, pretty) in enumerate(ANNOTATIONS):
-        ax = axes[k]
-        sub = ann[ann.annotation == pretty].sort_values("Oprl1_CPM", ascending=False)
-        colours = [st.BAR_BLUE] * len(sub)
-        st.expression_bars(ax, sub.Oprl1_CPM.values,
-                           [f"{lv}" for lv in sub.level],
-                           "Oprl1 (mean CPM)",
-                           colors=colours, italic=False, annotate=True,
-                           fontsize=11)
-        for i, n in enumerate(sub.n_cells):
-            ax.text(i, 0.4, f"n={n:,}", ha="center", va="bottom", fontsize=8,
-                    color="white", rotation=90)
-        st.panel_letter(ax, "abcd"[k], dx=-0.26)
-        ax.set_title(pretty, fontsize=12, pad=10)
+    fibre_order = ["Myelinated", "Lightly myelinated", "Unmyelinated"]
+    fibre_cols = {"Myelinated": "#08306B", "Lightly myelinated": "#6BAED6",
+                  "Unmyelinated": "#F0A202"}
 
-    # (d) the transcriptome-wide correlates, which is the unbiased answer.
-    ax = axes[4]
-    top = corr.head(15)
-    st.expression_bars(ax, top.spearman_rho.values, top.gene.values,
-                       "Spearman rho with Oprl1\nacross nodose clusters",
-                       colors=[st.HIGHLIGHT] * len(top), annotate=False,
-                       fontsize=11)
-    ax.set_ylim(0, 1.05)
-    st.panel_letter(ax, "e", dx=-0.30)
-    ax.set_title(f"Top transcriptome-wide correlates\n"
-                 f"(n = {len(clusters)} clusters, {len(corr):,} genes tested)",
-                 fontsize=12, pad=10)
+    # (a) the ganglion, coloured by fibre type
+    ax = fig.add_subplot(gs[0, 0])
+    lab = np.where(is_nodose, fibre_percell, "")
+    st.dim_plot(ax, umap, lab, fibre_order, fibre_cols,
+                background=~is_nodose, point_size=1.1)
+    ax.legend(loc="lower left", fontsize=7.5, markerscale=5, handletextpad=0.2)
+    st.panel_letter(ax, "a", dx=-0.02, dy=1.02)
+    ax.set_title("Nodose neurons by fibre type", fontsize=11)
 
-    fig.tight_layout()
+    # (b) Oprl1 on the same embedding
+    ax = fig.add_subplot(gs[0, 1])
+    v = np.where(is_nodose, oprl1_cpm, np.nan)
+    ax.scatter(umap[~is_nodose, 0], umap[~is_nodose, 1], s=0.35, c="#EDEDED",
+               linewidths=0, rasterized=True)
+    idx = np.argsort(np.nan_to_num(v))
+    idx = idx[is_nodose[idx]]
+    sc = ax.scatter(umap[idx, 0], umap[idx, 1], c=v[idx], cmap="viridis", s=1.4,
+                    vmin=0, vmax=float(np.nanpercentile(v[is_nodose], 99)),
+                    linewidths=0, rasterized=True)
+    ax.set_aspect("equal")
+    ax.axis("off")
+    cb = fig.colorbar(sc, ax=ax, fraction=0.03, pad=0.01, shrink=0.6)
+    cb.set_label("Oprl1 (CPM)", size=8)
+    cb.ax.tick_params(labelsize=7)
+    st.panel_letter(ax, "b", dx=-0.02, dy=1.02)
+    ax.set_title("Oprl1", fontsize=11, fontstyle="italic")
+
+    # (c) Oprl1 by organ projection, one point per cluster
+    ax = fig.add_subplot(gs[0, 2])
+    organ_order = ["Pancreas", "Duodenum", "Heart", "Gut", "Broad projection",
+                   "Jejunum/Ileum"]
+    organ_order = [o for o in organ_order if o in set(per_cluster.organ_projection)]
+    st.strip_by_group(ax, organ_order,
+                      {o: per_cluster.loc[per_cluster.organ_projection == o,
+                                          "Oprl1_CPM"] for o in organ_order},
+                      "Oprl1 (mean CPM per cluster)")
+    ax.set_xticklabels(organ_order, rotation=35, ha="right", fontsize=9)
+    st.panel_letter(ax, "c", dx=-0.24)
+    ax.set_title("Organ projection", fontsize=11)
+
+    # (d) fibre type, one point per cluster
+    ax = fig.add_subplot(gs[1, 0])
+    st.strip_by_group(ax, fibre_order,
+                      {f: per_cluster.loc[per_cluster.fibre_type == f, "Oprl1_CPM"]
+                       for f in fibre_order}, "Oprl1 (mean CPM per cluster)")
+    ax.set_xticklabels(["Myelin-\nated", "Lightly\nmyelinated", "Unmyelin-\nated"],
+                       fontsize=9)
+    st.panel_letter(ax, "d", dx=-0.24)
+    ax.set_title("Fibre type", fontsize=11)
+
+    # (e) sodium channel class, one point per cluster
+    ax = fig.add_subplot(gs[1, 1])
+    nav_order = [n for n in ["Nav1.1", "Nav1.1/Nav1.8", "Nav1.8"]
+                 if n in set(per_cluster.sodium_channel_type)]
+    st.strip_by_group(ax, nav_order,
+                      {n: per_cluster.loc[per_cluster.sodium_channel_type == n,
+                                          "Oprl1_CPM"] for n in nav_order},
+                      "Oprl1 (mean CPM per cluster)")
+    st.panel_letter(ax, "e", dx=-0.24)
+    ax.set_title("Sodium channel class", fontsize=11)
+
+    # (f) the unbiased scan: every expressed gene, correlation against abundance
+    ax = fig.add_subplot(gs[1, 2])
+    ax.scatter(corr.spearman_rho, corr.mean_CPM_across_clusters, s=4,
+               c="#D8D8D8", linewidths=0, rasterized=True)
+    top = corr.head(8)
+    ax.scatter(top.spearman_rho, top.mean_CPM_across_clusters, s=32,
+               c=st.BAR_BLUE, edgecolors="black", linewidths=0.5, zorder=3)
+    for _, r in top.iterrows():
+        ax.annotate(r.gene, (r.spearman_rho, r.mean_CPM_across_clusters),
+                    fontsize=7, fontstyle="italic", xytext=(-6, 5),
+                    textcoords="offset points", ha="right")
+    named = corr[corr.gene.isin(["Glp1r", "Cckar", "Cckbr"])]
+    ax.scatter(named.spearman_rho, named.mean_CPM_across_clusters, s=44,
+               c=st.HIGHLIGHT, edgecolors="black", linewidths=0.6, zorder=4)
+    for _, r in named.iterrows():
+        ax.annotate(r.gene, (r.spearman_rho, r.mean_CPM_across_clusters),
+                    fontsize=8, fontstyle="italic", color=st.HIGHLIGHT,
+                    xytext=(6, -3), textcoords="offset points")
+    ax.axvline(0, color="black", lw=0.8, ls="--")
+    ax.set_yscale("log")
+    ax.set_xlabel("Spearman rho with Oprl1 across clusters", fontsize=10)
+    ax.set_ylabel("mean CPM across clusters", fontsize=10)
+    st.panel_letter(ax, "f", dx=-0.24)
+    ax.set_title(f"All {len(corr):,} expressed genes", fontsize=11)
+
     st.save(fig, "figure3_oprl1_localisation")
 
 

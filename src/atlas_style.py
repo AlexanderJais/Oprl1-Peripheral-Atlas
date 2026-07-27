@@ -208,6 +208,47 @@ def ranked_bars(ax, values, labels, xlabel, cmap="viridis", threshold=None,
     return ax
 
 
+def strip_by_group(ax, groups, values_by_group, ylabel, color=BAR_BLUE,
+                   fontsize=11, seed=0, log=False):
+    """One point per cluster, grouped, with a median bar.
+
+    Used where the grouping variable is a property of the cluster rather than of
+    the cell: plotting cells there would treat 26,000 correlated observations as
+    independent, and the honest n is the number of clusters.
+    """
+    rng = np.random.default_rng(seed)
+    for i, g in enumerate(groups):
+        v = np.asarray(values_by_group[g], dtype=float)
+        if not v.size:
+            continue
+        ax.scatter(i + rng.uniform(-0.13, 0.13, v.size), v, s=44, color=color,
+                   edgecolors="black", linewidths=0.7, zorder=3, alpha=0.95)
+        ax.hlines(np.median(v), i - 0.3, i + 0.3, color="black", lw=2.6, zorder=4)
+    ax.set_xticks(range(len(groups)))
+    ax.set_xticklabels(groups, fontsize=fontsize - 1)
+    ax.set_ylabel(ylabel, fontsize=fontsize)
+    ax.set_xlim(-0.6, len(groups) - 0.4)
+    if log:
+        ax.set_yscale("log")
+    return ax
+
+
+def dim_plot(ax, umap, labels, order, colors, background=None, point_size=1.2):
+    """Cells coloured by a categorical label, on the published embedding."""
+    if background is not None:
+        ax.scatter(umap[background, 0], umap[background, 1], s=0.35, c="#EDEDED",
+                   linewidths=0, rasterized=True)
+    labels = np.asarray(labels)
+    for lab in order:
+        m = labels == lab
+        if m.any():
+            ax.scatter(umap[m, 0], umap[m, 1], s=point_size, c=colors[lab],
+                       linewidths=0, rasterized=True, label=f"{lab} ({m.sum():,})")
+    ax.set_aspect("equal")
+    ax.axis("off")
+    return ax
+
+
 def dot_plot(ax, pct: pd.DataFrame, mean: pd.DataFrame, cmap="viridis",
              max_dot=90.0, vmax=None, xtick_fontsize=7):
     """Seurat DotPlot: rows = genes, cols = groups, size = % expressing."""

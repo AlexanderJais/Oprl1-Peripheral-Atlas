@@ -195,7 +195,7 @@ def main_figure(ranks, oprl1):
         st.expression_bars(ax, [vals[i] for i in order],
                            [ac.RECEPTORS[i] for i in order],
                            f"Mean expression ({unit.get(ds, 'CPM')})",
-                           colors=colours, annotate=True, fontsize=10)
+                           colors=colours, fontsize=10)
         prep = ac.PREP[ds]
         ax.set_title(f"{ds}\n{ac.TISSUE_OF[ds]}, {prep}", fontsize=10,
                      color="#B2182B" if prep == "nuclear" else "black", pad=8)

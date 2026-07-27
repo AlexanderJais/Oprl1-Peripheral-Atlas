@@ -268,7 +268,7 @@ def figures(adata, obs, counts, cpm_all, cluster, per_cluster, tbl):
     order = np.argsort(-np.array(vals))
     st.expression_bars(ax, [vals[i] for i in order],
                        [ac.RECEPTORS[i] for i in order],
-                       "Mean expression (CPM)", annotate=True)
+                       "Mean expression (CPM)")
     st.panel_letter(ax, "a", dx=-0.28)
     ax.set_title(f"Nodose neurons\n{is_nodose.sum():,} cells, whole-cell datasets",
                  fontsize=11, pad=10)
@@ -293,7 +293,7 @@ def figures(adata, obs, counts, cpm_all, cluster, per_cluster, tbl):
     ds = ds.sort_values("mean_level", ascending=False)
     st.expression_bars(ax, ds.mean_level.values,
                        [d.replace("NodoMap:", "") for d in ds.dataset],
-                       "Oprl1 (mean CPM)", italic=False, annotate=True, fontsize=11)
+                       "Oprl1 (mean CPM)", italic=False, fontsize=11)
     st.panel_letter(ax, "c", dx=-0.28)
     ax.set_title("Reproduces across all four\nwhole-cell datasets", fontsize=11, pad=10)
 
@@ -311,7 +311,7 @@ def figures(adata, obs, counts, cpm_all, cluster, per_cluster, tbl):
         colours = [st.BAR_BLUE if g in ac.RECEPTORS else st.BAR_GREY
                    for g in ac.OPIOID_GENES]
         st.expression_bars(ax, vals, ac.OPIOID_GENES, "Mean expression (CPM)",
-                           colors=colours, annotate=True, fontsize=11)
+                           colors=colours, fontsize=11)
         ax.set_title(title, fontsize=11, pad=10)
         ax.set_ylim(0, 17)
     st.panel_letter(axes[0], "a", dx=-0.16)

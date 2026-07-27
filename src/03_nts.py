@@ -174,7 +174,7 @@ def figures(X, cpm, neuron, sub, subtbl, overall):
     order = np.argsort(-np.array(vals))
     st.expression_bars(ax, [vals[i] for i in order],
                        [ac.RECEPTORS[i] for i in order],
-                       "Mean expression (CPM)", annotate=True)
+                       "Mean expression (CPM)")
     st.panel_letter(ax, "a", dx=-0.28)
     ax.set_title(f"NTS neurons\\n{int(neuron.sum()):,} nuclei (nuclear prep)",
                  fontsize=11, pad=10)

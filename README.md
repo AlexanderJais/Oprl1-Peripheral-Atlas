@@ -1,7 +1,8 @@
 # `Oprl1` — the dominant opioid receptor of peripheral sensory neurons
 
 The NOP receptor `Oprl1` is the highest-expressed opioid-family receptor in mouse peripheral sensory ganglia,
-and within the vagus it marks the myelinated, Nav1.1+ mechanosensory afferents.
+and within the vagus it marks the myelinated, Nav1.1+ afferents rather than the
+unmyelinated nociceptors.
 
 | input | tissue | source |
 |---|---|---|
@@ -64,33 +65,37 @@ neuronal enrichment **+3.53**, comparable to `Oprk1` +3.49 and `Oprm1` +3.24, fa
 +1.62). The top clusters are NGN14 (43.5 CPM), NGN17 (31.7), NGN6 (30.5) and NGN19 (30.3) —
 figure 2b.
 
-## 3. `Oprl1` marks the myelinated, Nav1.1+ mechanosensory vagal afferents
+## 3. `Oprl1` marks the myelinated, Nav1.1+ vagal afferents
 
 The NodoMap authors annotated every nodose neuron by organ projection, fibre type, sensor type
-and sodium-channel class. `Oprl1` expression is not spread evenly across them
-(`results/nodose_oprl1_by_annotation.csv`, nodose neurons, whole-cell datasets, n = 26,047):
+and sodium-channel class. Each of those annotations is a property of the **cluster**, not of the
+cell, so the honest unit of analysis is the 21 nodose clusters — testing across 26,047 cells
+would treat correlated observations as independent and inflate every *p* value.
 
-| annotation | high | low | fold |
-|---|---|---|---|
-| **sodium channel** | **Nav1.1  27.0 CPM** | Nav1.8  6.8 CPM | **4.0×** |
-| **fibre type** | **Myelinated  23.1 CPM** | Unmyelinated  4.5 CPM | **5.1×** |
-| **sensor type** | **Mechanosensor  18.7 CPM** | Nocisensor  9.3 CPM | 2.0× |
-| organ projection | Pancreas 25.2, Duodenum 19.6 | Jejunum/Ileum 5.3 | 4.8× |
+Tested that way (`results/nodose_oprl1_annotation_tests.csv`, Kruskal–Wallis over cluster means):
 
-Every one of those splits points the same way. **`Oprl1` is a receptor of the large-diameter,
-myelinated, Nav1.1-expressing A-fibre vagal mechanosensors — not of the unmyelinated,
-Nav1.8-expressing C-fibre nociceptors.** These are the tension and stretch receptors of the gut
-wall, the afferents that signal gastric and intestinal distension.
+| annotation | mean CPM, high vs low | *p* (n = 21 clusters) |
+|---|---|---|
+| **sodium channel** | Nav1.1 **27.0** vs Nav1.8 **6.8** | **0.0010** |
+| **fibre type** | Myelinated **23.1** vs Unmyelinated **4.5** | **0.021** |
+| sensor type | Mechanosensor 18.7 vs Nocisensor 9.3 | 0.109 |
+| organ projection | Pancreas 25.2 vs Jejunum/Ileum 5.3 | 0.336 |
+
+**Two of the four hold.** `Oprl1` is a receptor of the myelinated, Nav1.1-expressing A-fibre
+vagal afferents rather than of the unmyelinated, Nav1.8-expressing C-fibres. The sensor-type
+and organ-projection splits point the same way and are the larger effects in raw CPM, but they
+do not survive testing at cluster resolution — organ projection in particular has only one
+cluster in four of its six levels, so it is descriptive only.
 
 ![Where Oprl1 sits](figures/figure3_oprl1_localisation.png)
 
-**This was not assumed — it falls out of an unbiased transcriptome-wide scan.** Pseudobulk mean
-CPM was computed for all 54,640 genes in each of the 21 nodose clusters, and every gene
-correlated with `Oprl1` across those clusters; 2,149 of 16,380 expressed genes reach FDR < 5 %
+**The same answer falls out of an unbiased transcriptome-wide scan.** Pseudobulk mean CPM was
+computed for all 54,640 genes in each of the 21 clusters and every gene correlated with `Oprl1`
+across them; 2,149 of 16,380 expressed genes reach FDR < 5 %
 (`results/nodose_oprl1_gene_correlations.csv`). The top correlates are the transcriptional
 signature of myelinated afferents — `Adgrg6`/*Gpr126*, the receptor required for Schwann-cell
-myelination (rho = 0.88), alongside `Chgb` (0.90), `Ptn` (0.89), `Rph3a` (0.88), `Cacng5`
-(0.86), `Atp1b1` (0.86) and `Lsamp` (0.84).
+myelination (rho = 0.88, *q* = 0.0003), with `Chgb` (0.90), `Ptn` (0.89), `Rph3a` (0.88),
+`Cacng5` (0.86), `Atp1b1` (0.86) and `Lsamp` (0.84).
 
 ## 4. The satiation receptors are not among them
 
@@ -122,14 +127,57 @@ N/OFQ acts on vagal afferents at all, the prediction from this data is that it d
 mechanosensory satiation signalling, and that is a testable and more specific claim than the one
 the project started with.
 
-## 5. The central relay
+## 5. Is the substrate for a mechanosensory brake actually there?
+
+Section 3 yields a prediction: if N/OFQ acts on the vagus, it damps **mechanosensory** signalling
+rather than peptide-receptor signalling. That prediction needs three things to be true of the
+same neurons, and each is checkable here without a new experiment — the mechanotransducer
+(`Piezo2`), the Gi effector machinery a NOP receptor would actually work through (GIRK channels
+`Kcnj3/6/9`, `Gnai`/`Gnao`, `Cacna1b`), and the *absence* of the nociceptor programme (`Trpv1`,
+`Trpa1`, `Scn10a`), which serves as the internal negative control.
+
+![The mechanosensory brake substrate](figures/figure6_mechanosensory_brake.png)
+
+**Supported.** `Piezo2`+ nodose neurons carry `Oprl1` far more often than their neighbours:
+22.2 % against 6.9 %, and holding cluster identity and capture depth fixed the odds ratio is
+**2.00** (*p* = 6×10⁻²²; `results/vagal_piezo2_oprl1_coexpression.csv`). That is the strongest
+co-expression result in this project — a third again the `Glp1r` association. The nociceptor
+programme runs the other way at the population level, exactly as a negative control should:
+`Trpa1` rho = −0.68, `Trpv1` −0.66, `Scn10a` −0.63 (all *q* < 0.03).
+
+**Not supported, and this matters.** Two parts of the prediction fail:
+
+- `Piezo2` itself is **not** significantly correlated with `Oprl1` across clusters (rho = 0.34,
+  *q* = 0.31). The per-cell association above is real but it is a within-cluster effect, not a
+  population one.
+- The Gi effector module **splits**. `Kcnj9` tracks `Oprl1` (rho = 0.68, *q* = 0.015) but the
+  G-protein subunits run against it — `Gnai2` −0.75 (*q* = 0.006), `Gnao1` −0.65 (*q* = 0.022),
+  `Cacna1b` −0.52. The claim "the Gi machinery co-localises with the receptor" is not supported
+  by this data. `Gnai2` and `Gnao1` are abundant (346 and 520 CPM) and near-ubiquitous, so their
+  cluster-level variation may track cell type rather than availability — but that is a
+  hypothesis about why the test failed, not a rescue of it.
+
+**And one result that inverts under control.** Crude `Trpv1`/`Oprl1` co-detection is strongly
+*negative* (OR 0.37), but holding cluster and depth fixed it flips to slightly positive (OR
+1.34, *p* = 5×10⁻⁶). The exclusion of `Oprl1` from nociceptors is a property of which clusters
+are which, not of individual cells within a cluster.
+
+**Where that leaves the prediction.** The receptor is on `Piezo2`-expressing, myelinated,
+Nav1.1+ afferents and is largely absent from the nociceptor clusters, so the anatomy is
+consistent with a brake on mechanosensory transmission. The effector arm is not demonstrated.
+The experiment this points to is direct: apply N/OFQ to vagal afferents and measure the
+mechanically evoked response — gastric or intestinal distension with recording from nodose
+neurons, comparing wild-type with NOP knockout, or *ex vivo* with SB-612111. That is a specific,
+falsifiable test, which is what this analysis was for.
+
+## 6. The central relay
 
 `Oprl1` is expressed across all 25 NTS neuronal subtypes, highest in the glutamatergic Glu9
 (27.8 CPM, n = 1,155), Glu13 (22.6) and Glu7 (21.9). GSE166648 is a nuclear preparation, so its
 receptor *ordering* is not usable (see the supplement) and no peripheral-against-central
 comparison is made; the per-subtype `Oprl1` distribution is unaffected by that caveat.
 
-![Oprl1 across NTS neuronal subtypes](figures/figure4_nts_oprl1.png)
+![Oprl1 across NTS neuronal subtypes](figures/figure5_nts_oprl1.png)
 
 ---
 
@@ -171,6 +219,7 @@ python3 src/03_nts.py                        # GSE166648, streamed and cached
 python3 src/04_synthesis.py                  # cross-tissue ranking + Figure S1
 python3 src/05_vagal_coexpression.py         # Oprl1 x Glp1r/Cckar
 python3 src/06_oprl1_localisation.py         # where Oprl1 sits: unbiased
+python3 src/07_mechanosensory_brake.py       # is the brake substrate present
 python3 -m pytest tests -q                   # 33 unit tests
 ```
 
@@ -181,10 +230,15 @@ python3 -m pytest tests -q                   # 33 unit tests
 | `figure3_oprl1_localisation` | `Oprl1` by organ, fibre type, sensor type, Nav class; top correlates |
 | `figure4_vagal_oprl1_satiation` | `Oprl1` against `Glp1r`/`Cckar`: UMAP, per cluster, odds ratios |
 | `figure5_nts_oprl1` | `Oprl1` in NTS neurons and across the 25 subtypes |
+| `figure6_mechanosensory_brake` | `Piezo2`, the Gi effector module, and the nociceptor control |
 | `figureS1`–`figureS3` | supplementary — see [`SUPPLEMENT.md`](SUPPLEMENT.md) |
 
 | table | contents |
 |---|---|
+| `nodose_oprl1_by_cluster_annotated.csv` | per-cluster `Oprl1` with the atlas's annotations |
+| `nodose_oprl1_annotation_tests.csv` | Kruskal-Wallis over cluster means, per annotation |
+| `vagal_brake_module_correlations.csv` | `Oprl1` against the transduction, Gi and nociceptor modules |
+| `vagal_piezo2_oprl1_coexpression.csv` | `Piezo2`/`Oprl1` co-detection, stratified |
 | `nodose_oprl1_by_annotation.csv` | `Oprl1` by organ projection, fibre type, sensor type, Nav class |
 | `nodose_oprl1_gene_correlations.csv` | every expressed gene correlated with `Oprl1` across clusters |
 | `vagal_oprl1_coexpression.csv` | co-detection and stratified odds ratios per partner gene |

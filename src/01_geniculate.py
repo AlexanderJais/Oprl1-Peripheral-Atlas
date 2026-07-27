@@ -202,7 +202,7 @@ def figures(dv, zk, per_cell):
     order = np.argsort(-np.array(vals))
     st.expression_bars(ax, [vals[i] for i in order],
                        [ac.RECEPTORS[i] for i in order],
-                       "Mean expression (FPKM)", annotate=True)
+                       "Mean expression (FPKM)")
     st.panel_letter(ax, "a")
     ax.set_title("GSE102443 — 96 geniculate neurons", fontsize=11, pad=12)
 
@@ -217,9 +217,6 @@ def figures(dv, zk, per_cell):
               per_cell.loc[per_cell.division.str.startswith("somato"),
                            "Oprl1_FPKM"].values}
         st.violin_points(ax, groups, by, "Oprl1 FPKM")
-        for i, g in enumerate(groups):
-            ax.text(i, ax.get_ylim()[1] * 0.98, f"n = {by[g].size}",
-                    ha="center", va="top", fontsize=10, color="#444444")
     st.panel_letter(ax, "b")
     ax.set_title("Oprl1 in individual neurons", fontsize=11, pad=12)
 
@@ -230,7 +227,7 @@ def figures(dv, zk, per_cell):
     order = np.argsort(-np.array(vals))
     st.expression_bars(ax, [vals[i] for i in order],
                        [ac.RECEPTORS[i] for i in order],
-                       "Mean expression (CPM)", annotate=True)
+                       "Mean expression (CPM)")
     st.panel_letter(ax, "c")
     ax.set_title("GSE135801 — 454 geniculate neurons", fontsize=11, pad=12)
 

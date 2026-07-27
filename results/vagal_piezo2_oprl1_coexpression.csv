@@ -1,0 +1,3 @@
+partner,n_partner_pos,pct_of_partner_pos_that_are_Oprl1_pos,pct_of_partner_neg_that_are_Oprl1_pos,depth_stratified_OR,p_depth,cluster_depth_stratified_OR,p_cluster_depth,n_cluster_depth_strata
+Piezo2,3736,22.19,6.94,3.451,7.510691346744182e-152,1.995,5.933803850822873e-22,26
+Trpv1,10828,6.81,10.78,0.369,3.249488556237862e-99,1.344,4.822736465446661e-06,30

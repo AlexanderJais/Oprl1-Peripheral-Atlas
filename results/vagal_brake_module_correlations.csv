@@ -1,0 +1,17 @@
+module,gene,spearman_rho,q_value,mean_CPM
+Mechanotransduction & myelinated identity,Piezo2,0.3364,0.3054,69.13
+Mechanotransduction & myelinated identity,Ntrk3,0.3558,0.2727,77.09
+Mechanotransduction & myelinated identity,Nefh,0.5649,0.0541,338.97
+Mechanotransduction & myelinated identity,Pvalb,0.3831,0.2322,11.75
+Mechanotransduction & myelinated identity,Adgrg6,0.8779,0.0003,12.13
+Gi effector machinery (how a NOP brake would act),Kcnj3,0.3117,0.3505,51.17
+Gi effector machinery (how a NOP brake would act),Kcnj6,0.4531,0.1435,0.47
+Gi effector machinery (how a NOP brake would act),Kcnj9,0.6779,0.015,8.34
+Gi effector machinery (how a NOP brake would act),Gnai1,-0.4234,0.1772,87.02
+Gi effector machinery (how a NOP brake would act),Gnai2,-0.7455,0.0057,345.57
+Gi effector machinery (how a NOP brake would act),Gnao1,-0.6455,0.0219,520.08
+Gi effector machinery (how a NOP brake would act),Cacna1b,-0.5221,0.0801,146.12
+Nociceptor programme (negative control),Trpv1,-0.6571,0.0191,107.61
+Nociceptor programme (negative control),Trpa1,-0.6844,0.0137,92.05
+Nociceptor programme (negative control),Scn10a,-0.6338,0.0255,124.73
+Nociceptor programme (negative control),Scn9a,-0.1571,0.6792,292.88
