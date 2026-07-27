@@ -1,4 +1,12 @@
 tissue,dataset,gene,level,rank,determinate,fraction_of_top
+nodose,NodoMap:whole-cell,Oprl1,11.90281641667734,1,True,1.0
+nodose,NodoMap:whole-cell,Oprm1,9.86366961132553,2,True,0.8286836716649087
+nodose,NodoMap:whole-cell,Oprk1,4.626643042649214,3,True,0.3887015375761578
+nodose,NodoMap:whole-cell,Oprd1,0.12974021319651305,4,True,0.010899959190728233
+jugular,NodoMap:whole-cell,Oprl1,9.624655313518156,1,True,1.0
+jugular,NodoMap:whole-cell,Oprm1,8.332573665300185,2,True,0.8657529432349438
+jugular,NodoMap:whole-cell,Oprd1,0.9239181022481819,3,True,0.09599492887298598
+jugular,NodoMap:whole-cell,Oprk1,0.8982299375901854,4,True,0.093325933067815
 nodose,NodoMap,Oprm1,14.62888783933146,1,True,1.0
 nodose,NodoMap,Oprl1,11.748573666627712,2,True,0.8031077820584768
 nodose,NodoMap,Oprk1,4.6608337126261565,3,True,0.318604788266608

@@ -158,7 +158,12 @@ def main() -> int:
 
     # ------------------------------------------------ levels, pooled and split
     rows, means = [], {}
-    groups = [("nodose", "NodoMap", is_nodose, "mixed (pooled)"),
+    # Whole-cell-only groups carry the section 1 comparison; the pooled rows mix
+    # in the nuclear dataset and are reported for completeness only.
+    wc = obs["suspension_type"].values == "cell"
+    groups = [("nodose", "NodoMap:whole-cell", is_nodose & wc, "whole cell"),
+              ("jugular", "NodoMap:whole-cell", is_jugular & wc, "whole cell"),
+              ("nodose", "NodoMap", is_nodose, "mixed (pooled)"),
               ("jugular", "NodoMap", is_jugular, "mixed (pooled)"),
               ("nodose+jugular", "NodoMap", is_neuron, "mixed (pooled)")]
     for ds in obs["dataset"].cat.categories:
@@ -187,6 +192,17 @@ def main() -> int:
         ranks.append(r)
     rank_tbl = pd.concat(ranks, ignore_index=True)
     ac.save_table(rank_tbl, "nodose_receptor_rank.csv")
+
+    # Jugular is the only neural-crest-derived ganglion in this atlas, so it
+    # tests whether the receptor ordering holds outside the placodal series.
+    for label, mask in (("nodose", is_nodose & wc), ("jugular", is_jugular & wc)):
+        lib = total[mask].astype(float)
+        lib[lib == 0] = 1.0
+        pc = counts.loc[mask, [g for g in ac.RECEPTORS
+                               if g in counts.columns]].div(lib, axis=0) * 1e6
+        b = ac.bootstrap_receptor_support(pc, n_boot=N_BOOT)
+        b.update({"dataset": "NodoMap:whole-cell", "tissue": label})
+        support.append(b)
 
     for ds in obs["dataset"].cat.categories:
         mask = is_neuron & (obs["dataset"] == ds).values

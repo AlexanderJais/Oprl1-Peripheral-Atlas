@@ -34,7 +34,8 @@ unit (`results/*_opioid_levels.csv`):
 |---|---|---|---|---|---|---|
 | GSE102443 (FPKM) | geniculate | 5.73 | 0.18 | 0.31 | 0.83 | 31× |
 | GSE135801 (CPM) | geniculate | 18.98 | 0.01 | 4.72 | 3.61 | large |
-| NodoMap, nodose neurons (CPM) | nodose | 11.90 | 9.86 | 0.13 | 4.63 | 1.2× |
+| NodoMap, nodose neurons (CPM) | nodose | 11.90 | 9.86 | 0.13 | 4.63 | 1.21× |
+| NodoMap, jugular neurons (CPM) | jugular | 9.62 | 8.33 | 0.92 | 0.90 | 1.16× |
 | GSE166648, NTS neurons (CPM) | NTS | 15.79 | 118.04 | 9.62 | 11.75 | 0.13× |
 
 The geniculate result carries the claim. *Oprl1* at 5.73 FPKM against *Oprm1* at 0.18 is an
@@ -54,11 +55,42 @@ demonstrations of it.
 
 ![Oprl1 across the NodoMap atlas](figures/figure2_nodose_oprl1.png)
 
+The jugular ganglion marks the edge of the claim. Geniculate and nodose are epibranchial
+placode-derived; the jugular is neural-crest-derived and sits in the same tissue block as the
+nodose, so it tests whether the ordering follows developmental origin. Restricted to whole-cell
+data, *Oprl1* leads there at 9.62 CPM against *Oprm1* 8.33, a margin of 1.16× with bootstrap
+support 0.897 and a 95% interval on the margin of 0.92 to 1.47, which includes 1. Across the three
+jugular datasets with enough cells, Kupari and Zhao place *Oprl1* first (support 0.99 and 0.81)
+and Buchanan places *Oprm1* first at support 0.51. The crest ganglion agrees in direction at the
+weakest margin measured in any peripheral dataset here.
+
 The eight-dataset version of this comparison is figure S3 in [`SUPPLEMENT.md`](SUPPLEMENT.md).
 
 The two single-nucleus datasets place *Oprm1* first. This is a preparation artefact: nuclear
 preparations retain unspliced pre-mRNA and *Oprm1* spans 250 kb against *Oprl1*'s 6 kb. See
 [`SUPPLEMENT.md`](SUPPLEMENT.md). Those datasets carry no claim here.
+
+### Coverage of the peripheral sensory series
+
+| ganglion | origin | status |
+|---|---|---|
+| geniculate (VII) | epibranchial placode | measured |
+| nodose (X) | epibranchial placode | measured |
+| jugular (X superior) | neural crest | measured |
+| petrosal (IX) | epibranchial placode | not measured |
+| trigeminal (V) | crest and placode | not measured |
+| dorsal root ganglion | neural crest | not measured |
+| spiral and vestibular (VIII) | otic placode | not measured |
+
+The claim covers cranial visceral and gustatory afferents plus one crest ganglion. The dorsal root
+ganglion is where most opioid-receptor work in sensory neurons has been done, and it is not
+covered here.
+
+The obvious public route to human DRG does not carry the gene. The CELLxGENE human DRG atlas
+(Nguyen et al., eLife 2021, 1,837 nuclei) quantifies 31,654 genes including *OPRM1*, *OPRD1* and
+*OPRK1*, and *OPRL1* appears under neither symbol nor Ensembl identifier ENSG00000125510. That is
+a reference gap rather than a measured zero, the same situation as *Pnoc* in GSE102443. The
+dataset is also single-nucleus, which biases toward *OPRM1* for the reason in figure S1.
 
 ## 2. *Oprl1* is expressed in most neurons of the ganglion
 
