@@ -1,165 +1,151 @@
 # Supplementary material
 
-Data-quality analyses. None of these are findings about `Oprl1` biology; they exist to
-establish which datasets can carry which claims, and they are kept out of the main README so
-the `Oprl1` result is not buried in method.
+These analyses establish which datasets support which claims. They concern data quality rather
+than *Oprl1* biology.
 
 ---
 
-## Figure S1 — nuclear preparation inverts the opioid receptor ordering
+## Figure S1. Nuclear preparation reverses the opioid receptor ordering
 
 ![Nuclear preparation bias](figures/figureS1_nuclear_preparation_bias.png)
 
-Six of the eight datasets in this atlas are whole-cell and two are single-nucleus. The two
-nuclear datasets are also the only two that do not rank `Oprl1` first. That is a preparation
-artefact, not a tissue difference, and this section is the evidence for treating it as one.
+Six of the eight datasets in this atlas are whole-cell and two are single-nucleus. The two nuclear
+datasets are also the two that place *Oprm1* above *Oprl1*.
 
-Within the nodose ganglion, where whole-cell and nuclear data exist for the *same tissue*, the
-size of the shift tracks genomic span (`results/nuclear_bias_vs_gene_length.csv`):
+Within the nodose ganglion, where whole-cell and nuclear data exist for the same tissue, the size
+of the shift tracks genomic span (`results/nuclear_bias_vs_gene_length.csv`):
 
 | gene | genomic span | nuclear / whole-cell level |
 |---|---|---|
-| `Oprm1` | 250 kb | **29.0×** |
-| `Oprd1` | 34 kb | **24.4×** |
-| `Oprk1` | 18 kb | 0.95× |
-| `Oprl1` | 6 kb | 0.47× |
-| `Pomc` | 6 kb | 0.36× |
-| `Penk` | 5 kb | 0.39× |
-| `Pdyn` | 2 kb | 0.99× |
+| *Oprm1* | 250 kb | 29.0× |
+| *Oprd1* | 34 kb | 24.4× |
+| *Oprk1* | 18 kb | 0.95× |
+| *Oprl1* | 6 kb | 0.47× |
+| *Pomc* | 6 kb | 0.36× |
+| *Penk* | 5 kb | 0.39× |
+| *Pdyn* | 2 kb | 0.99× |
 
-log-log Pearson *r* = 0.84 (n = 7 genes; Spearman rho = 0.58, *p* = 0.18). Nuclear preparations
-retain unspliced pre-mRNA, so long-intron genes gain signal. `Oprm1` spans 250 kb against
-`Oprl1`'s 6 kb and gains 29-fold, which is enough to move it from second to first.
+log-log Pearson *r* = 0.84 over 7 genes; Spearman rho = 0.58, *p* = 0.18. Nuclear preparations
+retain unspliced pre-mRNA, so genes with long introns gain signal. *Oprm1* spans 250 kb against
+*Oprl1*'s 6 kb and gains 29-fold, enough to move it from second to first. Weighting the whole-cell
+baseline by cell count rather than by dataset changes little (*Oprm1* 25.4×, *Oprl1* 0.45×).
 
-Weighting the whole-cell baseline by cell count rather than by dataset changes little
-(`Oprm1` 25.4×, `Oprl1` 0.45×).
+Two genes carry the correlation. Dropping *Oprm1* and *Oprd1* takes *r* from 0.84 to 0.02
+(`results/nuclear_bias_sensitivity.csv`, panel b); the remaining five genes span 2 to 18 kb with
+ratios from 0.36 to 0.99 and show no trend. Three further limitations apply:
 
-**How much of that correlation is real.** It is carried by two of the seven genes. Dropping
-`Oprm1` and `Oprd1` takes *r* from 0.84 to **0.02** (`results/nuclear_bias_sensitivity.csv`,
-panel B) — the remaining five genes span 2–18 kb with ratios 0.36–0.99 and show no trend. Three
-further caveats:
+- *Oprd1*'s 24.4× is a ratio against a 0.22 CPM baseline, where the estimate is unstable.
+- Preparation is confounded with laboratory. One nuclear nodose dataset exists (765 neurons,
+  in-house) and no in-house whole-cell dataset, so the two variables cannot be separated.
+- *Oprm1* detection rises from 5-9% to 71.9% in that dataset. A change of that size in the
+  fraction of cells with any read fits an intron-inclusive alignment (`cellranger
+  --include-introns`) as well as it fits pre-mRNA retention.
 
-- `Oprd1`'s 24.4× is a ratio against a 0.22 CPM floor, where the estimate is unstable.
-- Preparation is perfectly confounded with laboratory. There is one nuclear nodose dataset
-  (765 neurons, in-house) and no in-house whole-cell dataset, so "nuclear" and "in-house"
-  cannot be separated in this design.
-- `Oprm1` detection rises from 5–9 % to 71.9 % in that dataset. A jump that large in the
-  *fraction of cells with any read* fits an intron-inclusive alignment
-  (`cellranger --include-introns`) as well as it fits pre-mRNA retention.
+The direction of the effect is reproducible and the mechanism is consistent with the two largest
+points. The quantitative relationship across all seven genes is not established.
 
-So the direction is clear and reproducible, the mechanism is plausible and consistent with the
-two largest points, and the quantitative gene-length relationship across all seven genes is not
-established.
+Only whole-cell datasets support the receptor comparison in section 1. The two nuclear datasets
+are reported and excluded from that claim. GSE166648 is nuclear, so this atlas makes no
+peripheral-to-central comparison of receptor ordering.
 
-**What this means for the main result.** Only whole-cell datasets are used for the receptor
-ranking. The two nuclear datasets are reported for completeness and excluded from the claim.
-The NTS dataset is nuclear, so this atlas makes no claim about a peripheral-against-central
-receptor switch.
-
----
-
-## Figure S2 — the opioid panel in neurons and non-neuronal cells
+## Figure S2. The opioid panel in neurons and non-neuronal cells
 
 ![Opioid panel, neurons against non-neuronal cells](figures/figureS2_nodose_opioid_panel.png)
 
-Mean expression of all eight opioid genes in nodose neurons and in the non-neuronal cells of
-the same ganglion, whole-cell datasets only. This is the context for the main-text statement
-that `Oprl1` is neuron-enriched: the four receptors (blue) are essentially neuronal, while
-`Penk` runs the other way and is largely a fibroblast transcript, which is why its neuronal
-enrichment is negative.
+Mean expression of all eight opioid genes in nodose neurons and in the non-neuronal cells of the
+same ganglion, whole-cell datasets only. The four receptors are essentially neuronal. *Penk* runs
+in the opposite direction and is largely a fibroblast transcript, which accounts for its negative
+neuronal enrichment.
 
-## Figure S3 — the four receptors in all eight datasets
+## Figure S3. The four receptors in all eight datasets
 
 ![All datasets](figures/figureS3_all_datasets_receptors.png)
 
-The comparison from README section 1, extended to every dataset including the two nuclear ones,
-each panel in its own unit. `Oprl1` (blue) is highest in all six whole-cell datasets. The two
-nuclear preparations (red titles) put `Oprm1` first, for the reason given in Figure S1.
+The comparison from section 1, extended to every dataset including the two nuclear ones, each
+panel in its own unit. *Oprl1* is highest in all six whole-cell datasets. The two nuclear
+preparations place *Oprm1* first, for the reason given in figure S1.
 
-## Figure S4 — the matched null, and the ambient-RNA check
+## Figure S4. Matched nulls and the ambient-RNA check
 
 ![Specificity controls](figures/figureS4_specificity_controls.png)
 
-**Panel a.** Every cluster-and-depth-stratified odds ratio in this project, plotted against a
-null built from ~100 genes matched to that partner on detection rate (±20 %) and mean expression
-(±50 %). The grey bar is the central 95 % of the null. The null median sits at 1.13–1.36, not at
-1.0, because `Oprl1` is a relatively high expresser in large transcriptionally active neurons and
-capture depth in UMIs does not capture cell size. Any observed odds ratio in the 1.3–1.5 band is
-therefore uninformative. Only `Scn1a` clears its null (*p* = 0.0099); `Trpv1` and `Scn10a` fall
-below theirs.
+Panel a plots every cluster-and-depth-stratified odds ratio in this project against a null built
+from around 100 genes matched to that partner on detection rate (within 20%) and mean expression
+(within 50%). The grey bar spans the central 95% of the null. The null median lies between 1.13
+and 1.36 rather than at 1.0, because *Oprl1* is a relatively high expresser in large
+transcriptionally active neurons and capture depth measured in detected features does not capture
+cell size. Any observed odds ratio between 1.3 and 1.5 is therefore uninformative. *Scn1a* clears
+its null at *p* = 0.0099; *Trpv1* and *Scn10a* fall below theirs.
 
-`Cckar` has only 11 matched controls because few genes share its combination of 33.9 % detection
-and 240 CPM, so its null is the least reliable of the seven.
+*Cckar* has 11 matched controls because few genes combine its 33.9% detection rate with 240 CPM,
+so its null is the least reliable of the seven.
 
-**Panel b.** The top 50 `Oprl1` correlates scored for neuronal against glial abundance in the
-same ganglion. Twenty are more abundant in glia. There is no ambient-RNA correction anywhere in
-this pipeline, and NodoMap contains ~50,000 satellite and myelinating glia, so the correlate list
-carries a contamination component that the gene of interest does not — `Oprl1` itself is
-log2 +3.48 neuron-over-glia.
+Panel b scores the top 50 *Oprl1* correlates for neuronal against glial abundance in the same
+ganglion. Twenty are more abundant in glia. This pipeline applies no ambient-RNA correction and
+NodoMap contains around 50,000 satellite and myelinating glia, so the correlate list carries a
+contamination component that the gene of interest does not: *Oprl1* is log2 +3.48 neuron over
+glia.
 
-## Stratum granularity, and the Nav gradient against a matched null
+## Stratum granularity
 
-**Every odds ratio in this project rises as the stratification coarsens**
+Every odds ratio in this project rises as the stratification coarsens
 (`results/vagal_or_stratum_stability.csv`):
 
 | partner | cluster × depth-tercile | cluster × depth-median | cluster only |
 |---|---|---|---|
-| `Scn1a` | 1.72 | 1.98 | 2.89 |
-| `Glp1r` | 1.46 | 1.67 | 2.64 |
-| `Cckar` | 1.37 | 1.58 | 2.25 |
-| `Piezo2` | 1.32 | 1.53 | 2.40 |
+| *Scn1a* | 1.72 | 1.98 | 2.89 |
+| *Glp1r* | 1.46 | 1.67 | 2.64 |
+| *Cckar* | 1.37 | 1.58 | 2.25 |
+| *Piezo2* | 1.32 | 1.53 | 2.40 |
 
-The finest stratification is the conservative one and is what the main text quotes. The ordering
-between partners is preserved at every granularity, so `Cckar`'s 51 strata over 26,047 cells
-(~510 per stratum) are not producing an unstable estimate — they are producing the smallest one.
+The finest stratification gives the smallest estimate and is what the main text quotes. The
+ordering between partners is preserved at every granularity, so *Cckar*'s 51 strata over 26,047
+cells (around 510 per stratum) produce a conservative estimate rather than an unstable one.
 
-**The Nav1.1 cluster gradient is specific to `Oprl1`** (`results/nav_gradient_matched_null.csv`).
-Because `Oprl1_CPM` and `Oprl1_pct` correlate at rho = 0.95 across clusters, and CPM per detected
-cell also rises with detection (rho = 0.69), a cluster "gradient" could be soma size and RNA
-content rather than regulation of this gene. Running the same Nav1.1/Nav1.8 cluster-mean ratio
-for 550 expression-matched control genes: the matched median is **1.11** against `Oprl1`'s
-**4.02**, and `Oprl1` exceeds 95.8 % of them. A third of the matched genes are themselves
-nominally significant at *p* < 0.05, which is the size of the background this correction removes.
+## The Nav1.1 gradient against matched genes
 
----
+*Oprl1* CPM and detection rate correlate at rho = 0.95 across clusters, and CPM per detected cell
+also rises with detection rate (rho = 0.69), so a cluster gradient could reflect soma size and
+total RNA content. Running the same Nav1.1/Nav1.8 cluster-mean ratio for 550 expression-matched
+control genes (`results/nav_gradient_matched_null.csv`) gives a matched median of 1.11 against
+*Oprl1*'s 4.02, with *Oprl1* exceeding 95.8% of them. A third of the matched genes are themselves
+nominally significant at *p* < 0.05, which is the size of the background this control removes.
 
 ## Marker-gene checks
 
-Every dataset passes `check_markers()` before any `Oprl1` number is read from it. `Snap25` and
-`Actb` are enforced — absent or zero raises `SanityCheckError` — and `Phox2b`, `Slc17a6`,
-`Tac1` and `Calca` are recorded without being enforced, since they are tissue-specific.
+Every dataset passes `check_markers()` before any *Oprl1* number is read from it. *Snap25* and
+*Actb* are enforced, and their absence or silence raises `SanityCheckError`. *Phox2b*, *Slc17a6*,
+*Tac1* and *Calca* are recorded without being enforced, since they are tissue-specific.
 
-| dataset | `Snap25` | `Phox2b` | `Slc17a6` | `Tac1` | `Calca` | `Actb` |
+| dataset | *Snap25* | *Phox2b* | *Slc17a6* | *Tac1* | *Calca* | *Actb* |
 |---|---|---|---|---|---|---|
 | GSE102443 (FPKM) | 2742.4 | 39.8 | 65.0 | 417.0 | 98.0 | 413.4 |
 | GSE135801 (CPM) | 1707.6 | 777.0 | 295.6 | 453.2 | 35.1 | 1229.3 |
 | GSE166648 neurons (CPM) | 890.2 | 30.9 | 83.2 | 29.1 | 17.1 | 242.2 |
 
-Full tables in `results/*_marker_checks.csv`.
+Full tables are in `results/*_marker_checks.csv`.
 
-## Detection rate is not comparable across platforms
+## Detection rate across platforms
 
-`Oprl1` is detected in 92 % of geniculate neurons on full-length SMART-seq and in 9 % of nodose
-neurons on 10x droplet data. That difference is platform sensitivity, not biology, and no claim
-in this repository compares detection rates across assays. Detection is compared only *within*
-one dataset — between clusters of the same atlas, sequenced together — where it is a fair
-comparison.
+*Oprl1* is detected in 92% of geniculate neurons on full-length SMART-seq and in 9% of nodose
+neurons on 10x droplet data. That difference measures platform sensitivity. No claim in this
+repository compares detection rates across assays. Detection is compared within one dataset only,
+between clusters of the same atlas sequenced together.
 
-This is also why the co-expression analysis in the main text reports a depth-stratified odds
-ratio rather than an overlap percentage: raw co-detection between two sparsely detected genes
-is dominated by per-cell capture depth.
+The co-expression analyses in the main text report depth-stratified odds ratios rather than
+overlap percentages for the same reason: raw co-detection between two sparsely detected genes is
+dominated by per-cell capture depth.
 
 ## Bootstrap support for the receptor ordering
 
-`bootstrap_receptor_support()` resamples cells with replacement 2,000 times and reports how
-often the observed top receptor stays top (`results/*_rank_support.csv`). This is in the main
-README rather than here, because it qualifies the headline claim: `NodoMap:Buchanan` ranks
-`Oprl1` first by 1.8 % and holds that ordering in only 54 % of resamples.
+`bootstrap_receptor_support()` resamples cells with replacement 2,000 times and reports how often
+the observed top receptor stays top (`results/*_rank_support.csv`). This appears in the main
+README because it qualifies the section 1 claim: NodoMap:Buchanan places *Oprl1* first by 1.8% and
+holds that ordering in 54% of resamples.
 
-## Genes checked and not found
+## Genes checked and not reported
 
-`Calcr` is not detected in a single nodose neuron in the whole-cell NodoMap data, and `Gfral`
-(5 cells) and `Gipr` (19 cells) are effectively absent. They are reported in
-`results/vagal_oprl1_coexpression.csv` for completeness and carry no statistic. `Pnoc` is not
-present in the GSE102443 annotation at all, so it is recorded as unmeasured rather than as zero
-everywhere it appears.
+*Calcr* is detected in no nodose neuron in the whole-cell NodoMap data. *Gfral* (5 cells) and
+*Gipr* (19 cells) are too sparse for an odds ratio, as are the jugular *Glp1r* (31) and *Cckbr*
+(7) rows. The reporting threshold is 100 partner-positive cells. *Pnoc* is absent from the
+GSE102443 annotation and is recorded as unmeasured rather than as zero wherever it appears.

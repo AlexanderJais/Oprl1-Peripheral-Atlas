@@ -3,9 +3,8 @@
 The orexigenic effect of N/OFQ is well established and is attributed throughout
 the literature to hypothalamic sites. This script asks a different question: if
 Gi-coupled Oprl1 is expressed by the same nodose neurons that carry the
-excitatory satiation receptors Glp1r and Cckar, then the NOP receptor is
-positioned as a cell-autonomous brake on the first synapse of the gut-brain
-axis, upstream of anything hypothalamic.
+excitatory satiation receptors Glp1r and Cckar, then a Gi-coupled receptor sits
+on the first synapse of the gut-brain axis, upstream of any hypothalamic site.
 
 That is a co-expression question, and co-expression in droplet data has one
 dominant confound: capture depth. A cell that detects any gene tends to detect

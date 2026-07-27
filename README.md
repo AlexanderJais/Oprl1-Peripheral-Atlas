@@ -1,10 +1,9 @@
-# The opioid receptor of peripheral sensory neurons is `Oprl1`, not `Oprm1`
+# *Oprl1* is the dominant opioid receptor of peripheral sensory neurons
 
-The field's working model of opioid signalling in sensory ganglia is `Oprm1` — that is where the
-peripheral analgesia effort goes. In mouse geniculate ganglion neurons `Oprl1` is expressed
-**31× higher than `Oprm1`**, in nearly every neuron, and the same ordering appears on a second
-platform from a second laboratory. The receptor actually positioned to modulate peripheral
-sensory transmission is the one nobody targets peripherally.
+In mouse geniculate ganglion neurons *Oprl1* is expressed 31-fold above *Oprm1* and is detected in
+92% of cells. The ordering reproduces on a second platform from a second laboratory. Work on
+opioid signalling in sensory ganglia targets *Oprm1*, the least abundant of the four receptors in
+these neurons.
 
 | input | tissue | source |
 |---|---|---|
@@ -13,266 +12,258 @@ sensory transmission is the one nobody targets peripherally.
 | this repo | nucleus of the solitary tract | GSE166648, 49,392 neuronal nuclei in 25 subtypes |
 
 Every number is recomputed from the GEO and CELLxGENE source matrices through one pipeline.
-Data-quality analyses live in [`SUPPLEMENT.md`](SUPPLEMENT.md); the full code audit is in
+Data-quality analyses are in [`SUPPLEMENT.md`](SUPPLEMENT.md); the code audit is in
 [`AUDIT.md`](AUDIT.md).
 
-> **Which data carries which claim.** Both headline claims — dominance and pan-neuronal
-> expression — rest on the geniculate SMART-seq data (GSE102443, **n = 96 neurons**). Full-length
-> library preparation is what makes a 92 % detection rate credible; the droplet data cannot
-> produce that number for any gene. The nodose droplet datasets are **consistent** with both
-> claims and do not independently confirm either: their best per-cluster detection rate is 27.7 %,
-> which is a platform ceiling rather than a biological one. A single 96-cell experiment is doing
-> a lot of work here, and the replication that matters is GSE135801 — different platform,
-> different laboratory, same ordering.
+Both headline claims rest on the geniculate SMART-seq data, GSE102443, n = 96 neurons.
+Full-length library preparation is what makes a 92% detection rate interpretable; droplet data
+reaches that figure for no gene. The nodose droplet datasets agree with both claims without
+independently establishing either, since their highest per-cluster detection rate is 27.7% and
+that value is a platform ceiling. A single 96-cell experiment carries a large share of the
+evidence. The replication that matters is GSE135801: different platform, different laboratory,
+same ordering.
 
 ---
 
-## 1. `Oprl1` is the dominant opioid receptor of sensory ganglion neurons
+## 1. *Oprl1* is the highest-expressed opioid receptor in both ganglia
 
-Mean expression of the four opioid-family receptors, measured in the same cells, in each
-dataset's own unit (`results/*_opioid_levels.csv`):
+Mean expression of the four opioid receptors, measured in the same cells, in each dataset's own
+unit (`results/*_opioid_levels.csv`):
 
-| dataset | tissue | `Oprl1` | `Oprm1` | `Oprd1` | `Oprk1` | `Oprl1`:`Oprm1` |
+| dataset | tissue | *Oprl1* | *Oprm1* | *Oprd1* | *Oprk1* | *Oprl1*:*Oprm1* |
 |---|---|---|---|---|---|---|
-| GSE102443 (FPKM) | geniculate | **5.73** | 0.18 | 0.31 | 0.83 | **31×** |
-| GSE135801 (CPM) | geniculate | **18.98** | 0.01 | 4.72 | 3.61 | large |
-| NodoMap, nodose neurons (CPM) | nodose | **11.90** | 9.86 | 0.13 | 4.63 | 1.2× |
-| GSE166648, NTS neurons (CPM) | NTS | 15.79 | 118.04 | 9.62 | 11.75 | — |
+| GSE102443 (FPKM) | geniculate | 5.73 | 0.18 | 0.31 | 0.83 | 31× |
+| GSE135801 (CPM) | geniculate | 18.98 | 0.01 | 4.72 | 3.61 | large |
+| NodoMap, nodose neurons (CPM) | nodose | 11.90 | 9.86 | 0.13 | 4.63 | 1.2× |
+| GSE166648, NTS neurons (CPM) | NTS | 15.79 | 118.04 | 9.62 | 11.75 | 0.13× |
 
-**The geniculate result is the claim.** `Oprl1` at 5.73 FPKM against `Oprm1` at 0.18 is a 31-fold
-margin — not a ranking, an order-of-magnitude difference in transcript abundance — and it
-reproduces on an independent platform in an independent laboratory (GSE135801: `Oprl1` 18.98 CPM,
-`Oprm1` 0.01 CPM). `Oprm1`, the receptor the peripheral opioid literature is built on, is the
-*least* abundant of the four in these neurons.
+The geniculate result carries the claim. *Oprl1* at 5.73 FPKM against *Oprm1* at 0.18 is an
+order-of-magnitude difference in transcript abundance rather than a difference in rank order, and
+it reproduces in GSE135801 (*Oprl1* 18.98 CPM, *Oprm1* 0.01 CPM). *Oprm1* is the least abundant of
+the four receptors in geniculate neurons.
 
 ![Oprl1 in the geniculate ganglion](figures/figure1_geniculate_oprl1.png)
 
-**The nodose data is consistent, not confirmatory.** `Oprl1` is highest there too (11.90 CPM
-against `Oprm1` 9.86), and it comes out first in each of the four whole-cell datasets separately
-(11.98, 11.84, 11.09, 9.59 CPM). But the margin is 1.2× rather than 31×, and resampling the cells
-2,000 times it holds in 100 %, 97 % and 94 % of resamples for Zhao, Bai and Kupari and in only
-54 % for Buchanan (`results/*_rank_support.csv`). Read the nodose datasets as agreeing with the
-geniculate result, not as four more independent wins.
+The nodose data agrees at a much smaller margin. *Oprl1* is highest there at 11.90 CPM against
+*Oprm1* 9.86, and comes first in each of the four whole-cell datasets separately (11.98, 11.84,
+11.09, 9.59 CPM). Resampling the cells 2,000 times, that ordering holds in 100%, 97% and 94% of
+resamples for Zhao, Bai and Kupari, and in 54% for Buchanan
+(`results/*_rank_support.csv`). Buchanan gives an ordering indistinguishable from a tie. The four
+nodose datasets corroborate the geniculate result; they do not constitute four independent
+demonstrations of it.
 
 ![Oprl1 across the NodoMap atlas](figures/figure2_nodose_oprl1.png)
 
-The eight-dataset version of this comparison is [`figureS3`](SUPPLEMENT.md).
+The eight-dataset version of this comparison is figure S3 in [`SUPPLEMENT.md`](SUPPLEMENT.md).
 
-> The two single-nucleus datasets put `Oprm1` first. That is a preparation artefact — nuclear
-> preparations retain unspliced pre-mRNA and `Oprm1` spans 250 kb against `Oprl1`'s 6 kb — and
-> is documented in [`SUPPLEMENT.md`](SUPPLEMENT.md). They carry no claim here.
+The two single-nucleus datasets place *Oprm1* first. This is a preparation artefact: nuclear
+preparations retain unspliced pre-mRNA and *Oprm1* spans 250 kb against *Oprl1*'s 6 kb. See
+[`SUPPLEMENT.md`](SUPPLEMENT.md). Those datasets carry no claim here.
 
-## 2. It is pan-neuronal, not a subtype marker
+## 2. *Oprl1* is expressed in most neurons of the ganglion
 
-**Geniculate.** Detected in **92 % of the 96 neurons** in the deep dataset, at indistinguishable
-levels in both divisions of the ganglion: gustatory (Phox2b+) 6.29 FPKM (n = 61),
-somatosensory (Phox2b−) 4.77 FPKM (n = 35) — figure 1b. It is pan-geniculate.
+In the geniculate, *Oprl1* is detected in 92% of the 96 neurons, at indistinguishable levels in
+both divisions: gustatory (Phox2b+) 6.29 FPKM, n = 61; somatosensory (Phox2b-) 4.77 FPKM, n = 35
+(figure 1b). Expression is pan-geniculate.
 
-This is the second claim that rests on full-length data. A 92 % detection rate is only
-interpretable on a platform that can reach it; the droplet datasets top out at 27.7 % of cells in
-their best cluster, so they can show that `Oprl1` is everywhere but not that it is in almost
-every neuron.
+This claim also rests on full-length data. A 92% detection rate is interpretable only on a
+platform that can reach it. The droplet datasets reach 27.7% of cells in their highest cluster, so
+they establish that *Oprl1* is present throughout the ganglion while leaving the per-neuron
+fraction unresolved.
 
-**Nodose and jugular.** Present in every one of the 26 neuronal clusters, from 27.7 % of cells
-in NGN14 down to 0.8 % in NGN5, and near-absent from the non-neuronal compartment (log2
-neuronal enrichment **+3.53**, comparable to `Oprk1` +3.49 and `Oprm1` +3.24, far above `Oprd1`
-+1.62). The top clusters are NGN14 (43.5 CPM), NGN17 (31.7), NGN6 (30.5) and NGN19 (30.3) —
-figure 2b.
+In the nodose and jugular ganglia, *Oprl1* appears in every one of the 26 neuronal clusters, from
+27.7% of cells in NGN14 to 0.8% in NGN5, and is nearly absent from non-neuronal cells (log2
+neuronal enrichment +3.53, against *Oprk1* +3.49, *Oprm1* +3.24 and *Oprd1* +1.62). The highest
+clusters are NGN14 at 43.5 CPM, NGN17 at 31.7, NGN6 at 30.5 and NGN19 at 30.3 (figure 2b).
 
-## 3. Within the vagus, `Oprl1` is graded by Nav1.1 — and by nothing else
+## 3. Within the vagus, expression is graded by sodium channel class
 
-This is a gradient within a gene expressed everywhere, and it is a far smaller effect than
-sections 1 and 2. It is figure 3, not the headline.
+This gradient sits inside a gene expressed throughout the ganglion, and the effect is small
+relative to sections 1 and 2.
 
-Each NodoMap annotation is a property of the **cluster**, so the unit of analysis is the 21
-nodose clusters. Effect sizes below are cluster means, computed on the same basis as the test —
-an earlier draft quoted cell-weighted ratios beside cluster-mean *p* values, which inflated the
-fibre-type effect from 2.7× to 5.1×.
+Each NodoMap annotation is a property of the cluster, so the unit of analysis is the 21 nodose
+clusters. Effect sizes below are cluster means, computed on the same basis as the test. An earlier
+draft quoted cell-weighted ratios beside cluster-mean *p* values, which raised the fibre-type
+effect from 2.7× to 5.1×.
 
 | annotation | cluster-mean, high vs low | groups | *p* | Bonferroni (×4) |
 |---|---|---|---|---|
-| **sodium channel** | Nav1.1 / Nav1.8 = **4.02×** | 9 / 11 | **0.00095** | **0.0038** |
-| fibre type | Myelinated / Unmyelinated = 2.68× | 4 / 8 / 9 | 0.021 | 0.082 |
-| sensor type | Mechanosensor / Nocisensor | 9 / 8 / 4 | 0.109 | 0.44 |
-| organ projection | Gut 17.56 vs Broad 11.76 | 8 / 9 | 0.336 | 1.0 |
+| sodium channel | Nav1.1 / Nav1.8 = 4.02× | 9 / 11 | 0.00095 | 0.0038 |
+| fibre type | myelinated / unmyelinated = 2.68× | 4 / 8 / 9 | 0.021 | 0.082 |
+| sensor type | mechanosensor / nocisensor | 9 / 8 / 4 | 0.109 | 0.44 |
+| organ projection | gut 17.56 vs broad 11.76 | 8 / 9 | 0.336 | 1.0 |
 
-**Only the Nav split survives.** Fibre type fails Bonferroni across the four annotations tested,
-and its effect halves when computed on the same basis as its own *p* value.
+The sodium channel split is the only one that survives. Fibre type fails Bonferroni correction
+across the four annotations tested, and its effect halves when computed on the same basis as its
+own *p* value.
 
-**Fibre type is a proxy for Nav class, not an independent axis.** Cross-stratifying the two
-(`results/nodose_nav_fibre_crosstab.csv`) separates them cleanly:
+Fibre type is a proxy for sodium channel class. Cross-stratifying the two separates them
+(`results/nodose_nav_fibre_crosstab.csv`):
 
-| | Myelinated | Lightly myelinated | Unmyelinated |
+| | myelinated | lightly myelinated | unmyelinated |
 |---|---|---|---|
-| **Nav1.1** | 23.01 (n=3) | 25.60 (n=5) | **30.60 (n=1)** |
-| **Nav1.8** | 12.88 (n=1) | 9.01 (n=2) | 4.78 (n=8) |
+| Nav1.1 | 23.01 (n=3) | 25.60 (n=5) | 30.60 (n=1) |
+| Nav1.8 | 12.88 (n=1) | 9.01 (n=2) | 4.78 (n=8) |
 
-Nav class holds inside every fibre stratum (1.8×, 2.8×, 6.4×). Fibre type inside Nav1.1 is
-flat-to-reversed — the *unmyelinated* Nav1.1 cluster is the highest of the nine. The only fibre
-ordering is in the Nav1.8 row and it rests on n = 1 and n = 2. **"Myelinated" is dropped from
-every claim in this document.**
+Sodium channel class holds inside every fibre stratum, at 1.8×, 2.8× and 6.4×. Fibre type inside
+Nav1.1 is flat to reversed, with the single unmyelinated Nav1.1 cluster the highest of the nine.
+The one fibre ordering sits in the Nav1.8 row and rests on n = 1 and n = 2. Myelination is
+therefore dropped from every claim in this document.
 
-The Nav result is robust to the one ambiguous cluster: NGN18 is annotated Nav1.1/Nav1.8 and
-*p* = 0.00095 excluded, 0.00072 assigned to Nav1.1, 0.00084 assigned to Nav1.8.
+The result is robust to the one ambiguous cluster. NGN18 is annotated Nav1.1/Nav1.8; *p* = 0.00095
+with it excluded, 0.00072 assigned to Nav1.1, 0.00084 assigned to Nav1.8.
 
-**Four clusters make the point better than the statistics do:**
+Four clusters show this more directly than the statistics do:
 
 | cluster | n | CPM | Nav | fibre | sensor |
 |---|---|---|---|---|---|
 | NGN14 | 730 | 44.15 | Nav1.1 | myelinated | mechanosensor |
-| **NGN19** | 220 | **30.60** | Nav1.1 | **unmyelinated** | **nocisensor** |
+| NGN19 | 220 | 30.60 | Nav1.1 | unmyelinated | nocisensor |
 | NGN1 | 4,370 | 15.17 | Nav1.8 | lightly myelinated | nocisensor |
-| **NGN21** | 192 | **5.28** | Nav1.1 | **myelinated** | **mechanosensor** |
+| NGN21 | 192 | 5.28 | Nav1.1 | myelinated | mechanosensor |
 
-NGN19 is an unmyelinated nociceptor and ranks 4th of 21. NGN21 is the textbook myelinated Nav1.1
-mechanosensor and ranks 17th. NGN1 is Nav1.8 and outranks five of the nine Nav1.1 clusters. These
-kill "myelinated" and "mechanosensor" as descriptors and leave Nav1.1 standing.
+NGN19 is an unmyelinated nociceptor and ranks 4th of 21. NGN21 is a myelinated Nav1.1
+mechanosensor and ranks 17th. NGN1 is Nav1.8 and exceeds five of the nine Nav1.1 clusters. Sodium
+channel class separates these four; myelination and sensor type do not.
 
 ![Nav class against the counterexamples](figures/figure3b_nav_class_counterexamples.png)
 
-**The Nav-class split also survives per cell, against a matched null.** Holding cluster and depth
-fixed, a neuron expressing `Scn1a` is **1.72×** more likely to express `Oprl1`, against a null of
-expression-matched genes with median 1.36 — empirical *p* = **0.0099**. `Scn10a` (Nav1.8) is 1.06
-against a null of 1.27, i.e. below chance.
+The split also holds per cell against a matched null. Holding cluster and capture depth fixed, a
+neuron expressing *Scn1a* is 1.72× more likely to express *Oprl1*, against a null of
+expression-matched genes with median 1.36 (empirical *p* = 0.0099). *Scn10a* is 1.06 against a
+null of 1.27, below chance.
 
-**And the gradient is specific to `Oprl1`, not a soma-size artefact.** `Oprl1_CPM` and
-`Oprl1_pct` correlate at rho = 0.95 across clusters, so a "gradient" could be RNA content rather
-than regulation. Testing 550 expression-matched genes for the same Nav1.1/Nav1.8 cluster ratio
-(`results/nav_gradient_matched_null.csv`): the matched median is **1.11** against `Oprl1`'s
-**4.02**, and `Oprl1` exceeds 95.8 % of them. Real, but at the 96th percentile rather than far
-outside — this is a solid effect, not an overwhelming one.
+The gradient is specific to *Oprl1* rather than a consequence of soma size. *Oprl1* CPM and
+detection rate correlate at rho = 0.95 across clusters, so a cluster gradient could reflect total
+RNA content. Testing 550 expression-matched genes for the same Nav1.1/Nav1.8 cluster ratio
+(`results/nav_gradient_matched_null.csv`) gives a matched median of 1.11 against *Oprl1*'s 4.02,
+with *Oprl1* exceeding 95.8% of them. The effect is solid at the 96th percentile.
 
-**What this means.** If it is Nav1.1 and not myelination, the claim detaches from conduction
-velocity and from anatomy. What is left is an excitability module: a sodium channel that supports
-high-frequency firing, paired with a Gi-coupled receptor positioned to damp it. That framing
-requires no projection target and no fibre class, and it travels to the geniculate.
+Nav1.1 supports high-frequency firing. *Oprl1* couples to Gi. Their co-occurrence identifies
+neurons in which a Gi-coupled receptor is positioned to reduce firing in cells equipped to fire
+rapidly. This description requires no projection target and no fibre class, and it applies to the
+geniculate as readily as to the vagus.
 
-**Organ projection is descriptive only.** The *p* = 0.336 above compares the only two levels with
-more than one cluster — Gut (n = 8) against Broad projection (n = 9), 17 clusters, not 21.
-Duodenum, Heart, Jejunum/Ileum and Pancreas have one cluster each and were not in the test. An
-earlier draft printed "Pancreas 25.2 vs Jejunum/Ileum 5.3" beside that *p* value; those are NGN7
-and NGN21, one cluster against one cluster, from levels the test excluded. The pancreas number is
-one cluster's annotation in someone else's atlas — a hypothesis for a retrograde-tracing
-experiment, nothing more.
+Organ projection is descriptive. The *p* = 0.336 above compares the only two levels with more than
+one cluster, gut (n = 8) against broad projection (n = 9), over 17 clusters. Duodenum, heart,
+jejunum/ileum and pancreas contain one cluster each and were excluded from the test. An earlier
+draft printed "pancreas 25.2 vs jejunum/ileum 5.3" beside that *p* value; those are NGN7 and
+NGN21, one cluster against one cluster, from levels the test excluded. The pancreas figure is one
+cluster's annotation in another laboratory's atlas and supports a retrograde-tracing experiment
+and nothing further.
 
 ![Where Oprl1 sits](figures/figure3_oprl1_localisation.png)
 
-**The transcriptome-wide correlate list needs a warning.** All 54,640 genes were correlated with
-`Oprl1` across the 21 clusters and 2,149 of 16,380 expressed genes reach FDR < 5 %. But NodoMap
-contains ~50,000 satellite and myelinating glia and this pipeline applies **no ambient-RNA
-correction**. Scoring the top 50 correlates against the glial compartment of the same ganglion,
-**20 of 50 are more abundant in glia than in nodose neurons.**
+The transcriptome-wide correlate list carries a contamination component. All 54,640 genes were
+correlated with *Oprl1* across the 21 clusters, and 2,149 of 16,380 expressed genes reach FDR
+below 5%. NodoMap contains roughly 50,000 satellite and myelinating glia, and this pipeline
+applies no ambient-RNA correction. Scoring the top 50 correlates against the glial compartment of
+the same ganglion places 20 of 50 at higher abundance in glia than in nodose neurons.
 
-`Adgrg6`/*Gpr126* is the worst case and was previously cited here as confirmation: it is **8×
-more abundant in glia** (log2 = −2.98). It is the Schwann-cell myelination receptor and its
-position at the top of the list is the signature of ambient RNA, not evidence of myelinated
-neuronal identity. Withdrawn — along with `Col1a2` (−4.46), `Hmgcs2` (−3.58) and `Ptn` (−2.66).
-What survives is `Cacng5` (+3.38), `Brinp1` (+2.79), `Atp1b1` (+2.78), `Eya4` (+2.29), `Chgb`
-(+1.98), `Rph3a` (+1.36). `Oprl1` itself is +3.48, so the gene of interest is unaffected.
+*Adgrg6*/*Gpr126* is the clearest case and was previously cited here as supporting evidence. It is
+8-fold more abundant in glia (log2 = -2.98). It is the Schwann-cell myelination receptor, and its
+position at the top of the list reflects ambient RNA rather than neuronal identity. That citation
+is withdrawn, along with *Col1a2* (-4.46), *Hmgcs2* (-3.58) and *Ptn* (-2.66). The neuronally
+enriched correlates are *Cacng5* (+3.38), *Brinp1* (+2.79), *Atp1b1* (+2.78), *Eya4* (+2.29),
+*Chgb* (+1.98) and *Rph3a* (+1.36). *Oprl1* itself is +3.48, so the gene of interest is unaffected.
 
-## 4. The satiation-receptor hypothesis is dead
+## 4. *Oprl1* shows no association with *Glp1r* or *Cckar*
 
-The project began by asking whether `Oprl1` sits on the `Glp1r` and `Cckar` afferents, placing a
-Gi-coupled brake on the first synapse of the gut–brain axis. It does not.
+This project began by testing whether *Oprl1* occupies the *Glp1r* and *Cckar* afferents, which
+would place a Gi-coupled receptor on the first synapse of the gut-brain axis. The data rejects
+that arrangement at both levels of analysis.
 
-**At the population level** there is nothing. Across the 21 nodose clusters, `Glp1r` ranks 8,461
-of 16,380 genes by correlation with `Oprl1` (rho = +0.13, *q* = 0.74), `Cckbr` 8,828 (+0.11) and
-`Cckar` 11,270 (−0.06). All three are mid-distribution.
+Across the 21 nodose clusters, *Glp1r* ranks 8,461 of 16,380 genes by correlation with *Oprl1*
+(rho = +0.13, *q* = 0.74), *Cckbr* ranks 8,828 (+0.11) and *Cckar* ranks 11,270 (-0.06). All three
+sit near the middle of the distribution.
 
-**At the cell level the apparent association is at chance.** Earlier drafts of this document
-reported a surviving 1.46× odds ratio for `Glp1r` after stratifying on cluster and capture depth.
-That was not benchmarked. nUMI is not cell size, and `Oprl1` is a comparatively high expresser in
-large, transcriptionally active neurons — so within a cluster it shows a positive odds ratio
-against almost anything moderately expressed. Running the identical statistic against 100 control
-genes matched on detection rate and mean expression:
+At the cell level the apparent association is at chance. An earlier draft reported a surviving
+1.46× odds ratio for *Glp1r* after stratifying on cluster and capture depth, without a benchmark.
+Number of detected features is not cell size, and *Oprl1* is a comparatively high expresser in
+large, transcriptionally active neurons, so within a cluster it yields a positive odds ratio
+against most moderately expressed genes. Running the identical statistic against 100 control genes
+matched on detection rate and mean expression:
 
-| partner | observed OR | matched-null median | null 95 % | empirical *p* | verdict |
+| partner | observed OR | matched-null median | null 95% | empirical *p* | position |
 |---|---|---|---|---|---|
-| `Scn1a` (Nav1.1) | 1.72 | 1.36 | 1.02–1.58 | **0.0099** | above null |
-| `Cckbr` | 1.47 | 1.36 | 0.98–1.73 | 0.29 | at chance |
-| `Glp1r` | 1.46 | 1.26 | 0.95–1.64 | 0.20 | **at chance** |
-| `Cckar` | 1.37 | 1.13 | 0.87–1.90 | 0.42 | **at chance** |
-| `Piezo2` | 1.32 | 1.19 | 0.73–1.71 | 0.35 | **at chance** |
-| `Scn10a` (Nav1.8) | 1.06 | 1.27 | 1.00–1.56 | 0.90 | below null |
-| `Trpv1` | 0.84 | 1.27 | 1.04–1.52 | — | **below null** |
+| *Scn1a* (Nav1.1) | 1.72 | 1.36 | 1.02-1.58 | 0.0099 | above null |
+| *Cckbr* | 1.47 | 1.36 | 0.98-1.73 | 0.29 | at chance |
+| *Glp1r* | 1.46 | 1.26 | 0.95-1.64 | 0.20 | at chance |
+| *Cckar* | 1.37 | 1.13 | 0.87-1.90 | 0.42 | at chance |
+| *Piezo2* | 1.32 | 1.19 | 0.73-1.71 | 0.35 | at chance |
+| *Scn10a* (Nav1.8) | 1.06 | 1.27 | 1.00-1.56 | 0.90 | below null |
+| *Trpv1* | 0.84 | 1.27 | 1.04-1.52 | - | below null |
 
-The null median sits at 1.13–1.36. Everything in the 1.3–1.5 band is what an expression-matched
-random gene gives. `Glp1r`, `Cckar` and `Cckbr` are at chance and the cell-autonomous brake has
-no support of any kind in this data.
+The null median falls between 1.13 and 1.36. Values in the 1.3 to 1.5 band match what an
+expression-matched random gene produces. *Glp1r*, *Cckar* and *Cckbr* are at chance, and the
+data provides no support for *Oprl1* occupying the satiation-receptor populations.
 
 ![Oprl1 and the satiation receptors](figures/figure4_vagal_oprl1_satiation.png)
 
-**What the control does leave standing:** `Scn1a` above the null, and `Trpv1` and `Scn10a`
-*below* it — `Oprl1` is genuinely depleted from the nociceptor compartment rather than merely
-unassociated with it. That is a cleaner result than the one it replaces.
+The co-expression table contains an internal comparator. After full adjustment *Cckbr* scores
+highest of the three testable partners at 1.47, against *Glp1r* 1.46 and *Cckar* 1.37, a spread of
+0.10. *Cckbr* is the gastrin/CCK-B receptor and has no role in vagal satiation signalling
+comparable to the other two. Its position at the top of the three indicates that the residual
+value near 1.4 is a floor set by abundance.
 
-## 5. The mechanosensory brake: substrate not demonstrated
+Two results survive the control: *Scn1a* above its null, and *Trpv1* and *Scn10a* below theirs.
+*Oprl1* is depleted from the nociceptor population.
 
-Section 3 predicts that if N/OFQ acts on the vagus it damps mechanosensory rather than
-peptide-receptor signalling. Three things would have to hold on the same neurons: the
-mechanotransducer (`Piezo2`), the Gi effector machinery a NOP receptor works through (`Kcnj3/6/9`,
-`Gnai`/`Gnao`, `Cacna1b`), and the absence of the nociceptor programme as an internal negative
-control.
+## 5. Mechanotransduction and Gi effector genes
 
-![The mechanosensory brake substrate](figures/figure6_mechanosensory_brake.png)
+Section 3 predicts that N/OFQ acting on the vagus would reduce firing in Nav1.1 neurons. Three
+conditions would have to hold on the same cells: the mechanotransducer *Piezo2*, the Gi effector
+genes a NOP receptor signals through (*Kcnj3/6/9*, *Gnai*, *Gnao*, *Cacna1b*), and the absence of
+the nociceptor programme as an internal negative control.
 
-**Only the negative control behaves.** The nociceptor programme runs against `Oprl1` across
-clusters — `Trpa1` rho = −0.68, `Trpv1` −0.66, `Scn10a` −0.63, all *q* < 0.03 — and `Trpv1` is
-below the matched null per cell. `Oprl1` is on A-fibres and off C-fibres, consistently, by two
-independent routes.
+![Mechanotransduction and Gi effector genes](figures/figure6_transduction_effector_genes.png)
 
-**`Piezo2` does not survive.** Cluster-level rho = 0.34 (*q* = 0.31), and per cell the odds ratio
-is 1.32 against a matched null of 1.19 — at chance. An earlier draft reported 2.00; that figure
-came from depth deciles computed over the whole atlas rather than within the nodose neurons being
-analysed. It is retracted. The stratum-granularity table
-(`results/vagal_or_stratum_stability.csv`) shows why the number was seductive: every odds ratio
-here rises monotonically as the stratification coarsens — `Piezo2` reads 1.32 at cluster ×
-depth-tercile, 1.53 at cluster × depth-median and 2.40 at cluster only. The 2.00 was an
-under-adjusted estimate, not a different biological result.
+The negative control behaves as required. The nociceptor programme runs against *Oprl1* across
+clusters, with *Trpa1* rho = -0.68, *Trpv1* -0.66 and *Scn10a* -0.63, all *q* below 0.03, and
+*Trpv1* falls below the matched null per cell. Two independent routes place *Oprl1* on Nav1.1
+neurons and away from the nociceptor population.
 
-**The co-expression table contains its own accidental negative control.** Fully adjusted, `Cckbr`
-scores **highest** of the three testable partners (1.47, against `Glp1r` 1.46 and `Cckar` 1.37) —
-a spread of 0.10 across all three. `Cckbr` is the gastrin/CCK-B receptor, not a vagal satiation
-receptor in the sense the other two are. A comparator landing on top is the matched-abundance
-null arriving by accident, and it says the residual ~1.4 is a floor rather than biology. The
-formal null agrees: median 1.13–1.36.
+*Piezo2* does not meet the condition. Cluster-level rho = 0.34 (*q* = 0.31), and per cell the odds
+ratio is 1.32 against a matched null of 1.19. An earlier draft reported 2.00; that figure came
+from depth deciles computed over the whole atlas rather than within the nodose neurons under
+analysis, and it is retracted. The stratum-granularity table
+(`results/vagal_or_stratum_stability.csv`) accounts for the difference: every odds ratio here
+rises as the stratification coarsens, and *Piezo2* reads 1.32 at cluster by depth-tercile, 1.53 at
+cluster by depth-median and 2.40 at cluster only. The 2.00 was an under-adjusted estimate of the
+same quantity.
 
-**The Gi effector module splits.** `Kcnj9` tracks `Oprl1` (rho = 0.68, *q* = 0.015) but the
-G-protein subunits run the other way — `Gnai2` −0.75, `Gnao1` −0.65, `Cacna1b` −0.52. There is no
-support for the effector arm co-localising with the receptor.
+The Gi effector genes divide. *Kcnj9* tracks *Oprl1* (rho = 0.68, *q* = 0.015) while the G-protein
+subunits run against it, with *Gnai2* at -0.75, *Gnao1* at -0.65 and *Cacna1b* at -0.52. The data
+does not establish co-expression of *Oprl1* with the effector genes.
 
-**So the anatomy is consistent with a brake on A-fibre transmission, and the mechanotransduction
-link specifically is not established.** The experiment is unchanged and is still worth doing:
-N/OFQ onto vagal afferents, measuring the mechanically evoked response — gastric or intestinal
-distension with nodose recording, wild-type against NOP knockout, or *ex vivo* with SB-612111.
+The experiment that would settle this applies N/OFQ to vagal afferents and measures the
+mechanically evoked response: gastric or intestinal distension with nodose recording, wild-type
+against NOP knockout, or *ex vivo* with SB-612111.
 
-### What survives of the clinical angle
+A convergent version of the clinical hypothesis remains open and requires no co-expression.
+GLP-1 receptor agonists act substantially by slowing gastric emptying, which raises distension and
+mechanoreceptor firing. N/OFQ that reduces mechanoreceptor firing would lower GLP-1RA efficacy by
+acting on a separate population whose output converges on the same afferent volley. This
+arrangement is consistent with everything measured here and is testable in the same *ex vivo*
+preparation.
 
-The cell-autonomous version is dead. A convergent version is not, and does not require
-co-expression at all. GLP-1 receptor agonists work substantially through slowed gastric emptying
-→ distension → mechanoreceptor firing. If N/OFQ damps mechanoreception, it can blunt GLP-1RA
-efficacy by acting on a *different* population whose output converges on the same afferent volley.
-That is a weaker anatomical requirement than anything tested above, it is consistent with
-everything here, and it is the same *ex vivo* experiment.
+## 6. The geniculate result concerns taste, and conflicts with existing behaviour data
 
-## 5b. The geniculate result is about taste, and there is a prior tension
-
-The strongest finding in this document — 5.73 against 0.18 FPKM, in 92 % of neurons, in both
-divisions — is in the gustatory ganglion, not the gut. Before building on it, a conflict in the
-existing literature has to be faced: NOP-knockout mice show unchanged taste reactivity to
+The strongest finding in this document, 5.73 against 0.18 FPKM in 92% of neurons across both
+divisions, is in the gustatory ganglion. NOP-knockout mice show unchanged taste reactivity to
 sucrose, and the reported diet-preference effects were argued to be independent of orosensory
-properties. A receptor that abundant with no reported gustatory phenotype is itself the question.
-Either the behavioural assays were too coarse for what `Oprl1` does here, or `Oprl1` is doing
-something in the geniculate other than modulating taste transmission — trophic support, axonal
-excitability, or modulation of the somatosensory rather than the gustatory division. This
-repository cannot distinguish those, and says so rather than assuming the first.
+properties. A receptor at this abundance with no reported gustatory phenotype requires an
+explanation. Either the behavioural assays lack the resolution for what *Oprl1* does in these
+neurons, or *Oprl1* serves a function other than modulating taste transmission: trophic support,
+axonal excitability, or action on the somatosensory rather than the gustatory division. This
+repository cannot distinguish these possibilities.
 
-## 6. The central relay
+## 7. *Oprl1* in the nucleus of the solitary tract
 
-`Oprl1` is expressed across all 25 NTS neuronal subtypes, highest in the glutamatergic Glu9
-(27.8 CPM, n = 1,155), Glu13 (22.6) and Glu7 (21.9). GSE166648 is a nuclear preparation, so its
-receptor *ordering* is not usable (see the supplement) and no peripheral-against-central
-comparison is made; the per-subtype `Oprl1` distribution is unaffected by that caveat.
+*Oprl1* is expressed across all 25 NTS neuronal subtypes, highest in the glutamatergic Glu9 at
+27.8 CPM (n = 1,155), Glu13 at 22.6 and Glu7 at 21.9. GSE166648 is a nuclear preparation, so the
+receptor ordering within it is unusable and no peripheral-to-central comparison is made. The
+per-subtype distribution is unaffected by that limitation.
 
 ![Oprl1 across NTS neuronal subtypes](figures/figure5_nts_oprl1.png)
 
@@ -281,28 +272,28 @@ comparison is made; the per-subtype `Oprl1` distribution is unaffected by that c
 ## Methods
 
 Levels are pseudobulk means per dataset: FPKM for GSE102443, mean per-cell CPM elsewhere.
-Transcript rows are summed to gene level, and a gene symbol on more than one annotation row has
-its rows summed rather than truncated to the first. Detection percentages are compared only
-within one dataset, never across assays.
+Transcript rows are summed to gene level, and a gene symbol appearing on more than one annotation
+row has its rows summed. Detection percentages are compared within one dataset only.
 
-Statistics, in `src/atlas_common.py`:
+Statistics are in `src/atlas_common.py`:
 
-- `receptor_rank()` — the ordering of the four receptors in one sample. Reports
-  `determinate = False` when every level is zero or the top two are tied.
-- `bootstrap_receptor_support()` — the fraction of 2,000 cell resamples in which the observed
-  top receptor stays top, plus a 95 % interval on the margin.
-- `stratified_odds_ratio()` — Mantel-Haenszel odds ratio holding capture depth, and separately
-  depth and cluster identity, fixed. Co-detection in droplet data is confounded by depth: a
-  cell detecting any gene tends to detect more genes overall, so a raw overlap percentage shows
-  an association whether or not one exists.
-- `transcriptome_percentile()`, `leave_one_out_pearson()` — supporting statistics.
+- `receptor_rank()` orders the four receptors in one sample and reports `determinate = False` when
+  every level is zero or the top two are tied.
+- `bootstrap_receptor_support()` gives the fraction of 2,000 cell resamples in which the observed
+  top receptor stays top, with a 95% interval on the margin.
+- `stratified_odds_ratio()` computes a Mantel-Haenszel odds ratio holding capture depth fixed, and
+  separately depth and cluster identity. Co-detection in droplet data is confounded by depth: a
+  cell detecting one gene tends to detect more genes overall, so a raw overlap percentage produces
+  an association independently of any biological one.
+- `cluster_depth_strata()` builds the stratum label. Depth quantiles are computed over the cells
+  under analysis, since quantiles set by a population including glia do not describe the neurons.
+- `transcriptome_percentile()` and `leave_one_out_pearson()` support the sections above.
 
-Each dataset passes `check_markers()` before any `Oprl1` number is read from it: `Snap25` and
-`Actb` are enforced, the tissue-specific markers are recorded. Preparation type is read from
-the NodoMap atlas's own `suspension_type` field and checked against the registry in
-`atlas_common.DATASETS`.
+Each dataset passes `check_markers()` before any *Oprl1* number is read from it. *Snap25* and
+*Actb* are enforced; the tissue-specific markers are recorded. Preparation type is read from the
+NodoMap `suspension_type` field and checked against the registry in `atlas_common.DATASETS`.
 
-Figures follow the idiom of the sibling PNOC-Nodose project (`src/atlas_style.py`).
+Figures follow the conventions of the sibling PNOC-Nodose project (`src/atlas_style.py`).
 
 ## Reproducing
 
@@ -313,48 +304,47 @@ bash src/00_download_data.sh                 # GEO + the NodoMap atlas, checksum
 python3 src/01_geniculate.py                 # GSE102443 + GSE135801
 python3 src/02_nodose.py                     # NodoMap atlas
 python3 src/03_nts.py                        # GSE166648, streamed and cached
-python3 src/04_synthesis.py                  # cross-tissue ranking + Figure S1
-python3 src/05_vagal_coexpression.py         # Oprl1 x Glp1r/Cckar
-python3 src/06_oprl1_localisation.py         # where Oprl1 sits: unbiased
-python3 src/07_mechanosensory_brake.py       # is the brake substrate present
-python3 src/08_specificity_controls.py       # matched null, group sizes, ambient check
+python3 src/04_synthesis.py                  # cross-tissue comparison + figure S1
+python3 src/05_vagal_coexpression.py         # Oprl1 against Glp1r and Cckar
+python3 src/06_oprl1_localisation.py         # annotations and transcriptome-wide correlation
+python3 src/07_transduction_effector_genes.py       # Piezo2, Gi effectors, nociceptor control
+python3 src/08_specificity_controls.py       # matched nulls, group sizes, ambient check
 python3 -m pytest tests -q                   # 33 unit tests
 ```
 
 | figure | contents |
 |---|---|
-| `figure1_geniculate_oprl1` | `Oprl1` per neuron by division, detection, opioid panel |
-| `figure2_nodose_oprl1` | `Oprl1` on the published UMAP, across 26 neuronal clusters, by dataset |
-| `figure3_oprl1_localisation` | `Oprl1` by organ, fibre type, sensor type, Nav class; top correlates |
-| `figure4_vagal_oprl1_satiation` | `Oprl1` against `Glp1r`/`Cckar`: UMAP, per cluster, odds ratios |
-| `figure5_nts_oprl1` | `Oprl1` in NTS neurons and across the 25 subtypes |
-| `figure6_mechanosensory_brake` | `Piezo2`, the Gi effector module, and the nociceptor control |
-| `figure3b_nav_class_counterexamples` | the four clusters that separate Nav class from fibre type |
-| `figureS4` | the matched null for every odds ratio, and the ambient check |
-| `figureS1`–`figureS3` | supplementary — see [`SUPPLEMENT.md`](SUPPLEMENT.md) |
+| `figure1_geniculate_oprl1` | receptor levels, per-neuron *Oprl1*, opioid panel |
+| `figure2_nodose_oprl1` | receptor levels, *Oprl1* across 21 nodose clusters, per dataset |
+| `figure3_oprl1_localisation` | *Oprl1* by annotation, and the transcriptome-wide scan |
+| `figure3b_nav_class_counterexamples` | the four clusters separating Nav class from fibre type |
+| `figure4_vagal_oprl1_satiation` | *Oprl1* against *Glp1r* and *Cckar* |
+| `figure5_nts_oprl1` | *Oprl1* in NTS neurons and across the 25 subtypes |
+| `figure6_transduction_effector_genes` | *Piezo2*, the Gi effector genes, the nociceptor control |
+| `figureS1`-`figureS4` | see [`SUPPLEMENT.md`](SUPPLEMENT.md) |
 
 | table | contents |
 |---|---|
-| `nodose_oprl1_by_cluster_annotated.csv` | per-cluster `Oprl1` with the atlas's annotations |
+| `nodose_oprl1_by_cluster_annotated.csv` | per-cluster *Oprl1* with the atlas annotations |
 | `nodose_oprl1_annotation_tests.csv` | Kruskal-Wallis over cluster means, per annotation |
-| `nav_gradient_matched_null.csv` | the Nav1.1/Nav1.8 cluster gradient against 550 matched genes |
-| `vagal_or_stratum_stability.csv` | every odds ratio at three stratum granularities |
 | `nodose_nav_fibre_crosstab.csv` | Nav class cross-stratified against fibre type |
+| `nav_gradient_matched_null.csv` | the Nav1.1/Nav1.8 cluster gradient against 550 matched genes |
 | `vagal_or_matched_null.csv` | every odds ratio against ~100 expression-matched control genes |
-| `nodose_top_correlates_ambient_check.csv` | top correlates scored neuron-vs-glia |
+| `vagal_or_stratum_stability.csv` | every odds ratio at three stratum granularities |
+| `nodose_top_correlates_ambient_check.csv` | top correlates scored neuron against glia |
 | `nodose_annotation_group_sizes.csv` | clusters per annotation level |
-| `vagal_brake_module_correlations.csv` | `Oprl1` against the transduction, Gi and nociceptor modules |
-| `vagal_piezo2_oprl1_coexpression.csv` | `Piezo2`/`Oprl1` co-detection, stratified |
-| `nodose_oprl1_by_annotation.csv` | `Oprl1` by organ projection, fibre type, sensor type, Nav class |
-| `nodose_oprl1_gene_correlations.csv` | every expressed gene correlated with `Oprl1` across clusters |
-| `vagal_oprl1_coexpression.csv` | co-detection and stratified odds ratios per partner gene |
-| `vagal_oprl1_satiation_by_cluster.csv` | `Oprl1` and the satiation panel per nodose cluster |
+| `nodose_oprl1_gene_correlations.csv` | every expressed gene correlated with *Oprl1* |
+| `vagal_oprl1_coexpression.csv` | co-detection and stratified odds ratios per partner |
+| `vagal_piezo2_oprl1_coexpression.csv` | *Piezo2* and *Oprl1* co-detection, stratified |
+| `vagal_gene_module_correlations.csv` | *Oprl1* against the three gene modules |
+| `vagal_oprl1_satiation_by_cluster.csv` | *Oprl1* and the satiation panel per cluster |
 | `vagal_cluster_level_correlation.csv` | cluster-level Spearman against each partner |
-| `oprl1_across_datasets.csv` | `Oprl1`'s rank among the four receptors, per dataset |
+| `nodose_oprl1_by_annotation.csv` | *Oprl1* by organ, fibre type, sensor type, Nav class |
+| `nodose_oprl1_by_cluster.csv` | *Oprl1* level and detection in each of the 52 clusters |
+| `oprl1_across_datasets.csv` | *Oprl1* position among the four receptors, per dataset |
 | `top_receptor_by_dataset.csv` | top receptor per dataset, with bootstrap support |
-| `nodose_oprl1_by_cluster.csv` | `Oprl1` level and detection in each of the 52 clusters |
-| `nts_by_subtype.csv` | `Oprl1` across the 25 NTS neuronal subtypes |
-| `geniculate_per_cell_GSE102443.csv` | per-cell `Oprl1` FPKM, split gustatory/somatosensory |
+| `nts_by_subtype.csv` | *Oprl1* across the 25 NTS neuronal subtypes |
+| `geniculate_per_cell_GSE102443.csv` | per-cell *Oprl1* FPKM, split gustatory/somatosensory |
 | `*_opioid_levels.csv`, `*_receptor_rank.csv`, `*_rank_support.csv` | per-tissue levels, ordering, support |
 
 ## Provenance

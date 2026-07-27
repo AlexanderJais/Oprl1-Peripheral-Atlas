@@ -1,21 +1,19 @@
-"""Is the substrate for a mechanosensory brake actually present on these neurons?
+"""Mechanotransduction and Gi effector genes against Oprl1.
 
-Section 3 of the README puts Oprl1 on the myelinated, Nav1.1+ vagal afferents —
-the mechanosensors. That yields a prediction: if N/OFQ acts on the vagus, it
-damps mechanosensory signalling rather than peptide-receptor signalling.
+Section 3 of the README places Oprl1 on Nav1.1 nodose neurons. If N/OFQ reduces
+firing in those cells, three conditions hold on the same neurons, and each is
+checkable in this atlas:
 
-A prediction of that shape needs three things to be true of the same neurons,
-and each is checkable in this atlas without any new experiment:
+  1. the mechanotransducer is present      Piezo2
+  2. the Gi effector genes are present     Kcnj3/6/9 (GIRK), Gnai, Gnao,
+                                           Cacna1b, which a Gi-coupled receptor
+                                           signals through
+  3. the nociceptor programme is absent    Trpv1, Trpa1, Scn10a
 
-  1. the mechanotransducer is there            Piezo2
-  2. the Gi effector machinery is there        Kcnj3/6/9 (GIRK), Gnai/Gnao,
-                                               Cacna1b — the channels a Gi-coupled
-                                               receptor actually works through
-  3. the nociceptor programme is NOT there     Trpv1, Trpa1, Scn10a
-
-Point 3 matters as much as the first two. If Oprl1 correlated with everything,
-these correlations would mean nothing; the nociceptor module is the internal
-negative control, and it should run the other way.
+Condition 3 carries as much weight as the other two. Oprl1 correlating with
+everything would make the first two uninformative, so the nociceptor module
+serves as the internal negative control and should run in the opposite
+direction.
 
 This script computes nothing new from the matrix: it reads the transcriptome-wide
 correlation produced by 06_oprl1_localisation.py and the cluster pseudobulk it
@@ -40,9 +38,9 @@ _nodose = __import__("02_nodose")
 _loc = __import__("06_oprl1_localisation")
 
 MODULES = {
-    "Mechanotransduction\n& myelinated identity":
+    "Mechanotransduction\n& large-soma identity":
         ["Piezo2", "Ntrk3", "Nefh", "Pvalb", "Adgrg6"],
-    "Gi effector machinery\n(how a NOP brake would act)":
+    "Gi effector genes\n(what a Gi receptor signals through)":
         ["Kcnj3", "Kcnj6", "Kcnj9", "Gnai1", "Gnai2", "Gnao1", "Cacna1b"],
     "Nociceptor programme\n(negative control)":
         ["Trpv1", "Trpa1", "Scn10a", "Scn9a"],
@@ -69,7 +67,7 @@ def main() -> int:
                          "q_value": float(r.q_value),
                          "mean_CPM": float(r.mean_CPM_across_clusters)})
     mod = pd.DataFrame(rows)
-    ac.save_table(mod, "vagal_brake_module_correlations.csv")
+    ac.save_table(mod, "vagal_gene_module_correlations.csv")
     print("\n  Correlation of each module gene with Oprl1 across nodose clusters:")
     for module in mod.module.unique():
         sub = mod[mod.module == module].sort_values("spearman_rho", ascending=False)
@@ -194,8 +192,8 @@ def figures(mod, piezo):
     ax.set_ylabel("Spearman rho with Oprl1\nacross the 21 nodose clusters",
                   fontsize=10)
     st.panel_letter(ax, "d", dx=-0.10)
-    ax.set_title("Oprl1 tracks the myelinated-identity genes and the GIRK channels, "
-                 "and runs against\nthe nociceptor programme and the G-protein subunits",
+    ax.set_title("Oprl1 tracks the GIRK channels and runs against the nociceptor "
+                 "programme\nand the G-protein subunits",
                  fontsize=11)
 
     # (e) the per-cell Piezo2 result
@@ -217,7 +215,7 @@ def figures(mod, piezo):
     st.panel_letter(ax, "e", dx=-0.28)
     ax.set_title("Per cell, holding cluster\nand depth fixed", fontsize=11)
 
-    st.save(fig, "figure6_mechanosensory_brake")
+    st.save(fig, "figure6_transduction_effector_genes")
 
 
 def _cluster_frame():
