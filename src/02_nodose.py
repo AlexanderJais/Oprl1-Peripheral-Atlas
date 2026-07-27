@@ -253,59 +253,73 @@ def main() -> int:
 
 
 def figures(adata, obs, counts, cpm_all, cluster, per_cluster, tbl):
+    """Mean expression, read straight off the axis. No ratios, no ranks."""
     st.set_theme()
-    umap = np.asarray(adata.obsm["X_umap"])
+    whole_cell = obs["suspension_type"].values == "cell"
+    is_nodose = (obs["cell_class"] == "Nodose ganglion neuron").values & whole_cell
 
-    # ---- Figure 2: Oprl1 across the atlas ---------------------------------
-    fig = plt.figure(figsize=(15.5, 5.6))
-    gs = fig.add_gridspec(1, 3, width_ratios=[1.0, 1.15, 0.95], wspace=0.32)
+    fig, axes = plt.subplots(1, 3, figsize=(16.5, 4.8),
+                             gridspec_kw={"width_ratios": [1.0, 2.1, 1.0]})
 
-    ax = fig.add_subplot(gs[0])
-    cmap, vmax = st.feature_plot(ax, umap, cpm_all["Oprl1"].values,
-                                 "Oprl1", point_size=0.7)
-    st.add_colorbar(fig, ax, cmap, vmax, label="Oprl1 (CPM)")
-    ax.set_title("(A) Oprl1 on the published NodoMap UMAP\n"
-                 f"{adata.n_obs:,} cells", fontsize=10)
+    # (a) The four opioid receptors in nodose neurons.
+    ax = axes[0]
+    vals = [float(cpm_all.loc[is_nodose, g].mean()) if g in cpm_all.columns else np.nan
+            for g in ac.RECEPTORS]
+    order = np.argsort(-np.array(vals))
+    st.expression_bars(ax, [vals[i] for i in order],
+                       [ac.RECEPTORS[i] for i in order],
+                       "Mean expression (CPM)", annotate=True)
+    st.panel_letter(ax, "a", dx=-0.28)
+    ax.set_title(f"Nodose neurons\n{is_nodose.sum():,} cells, whole-cell datasets",
+                 fontsize=11, pad=10)
 
-    ax = fig.add_subplot(gs[1])
-    neu = per_cluster[per_cluster.is_neuron]
-    st.ranked_bars(ax, neu.Oprl1_pct, neu.cluster,
-                   "% of cells expressing Oprl1",
-                   annotate=[f"{v:.1f} CPM" for v in neu.Oprl1_CPM], fontsize=7,
-                   threshold=30, threshold_label="NodoMap 30% positivity rule")
-    ax.set_title("(B) Oprl1 across the 26 neuronal clusters\n"
-                 "nodose (NGN) and jugular (JGN)", fontsize=10)
+    # (b) Oprl1 in every nodose cluster.
+    ax = axes[1]
+    ngn = per_cluster[per_cluster.cluster.str.startswith("NGN")] \
+        .sort_values("Oprl1_CPM", ascending=False)
+    st.expression_bars(ax, ngn.Oprl1_CPM.values, ngn.cluster.values,
+                       "Oprl1 (mean CPM)", italic=False, rotation=90, fontsize=11)
+    ax.axhline(float(cpm_all.loc[is_nodose, "Oprl1"].mean()), color="black",
+               lw=1.2, ls="--")
+    ax.text(len(ngn) - 0.4, float(cpm_all.loc[is_nodose, "Oprl1"].mean()),
+            " ganglion mean", fontsize=9, va="bottom", ha="right")
+    st.panel_letter(ax, "b", dx=-0.07)
+    ax.set_title("Oprl1 is expressed in every nodose cluster", fontsize=11, pad=10)
 
-    ax = fig.add_subplot(gs[2])
-    ds = tbl[(tbl.gene == "Oprl1") & tbl.dataset.str.contains(":")]
-    st.ranked_bars(ax, ds.mean_level, [d.replace("NodoMap:", "") for d in ds.dataset],
-                   "Oprl1 (mean CPM)",
-                   annotate=[f"{p}" for p in ds.prep], fontsize=8)
-    ax.set_title("(C) Oprl1 by constituent dataset", fontsize=10)
+    # (c) Oprl1 in each constituent whole-cell dataset.
+    ax = axes[2]
+    ds = tbl[(tbl.gene == "Oprl1") & tbl.dataset.str.contains(":")
+             & (tbl.prep == "whole cell")]
+    ds = ds.sort_values("mean_level", ascending=False)
+    st.expression_bars(ax, ds.mean_level.values,
+                       [d.replace("NodoMap:", "") for d in ds.dataset],
+                       "Oprl1 (mean CPM)", italic=False, annotate=True, fontsize=11)
+    st.panel_letter(ax, "c", dx=-0.28)
+    ax.set_title("Reproduces across all four\nwhole-cell datasets", fontsize=11, pad=10)
 
+    fig.tight_layout()
     st.save(fig, "figure2_nodose_oprl1")
 
-    # ---- Figure 3: the opioid panel across all 52 clusters ----------------
-    genes = [g for g in ac.OPIOID_GENES if g in counts.columns]
-    order = per_cluster.cluster.tolist()
-    idx = pd.Categorical(cluster, categories=order, ordered=True)
-    pct = st.percent_expressing(counts[genes], idx).loc[order]
-    lvl = st.mean_expression(cpm_all[genes], idx).loc[order]
-
-    # Colour on a log scale: Oprm1 and Penk reach two orders of magnitude above
-    # the rest, and on a linear scale they flatten every other row to one shade.
-    fig, ax = plt.subplots(figsize=(17.5, 3.6))
-    sc = st.dot_plot(ax, pct, np.log1p(lvl))
-    # Separate non-neuronal from neuronal clusters, as the sibling project does.
-    first_neuron = next(i for i, c in enumerate(order) if c.startswith(("JGN", "NGN")))
-    ax.axvline(first_neuron - 0.5, color="black", lw=0.8, ls="--")
-    ax.set_title("Opioid genes across all 52 NodoMap clusters "
-                 "(dot size = % of cells expressing)", fontsize=11)
-    cb = fig.colorbar(sc, ax=ax, fraction=0.015, pad=0.16, shrink=0.9)
-    cb.set_label("log(1 + mean CPM)", size=7)
-    cb.ax.tick_params(labelsize=6)
-    st.dot_size_legend(ax, values=(1, 5, 10, 20, 30))
-    st.save(fig, "figureS2_nodose_opioid_dotplot")
+    # ---- Supplementary: the full opioid panel, neurons against everything else
+    fig, axes = plt.subplots(1, 2, figsize=(11.0, 4.6), sharey=True)
+    for ax, (mask, title) in zip(axes, (
+            (is_nodose, f"Nodose neurons (n = {is_nodose.sum():,})"),
+            ((~obs["cell_class"].isin(NEURON_CLASSES).values) & whole_cell,
+             "Non-neuronal cells"))):
+        vals = [float(cpm_all.loc[mask, g].mean()) if g in cpm_all.columns else np.nan
+                for g in ac.OPIOID_GENES]
+        colours = [st.BAR_BLUE if g in ac.RECEPTORS else st.BAR_GREY
+                   for g in ac.OPIOID_GENES]
+        st.expression_bars(ax, vals, ac.OPIOID_GENES, "Mean expression (CPM)",
+                           colors=colours, annotate=True, fontsize=11)
+        ax.set_title(title, fontsize=11, pad=10)
+        ax.set_ylim(0, 17)
+    st.panel_letter(axes[0], "a", dx=-0.16)
+    st.panel_letter(axes[1], "b", dx=-0.10)
+    fig.suptitle("Opioid receptors (blue) are neuronal; the peptides (grey) are not",
+                 fontsize=12, y=1.02)
+    fig.tight_layout()
+    st.save(fig, "figureS2_nodose_opioid_panel")
 
 
 if __name__ == "__main__":

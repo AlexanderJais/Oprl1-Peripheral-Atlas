@@ -1,8 +1,7 @@
 # `Oprl1` — the dominant opioid receptor of peripheral sensory neurons
 
-The NOP receptor `Oprl1` is the highest-expressed opioid-family receptor in mouse peripheral
-sensory ganglia, and it sits on the vagal afferents that carry the satiation receptors `Glp1r`
-and `Cckar`.
+The NOP receptor `Oprl1` is the highest-expressed opioid-family receptor in mouse peripheral sensory ganglia,
+and within the vagus it marks the myelinated, Nav1.1+ mechanosensory afferents.
 
 | input | tissue | source |
 |---|---|---|
@@ -18,102 +17,112 @@ Data-quality analyses live in [`SUPPLEMENT.md`](SUPPLEMENT.md); the full code au
 
 ## 1. `Oprl1` is the highest-expressed opioid receptor, in both ganglia
 
-In all six whole-cell datasets, across two anatomically and functionally distinct ganglia,
-`Oprl1` ranks first among the four opioid receptors measured in the same cells
-(`results/top_receptor_by_dataset.csv`).
+Mean expression of the four opioid-family receptors, measured in the same cells, in each
+dataset's own unit (`results/*_opioid_levels.csv`):
 
-`support` is the fraction of 2,000 cell bootstrap resamples in which the top receptor stays
-top. It is reported because a 1.8 % lead and a 592 % lead are otherwise printed identically:
-
-| dataset | tissue | `Oprl1` | runner-up | margin | bootstrap support |
+| dataset | tissue | `Oprl1` | `Oprm1` | `Oprd1` | `Oprk1` |
 |---|---|---|---|---|---|
-| GSE102443 | geniculate | 5.73 FPKM | `Oprk1` 0.83 | **6.92×** | 1.00 |
-| GSE135801 | geniculate | 18.98 CPM | `Oprd1` 4.72 | **4.02×** | 0.98 |
-| NodoMap:Zhao | nodose/jugular | 11.98 CPM | `Oprm1` 10.11 | 1.19× | 1.00 |
-| NodoMap:Bai | nodose/jugular | 11.84 CPM | `Oprm1` 9.33 | 1.27× | 0.97 |
-| NodoMap:Kupari | nodose/jugular | 11.09 CPM | `Oprk1` 8.36 | 1.33× | 0.94 |
-| NodoMap:Buchanan | nodose/jugular | 9.59 CPM | `Oprm1` 9.43 | 1.02× | **0.54** |
+| GSE102443 (FPKM) | geniculate | **5.73** | 0.18 | 0.31 | 0.83 |
+| GSE135801 (CPM) | geniculate | **18.98** | 0.01 | 4.72 | 3.61 |
+| NodoMap, nodose neurons (CPM) | nodose | **11.90** | 9.86 | 0.13 | 4.63 |
+| GSE166648, NTS neurons (CPM) | NTS | 15.79 | 118.04 | 9.62 | 11.75 |
 
-**The geniculate result is the strong one.** In the deep full-length data `Oprl1` is roughly an
-order of magnitude above every other opioid receptor — 5.73 FPKM against `Oprk1` 0.83, `Oprd1`
-0.31 and `Oprm1` 0.18 — and the ordering reproduces on an independent platform (GSE135801:
-`Oprl1` 18.98 CPM against `Oprd1` 4.72, `Oprk1` 3.61, `Oprm1` 0.01).
+**In the geniculate ganglion `Oprl1` is roughly an order of magnitude above every other opioid
+receptor** — 5.73 FPKM against `Oprk1` 0.83, `Oprd1` 0.31 and `Oprm1` 0.18 — and the same
+pattern appears on an independent platform in an independent laboratory (GSE135801).
 
-**In the nodose the lead is real but narrow.** `Oprl1` is first in all four whole-cell nodose
-datasets, but by 19–33 % rather than by an order of magnitude, and in Buchanan the margin is
-1.8 % — an ordering that survives resampling only 54 % of the time and should be read as
-"`Oprl1` and `Oprm1` are level", not as a fourth independent win.
+![Oprl1 in the geniculate ganglion](figures/figure1_geniculate_oprl1.png)
 
-Rank is the only receptor statistic compared across datasets: the four receptors are measured
-on the same cells with the same chemistry, so their ordering transfers even where the absolute
-units (FPKM against CPM) do not.
+**In the nodose ganglion `Oprl1` is again the highest, at 11.9 CPM,** ahead of `Oprm1` (9.86),
+`Oprk1` (4.63) and `Oprd1` (0.13), and it reproduces in each of the four whole-cell datasets
+independently (11.98, 11.84, 11.09, 9.59 CPM).
 
-![Oprl1 against the other opioid receptors](figures/figure5_oprl1_receptor_ranking.png)
+![Oprl1 across the NodoMap atlas](figures/figure2_nodose_oprl1.png)
 
-> The two single-nucleus datasets rank `Oprm1` first. That is a preparation artefact — nuclear
+The nodose lead over `Oprm1` is real but narrow. Resampling the cells 2,000 times, `Oprl1`
+stays highest in 100 %, 97 % and 94 % of resamples in Zhao, Bai and Kupari, but in only 54 % in
+Buchanan, where the two differ by 1.8 % (`results/*_rank_support.csv`). Buchanan should be read
+as "`Oprl1` and `Oprm1` are level", not as a fourth independent win. The geniculate datasets
+carry the claim; the nodose datasets are consistent with it.
+
+The eight-dataset version of this comparison is [`figureS3`](SUPPLEMENT.md).
+
+> The two single-nucleus datasets put `Oprm1` first. That is a preparation artefact — nuclear
 > preparations retain unspliced pre-mRNA and `Oprm1` spans 250 kb against `Oprl1`'s 6 kb — and
-> is documented in [`SUPPLEMENT.md`](SUPPLEMENT.md#figure-s1--nuclear-preparation-inverts-the-opioid-receptor-ordering).
-> They are excluded from the claim above.
+> is documented in [`SUPPLEMENT.md`](SUPPLEMENT.md). They carry no claim here.
 
 ## 2. `Oprl1` is expressed across the whole population, not by a subtype
 
 **Geniculate.** Detected in 92 % of the 96 neurons in the deep dataset, at indistinguishable
 levels in both divisions of the ganglion: gustatory (Phox2b+) 6.29 FPKM (n = 61),
-somatosensory (Phox2b−) 4.77 FPKM (n = 35). It is pan-geniculate, not a subtype marker.
-
-![Oprl1 in the geniculate ganglion](figures/figure1_geniculate_oprl1.png)
+somatosensory (Phox2b−) 4.77 FPKM (n = 35) — figure 1b. It is pan-geniculate, not a subtype
+marker.
 
 **Nodose and jugular.** Present in every one of the 26 neuronal clusters, from 27.7 % of cells
 in NGN14 down to 0.8 % in NGN5, and near-absent from the non-neuronal compartment (log2
 neuronal enrichment **+3.53**, comparable to `Oprk1` +3.49 and `Oprm1` +3.24, far above `Oprd1`
-+1.62). The top clusters are NGN14 (43.5 CPM), NGN17 (31.7), NGN6 (30.5) and NGN19 (30.3).
++1.62). The top clusters are NGN14 (43.5 CPM), NGN17 (31.7), NGN6 (30.5) and NGN19 (30.3) —
+figure 2b.
 
-![Oprl1 across the NodoMap atlas](figures/figure2_nodose_oprl1.png)
+## 3. `Oprl1` marks the myelinated, Nav1.1+ mechanosensory vagal afferents
 
-## 3. `Oprl1` sits on the `Glp1r` and `Cckar` afferents
+The NodoMap authors annotated every nodose neuron by organ projection, fibre type, sensor type
+and sodium-channel class. `Oprl1` expression is not spread evenly across them
+(`results/nodose_oprl1_by_annotation.csv`, nodose neurons, whole-cell datasets, n = 26,047):
 
-This is the result the project was built for.
+| annotation | high | low | fold |
+|---|---|---|---|
+| **sodium channel** | **Nav1.1  27.0 CPM** | Nav1.8  6.8 CPM | **4.0×** |
+| **fibre type** | **Myelinated  23.1 CPM** | Unmyelinated  4.5 CPM | **5.1×** |
+| **sensor type** | **Mechanosensor  18.7 CPM** | Nocisensor  9.3 CPM | 2.0× |
+| organ projection | Pancreas 25.2, Duodenum 19.6 | Jejunum/Ileum 5.3 | 4.8× |
 
-The orexigenic effect of N/OFQ is well established — ICV nociceptin drives feeding and weight
-gain, NOP knockouts eat less, the antagonist SB-612111 suppresses intake on a high-fat diet —
-and that literature attributes it to hypothalamic sites. If Gi-coupled `Oprl1` is expressed by
-the same nodose neurons that carry the excitatory satiation receptors `Glp1r` and `Cckar`, then
-the NOP receptor is positioned as a cell-autonomous brake on the first synapse of the gut–brain
-axis, upstream of anything hypothalamic, and on the same cells GLP-1 receptor agonists act on.
+Every one of those splits points the same way. **`Oprl1` is a receptor of the large-diameter,
+myelinated, Nav1.1-expressing A-fibre vagal mechanosensors — not of the unmyelinated,
+Nav1.8-expressing C-fibre nociceptors.** These are the tension and stretch receptors of the gut
+wall, the afferents that signal gastric and intestinal distension.
 
-Whole-cell datasets, nodose neurons only (n = 26,047). `results/vagal_oprl1_coexpression.csv`:
+![Where Oprl1 sits](figures/figure3_oprl1_localisation.png)
 
-| partner | partner+ cells | `Oprl1`+ among partner+ | `Oprl1`+ among partner− | crude OR | + depth | **+ depth + cluster** | *p* |
-|---|---|---|---|---|---|---|---|
-| `Glp1r` | 2,826 | **15.8 %** | 8.3 % | 2.06 | 1.71 | **1.46** | 6×10⁻⁵ |
-| `Cckar` | 8,825 | **12.8 %** | 7.3 % | 1.88 | 1.58 | **1.37** | 1×10⁻⁷ |
-| `Cckbr` | 1,562 | 14.6 % | 8.8 % | 1.78 | 1.40 | **1.47** | 4×10⁻⁵ |
+**This was not assumed — it falls out of an unbiased transcriptome-wide scan.** Pseudobulk mean
+CPM was computed for all 54,640 genes in each of the 21 nodose clusters, and every gene
+correlated with `Oprl1` across those clusters; 2,149 of 16,380 expressed genes reach FDR < 5 %
+(`results/nodose_oprl1_gene_correlations.csv`). The top correlates are the transcriptional
+signature of myelinated afferents — `Adgrg6`/*Gpr126*, the receptor required for Schwann-cell
+myelination (rho = 0.88), alongside `Chgb` (0.90), `Ptn` (0.89), `Rph3a` (0.88), `Cacng5`
+(0.86), `Atp1b1` (0.86) and `Lsamp` (0.84).
 
-**Two neurons of the same cluster, sequenced to the same depth: the one expressing `Glp1r` is
-1.46× more likely to also express `Oprl1`.** The attenuation from 2.06 to 1.46 is the point of
-the analysis — part of the crude association is capture depth, part is cluster composition, and
-what survives both is a real within-cluster association.
+## 4. The satiation receptors are not among them
 
-![Oprl1 and the satiation receptors](figures/figure3_vagal_oprl1_satiation.png)
+The hypothesis this project was built to test was that `Oprl1` sits on the `Glp1r` and `Cckar`
+afferents, which would place a Gi-coupled brake on the first synapse of the gut–brain axis.
+**In this atlas it does not, at the population level.** In the same unbiased ranking:
 
-**What this does not show.** `Oprl1` is not a marker of the satiation-receptor populations.
-Across the 21 nodose clusters there is no correlation between the fraction expressing `Oprl1`
-and the fraction expressing `Glp1r` (Spearman rho = 0.01, *p* = 0.97) or `Cckar` (rho = −0.14,
-*p* = 0.53). The `Glp1r`-high clusters NGN20 and NGN21 are mid-range for `Oprl1`; the
-`Oprl1`-high cluster NGN14 is `Glp1r`-low. The association is within clusters, not between
-them.
+| gene | Spearman rho with `Oprl1` | *q* | rank among 16,380 genes |
+|---|---|---|---|
+| `Glp1r` | +0.13 | 0.74 | 8,461 |
+| `Cckbr` | +0.11 | 0.79 | 8,828 |
+| `Cckar` | −0.06 | 0.90 | 11,270 |
 
-**The defensible claim is therefore the narrow one:** a substantial minority of GLP-1R and
-CCK-A vagal afferents co-express the NOP receptor — at least 15.8 % and 12.8 % by raw
-co-detection, which are floors given droplet dropout — and they do so more often than their
-same-cluster, same-depth neighbours. That is enough for the anatomical substrate of a
-cell-autonomous brake to exist on these neurons. It is not evidence that the brake is engaged,
-and this repository tests no functional prediction.
+All three sit in the middle of the distribution. The `Glp1r`-high clusters NGN20 and NGN21 are
+mid-range for `Oprl1`; the `Oprl1`-high cluster NGN14 is `Glp1r`-low.
 
-`Calcr` is not detected in a single nodose neuron here, and `Gfral` (5 cells) and `Gipr` (19)
-are effectively absent, so no statement is made about them.
+What does survive is a weaker, cell-level association. Holding cluster identity and capture
+depth fixed, a nodose neuron expressing `Glp1r` is 1.46× more likely to also express `Oprl1`
+than its neighbours (Mantel–Haenszel, *p* = 6×10⁻⁵; `Cckar` 1.37×, *p* = 1×10⁻⁷). By raw
+co-detection, 15.8 % of `Glp1r`+ and 12.8 % of `Cckar`+ nodose neurons carry `Oprl1` — floors,
+given droplet dropout.
 
-## 4. The central relay
+![Oprl1 and the satiation receptors](figures/figure4_vagal_oprl1_satiation.png)
+
+**So the honest reading is that the brake is on the mechanosensory arm, not the peptide-receptor
+arm.** A minority of GLP-1R and CCK-A afferents do carry NOP, but `Oprl1` is not a marker of
+those populations; it is a marker of the myelinated mechanosensors that signal distension. If
+N/OFQ acts on vagal afferents at all, the prediction from this data is that it damps
+mechanosensory satiation signalling, and that is a testable and more specific claim than the one
+the project started with.
+
+## 5. The central relay
 
 `Oprl1` is expressed across all 25 NTS neuronal subtypes, highest in the glutamatergic Glu9
 (27.8 CPM, n = 1,155), Glu13 (22.6) and Glu7 (21.9). GSE166648 is a nuclear preparation, so its
@@ -161,6 +170,7 @@ python3 src/02_nodose.py                     # NodoMap atlas
 python3 src/03_nts.py                        # GSE166648, streamed and cached
 python3 src/04_synthesis.py                  # cross-tissue ranking + Figure S1
 python3 src/05_vagal_coexpression.py         # Oprl1 x Glp1r/Cckar
+python3 src/06_oprl1_localisation.py         # where Oprl1 sits: unbiased
 python3 -m pytest tests -q                   # 33 unit tests
 ```
 
@@ -168,13 +178,15 @@ python3 -m pytest tests -q                   # 33 unit tests
 |---|---|
 | `figure1_geniculate_oprl1` | `Oprl1` per neuron by division, detection, opioid panel |
 | `figure2_nodose_oprl1` | `Oprl1` on the published UMAP, across 26 neuronal clusters, by dataset |
-| `figure3_vagal_oprl1_satiation` | `Oprl1` against `Glp1r`/`Cckar`: UMAP, per cluster, odds ratios |
-| `figure4_nts_oprl1` | `Oprl1` across the 25 NTS neuronal subtypes |
-| `figure5_oprl1_receptor_ranking` | `Oprl1` against the other three receptors, every dataset |
-| `figureS1`, `figureS2` | supplementary — see [`SUPPLEMENT.md`](SUPPLEMENT.md) |
+| `figure3_oprl1_localisation` | `Oprl1` by organ, fibre type, sensor type, Nav class; top correlates |
+| `figure4_vagal_oprl1_satiation` | `Oprl1` against `Glp1r`/`Cckar`: UMAP, per cluster, odds ratios |
+| `figure5_nts_oprl1` | `Oprl1` in NTS neurons and across the 25 subtypes |
+| `figureS1`–`figureS3` | supplementary — see [`SUPPLEMENT.md`](SUPPLEMENT.md) |
 
 | table | contents |
 |---|---|
+| `nodose_oprl1_by_annotation.csv` | `Oprl1` by organ projection, fibre type, sensor type, Nav class |
+| `nodose_oprl1_gene_correlations.csv` | every expressed gene correlated with `Oprl1` across clusters |
 | `vagal_oprl1_coexpression.csv` | co-detection and stratified odds ratios per partner gene |
 | `vagal_oprl1_satiation_by_cluster.csv` | `Oprl1` and the satiation panel per nodose cluster |
 | `vagal_cluster_level_correlation.csv` | cluster-level Spearman against each partner |

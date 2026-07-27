@@ -95,6 +95,77 @@ def mean_expression(expr: pd.DataFrame, groups) -> pd.DataFrame:
 # Figure primitives
 # ---------------------------------------------------------------------------
 
+# Every main-text panel is a bar of mean expression in the unit the dataset was
+# measured in, or a violin of the per-cell values behind it. No ratios, no ranks,
+# no dot plots: the reader should be able to read the number off the axis.
+BAR_BLUE = "#1F7FEF"
+BAR_GREY = "#BFBFBF"
+HIGHLIGHT = "#D62728"
+
+
+def panel_letter(ax, letter, dx=-0.16, dy=1.06):
+    ax.text(dx, dy, letter, transform=ax.transAxes, fontsize=19,
+            fontweight="bold", va="top", ha="left")
+
+
+def expression_bars(ax, values, labels, ylabel, colors=None, nd_mask=None,
+                    italic=True, rotation=45, annotate=False, fontsize=13):
+    """Mean expression per gene, in the dataset's own unit.
+
+    `nd_mask` marks genes that were measured and not detected; they get an
+    "n.d." tick rather than a zero-height bar, so an undetected gene cannot be
+    mistaken for a missing one.
+    """
+    v = np.asarray(values, dtype=float)
+    x = np.arange(len(v))
+    if colors is None:
+        colors = [BAR_BLUE] * len(v)
+    ax.bar(x, np.nan_to_num(v), color=colors, edgecolor="black", linewidth=1.4,
+           width=0.68, zorder=3)
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels, rotation=rotation, ha="right", fontsize=fontsize,
+                       fontstyle="italic" if italic else "normal")
+    ax.set_ylabel(ylabel, fontsize=fontsize)
+    ax.tick_params(axis="y", labelsize=fontsize - 1)
+    top = float(np.nanmax(v)) if np.isfinite(v).any() else 1.0
+    ax.set_ylim(0, top * 1.15)
+    if nd_mask is not None:
+        for i, nd in enumerate(nd_mask):
+            if nd:
+                ax.text(i, top * 0.02, "n.d.", ha="center", va="bottom",
+                        fontsize=fontsize - 3)
+    if annotate:
+        for i, val in enumerate(v):
+            if np.isfinite(val):
+                ax.text(i, val + top * 0.02, f"{val:.2f}".rstrip("0").rstrip("."),
+                        ha="center", va="bottom", fontsize=fontsize - 3)
+    return ax
+
+
+def violin_points(ax, groups, values_by_group, ylabel, color=BAR_BLUE,
+                  fontsize=13, seed=0):
+    """Violin + every individual cell + a median bar, as in the geniculate figure."""
+    data = [np.asarray(values_by_group[g], dtype=float) for g in groups]
+    parts = ax.violinplot(data, positions=range(len(groups)), widths=0.8,
+                          showextrema=False, showmedians=False)
+    for body in parts["bodies"]:
+        body.set_facecolor(color)
+        body.set_alpha(0.45)
+        body.set_edgecolor("#555555")
+        body.set_linewidth(1.0)
+    rng = np.random.default_rng(seed)
+    for i, v in enumerate(data):
+        ax.scatter(i + rng.uniform(-0.11, 0.11, v.size), v, s=26, color=color,
+                   edgecolors="black", linewidths=0.6, zorder=3, alpha=0.95)
+        ax.hlines(np.median(v), i - 0.34, i + 0.34, color="black", lw=3.0, zorder=4)
+    ax.set_xticks(range(len(groups)))
+    ax.set_xticklabels(groups, fontsize=fontsize)
+    ax.set_ylabel(ylabel, fontsize=fontsize)
+    ax.tick_params(axis="y", labelsize=fontsize - 1)
+    ax.set_xlim(-0.6, len(groups) - 0.4)
+    return ax
+
+
 def ranked_bars(ax, values, labels, xlabel, cmap="viridis", threshold=None,
                 threshold_label=None, annotate=None, fontsize=8):
     """One gene across many groups, sorted high to low, viridis-coloured.

@@ -201,8 +201,8 @@ def main() -> int:
 def figures(adata, obs, counts, detected, cpm, per_cluster, co, corr,
             is_nodose, whole_cell, cluster):
     st.set_theme()
-    fig = plt.figure(figsize=(16.5, 9.2))
-    gs = fig.add_gridspec(2, 3, height_ratios=[1.0, 1.0], hspace=0.42, wspace=0.52)
+    fig = plt.figure(figsize=(16.5, 8.4))
+    gs = fig.add_gridspec(2, 3, height_ratios=[1.0, 1.0], hspace=0.48, wspace=0.42)
 
     # (A) UMAP: where the double-positive cells are.
     ax = fig.add_subplot(gs[0, 0])
@@ -221,7 +221,7 @@ def figures(adata, obs, counts, detected, cpm, per_cluster, co, corr,
     ax.set_aspect("equal")
     ax.axis("off")
     ax.legend(loc="lower left", fontsize=6.5, markerscale=6, handletextpad=0.2)
-    ax.set_title("(A) Oprl1 and Glp1r co-detection\nnodose neurons on the NodoMap UMAP",
+    ax.set_title("(a) Oprl1 and Glp1r co-detection\nnodose neurons on the NodoMap UMAP",
                  fontsize=10)
 
     # (B) and (C) cluster-level agreement, the dropout-robust view.
@@ -237,29 +237,14 @@ def figures(adata, obs, counts, detected, cpm, per_cluster, co, corr,
         rho = corr.set_index("partner").loc[partner]
         ax.set_xlabel(f"% of cells expressing {partner}", fontsize=8.5)
         ax.set_ylabel("% of cells expressing Oprl1", fontsize=8.5)
-        ax.set_title(f"({'BC'[j]}) Oprl1 against {partner}, per nodose cluster\n"
+        ax.set_title(f"({'bc'[j]}) Oprl1 against {partner}, per nodose cluster\n"
                      f"Spearman rho = {rho.spearman_rho:.2f}, "
                      f"p = {rho.p_value:.1e} (n = {int(rho.n_clusters)})", fontsize=10)
-
-    # (D) dot plot: Oprl1 beside the satiation panel, across nodose clusters.
-    ax = fig.add_subplot(gs[1, :2])
-    order = per_cluster.cluster.tolist()
-    m = whole_cell & np.isin(cluster, order)
-    idx = pd.Categorical(cluster[m], categories=order, ordered=True)
-    genes = [x for x in GENES if x in counts.columns]
-    pct = st.percent_expressing(counts.loc[m, genes], idx).loc[order]
-    lvl = st.mean_expression(cpm.loc[m, genes], idx).loc[order]
-    sc = st.dot_plot(ax, pct, np.log1p(lvl), xtick_fontsize=8)
-    ax.set_title("(D) Oprl1 and the satiation receptors across nodose clusters",
-                 fontsize=10)
-    cb = fig.colorbar(sc, ax=ax, fraction=0.012, pad=0.01, shrink=0.8)
-    cb.set_label("log(1 + mean CPM)", size=7)
-    cb.ax.tick_params(labelsize=6)
 
     # (E) The same association under three levels of control. The crude value is
     # inflated by capture depth and by cluster composition; what survives both is
     # the number the claim rests on.
-    ax = fig.add_subplot(gs[1, 2])
+    ax = fig.add_subplot(gs[1, :])
     d = co[(co.population == "nodose")
            & co.cluster_depth_stratified_OR.notna()].copy()
     d = d.sort_values("cluster_depth_stratified_OR")
@@ -286,10 +271,10 @@ def figures(adata, obs, counts, detected, cpm, per_cluster, co, corr,
                 f"p = {rr.p_value_cluster_depth:.0e}", fontsize=6.5,
                 ha="left", va="center", color="#B2182B")
     ax.legend(fontsize=6.5, loc="lower right", markerscale=0.9)
-    ax.set_title("(E) The association survives depth and cluster control",
+    ax.set_title("(d) The association survives depth and cluster control",
                  fontsize=10)
 
-    st.save(fig, "figure3_vagal_oprl1_satiation")
+    st.save(fig, "figure4_vagal_oprl1_satiation")
 
 
 if __name__ == "__main__":

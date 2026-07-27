@@ -177,68 +177,33 @@ def figures(ranks, top, oprl1, v, r, loo, r_both):
 
 
 def main_figure(ranks, oprl1):
-    """Oprl1 against the other three opioid receptors, in every dataset."""
-    fig, axes = plt.subplots(1, 2, figsize=(13.0, 4.8),
-                             gridspec_kw={"width_ratios": [1.0, 1.25]})
+    """The four opioid receptors in every dataset, in each dataset's own unit.
 
-    # (A) Where Oprl1 sits among the four receptors, dataset by dataset.
-    ax = axes[0]
-    ordinal = {1: "1st", 2: "2nd", 3: "3rd", 4: "4th"}
-    y = np.arange(len(ORDER))
-    o = oprl1.set_index("dataset")
-    for i, ds in enumerate(ORDER):
-        rank = int(o.loc[ds, "rank_of_4"])
-        tissue = ac.TISSUE_OF[ds]
-        colour = (st.TISSUE_COLORS["nodose"] if tissue.startswith("nodose")
-                  else st.TISSUE_COLORS.get(tissue.split(" ")[0], "#08306B"))
-        ax.barh(i, 5 - rank, color=colour, edgecolor="black", linewidth=0.5,
-                hatch=st.PREP_HATCH[ac.PREP[ds]])
-        # Bootstrap support belongs next to the rank: Buchanan's "1st" is a
-        # coin flip and must not read like Zhao's.
-        sup = o.loc[ds, "support"]
-        note = ordinal[rank] + ("" if not np.isfinite(sup) else f"   support {sup:.2f}")
-        ax.text(5 - rank + 0.08, i, note, va="center", fontsize=7.5,
-                color="#B2182B" if np.isfinite(sup) and sup < 0.95 else "black")
-    ax.set_yticks(y)
-    ax.set_yticklabels([f"{d}  ({ac.PREP[d]})" for d in ORDER], fontsize=7.5)
-    ax.invert_yaxis()
-    ax.set_xticks([1, 2, 3, 4])
-    ax.set_xticklabels(["4th", "3rd", "2nd", "1st"])
-    ax.set_xlim(0, 6.6)
-    ax.set_xlabel("Oprl1's rank among the four opioid receptors", fontsize=8.5)
-    ax.set_title("(A) Oprl1 leads in every whole-cell dataset\n"
-                 "hatched = nuclear prep; red = bootstrap support < 0.95",
-                 fontsize=10)
-
-    # (B) The four receptors side by side, each dataset scaled to its own top
-    # receptor. Units differ between datasets, so only the within-column
-    # comparison is meaningful; that is the comparison the panel is for.
-    ax = axes[1]
-    wc_sets = [d for d in ORDER if ac.PREP[d] == "whole cell"]
-    colour = {"Oprl1": "#B2182B", "Oprm1": "#08306B",
-              "Oprd1": "#6BAED6", "Oprk1": "#BDBDBD"}
-    width = 0.2
-    x = np.arange(len(wc_sets))
-    for k, g in enumerate(ac.RECEPTORS):
-        vals = []
-        for ds in wc_sets:
-            row = ranks[(ranks.dataset == ds) & (ranks.gene == g)]
-            top_lvl = ranks[(ranks.dataset == ds)]["level"].max()
-            vals.append(float(row["level"].iloc[0]) / top_lvl if len(row) and top_lvl > 0
-                        else np.nan)
-        ax.bar(x + (k - 1.5) * width, vals, width, label=g, color=colour[g],
-               edgecolor="black", linewidth=0.4)
-    ax.set_xticks(x)
-    ax.set_xticklabels([d.replace("NodoMap:", "") for d in wc_sets],
-                       rotation=30, ha="right", fontsize=8)
-    ax.set_ylabel("level, relative to the top receptor\nin that dataset", fontsize=8.5)
-    ax.legend(fontsize=7.5, ncol=4, loc="upper center", bbox_to_anchor=(0.5, 1.02))
-    ax.set_ylim(0, 1.28)
-    ax.set_title("(B) The four opioid receptors in the six whole-cell datasets\n"
-                 "geniculate (left) and nodose/jugular (right)", fontsize=10)
-
+    Eight small panels rather than one composite: units differ between datasets,
+    so the only honest comparison is down a panel, and each panel is labelled
+    with the unit it is in.
+    """
+    fig, axes = plt.subplots(2, 4, figsize=(15.0, 7.6))
+    unit = {"GSE102443": "FPKM"}
+    for ax, ds in zip(axes.ravel(), ORDER):
+        sub = ranks[ranks.dataset == ds].set_index("gene")
+        vals = [float(sub.loc[g, "level"]) if g in sub.index else np.nan
+                for g in ac.RECEPTORS]
+        order = np.argsort(-np.array(vals))
+        colours = [st.BAR_BLUE if ac.RECEPTORS[i] == "Oprl1" else st.BAR_GREY
+                   for i in order]
+        st.expression_bars(ax, [vals[i] for i in order],
+                           [ac.RECEPTORS[i] for i in order],
+                           f"Mean expression ({unit.get(ds, 'CPM')})",
+                           colors=colours, annotate=True, fontsize=10)
+        prep = ac.PREP[ds]
+        ax.set_title(f"{ds}\n{ac.TISSUE_OF[ds]}, {prep}", fontsize=10,
+                     color="#B2182B" if prep == "nuclear" else "black", pad=8)
+    fig.suptitle("Oprl1 (blue) is the highest-expressed opioid receptor in every "
+                 "whole-cell dataset\nthe two nuclear preparations (red titles) "
+                 "invert this — see SUPPLEMENT.md", fontsize=12, y=1.03)
     fig.tight_layout()
-    st.save(fig, "figure5_oprl1_receptor_ranking")
+    st.save(fig, "figureS3_all_datasets_receptors")
 
 
 def supplementary_figure(v, r, loo, r_both):

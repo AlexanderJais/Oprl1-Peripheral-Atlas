@@ -58,19 +58,23 @@ receptor switch.
 
 ---
 
-## Figure S2 — the full opioid panel across all 52 NodoMap clusters
+## Figure S2 — the opioid panel in neurons and non-neuronal cells
 
-![Opioid panel across NodoMap clusters](figures/figureS2_nodose_opioid_dotplot.png)
+![Opioid panel, neurons against non-neuronal cells](figures/figureS2_nodose_opioid_panel.png)
 
-The complete eight-gene opioid panel across every cluster in the atlas, neuronal and
-non-neuronal, in the same dot-plot idiom as the sibling PNOC-Nodose project. Dot size is the
-percentage of cells expressing; colour is log(1 + mean CPM). The dashed line separates the
-non-neuronal clusters (left) from the jugular and nodose neurons (right).
-
-This is the context for the main-text statement that `Oprl1` is neuron-enriched: essentially
-all of the opioid receptor signal in this ganglion sits to the right of that line. `Penk` is
-the exception and is largely a fibroblast transcript (FB1–FB4, MGC5), which is why its neuronal
+Mean expression of all eight opioid genes in nodose neurons and in the non-neuronal cells of
+the same ganglion, whole-cell datasets only. This is the context for the main-text statement
+that `Oprl1` is neuron-enriched: the four receptors (blue) are essentially neuronal, while
+`Penk` runs the other way and is largely a fibroblast transcript, which is why its neuronal
 enrichment is negative.
+
+## Figure S3 — the four receptors in all eight datasets
+
+![All datasets](figures/figureS3_all_datasets_receptors.png)
+
+The comparison from README section 1, extended to every dataset including the two nuclear ones,
+each panel in its own unit. `Oprl1` (blue) is highest in all six whole-cell datasets. The two
+nuclear preparations (red titles) put `Oprm1` first, for the reason given in Figure S1.
 
 ---
 

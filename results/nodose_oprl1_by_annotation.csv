@@ -1,0 +1,16 @@
+annotation,level,n_cells,Oprl1_CPM,Oprl1_pct
+Organ projection,Broad projection,15767,10.407,8.04
+Organ projection,Gut,7318,11.732,8.65
+Organ projection,Pancreas,1352,25.181,18.64
+Organ projection,Duodenum,806,19.608,17.87
+Organ projection,Heart,612,15.092,11.44
+Organ projection,Jejunum/Ileum,192,5.277,6.25
+Fibre type,Lightly myelinated,12101,16.373,12.14
+Fibre type,Unmyelinated,11327,4.536,3.96
+Fibre type,Myelinated,2619,23.11,17.56
+Sensor type,Nocisensor,12632,9.293,7.25
+Sensor type,Mechanosensor,9117,18.706,13.62
+Sensor type,Mechanosensor/Nocisensor,4298,5.142,5.12
+Sodium channel,Nav1.8,19282,6.778,5.58
+Sodium channel,Nav1.1,6494,27.005,19.37
+Sodium channel,Nav1.1/Nav1.8,271,14.65,16.24

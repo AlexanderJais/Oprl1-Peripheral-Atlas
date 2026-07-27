@@ -164,40 +164,33 @@ def main() -> int:
 
 def figures(X, cpm, neuron, sub, subtbl, overall):
     st.set_theme()
-    fig = plt.figure(figsize=(15.5, 5.4))
-    gs = fig.add_gridspec(1, 3, width_ratios=[1.0, 1.0, 1.5], wspace=0.42)
+    fig, axes = plt.subplots(1, 2, figsize=(15.0, 4.8),
+                             gridspec_kw={"width_ratios": [1.0, 2.4]})
 
-    ax = fig.add_subplot(gs[0])
-    st.ranked_bars(ax, subtbl.Oprl1_CPM, subtbl.subtype, "Oprl1 (mean CPM)",
-                   annotate=[f"n={n}" for n in subtbl.n], fontsize=7)
-    ax.set_title("(A) Oprl1 across NTS neuronal subtypes", fontsize=10)
+    ax = axes[0]
+    neu = cpm.loc[neuron]
+    vals = [float(neu[g].mean()) if g in neu.columns else np.nan
+            for g in ac.RECEPTORS]
+    order = np.argsort(-np.array(vals))
+    st.expression_bars(ax, [vals[i] for i in order],
+                       [ac.RECEPTORS[i] for i in order],
+                       "Mean expression (CPM)", annotate=True)
+    st.panel_letter(ax, "a", dx=-0.28)
+    ax.set_title(f"NTS neurons\\n{int(neuron.sum()):,} nuclei (nuclear prep)",
+                 fontsize=11, pad=10)
 
-    ax = fig.add_subplot(gs[1])
-    st.ranked_bars(ax, subtbl.Oprl1_pct, subtbl.subtype,
-                   "% of nuclei expressing Oprl1", fontsize=7)
-    ax.set_title("(B) Oprl1 detection by subtype\n(nuclear prep: low by design)",
-                 fontsize=10)
+    ax = axes[1]
+    s2 = subtbl.sort_values("Oprl1_CPM", ascending=False)
+    st.expression_bars(ax, s2.Oprl1_CPM.values, s2.subtype.values,
+                       "Oprl1 (mean CPM)", italic=False, rotation=90, fontsize=11)
+    ax.axhline(float(neu["Oprl1"].mean()), color="black", lw=1.2, ls="--")
+    ax.text(len(s2) - 0.4, float(neu["Oprl1"].mean()), " NTS mean", fontsize=9,
+            va="bottom", ha="right")
+    st.panel_letter(ax, "b", dx=-0.06)
+    ax.set_title("Oprl1 across all 25 NTS neuronal subtypes", fontsize=11, pad=10)
 
-    ax = fig.add_subplot(gs[2])
-    genes = [g for g in ac.OPIOID_GENES if g in cpm.columns]
-    order = subtbl.subtype.tolist()
-    idx = pd.Categorical(sub.values, categories=order, ordered=True)
-    keep = neuron & pd.notna(idx)
-    pct = st.percent_expressing(X.loc[keep, genes],
-                                pd.Categorical(sub.values[keep], categories=order,
-                                               ordered=True)).loc[order]
-    lvl = st.mean_expression(cpm.loc[keep, genes],
-                             pd.Categorical(sub.values[keep], categories=order,
-                                            ordered=True)).loc[order]
-    # Log colour scale: Oprm1 and Penk are ~10x every other row here, and on a
-    # linear scale they flatten Oprl1's variation across subtypes to one shade.
-    sc = st.dot_plot(ax, pct, np.log1p(lvl))
-    ax.set_title("(C) Opioid genes across NTS neuronal subtypes", fontsize=10)
-    cb = fig.colorbar(sc, ax=ax, fraction=0.02, pad=0.02, shrink=0.8)
-    cb.set_label("log(1 + mean CPM)", size=7)
-    cb.ax.tick_params(labelsize=6)
-
-    st.save(fig, "figure4_nts_oprl1")
+    fig.tight_layout()
+    st.save(fig, "figure5_nts_oprl1")
 
 
 if __name__ == "__main__":

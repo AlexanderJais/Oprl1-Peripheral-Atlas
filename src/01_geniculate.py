@@ -187,61 +187,52 @@ def main() -> int:
 
 
 def figures(dv, zk, per_cell):
-    """Oprl1 in the geniculate: how much, in how many cells, in which division."""
+    """Oprl1 in the geniculate ganglion: mean expression, and per-neuron spread.
+
+    One message per panel, each read directly off the axis in the unit the
+    dataset was measured in.
+    """
     st.set_theme()
-    fig, axes = plt.subplots(1, 3, figsize=(13.5, 4.2),
-                             gridspec_kw={"width_ratios": [1.15, 1.0, 1.25]})
+    fig, axes = plt.subplots(1, 3, figsize=(13.5, 4.6))
 
-    # (A) Oprl1 per cell, the two divisions of the ganglion.
+    # (a) The four opioid receptors, deep full-length data.
     ax = axes[0]
-    if per_cell is not None:
-        order = ["gustatory (Phox2b+)", "somatosensory (Phox2b-)"]
-        colours = {o: st.TISSUE_COLORS["geniculate"] for o in order}
-        st.violin_by_group(ax, per_cell.Oprl1_FPKM, per_cell.division, order, colours)
-        rng = np.random.default_rng(0)
-        for i, o in enumerate(order):
-            v = per_cell.loc[per_cell.division == o, "Oprl1_FPKM"].values
-            ax.scatter(i + rng.uniform(-0.09, 0.09, v.size), v, s=7,
-                       color="black", alpha=0.55, linewidths=0, zorder=3)
-            ax.text(i, ax.get_ylim()[1] * 0.97, f"n = {v.size}",
-                    ha="center", fontsize=7, color="#333333")
-        ax.set_xticklabels(["gustatory\n(Phox2b+)", "somatosensory\n(Phox2b-)"],
-                           fontsize=8)
-        ax.set_ylabel("Oprl1 (FPKM)")
-    ax.set_title("(A) Oprl1 per neuron, GSE102443", fontsize=10)
+    vals = [float(dv.loc[g].mean()) if g in dv.index else np.nan
+            for g in ac.RECEPTORS]
+    order = np.argsort(-np.array(vals))
+    st.expression_bars(ax, [vals[i] for i in order],
+                       [ac.RECEPTORS[i] for i in order],
+                       "Mean expression (FPKM)", annotate=True)
+    st.panel_letter(ax, "a")
+    ax.set_title("GSE102443 — 96 geniculate neurons", fontsize=11, pad=12)
 
-    # (B) Detection rate: in what fraction of geniculate neurons is Oprl1 seen.
+    # (b) Every neuron, both divisions of the ganglion.
     ax = axes[1]
-    det = [float((dv.loc["Oprl1"] > 0).mean() * 100),
-           float((zk.loc["Oprl1"] > 0).mean() * 100)]
-    st.ranked_bars(ax, det, ["GSE102443\n(SMART-seq, 96)", "GSE135801\n(3' scRNA-seq, 454)"],
-                   "% of neurons expressing Oprl1",
-                   annotate=[f"{d:.0f}%" for d in det], fontsize=8)
-    ax.set_title("(B) Oprl1 detection\n(sensitivity differs by platform)", fontsize=10)
+    if per_cell is not None:
+        groups = ["Gustatory", "Somato-\nsensory"]
+        by = {"Gustatory":
+              per_cell.loc[per_cell.division.str.startswith("gustatory"),
+                           "Oprl1_FPKM"].values,
+              "Somato-\nsensory":
+              per_cell.loc[per_cell.division.str.startswith("somato"),
+                           "Oprl1_FPKM"].values}
+        st.violin_points(ax, groups, by, "Oprl1 FPKM")
+        for i, g in enumerate(groups):
+            ax.text(i, ax.get_ylim()[1] * 0.98, f"n = {by[g].size}",
+                    ha="center", va="top", fontsize=10, color="#444444")
+    st.panel_letter(ax, "b")
+    ax.set_title("Oprl1 in individual neurons", fontsize=11, pad=12)
 
-    # (C) Every opioid gene, both datasets: size = % of cells, colour = level.
-    # Levels are z-free and per dataset, so the two columns are not on a
-    # common scale; the panel is read down a column, not across.
+    # (c) The same four receptors on an independent platform.
     ax = axes[2]
-    frames = {"GSE102443": dv, "GSE135801": zk}
-    pct = pd.DataFrame({g: {k: float((m.loc[g] > 0).mean() * 100) if g in m.index else np.nan
-                            for k, m in frames.items()} for g in ac.OPIOID_GENES})
-    lvl = pd.DataFrame({g: {k: float(m.loc[g].mean()) if g in m.index else np.nan
-                            for k, m in frames.items()} for g in ac.OPIOID_GENES})
-    # Scale each dataset to its own maximum so FPKM and CPM are not mixed.
-    rel = lvl.div(lvl.max(axis=1), axis=0)
-    sc = st.dot_plot(ax, pct.fillna(0.0), rel.fillna(0.0), xtick_fontsize=8)
-    ax.set_title("(C) Opioid genes, geniculate\n(grey = not in that annotation)",
-                 fontsize=10)
-    for gi, g in enumerate(ac.OPIOID_GENES):
-        for ci, k in enumerate(frames):
-            if np.isnan(pct.loc[k, g]):
-                ax.scatter([ci], [len(ac.OPIOID_GENES) - 1 - gi], marker="x",
-                           s=28, c="#999999", linewidths=1.0)
-    st.dot_size_legend(ax, values=(1, 25, 50, 95))
-    cb = fig.colorbar(sc, ax=ax, fraction=0.030, pad=0.30, shrink=0.6)
-    cb.set_label("level, relative to that gene's max", size=6)
-    cb.ax.tick_params(labelsize=6)
+    vals = [float(zk.loc[g].mean()) if g in zk.index else np.nan
+            for g in ac.RECEPTORS]
+    order = np.argsort(-np.array(vals))
+    st.expression_bars(ax, [vals[i] for i in order],
+                       [ac.RECEPTORS[i] for i in order],
+                       "Mean expression (CPM)", annotate=True)
+    st.panel_letter(ax, "c")
+    ax.set_title("GSE135801 — 454 geniculate neurons", fontsize=11, pad=12)
 
     fig.tight_layout()
     st.save(fig, "figure1_geniculate_oprl1")
