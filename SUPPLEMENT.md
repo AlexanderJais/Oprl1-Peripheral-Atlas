@@ -76,6 +76,27 @@ The comparison from README section 1, extended to every dataset including the tw
 each panel in its own unit. `Oprl1` (blue) is highest in all six whole-cell datasets. The two
 nuclear preparations (red titles) put `Oprm1` first, for the reason given in Figure S1.
 
+## Figure S4 — the matched null, and the ambient-RNA check
+
+![Specificity controls](figures/figureS4_specificity_controls.png)
+
+**Panel a.** Every cluster-and-depth-stratified odds ratio in this project, plotted against a
+null built from ~100 genes matched to that partner on detection rate (±20 %) and mean expression
+(±50 %). The grey bar is the central 95 % of the null. The null median sits at 1.13–1.36, not at
+1.0, because `Oprl1` is a relatively high expresser in large transcriptionally active neurons and
+capture depth in UMIs does not capture cell size. Any observed odds ratio in the 1.3–1.5 band is
+therefore uninformative. Only `Scn1a` clears its null (*p* = 0.0099); `Trpv1` and `Scn10a` fall
+below theirs.
+
+`Cckar` has only 11 matched controls because few genes share its combination of 33.9 % detection
+and 240 CPM, so its null is the least reliable of the seven.
+
+**Panel b.** The top 50 `Oprl1` correlates scored for neuronal against glial abundance in the
+same ganglion. Twenty are more abundant in glia. There is no ambient-RNA correction anywhere in
+this pipeline, and NodoMap contains ~50,000 satellite and myelinating glia, so the correlate list
+carries a contamination component that the gene of interest does not — `Oprl1` itself is
+log2 +3.48 neuron-over-glia.
+
 ---
 
 ## Marker-gene checks

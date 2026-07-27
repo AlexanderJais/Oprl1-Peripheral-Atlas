@@ -224,6 +224,19 @@ def depth_strata(n_features, n_bins=10):
     return np.asarray(q).astype(str)
 
 
+def cluster_depth_strata(cluster, n_features, n_depth_bins=3):
+    """Stratum label combining cluster identity with a within-population depth bin.
+
+    The depth quantiles are computed over exactly the cells being analysed, not
+    over the whole atlas: deciles set by a population that includes glia do not
+    describe the depth distribution of the neurons, and the odds ratio is
+    sensitive to which definition is used.
+    """
+    cluster = np.asarray(cluster, dtype=str)
+    depth = depth_strata(n_features, n_depth_bins)
+    return np.char.add(np.char.add(cluster, "|"), depth)
+
+
 def stratified_odds_ratio(positive, group, strata, min_cells=10):
     """Mantel-Haenszel odds ratio of `positive` between the two levels of
     boolean `group`, holding `strata` fixed.

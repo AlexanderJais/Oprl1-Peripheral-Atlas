@@ -1,0 +1,16 @@
+annotation,level,n_clusters
+sodium_channel_type,Nav1.8,11
+sodium_channel_type,Nav1.1,9
+sodium_channel_type,Nav1.1/Nav1.8,1
+fibre_type,Unmyelinated,9
+fibre_type,Lightly myelinated,8
+fibre_type,Myelinated,4
+sensor_type,Mechanosensor,9
+sensor_type,Nocisensor,8
+sensor_type,Mechanosensor/Nocisensor,4
+organ_projection,Broad projection,9
+organ_projection,Gut,8
+organ_projection,Pancreas,1
+organ_projection,Duodenum,1
+organ_projection,Heart,1
+organ_projection,Jejunum/Ileum,1

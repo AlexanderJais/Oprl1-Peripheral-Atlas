@@ -91,9 +91,11 @@ def main() -> int:
     whole_cell = obs["suspension_type"].values == "cell"
     is_nodose = (obs["cell_class"] == "Nodose ganglion neuron").values & whole_cell
     cluster = obs["author_cell_type"].astype(str).values
-    depth = ac.depth_strata(obs["nFeature_RNA"].values, 10)
-    joint = np.char.add(np.char.add(cluster.astype(str), "|"),
-                        ac.depth_strata(pd.Series(depth).astype(int).values, 3))
+    nf = obs["nFeature_RNA"].values
+    depth = np.full(len(nf), "", dtype=object)
+    depth[is_nodose] = ac.depth_strata(nf[is_nodose], 10)
+    joint = np.full(len(nf), "", dtype=object)
+    joint[is_nodose] = ac.cluster_depth_strata(cluster[is_nodose], nf[is_nodose])
 
     det = (counts > 0)
     prows = []

@@ -64,8 +64,7 @@ def coexpression_table(detected, oprl1_pos, depth, cluster, label):
     transcripts together more often than chance.
     """
     rows = []
-    joint = np.char.add(np.char.add(np.asarray(cluster, dtype=str), "|"),
-                        ac.depth_strata(_depth_rank(depth), 3))
+    joint = ac.cluster_depth_strata(cluster, _depth_rank(depth))
     for g in ac.SATIATION_GENES:
         if g not in detected.columns:
             continue
