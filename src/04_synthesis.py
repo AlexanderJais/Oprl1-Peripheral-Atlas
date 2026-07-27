@@ -172,7 +172,14 @@ def main() -> int:
 
 
 def figures(ranks, top, oprl1, v, r, loo, r_both):
-    fig, axes = plt.subplots(1, 3, figsize=(16.0, 4.6))
+    main_figure(ranks, oprl1)
+    supplementary_figure(v, r, loo, r_both)
+
+
+def main_figure(ranks, oprl1):
+    """Oprl1 against the other three opioid receptors, in every dataset."""
+    fig, axes = plt.subplots(1, 2, figsize=(13.0, 4.8),
+                             gridspec_kw={"width_ratios": [1.0, 1.25]})
 
     # (A) Where Oprl1 sits among the four receptors, dataset by dataset.
     ax = axes[0]
@@ -203,8 +210,43 @@ def figures(ranks, top, oprl1, v, r, loo, r_both):
                  "hatched = nuclear prep; red = bootstrap support < 0.95",
                  fontsize=10)
 
-    # (B) The nuclear inversion against genomic span.
+    # (B) The four receptors side by side, each dataset scaled to its own top
+    # receptor. Units differ between datasets, so only the within-column
+    # comparison is meaningful; that is the comparison the panel is for.
     ax = axes[1]
+    wc_sets = [d for d in ORDER if ac.PREP[d] == "whole cell"]
+    colour = {"Oprl1": "#B2182B", "Oprm1": "#08306B",
+              "Oprd1": "#6BAED6", "Oprk1": "#BDBDBD"}
+    width = 0.2
+    x = np.arange(len(wc_sets))
+    for k, g in enumerate(ac.RECEPTORS):
+        vals = []
+        for ds in wc_sets:
+            row = ranks[(ranks.dataset == ds) & (ranks.gene == g)]
+            top_lvl = ranks[(ranks.dataset == ds)]["level"].max()
+            vals.append(float(row["level"].iloc[0]) / top_lvl if len(row) and top_lvl > 0
+                        else np.nan)
+        ax.bar(x + (k - 1.5) * width, vals, width, label=g, color=colour[g],
+               edgecolor="black", linewidth=0.4)
+    ax.set_xticks(x)
+    ax.set_xticklabels([d.replace("NodoMap:", "") for d in wc_sets],
+                       rotation=30, ha="right", fontsize=8)
+    ax.set_ylabel("level, relative to the top receptor\nin that dataset", fontsize=8.5)
+    ax.legend(fontsize=7.5, ncol=4, loc="upper center", bbox_to_anchor=(0.5, 1.02))
+    ax.set_ylim(0, 1.28)
+    ax.set_title("(B) The four opioid receptors in the six whole-cell datasets\n"
+                 "geniculate (left) and nodose/jugular (right)", fontsize=10)
+
+    fig.tight_layout()
+    st.save(fig, "figure5_oprl1_receptor_ranking")
+
+
+def supplementary_figure(v, r, loo, r_both):
+    """Data quality: what nuclear preparation does to the receptor ordering."""
+    fig, axes = plt.subplots(1, 2, figsize=(11.0, 4.6))
+
+    # (A) The nuclear inversion against genomic span.
+    ax = axes[0]
     ax.scatter(v.genomic_span_kb, v.nuclear_over_whole_cell, s=48,
                c=["#B2182B" if g in ("Oprm1", "Oprd1") else "#08306B"
                   for g in v.gene], edgecolors="black", linewidths=0.4, zorder=3)
@@ -219,11 +261,11 @@ def figures(ranks, top, oprl1, v, r, loo, r_both):
     ax.axhline(1.0, color="black", lw=0.8, ls="--")
     ax.set_xlabel("genomic span (kb, log)", fontsize=8.5)
     ax.set_ylabel("nuclear / whole-cell level", fontsize=8.5)
-    ax.set_title(f"(B) The inversion tracks gene length\n"
+    ax.set_title(f"(A) The inversion tracks gene length\n"
                  f"same tissue, log-log r = {r:.2f} (n = {len(v)})", fontsize=10)
 
-    # (C) How much of (B) rests on single genes.
-    ax = axes[2]
+    # (B) How much of (A) rests on single genes.
+    ax = axes[1]
     d = loo[loo.dropped != "(none)"].copy()
     colours = ["#B2182B" if x in ("Oprm1", "Oprd1", "Oprm1 + Oprd1") else "#999999"
                for x in d.dropped]
@@ -237,11 +279,11 @@ def figures(ranks, top, oprl1, v, r, loo, r_both):
             va="bottom", ha="right")
     ax.set_xlim(-0.05, 1.0)
     ax.set_xlabel("log-log Pearson r with that gene removed", fontsize=8.5)
-    ax.set_title(f"(C) Two genes carry the correlation\n"
+    ax.set_title(f"(B) Two genes carry the correlation\n"
                  f"r = {r_both:.2f} without both", fontsize=10)
 
     fig.tight_layout()
-    st.save(fig, "figure5_cross_tissue_synthesis")
+    st.save(fig, "figureS1_nuclear_preparation_bias")
 
 
 if __name__ == "__main__":

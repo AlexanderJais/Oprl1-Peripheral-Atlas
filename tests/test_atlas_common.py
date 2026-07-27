@@ -236,6 +236,66 @@ def test_leave_one_out_pearson_reports_the_full_fit_first():
     assert out.delta_vs_full.iloc[0] == 0.0
 
 
+# -------------------------------------------------- stratified_odds_ratio
+
+def _two_by_two(a, b, c, d, stratum="0"):
+    """Expand a 2x2 table into (positive, group, strata) arrays."""
+    pos = [True] * a + [False] * b + [True] * c + [False] * d
+    grp = [True] * (a + b) + [False] * (c + d)
+    return np.array(pos), np.array(grp), np.array([stratum] * (a + b + c + d))
+
+
+def test_stratified_odds_ratio_matches_the_plain_2x2_on_one_stratum():
+    pos, grp, strata = _two_by_two(40, 60, 20, 80)
+    or_, p, k = ac.stratified_odds_ratio(pos, grp, strata)
+    assert or_ == pytest.approx((40 * 80) / (60 * 20))   # 2.667
+    assert k == 1 and p < 0.01
+
+
+def test_stratified_odds_ratio_removes_a_confound_the_crude_ratio_shows():
+    # Simpson's paradox: no association inside either stratum, but the strata
+    # differ in both the exposure and the outcome, so the pooled table shows one.
+    # This is exactly the capture-depth confound the function exists to remove.
+    # Deep cells: mostly group+, 80% positive on both sides -> within-OR = 1.
+    p1, g1, s1 = _two_by_two(144, 36, 16, 4, "deep")
+    # Shallow cells: mostly group-, 20% positive on both sides -> within-OR = 1.
+    p2, g2, s2 = _two_by_two(4, 16, 36, 144, "shallow")
+    pos = np.concatenate([p1, p2])
+    grp = np.concatenate([g1, g2])
+    strata = np.concatenate([s1, s2])
+
+    a = int((pos & grp).sum()); b = int((~pos & grp).sum())
+    c = int((pos & ~grp).sum()); d = int((~pos & ~grp).sum())
+    crude = (a * d) / (b * c)
+    or_, _, k = ac.stratified_odds_ratio(pos, grp, strata)
+    assert k == 2
+    assert or_ == pytest.approx(1.0, abs=0.05)
+    assert abs(crude - 1.0) > 0.2          # the crude ratio is misleading here
+
+
+def test_stratified_odds_ratio_drops_uninformative_strata():
+    pos, grp, strata = _two_by_two(40, 60, 20, 80)
+    tiny_p, tiny_g, tiny_s = _two_by_two(1, 1, 1, 1, "tiny")
+    or_, _, k = ac.stratified_odds_ratio(
+        np.concatenate([pos, tiny_p]), np.concatenate([grp, tiny_g]),
+        np.concatenate([strata, tiny_s]), min_cells=10)
+    assert k == 1                           # the 4-cell stratum contributes nothing
+    assert or_ == pytest.approx((40 * 80) / (60 * 20))
+
+
+def test_stratified_odds_ratio_returns_nan_when_nothing_is_usable():
+    pos, grp, strata = _two_by_two(1, 1, 1, 1)
+    or_, p, k = ac.stratified_odds_ratio(pos, grp, strata, min_cells=10)
+    assert np.isnan(or_) and np.isnan(p) and k == 0
+
+
+def test_depth_strata_splits_into_balanced_quantiles():
+    labels = ac.depth_strata(np.arange(1000), n_bins=10)
+    counts = pd.Series(labels).value_counts()
+    assert len(counts) == 10
+    assert counts.min() == counts.max() == 100
+
+
 # ------------------------------------------------------------------- registry
 
 def test_dataset_registry_is_internally_consistent():

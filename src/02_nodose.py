@@ -305,7 +305,7 @@ def figures(adata, obs, counts, cpm_all, cluster, per_cluster, tbl):
     cb.set_label("log(1 + mean CPM)", size=7)
     cb.ax.tick_params(labelsize=6)
     st.dot_size_legend(ax, values=(1, 5, 10, 20, 30))
-    st.save(fig, "figure3_nodose_opioid_dotplot")
+    st.save(fig, "figureS2_nodose_opioid_dotplot")
 
 
 if __name__ == "__main__":

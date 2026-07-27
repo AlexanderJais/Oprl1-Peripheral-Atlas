@@ -60,6 +60,15 @@ RECEPTORS = ["Oprl1", "Oprm1", "Oprd1", "Oprk1"]
 LIGANDS = ["Pnoc", "Penk", "Pdyn", "Pomc"]
 OPIOID_GENES = RECEPTORS + LIGANDS
 
+# Excitatory satiation receptors of the vagal afferent. The question these
+# support: does Gi-coupled Oprl1 sit on the same neurons that carry the
+# receptors driving satiation signalling at the first synapse of the gut-brain
+# axis? Glp1r and Cckar are the two the hypothesis names; the rest are reported
+# as context.
+SATIATION_PRIMARY = ["Glp1r", "Cckar"]
+SATIATION_CONTEXT = ["Calcr", "Gipr", "Gfral", "Cckbr"]
+SATIATION_GENES = SATIATION_PRIMARY + SATIATION_CONTEXT
+
 # Genes used to confirm each dataset is what it claims to be before any opioid
 # number is read out of it. REQUIRED_MARKERS are the ones whose absence or
 # silence means the matrix is not what we think it is, so they are enforced;
@@ -206,6 +215,64 @@ def transcriptome_percentile(levels: pd.Series, gene: str, min_level=0.0):
     if len(pool) < 100:
         return np.nan
     return float(100.0 * (pool < float(levels[gene])).mean())
+
+
+def depth_strata(n_features, n_bins=10):
+    """Label cells by sequencing-depth quantile, for use with `stratified_odds_ratio`."""
+    q = pd.qcut(np.asarray(n_features, dtype=float), n_bins,
+                labels=False, duplicates="drop")
+    return np.asarray(q).astype(str)
+
+
+def stratified_odds_ratio(positive, group, strata, min_cells=10):
+    """Mantel-Haenszel odds ratio of `positive` between the two levels of
+    boolean `group`, holding `strata` fixed.
+
+    Every raw co-detection comparison in droplet data is confounded by capture
+    depth: a cell that detects one gene tends to detect more genes overall, so
+    two gene-defined groups differ in depth before any biology is considered.
+    Stratifying by depth is what separates a real association from that
+    artefact, and it is why the crude overlap percentage is reported alongside
+    this number rather than instead of it.
+
+    Returns (odds_ratio, p_value, n_strata_used). Strata with fewer than
+    `min_cells` on either side of `group`, or with no positives at all, carry no
+    information for a Mantel-Haenszel estimate and are dropped.
+    """
+    positive = np.asarray(positive, dtype=bool)
+    group = np.asarray(group, dtype=bool)
+    strata = np.asarray(strata)
+
+    num = den = 0.0
+    a_sum = e_sum = v_sum = 0.0
+    used = 0
+    for k in pd.unique(strata):
+        m = strata == k
+        a = float((m & group & positive).sum())
+        b = float((m & group & ~positive).sum())
+        c = float((m & ~group & positive).sum())
+        d = float((m & ~group & ~positive).sum())
+        n = a + b + c + d
+        if n < 2 or min(a + b, c + d) < min_cells or (a + c) == 0 or (b + d) == 0:
+            continue
+        used += 1
+        num += a * d / n
+        den += b * c / n
+        a_sum += a
+        e_sum += (a + b) * (a + c) / n
+        v_sum += (a + b) * (c + d) * (a + c) * (b + d) / (n * n * (n - 1))
+
+    if not used or den == 0 or v_sum == 0:
+        return np.nan, np.nan, used
+    chi2 = (abs(a_sum - e_sum) - 0.5) ** 2 / v_sum
+    p = float(stats_chi2_sf(chi2))
+    return float(num / den), p, used
+
+
+def stats_chi2_sf(chi2):
+    """Upper tail of a chi-square with one degree of freedom."""
+    from scipy import stats as _stats
+    return _stats.chi2.sf(chi2, 1)
 
 
 def leave_one_out_pearson(x, y, labels) -> pd.DataFrame:
