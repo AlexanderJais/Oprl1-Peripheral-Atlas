@@ -1,0 +1,7 @@
+dataset,gene,in_matrix,level,enforced
+NodoMap (neurons),Snap25,True,1485.7718,True
+NodoMap (neurons),Phox2b,True,251.1866,False
+NodoMap (neurons),Slc17a6,True,254.5623,False
+NodoMap (neurons),Tac1,True,267.3304,False
+NodoMap (neurons),Calca,True,567.8785,False
+NodoMap (neurons),Actb,True,2370.2574,True

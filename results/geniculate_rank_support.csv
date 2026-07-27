@@ -1,0 +1,3 @@
+tissue,dataset,top_gene,runner_up,margin,margin_lo,margin_hi,support,n_cells,n_boot
+geniculate,GSE102443,Oprl1,Oprk1,6.91627206739856,4.274884378988166,13.15040520829319,1.0,96,2000
+geniculate,GSE135801,Oprl1,Oprd1,4.019310520580632,1.0350492842573364,34.87138804984141,0.9765,454,2000

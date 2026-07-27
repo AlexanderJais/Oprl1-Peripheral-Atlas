@@ -1,0 +1,13 @@
+dataset,gene,in_matrix,level,enforced
+GSE102443,Snap25,True,2742.4085,True
+GSE102443,Phox2b,True,39.7613,False
+GSE102443,Slc17a6,True,65.0141,False
+GSE102443,Tac1,True,417.0005,False
+GSE102443,Calca,True,98.0354,False
+GSE102443,Actb,True,413.4274,True
+GSE135801,Snap25,True,1707.6461,True
+GSE135801,Phox2b,True,776.9992,False
+GSE135801,Slc17a6,True,295.6139,False
+GSE135801,Tac1,True,453.2482,False
+GSE135801,Calca,True,35.0777,False
+GSE135801,Actb,True,1229.2976,True

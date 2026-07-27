@@ -1,7 +1,16 @@
-anndata
-h5py
-matplotlib
-numpy
-openpyxl
-pandas
-scipy
+# Lower bounds, not exact pins: the analysis is not sensitive to patch versions,
+# but it does depend on pandas 2+ groupby/reset_index semantics.
+#
+# Last verified end to end with:
+#   python 3.11.2, pandas 3.0.5, numpy 2.4.6, scipy 1.16.3,
+#   matplotlib 3.11.0, anndata 0.12.19, h5py 3.15.1, openpyxl 3.1.5
+anndata>=0.10
+h5py>=3.8
+matplotlib>=3.7
+numpy>=1.24
+openpyxl>=3.1
+pandas>=2.0
+scipy>=1.10
+
+# Tests only: python3 -m pytest tests -q
+pytest>=7.0

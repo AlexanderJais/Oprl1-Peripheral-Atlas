@@ -1,9 +1,9 @@
-gene,neuron_CPM,non_neuron_CPM,log2_enrichment
-Oprl1,11.4068,1.0145,3.478
-Oprm1,15.3552,2.098,2.866
-Oprd1,0.3737,0.0887,1.959
-Oprk1,4.0814,0.3597,3.468
-Pnoc,1.1361,0.1857,2.55
-Penk,2.2046,6.1266,-1.47
-Pdyn,1.8954,0.2097,3.116
-Pomc,11.5004,9.3087,0.305
+gene,neuron_CPM,non_neuron_CPM,prep,n_neurons,n_non_neurons,log2_enrichment
+Oprl1,11.5613,0.9921,whole cell only,30640,74072,3.529
+Oprm1,9.6342,1.0083,whole cell only,30640,74072,3.243
+Oprd1,0.2488,0.0742,whole cell only,30640,74072,1.62
+Oprk1,4.0677,0.3519,whole cell only,30640,74072,3.494
+Pnoc,1.1285,0.1806,whole cell only,30640,74072,2.579
+Penk,2.2358,6.1682,whole cell only,30640,74072,-1.46
+Pdyn,1.8772,0.1811,whole cell only,30640,74072,3.304
+Pomc,11.6967,9.4161,whole cell only,30640,74072,0.313

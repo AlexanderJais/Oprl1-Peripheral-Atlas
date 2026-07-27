@@ -1,0 +1,7 @@
+dataset,gene,in_matrix,level,enforced
+GSE166648 (neurons),Snap25,True,890.2287,True
+GSE166648 (neurons),Phox2b,True,30.9338,False
+GSE166648 (neurons),Slc17a6,True,83.1725,False
+GSE166648 (neurons),Tac1,True,29.1237,False
+GSE166648 (neurons),Calca,True,17.0932,False
+GSE166648 (neurons),Actb,True,242.1539,True

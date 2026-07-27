@@ -1,0 +1,53 @@
+cluster,n_cells,cell_class,is_neuron,Oprl1_CPM,Oprl1_pct
+EC1,8774,Endothelial Cell,False,0.623,0.18
+EC2,1144,Endothelial Cell,False,0.0,0.0
+EC3,791,Endothelial Cell,False,0.0,0.0
+FB1,3869,Fibroblast,False,0.613,0.1
+FB2,3278,Fibroblast,False,1.174,0.18
+FB3,1387,Fibroblast,False,0.245,0.07
+FB4,340,Fibroblast,False,14.21,1.47
+HC1,4328,Hematopoietic cell,False,1.011,0.16
+HC2,635,Hematopoietic cell,False,0.0,0.0
+GC1,2910,Glial cell,False,0.005,0.03
+GC2,1472,Glial cell,False,0.487,0.14
+GC3,288,Glial cell,False,0.0,0.0
+MGC1,4692,Myelinated glial cell,False,1.118,0.15
+MGC2,3527,Myelinated glial cell,False,2.08,0.23
+MGC3,2660,Myelinated glial cell,False,1.679,0.19
+MGC4,2129,Myelinated glial cell,False,2.108,0.23
+MGC5,231,Myelinated glial cell,False,0.0,0.0
+MGC6,230,Myelinated glial cell,False,0.0,0.0
+SGC1,6523,Satellite glial cell,False,1.373,0.17
+SGC2,5398,Satellite glial cell,False,0.801,0.13
+SGC3,4572,Satellite glial cell,False,0.42,0.11
+SGC4,4304,Satellite glial cell,False,0.907,0.12
+SGC5,3989,Satellite glial cell,False,2.033,0.23
+SGC6,3545,Satellite glial cell,False,0.0,0.0
+SGC7,2137,Satellite glial cell,False,1.701,0.19
+SGC8,1878,Satellite glial cell,False,0.941,0.11
+JGN1,1843,Jugular ganglion neuron,True,2.284,2.6
+JGN2,1451,Jugular ganglion neuron,True,18.008,12.54
+JGN3,690,Jugular ganglion neuron,True,10.158,8.55
+JGN4,633,Jugular ganglion neuron,True,6.867,6.32
+JGN5,234,Jugular ganglion neuron,True,19.501,12.39
+NGN1,4412,Nodose ganglion neuron,True,15.068,10.7
+NGN2,2977,Nodose ganglion neuron,True,2.803,3.53
+NGN3,2877,Nodose ganglion neuron,True,2.208,2.71
+NGN4,2324,Nodose ganglion neuron,True,8.742,8.61
+NGN5,1961,Nodose ganglion neuron,True,0.482,0.76
+NGN6,1718,Nodose ganglion neuron,True,30.473,22.24
+NGN7,1372,Nodose ganglion neuron,True,24.964,18.59
+NGN8,1297,Nodose ganglion neuron,True,1.077,1.39
+NGN9,981,Nodose ganglion neuron,True,9.851,3.26
+NGN10,914,Nodose ganglion neuron,True,12.614,11.38
+NGN11,914,Nodose ganglion neuron,True,2.505,2.84
+NGN12,815,Nodose ganglion neuron,True,19.448,17.91
+NGN13,758,Nodose ganglion neuron,True,2.094,2.77
+NGN14,744,Nodose ganglion neuron,True,43.509,27.69
+NGN15,634,Nodose ganglion neuron,True,14.568,11.04
+NGN16,580,Nodose ganglion neuron,True,22.929,18.79
+NGN17,366,Nodose ganglion neuron,True,31.733,14.48
+NGN18,283,Nodose ganglion neuron,True,14.029,15.55
+NGN19,226,Nodose ganglion neuron,True,30.324,22.12
+NGN20,205,Nodose ganglion neuron,True,11.007,8.78
+NGN21,196,Nodose ganglion neuron,True,5.17,6.12
