@@ -114,7 +114,7 @@ million reads, *Oprl1* is detected in 74.8% of cells at 41.94 CPM and *Oprm1*, *
 *Oprk1* are detected in none. All four are present in the annotation, so those are measured zeros.
 Depth is 730-fold above the nodose droplet median, which is what makes a zero interpretable. The
 same neurons carry *Scn1a* at 310.2 CPM, *Pvalb* at 882.6 and *Scn10a* at 0.00, the Nav1.1
-profile that section 3 predicts should be *Oprl1*-high.
+profile that section 4 predicts should be *Oprl1*-high.
 
 The vestibular ganglion replicates the spiral result in the same placode. Across 6,596 neurons
 from four mice, *Oprl1* reaches 19.88 CPM in 57.6% of cells against *Oprk1* 4.63, *Oprm1* 1.78 and
@@ -145,7 +145,7 @@ untreated animals, *Oprl1* reaches 18.68 CPM against *Oprk1* 0.73, *Oprd1* 0.57 
 a margin of 25.72× over the runner-up and 69× over *Oprm1*, with support 1.0000. Each of the four
 samples in that dataset places *Oprl1* first on its own, including the two with experimental heart
 disease, so the disease condition neither produces the result nor obscures it. *Scn1a* reads 16.12
-CPM against *Scn10a* 0.09, the same sodium channel profile section 3 describes, in neurons that
+CPM against *Scn10a* 0.09, the same sodium channel profile section 4 describes, in neurons that
 are not sensory at all.
 
 A third dataset settles the sympathetic case. GSE231924 profiles cardiac-projecting neurons of the
@@ -290,16 +290,92 @@ gap rather than a measured zero, the same situation as *Pnoc* in GSE102443. The 
 single-nucleus, which biases toward *OPRM1* for the reason in figure S1.
 
 The trigeminal and DRG analyses are recorded in `results/EXTERNAL_GANGLIA_NOTES.md` and
-`results/drg_oprl1_by_subtype.csv`. They are not yet wired into the numbered pipeline, so they do
-not pass `check_markers`, the matched null or the ambient check that the other tissues do.
+`results/drg_oprl1_by_subtype.csv`. Which checks ran on which population, and why any did not, is
+in `results/dataset_quality_panel.csv`.
 
-## 2. *Oprl1* is expressed in most neurons of the ganglion
+## 2. The *Oprl1* signature: a synaptic adhesion programme, in every division
+
+Section 1 asks where *Oprl1* is expressed. This section asks what it is expressed with. The
+question is answered without a candidate gene: in each of thirteen populations carrying a full
+transcriptome, every gene is compared between *Oprl1*-positive and *Oprl1*-negative neurons, and
+only what reproduces across the populations is kept.
+
+Two design choices decide whether the answer means anything.
+
+The statistic is a log2 fold change computed **within depth strata**, not a correlation across
+cells. Per-cell Spearman between two sparsely detected transcripts measures capture depth: a cell
+with more UMI detects more of everything, so nearly every gene correlates positively with nearly
+every other. Section 4 records what that produced the first time this was attempted, a correlate
+list topped by a Schwann-cell transcript arriving as ambient RNA. Here every comparison is made
+between cells of the same dataset that detected a similar number of genes.
+
+The resampling unit is the **dataset, not the cell**. The question is whether a partner reproduces
+across the peripheral nervous system, so the thirteen populations are drawn with replacement
+10,000 times and each draw yields a new median fold change per gene. A gene carried by one deep
+dataset loses its median as soon as that dataset is missed. Genes testable in fewer than ten of
+the thirteen are excluded before ranking, because a median over few values is unstable and ranking
+on it puts the least-observed genes on top. That leaves 9,884 genes.
+
+| gene | median log2 fold change | 95% interval | datasets | positive in | top-30 support |
+|---|---|---|---|---|---|
+| *Tmem255a* | 0.51 | 0.15 to 0.61 | 11 | 10 | 0.83 |
+| *Epha10* | 0.44 | 0.19 to 0.60 | 10 | 10 | 0.60 |
+| *Islr2* | 0.41 | 0.10 to 0.51 | 11 | 10 | 0.37 |
+| *Adra2a* | 0.40 | −0.02 to 0.51 | 10 | 7 | 0.45 |
+| *Mdga1* | 0.40 | 0.10 to 0.65 | 13 | 12 | 0.45 |
+| *Slc7a3* | 0.40 | 0.03 to 0.61 | 10 | 9 | 0.48 |
+| *Grm7* | 0.38 | 0.10 to 0.53 | 13 | 12 | 0.42 |
+| *Ank1* | 0.38 | 0.18 to 0.48 | 10 | 9 | 0.43 |
+| *Sez6l* | 0.36 | 0.22 to 0.80 | 12 | 10 | 0.47 |
+| *Ntng1* | 0.35 | −0.05 to 0.57 | 13 | 9 | 0.24 |
+
+The signature is a synaptic and axonal adhesion programme. Of the top 30, the majority are
+cell-surface recognition molecules: *Epha10*, *Islr2*, *Mdga1*, *Sez6l*, *Kirrel3*, *Ntng1*,
+*Lrp1b*, *Tenm1*, *Tnr*, *Brinp2* and *Tmem132e*. The rest are ion-handling and signalling genes
+of the same compartment, *Grm7*, *Gria1*, *Caln1* and *Ank1*, together with one G protein-coupled
+receptor that shares *Oprl1*'s coupling, the Gi-linked adrenoceptor *Adra2a*. Effect sizes are
+modest, 1.2 to 1.4 fold across the top 30, which is what a partner shared across five divisions of
+the nervous system looks like.
+
+![The Oprl1 signature](figures/figure2_oprl1_signature.png)
+
+Three controls decide whether to read it as biology.
+
+*Oprl1*-positive neurons are not simply better-captured neurons. *Snap25* ranks 4,473rd of 9,884
+at +0.03 and *Prph* 6,012th at −0.01, so pan-neuronal content is flat between the two groups while
+the adhesion genes move. Depth stratification already holds total counts fixed; these two show
+that the neuronal fraction of those counts is fixed as well.
+
+The negative tail is the non-neuronal compartment, and it recovers itself. The ten genes lowest in
+*Oprl1*-positive neurons are *Dcn*, *Igfbp7*, *Gpc3*, *Col3a1*, *Mpz*, *Pcolce*, *Copz2*, *Tyms*,
+*Wwtr1* and *Col1a2*: fibroblast collagen and matrix transcripts plus the Schwann-cell marker
+*Mpz*. Every one of them scores between −1.4 and −6.3 log2 neuron over non-neuron. The statistic
+was not told what glia are, and it placed them at one end.
+
+Contamination does not carry the positive end. Twenty-five of the top 30 are more abundant in
+neurons than in the non-neuronal cells of the same ganglion. The five that are not, *Bche*,
+*Galnt16*, *Nfatc2*, *Slc12a7* and *Asah2*, are drawn as open bars in figure 2 and should be
+treated as contamination candidates rather than partners.
+
+*Scn1a*, the sodium channel that section 4 places on *Oprl1* neurons in the vagus and the dorsal
+root ganglion, ranks 144th of 9,884 at +0.22, positive in 8 of the 11 populations where it was
+testable. The candidate-gene result from one atlas survives an unbiased scan of thirteen, in the
+top 1.5% of the transcriptome, without reaching the top 30.
+
+Two limits apply. Which cells count as *Oprl1*-positive depends on what the platform resolves:
+where *Oprl1* is detected in 10 to 90% of neurons the split is detection, and in the full-length
+geniculate data, where it reaches 92%, the split is high against low level within the same depth
+stratum. GSE102443 could not be split either way, with 88 of 96 neurons positive, and is absent
+from this analysis. Five of the thirteen populations come from GSE232789, so the deposit count is
+reported beside the dataset count in `results/oprl1_signature.csv`.
+
+## 3. *Oprl1* is expressed in most neurons of the ganglion
 
 In the geniculate, *Oprl1* is detected in 92% of the 96 neurons, at indistinguishable levels in
 both divisions: gustatory (Phox2b+) 6.29 FPKM, n = 61; somatosensory (Phox2b-) 4.77 FPKM, n = 35
 Expression is pan-geniculate.
 
-![Oprl1 in the geniculate ganglion](figures/figure2_geniculate_oprl1.png)
+![Oprl1 in the geniculate ganglion](figures/figure3_geniculate_oprl1.png)
 
 This claim also rests on full-length data. A 92% detection rate is interpretable only on a
 platform that can reach it. The droplet datasets reach 27.7% of cells in their highest cluster, so
@@ -311,9 +387,9 @@ In the nodose and jugular ganglia, *Oprl1* appears in every one of the 26 neuron
 neuronal enrichment +3.53, against *Oprk1* +3.49, *Oprm1* +3.24 and *Oprd1* +1.62). The highest
 clusters are NGN14 at 43.5 CPM, NGN17 at 31.7, NGN6 at 30.5 and NGN19 at 30.3.
 
-![Oprl1 across the NodoMap atlas](figures/figure2b_nodose_oprl1.png)
+![Oprl1 across the NodoMap atlas](figures/figure3b_nodose_oprl1.png)
 
-## 3. Expression is graded by sodium channel class, in the vagus and the DRG
+## 4. Expression is graded by sodium channel class, in the vagus and the DRG
 
 This gradient sits inside a gene expressed throughout the ganglion, and the effect is small
 relative to sections 1 and 2. It was established in the vagus and then tested in the dorsal root
@@ -395,7 +471,7 @@ for *Pvalb* (1,576 CPM), *Runx3* (86.9) and *Scn1a* (226.4). It ranks first for 
 Both directions of the nodose result appear again: positive with *Scn1a*, negative with *Scn10a*,
 in a ganglion of different developmental origin and different modality.
 
-![The sodium channel gradient](figures/figure3_sodium_channel_gradient.png)
+![The sodium channel gradient](figures/figure4_sodium_channel_gradient.png)
 
 The four nodose clusters that separate sodium channel class from fibre type, and the annotation
 and transcriptome-wide panels behind this section, are figures S5 and S6 in
@@ -427,7 +503,11 @@ is withdrawn, along with *Col1a2* (-4.46), *Hmgcs2* (-3.58) and *Ptn* (-2.66). T
 enriched correlates are *Cacng5* (+3.38), *Brinp1* (+2.79), *Atp1b1* (+2.78), *Eya4* (+2.29),
 *Chgb* (+1.98) and *Rph3a* (+1.36). *Oprl1* itself is +3.48, so the gene of interest is unaffected.
 
-## 4. *Oprl1* shows no association with *Glp1r* or *Cckar*
+Section 2 is the replacement for that list. It replaces a cluster-level correlation in one atlas
+with a depth-stratified comparison in thirteen populations, and it recovers the contamination axis
+as its own negative tail rather than as a caveat.
+
+## 5. *Oprl1* shows no association with *Glp1r* or *Cckar*
 
 This project began by testing whether *Oprl1* occupies the *Glp1r* and *Cckar* afferents, which
 would place a Gi-coupled receptor on the first synapse of the gut-brain axis. The data rejects
@@ -458,7 +538,7 @@ The null median falls between 1.13 and 1.36. Values in the 1.3 to 1.5 band match
 expression-matched random gene produces. *Glp1r*, *Cckar* and *Cckbr* are at chance, and the
 data provides no support for *Oprl1* occupying the satiation-receptor populations.
 
-![Oprl1 and the satiation receptors](figures/figure4_vagal_oprl1_satiation.png)
+![Oprl1 and the satiation receptors](figures/figure5_vagal_oprl1_satiation.png)
 
 The co-expression table contains an internal comparator. After full adjustment *Cckbr* scores
 highest of the three testable partners at 1.47, against *Glp1r* 1.46 and *Cckar* 1.37, a spread of
@@ -469,9 +549,9 @@ value near 1.4 is a floor set by abundance.
 Two results survive the control: *Scn1a* above its null, and *Trpv1* and *Scn10a* below theirs.
 *Oprl1* is depleted from the nociceptor population.
 
-## 5. Mechanotransduction and Gi effector genes
+## 6. Mechanotransduction and Gi effector genes
 
-Section 3 predicts that N/OFQ acting on the vagus would reduce firing in Nav1.1 neurons. Three
+Section 4 predicts that N/OFQ acting on the vagus would reduce firing in Nav1.1 neurons. Three
 conditions would have to hold on the same cells: the mechanotransducer *Piezo2*, the Gi effector
 genes a NOP receptor signals through (*Kcnj3/6/9*, *Gnai*, *Gnao*, *Cacna1b*), and the absence of
 the nociceptor programme as an internal negative control.
@@ -507,7 +587,7 @@ acting on a separate population whose output converges on the same afferent voll
 arrangement is consistent with everything measured here and is testable in the same *ex vivo*
 preparation.
 
-## 6. The geniculate result concerns taste, and conflicts with existing behaviour data
+## 7. The geniculate result concerns taste, and conflicts with existing behaviour data
 
 The strongest finding in this document, 5.73 against 0.18 FPKM in 92% of neurons across both
 divisions, is in the gustatory ganglion. NOP-knockout mice show unchanged taste reactivity to
@@ -518,14 +598,14 @@ neurons, or *Oprl1* serves a function other than modulating taste transmission: 
 axonal excitability, or action on the somatosensory rather than the gustatory division. This
 repository cannot distinguish these possibilities.
 
-## 7. *Oprl1* in the nucleus of the solitary tract
+## 8. *Oprl1* in the nucleus of the solitary tract
 
 *Oprl1* is expressed across all 25 NTS neuronal subtypes, highest in the glutamatergic Glu9 at
 27.8 CPM (n = 1,155), Glu13 at 22.6 and Glu7 at 21.9. GSE166648 is a nuclear preparation, so the
 receptor ordering within it is unusable and no peripheral-to-central comparison is made. The
 per-subtype distribution is unaffected by that limitation.
 
-![Oprl1 across NTS neuronal subtypes](figures/figure5_nts_oprl1.png)
+![Oprl1 across NTS neuronal subtypes](figures/figure7_nts_oprl1.png)
 
 ---
 
@@ -601,19 +681,21 @@ python3 src/07_transduction_effector_genes.py       # Piezo2, Gi effectors, noci
 python3 src/08_specificity_controls.py       # matched nulls, group sizes, ambient check
 python3 src/10_peripheral_ganglia.py         # every ganglion outside the geniculate and vagal pipelines
 python3 src/11_quality_panel.py              # the uniform check panel over all 21 populations
+python3 src/12_oprl1_signature.py            # the Oprl1 signature and figure 2
 python3 src/09_main_figures.py               # consolidated figures 1 and 3
 python3 -m pytest tests -q                   # 33 unit tests
 ```
 
 | figure | contents |
 |---|---|
-| `figure1_oprl1_across_ganglia` | the four receptors in each of the five ganglia measured |
-| `figure2_geniculate_oprl1` | per-neuron *Oprl1* in both geniculate divisions |
-| `figure2b_nodose_oprl1` | *Oprl1* across the 21 nodose clusters and the four datasets |
-| `figure3_sodium_channel_gradient` | the Nav gradient in the nodose and the DRG proprioceptor test |
-| `figure4_vagal_oprl1_satiation` | *Oprl1* against *Glp1r* and *Cckar* |
-| `figure5_nts_oprl1` | *Oprl1* in NTS neurons and across the 25 subtypes |
+| `figure1_oprl1_across_ganglia` | the four receptors in all sixteen populations, blocked by division |
+| `figure2_oprl1_signature` | the signature, its consistency, the ambient axis and the raw levels |
+| `figure3_geniculate_oprl1` | per-neuron *Oprl1* in both geniculate divisions |
+| `figure3b_nodose_oprl1` | *Oprl1* across the 21 nodose clusters and the four datasets |
+| `figure4_sodium_channel_gradient` | the Nav gradient in the nodose and the DRG proprioceptor test |
+| `figure5_vagal_oprl1_satiation` | *Oprl1* against *Glp1r* and *Cckar* |
 | `figure6_transduction_effector_genes` | *Piezo2*, the Gi effector genes, the nociceptor control |
+| `figure7_nts_oprl1` | *Oprl1* in NTS neurons and across the 25 subtypes |
 | `figureS1`-`figureS6` | see [`SUPPLEMENT.md`](SUPPLEMENT.md) |
 
 | table | contents |
@@ -643,6 +725,9 @@ python3 -m pytest tests -q                   # 33 unit tests
 | `peripheral_receptor_levels.csv` | levels, margins, support, depth and ambient score per population |
 | `peripheral_ambient_checks.csv` | neuron against non-neuron CPM for every receptor, per dataset |
 | `dataset_quality_panel.csv` | which checks ran on which population, and why any did not |
+| `oprl1_signature.csv` | every gene ranked, with interval, support, breadth and ambient score |
+| `oprl1_signature_by_dataset.csv` | the fold change per gene in each of the 13 populations |
+| `oprl1_signature_ambient.csv` | neuron over non-neuron for every gene tested |
 | `receptor_levels_by_ganglion.csv` | the figure 1 table, one row per panel |
 | `geniculate_per_cell_GSE102443.csv` | per-cell *Oprl1* FPKM, split gustatory/somatosensory |
 | `*_opioid_levels.csv`, `*_receptor_rank.csv`, `*_rank_support.csv` | per-tissue levels, ordering, support |

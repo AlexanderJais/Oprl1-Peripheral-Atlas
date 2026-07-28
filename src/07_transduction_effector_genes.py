@@ -1,6 +1,6 @@
 """Mechanotransduction and Gi effector genes against Oprl1.
 
-Section 3 of the README places Oprl1 on Nav1.1 nodose neurons. If N/OFQ reduces
+Section 4 of the README places Oprl1 on Nav1.1 nodose neurons. If N/OFQ reduces
 firing in those cells, three conditions hold on the same neurons, and each is
 checkable in this atlas:
 
