@@ -2,10 +2,10 @@
 
 In mouse geniculate ganglion neurons *Oprl1* is expressed 31-fold above *Oprm1* and is detected in
 92% of cells. The ordering reproduces on a second platform from a second laboratory. It holds in
-eight datasets covering every sensory ganglion with public data, across all three developmental
+ten measurements covering every sensory ganglion with public data, across all three developmental
 origins, including the dorsal root ganglion, where most work on opioid receptors in sensory
-neurons has been done and where that work targets *Oprm1*. It also holds in sympathetic neurons,
-which are not sensory.
+neurons has been done and where that work targets *Oprm1*. It also holds in two independent
+datasets of sympathetic neurons, which are not sensory.
 
 | input | tissue | source |
 |---|---|---|
@@ -35,7 +35,8 @@ unit (`results/*_opioid_levels.csv`):
 
 | dataset | tissue | *Oprl1* | *Oprm1* | *Oprd1* | *Oprk1* | *Oprl1*:*Oprm1* |
 |---|---|---|---|---|---|---|
-| GSE78845 (CPM) | sympathetic (control) | 62.30 | 1.48 | 3.90 | 4.24 | 42× |
+| GSE78845 (CPM) | sympathetic, thoracic | 62.30 | 1.48 | 3.90 | 4.24 | 42× |
+| GSE231766 (CPM) | sympathetic, superior cervical | 18.68 | 0.27 | 0.57 | 0.73 | 69× |
 | GSE114997 (CPM) | spiral (VIII) | 41.94 | 0.00 | 0.00 | 0.00 | only one detected |
 | GSE309608 (CPM) | vestibular (VIII) | 19.88 | 1.78 | 0.09 | 4.63 | 11.2× |
 | GSE102443 (FPKM) | geniculate | 5.73 | 0.18 | 0.31 | 0.83 | 31× |
@@ -99,9 +100,21 @@ expressed genes, above both the nodose (73.6) and the geniculate (63.8). The wor
 been removed from the title, since the restriction it asserted is not supported by the one
 experiment that tested it.
 
-This rests on a single dataset of 298 cells in the platform class that produces the largest
-margins throughout this project. A second sympathetic dataset, and a parasympathetic or enteric
-one, would establish how far the claim actually extends.
+That result rested on 298 cells in the platform class that produces the largest margins in this
+project, so it was repeated in a second sympathetic dataset chosen to share nothing with the first
+but the cell type. GSE231766 is 10x droplet data from the superior cervical ganglion, a cranial
+rather than a thoracic ganglion, from a different laboratory. In the 1,382 neurons from its two
+untreated animals, *Oprl1* reaches 18.68 CPM against *Oprk1* 0.73, *Oprd1* 0.57 and *Oprm1* 0.27,
+a margin of 25.72× over the runner-up and 69× over *Oprm1*, with support 1.0000. Each of the four
+samples in that dataset places *Oprl1* first on its own, including the two with experimental heart
+disease, so the disease condition neither produces the result nor obscures it. *Scn1a* reads 16.12
+CPM against *Scn10a* 0.09, the same sodium channel profile section 3 describes, in neurons that
+are not sensory at all.
+
+Two sympathetic preparations 20-fold apart in library depth agree on the direction and on the size
+of the lead over *Oprm1*, 42× and 69×. The claim extends to the sympathetic division of the
+autonomic nervous system. Whether it extends to the parasympathetic division or to the enteric
+nervous system has not been tested.
 
 One qualification applies to every row above. *Oprl1* dominates its receptor family without being
 an abundant transcript. It sits at the 73.6th percentile of the 32,565 genes expressed in nodose
@@ -130,10 +143,16 @@ The margins in figure 1 order by sequencing depth rather than by tissue. The two
 from full-length libraries: the spiral ganglion at a median of 2,678,701 reads per cell and
 GSE102443 by SMART-seq. The three smallest come from 10x droplet data, where the NodoMap median
 is 1,570 UMI per cell, a factor of 1,700 below the spiral ganglion. The vestibular ganglion sits
-between them at 6,000 to 10,300 UMI. Margin size across panels therefore reports what each
-platform can resolve, and the ordering should not be read as a biological gradient across
-ganglia. The consistent finding across all eight is the direction, which holds regardless of
-depth; the size of the lead is only interpretable within a preparation.
+between them at 6,000 to 10,300 UMI, and the superior cervical ganglion at 9,885. Margin size
+across panels therefore reports what each platform can resolve, and the ordering should not be
+read as a biological gradient across ganglia. The consistent finding across all ten is the
+direction, which holds regardless of depth; the size of the lead is only interpretable within a
+preparation.
+
+The superior cervical ganglion is the exception that limits how far that reading goes. It sits at
+the same droplet depth as the vestibular ganglion and gives a margin six times larger, 25.72×
+against 4.29×. Depth sets a ceiling on the margin a dataset can report, and it does not determine
+where a dataset lands under that ceiling.
 
 The eight-dataset version of this comparison, including the two nuclear preparations, is figure S3
 in [`SUPPLEMENT.md`](SUPPLEMENT.md).
@@ -152,8 +171,9 @@ preparations retain unspliced pre-mRNA and *Oprm1* spans 250 kb against *Oprl1*'
 | trigeminal (V) | crest and placode | measured |
 | dorsal root ganglion | neural crest | measured |
 | spiral (VIII) | otic placode | measured |
-| sympathetic (specificity control) | neural crest | measured |
 | vestibular (VIII) | otic placode | measured |
+| sympathetic, thoracic (control) | neural crest | measured |
+| sympathetic, superior cervical (control) | neural crest | measured |
 | petrosal (IX) | epibranchial placode | not separable from pooled tissue |
 
 The survey covers cranial visceral, gustatory, auditory and somatic afferents, and all three
@@ -163,8 +183,8 @@ The petrosal is the one ganglion this survey cannot reach. Searching GEO across 
 and organisms returns a single mouse record containing petrosal tissue, GSE145216, whose samples
 are titled "NJP ganglia": nodose, jugular and petrosal dissected and sequenced together. Petrosal
 neurons cannot be separated from that pool without an established distinguishing marker. The
-superior cervical ganglion, which would serve as a sympathetic specificity control, returns
-nothing in CELLxGENE.
+superior cervical ganglion returns nothing in CELLxGENE and is reached through GEO instead
+(GSE231766).
 
 Human data is unavailable for a different reason. The CELLxGENE human DRG atlas (Nguyen et al.,
 eLife 2021, 1,837 nuclei) quantifies 31,654 genes including *OPRM1*, *OPRD1* and *OPRK1*, and
@@ -455,6 +475,7 @@ python3 src/06_oprl1_localisation.py         # annotations and transcriptome-wid
 python3 src/07_transduction_effector_genes.py       # Piezo2, Gi effectors, nociceptor control
 python3 src/08_specificity_controls.py       # matched nulls, group sizes, ambient check
 python3 src/09_main_figures.py               # consolidated figures 1 and 3
+python3 src/external/scg_GSE231766.py        # superior cervical ganglion, the second sympathetic control
 python3 -m pytest tests -q                   # 33 unit tests
 ```
 
@@ -493,6 +514,7 @@ python3 -m pytest tests -q                   # 33 unit tests
 | `oprl1_across_datasets.csv` | *Oprl1* position among the four receptors, per dataset |
 | `top_receptor_by_dataset.csv` | top receptor per dataset, with bootstrap support |
 | `nts_by_subtype.csv` | *Oprl1* across the 25 NTS neuronal subtypes |
+| `scg_GSE231766_receptor_levels.csv` | superior cervical receptor levels, per population and per sample |
 | `geniculate_per_cell_GSE102443.csv` | per-cell *Oprl1* FPKM, split gustatory/somatosensory |
 | `*_opioid_levels.csv`, `*_receptor_rank.csv`, `*_rank_support.csv` | per-tissue levels, ordering, support |
 
@@ -502,6 +524,7 @@ python3 -m pytest tests -q                   # 33 unit tests
 - GSE135801 Zhang et al. 2019, *Cell* (Zuker lab), 454 Phox2b+ geniculate neurons
 - GSE166648 Ludwig et al., dorsal vagal complex snRNA-seq, 72,128 nuclei
 - GSE78845 Furlan et al. 2016, 298 mouse thoracic sympathetic neurons, full-length
+- GSE231766 Ziegler et al. 2023, four mouse superior cervical ganglia, 10x
 - GSE309608 four mouse vestibular ganglia, 10x
 - GSE114997 Shrestha et al. 2018, *Cell*, 226 spiral ganglion neurons, SMART-seq
 - iPain Atlas, mouse trigeminal (84,658 cells) and dorsal root ganglion (191,798 cells), via CZ

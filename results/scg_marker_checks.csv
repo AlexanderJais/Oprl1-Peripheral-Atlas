@@ -1,0 +1,7 @@
+dataset,gene,in_matrix,level,enforced
+GSE231766 (SCG neurons),Snap25,True,1106.0898,True
+GSE231766 (SCG neurons),Phox2b,True,186.4462,False
+GSE231766 (SCG neurons),Slc17a6,True,0.6094,False
+GSE231766 (SCG neurons),Tac1,True,5.0012,False
+GSE231766 (SCG neurons),Calca,True,1.1602,False
+GSE231766 (SCG neurons),Actb,True,2487.2969,True

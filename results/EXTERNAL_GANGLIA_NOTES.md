@@ -57,7 +57,12 @@ A first pass using a 500 UMI cutoff and a Snap25 CPM threshold called 88.6% of b
 and gave Oprl1 10.30 CPM. That filter was admitting ambient-dominated barcodes; the numbers above
 use the stricter one.
 
-## Sympathetic ganglion, GSE78845: the specificity control
+## Sympathetic ganglion, GSE78845 and GSE231766: the specificity control
+
+Two datasets, chosen to share nothing but the cell type: different ganglion, different laboratory,
+different platform, different chemistry.
+
+## GSE78845, thoracic chain, full-length
 
 Furlan et al. 2016, 298 mouse thoracic sympathetic neurons, full-length, median library 33,099.
 Identity confirmed by Th 2,316 CPM, Dbh 1,822, Prph 1,222, Snap25 1,995.
@@ -79,8 +84,49 @@ margin than any sensory ganglion except the geniculate and the spiral. The restr
 "sensory" in earlier drafts of the title was an assumption that had never been tested, and the
 test does not support it.
 
-Caveats: one dataset, 298 cells, and a full-length preparation, which is the platform class that
-produces the largest margins throughout this project.
+The caveat that stood against this result was that it rested on 298 cells in the platform class
+that produces the largest margins throughout this project. GSE231766 addresses both halves of it.
+
+## GSE231766, superior cervical ganglion, droplet
+
+Reproduced by `src/external/scg_GSE231766.py`, which fetches the GEO tarball and writes
+`results/scg_GSE231766_receptor_levels.csv` and `results/scg_marker_checks.csv`. It is the one
+analysis in this file with a checked-in script.
+
+Ziegler et al. 2023 (GSE231766), four 10x samples of the mouse superior cervical ganglion: two
+untreated animals and two with heart disease at 5 and 18 days after transverse aortic
+constriction. Different ganglion, laboratory and platform from GSE78845, and a cranial rather
+than a thoracic sympathetic ganglion.
+
+Barcodes were filtered at 2,000 UMI and 1,000 detected genes, leaving 25,199 cells. Sympathetic
+neurons were called on raw counts (Snap25 >= 5 and Th >= 5) with glial and immune barcodes
+excluded (Sox10 < 200, Plp1 < 500, Ptprc < 50 CPM), giving 2,115 neurons, 8.4% of QC-passing
+cells, at Th 1,010 CPM, Dbh 2,285, Prph 2,424, Snap25 1,106, Plp1 98 and Sox10 7.
+
+The headline row uses the 1,382 neurons from the two untreated animals, at a median library of
+9,885 UMI:
+
+| gene | mean CPM | % of neurons detected |
+|---|---|---|
+| Oprl1 | 18.68 | 21.6 |
+| Oprk1 | 0.73 | 1.4 |
+| Oprd1 | 0.57 | 1.2 |
+| Oprm1 | 0.27 | 0.4 |
+
+Margin 25.72x over the runner-up (95% interval 15.93 to 52.14), 69x over Oprm1, support 1.0000.
+Oprl1 sits at the 75.4th percentile of expressed genes. All 2,115 neurons together give
+Oprl1 21.86, Oprk1 1.26, Oprd1 1.04, Oprm1 0.31, a margin of 17.35x with support 1.0000, and each
+of the four samples places Oprl1 first on its own: 14.18, 34.62, 31.53 and 22.64 CPM against
+runners-up of 0.43, 1.79, 2.11 and 2.51. The two disease samples therefore neither produce the
+result nor obscure it.
+
+Scn1a reads 16.12 CPM against Scn10a 0.09, and Pvalb is absent. Sympathetic neurons carry the
+Nav1.1-positive Nav1.8-negative profile without being proprioceptive, so the section 3 association
+does not require the sensory context in which it was found.
+
+The two sympathetic datasets agree on direction and on the size of the lead over Oprm1 (42x and
+69x), across a 20-fold difference in library depth. That is the strongest cross-platform agreement
+in this project, and it comes from the tissue that was introduced to break the pattern.
 
 ## Petrosal ganglion (IX)
 
