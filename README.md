@@ -1,14 +1,16 @@
 # *Oprl1* is the dominant opioid receptor of peripheral sensory neurons
 
 In mouse geniculate ganglion neurons *Oprl1* is expressed 31-fold above *Oprm1* and is detected in
-92% of cells. The ordering reproduces on a second platform from a second laboratory. Work on
-opioid signalling in sensory ganglia targets *Oprm1*, the least abundant of the four receptors in
-these neurons.
+92% of cells. The ordering reproduces on a second platform from a second laboratory. It holds in
+five ganglia spanning both developmental origins of the peripheral sensory system, including the
+dorsal root ganglion, where most work on opioid receptors in sensory neurons has been done and
+where that work targets *Oprm1*.
 
 | input | tissue | source |
 |---|---|---|
 | [Oprl1_Junhe](https://github.com/AlexanderJais/Oprl1_Junhe) | geniculate ganglion | GSE102443 (96 cells), GSE135801 (454 cells) |
 | [PNOC-Nodose](https://github.com/AlexanderJais/PNOC-Nodose) | nodose and jugular ganglia | NodoMap atlas, 106,436 cells in 52 clusters, 5 datasets |
+| [iPain Atlas](https://cellxgene.cziscience.com/collections/03608e22-227a-4492-910b-3cb3f16f952e) | trigeminal and dorsal root ganglia | 84,658 and 191,798 cells |
 | this repo | nucleus of the solitary tract | GSE166648, 49,392 neuronal nuclei in 25 subtypes |
 
 Every number is recomputed from the GEO and CELLxGENE source matrices through one pipeline.
@@ -25,7 +27,7 @@ same ordering.
 
 ---
 
-## 1. *Oprl1* is the highest-expressed opioid receptor in both ganglia
+## 1. *Oprl1* is the highest-expressed opioid receptor in every ganglion measured
 
 Mean expression of the four opioid receptors, measured in the same cells, in each dataset's own
 unit (`results/*_opioid_levels.csv`):
@@ -36,6 +38,8 @@ unit (`results/*_opioid_levels.csv`):
 | GSE135801 (CPM) | geniculate | 18.98 | 0.01 | 4.72 | 3.61 | large |
 | NodoMap, nodose neurons (CPM) | nodose | 11.90 | 9.86 | 0.13 | 4.63 | 1.21× |
 | NodoMap, jugular neurons (CPM) | jugular | 9.62 | 8.33 | 0.92 | 0.90 | 1.16× |
+| iPain, trigeminal neurons (CPM) | trigeminal | 13.24 | 6.36 | 1.46 | 5.12 | 2.08× |
+| iPain, DRG neurons (CPM) | dorsal root | 9.31 | 8.23 | 0.20 | 2.78 | 1.13× |
 | GSE166648, NTS neurons (CPM) | NTS | 15.79 | 118.04 | 9.62 | 11.75 | 0.13× |
 
 The geniculate result carries the claim. *Oprl1* at 5.73 FPKM against *Oprm1* at 0.18 is an
@@ -64,6 +68,22 @@ jugular datasets with enough cells, Kupari and Zhao place *Oprl1* first (support
 and Buchanan places *Oprm1* first at support 0.51. The crest ganglion agrees in direction at the
 weakest margin measured in any peripheral dataset here.
 
+The ordering holds in the two somatic ganglia. In the trigeminal ganglion *Oprl1* reaches 13.24
+CPM against *Oprm1* 6.36, a margin of 2.08× with support 1.000 and a 95% interval of 1.41 to 3.26
+(n = 2,773 whole-cell neurons). In the dorsal root ganglion *Oprl1* reaches 9.31 CPM against
+*Oprm1* 8.23, a margin of 1.13× with support 1.000 and an interval of 1.08 to 1.19 that excludes 1
+(n = 31,802 whole-cell neurons). The DRG margin is the narrowest measured here and the DRG sample
+is the second largest.
+
+*Oprm1* in the dorsal root ganglion is highest in the peptidergic nociceptor populations, PEP1 at
+13.93 CPM and SST at 12.06, which is where the peripheral analgesia literature places it. The same
+pipeline that reproduces that distribution places *Oprl1* above *Oprm1* across the ganglion as a
+whole.
+
+Both iPain atlases are majority single-nucleus (trigeminal 70,772 of 84,658, DRG 123,645 of
+191,798), so every figure above is restricted to whole-cell cells. Pooling preparations compresses
+the trigeminal margin from 2.08× to 1.18×.
+
 The eight-dataset version of this comparison is figure S3 in [`SUPPLEMENT.md`](SUPPLEMENT.md).
 
 The two single-nucleus datasets place *Oprm1* first. This is a preparation artefact: nuclear
@@ -77,20 +97,25 @@ preparations retain unspliced pre-mRNA and *Oprm1* spans 250 kb against *Oprl1*'
 | geniculate (VII) | epibranchial placode | measured |
 | nodose (X) | epibranchial placode | measured |
 | jugular (X superior) | neural crest | measured |
+| trigeminal (V) | crest and placode | measured |
+| dorsal root ganglion | neural crest | measured |
 | petrosal (IX) | epibranchial placode | not measured |
-| trigeminal (V) | crest and placode | not measured |
-| dorsal root ganglion | neural crest | not measured |
 | spiral and vestibular (VIII) | otic placode | not measured |
 
-The claim covers cranial visceral and gustatory afferents plus one crest ganglion. The dorsal root
-ganglion is where most opioid-receptor work in sensory neurons has been done, and it is not
-covered here.
+The survey covers cranial visceral, gustatory and somatic afferents, and both developmental
+origins. Petrosal, spiral and vestibular ganglia return no hits across the 2,210 public datasets
+indexed by CZ CELLxGENE, searched by tissue annotation. The same search returns nothing for the
+superior cervical ganglion, which would serve as a sympathetic specificity control.
 
-The obvious public route to human DRG does not carry the gene. The CELLxGENE human DRG atlas
-(Nguyen et al., eLife 2021, 1,837 nuclei) quantifies 31,654 genes including *OPRM1*, *OPRD1* and
-*OPRK1*, and *OPRL1* appears under neither symbol nor Ensembl identifier ENSG00000125510. That is
-a reference gap rather than a measured zero, the same situation as *Pnoc* in GSE102443. The
-dataset is also single-nucleus, which biases toward *OPRM1* for the reason in figure S1.
+Human data is unavailable for a different reason. The CELLxGENE human DRG atlas (Nguyen et al.,
+eLife 2021, 1,837 nuclei) quantifies 31,654 genes including *OPRM1*, *OPRD1* and *OPRK1*, and
+*OPRL1* appears under neither symbol nor Ensembl identifier ENSG00000125510. That is a reference
+gap rather than a measured zero, the same situation as *Pnoc* in GSE102443. The dataset is also
+single-nucleus, which biases toward *OPRM1* for the reason in figure S1.
+
+The trigeminal and DRG analyses are recorded in `results/EXTERNAL_GANGLIA_NOTES.md` and
+`results/drg_oprl1_by_subtype.csv`. They are not yet wired into the numbered pipeline, so they do
+not pass `check_markers`, the matched null or the ambient check that the other tissues do.
 
 ## 2. *Oprl1* is expressed in most neurons of the ganglion
 
@@ -108,10 +133,11 @@ In the nodose and jugular ganglia, *Oprl1* appears in every one of the 26 neuron
 neuronal enrichment +3.53, against *Oprk1* +3.49, *Oprm1* +3.24 and *Oprd1* +1.62). The highest
 clusters are NGN14 at 43.5 CPM, NGN17 at 31.7, NGN6 at 30.5 and NGN19 at 30.3 (figure 2b).
 
-## 3. Within the vagus, expression is graded by sodium channel class
+## 3. Expression is graded by sodium channel class, in the vagus and the DRG
 
 This gradient sits inside a gene expressed throughout the ganglion, and the effect is small
-relative to sections 1 and 2.
+relative to sections 1 and 2. It was established in the vagus and then tested in the dorsal root
+ganglion as a prediction.
 
 Each NodoMap annotation is a property of the cluster, so the unit of analysis is the 21 nodose
 clusters. Effect sizes below are cluster means, computed on the same basis as the test. An earlier
@@ -170,6 +196,26 @@ detection rate correlate at rho = 0.95 across clusters, so a cluster gradient co
 RNA content. Testing 550 expression-matched genes for the same Nav1.1/Nav1.8 cluster ratio
 (`results/nav_gradient_matched_null.csv`) gives a matched median of 1.11 against *Oprl1*'s 4.02,
 with *Oprl1* exceeding 95.8% of them. The effect is solid at the 96th percentile.
+
+The association replicates in the dorsal root ganglion, against a prediction made before that
+data was obtained. Proprioceptors are the most Nav1.1-dependent sensory population known, so if
+*Oprl1* tracks Nav1.1 generally they should rank near the top of *Oprl1* expression. The
+proprioceptor population in the iPain atlas is NF2, which ranks first of nine whole-cell subtypes
+for *Pvalb* (1,576 CPM), *Runx3* (86.9) and *Scn1a* (226.4). It ranks first for *Oprl1* as well, at
+29.97 CPM. *Oprm1* ranks seventh of nine in the same population. Across the nine subtypes
+(`results/drg_oprl1_by_subtype.csv`):
+
+| partner | Spearman rho with *Oprl1* | *p* |
+|---|---|---|
+| *Scn1a* | +0.862 | 0.0028 |
+| *Runx3* | +0.837 | 0.0049 |
+| *Pvalb* | +0.817 | 0.0072 |
+| *Ntrk3* | +0.550 | 0.125 |
+| *Scn10a* | -0.700 | 0.036 |
+| *Oprm1* | -0.183 | 0.637 |
+
+Both directions of the nodose result appear again: positive with *Scn1a*, negative with *Scn10a*,
+in a ganglion of different developmental origin and different modality.
 
 Nav1.1 supports high-frequency firing. *Oprl1* couples to Gi. Their co-occurrence identifies
 neurons in which a Gi-coupled receptor is positioned to reduce firing in cells equipped to fire
@@ -357,6 +403,8 @@ python3 -m pytest tests -q                   # 33 unit tests
 
 | table | contents |
 |---|---|
+| `EXTERNAL_GANGLIA_NOTES.md` | trigeminal and DRG receptor levels, and the proprioceptor test |
+| `drg_oprl1_by_subtype.csv` | *Oprl1* and Nav markers across the 9 DRG neuronal subtypes |
 | `nodose_oprl1_by_cluster_annotated.csv` | per-cluster *Oprl1* with the atlas annotations |
 | `nodose_oprl1_annotation_tests.csv` | Kruskal-Wallis over cluster means, per annotation |
 | `nodose_nav_fibre_crosstab.csv` | Nav class cross-stratified against fibre type |
@@ -384,5 +432,7 @@ python3 -m pytest tests -q                   # 33 unit tests
 - GSE102443 Dvoryanchikov et al. 2017, *Nat Commun*, 96 geniculate neurons, SMART-seq
 - GSE135801 Zhang et al. 2019, *Cell* (Zuker lab), 454 Phox2b+ geniculate neurons
 - GSE166648 Ludwig et al., dorsal vagal complex snRNA-seq, 72,128 nuclei
+- iPain Atlas, mouse trigeminal (84,658 cells) and dorsal root ganglion (191,798 cells), via CZ
+  CELLxGENE collection `03608e22-227a-4492-910b-3cb3f16f952e`
 - NodoMap Cheng et al. 2026, *Cell Press Blue* 1:100072, doi:10.1016/j.cpblue.2026.100072,
   via CZ CELLxGENE collection `982f9f44-031c-4c8c-91ee-dcaa53b10151`
