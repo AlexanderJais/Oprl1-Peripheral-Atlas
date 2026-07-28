@@ -1,9 +1,9 @@
 dataset,tissue_group,prep,level,rank_of_4,support
 GSE102443,geniculate,whole cell,5.7328979166666665,1,1.0
-GSE135801,geniculate,whole cell,18.98253115945732,1,0.9765
-NodoMap:Bai,nodose/jugular,whole cell,11.837543351336146,1,0.974
-NodoMap:Buchanan,nodose/jugular,whole cell,9.593246228188244,1,0.5375
-NodoMap:Kupari,nodose/jugular,whole cell,11.093921813917712,1,0.9375
+GSE135801,geniculate,whole cell,18.98253115945732,1,0.9736
+NodoMap:Bai,nodose/jugular,whole cell,11.837543351336146,1,0.9728
+NodoMap:Buchanan,nodose/jugular,whole cell,9.593246228188244,1,0.555
+NodoMap:Kupari,nodose/jugular,whole cell,11.093921813917712,1,0.9415
 NodoMap:Zhao,nodose/jugular,whole cell,11.982650575069728,1,1.0
 NodoMap:inhouse,nodose/jugular,nuclear,5.217716721845791,3,1.0
 GSE166648,NTS (central),nuclear,15.78630023264098,2,1.0

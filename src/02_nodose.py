@@ -53,7 +53,6 @@ CLUSTER_ORDER = (
 )
 NEURON_CLUSTERS = [c for c in CLUSTER_ORDER if c.startswith(("NGN", "JGN"))]
 
-N_BOOT = 2000
 
 
 def load_counts(adata, path, genes):
@@ -200,7 +199,7 @@ def main() -> int:
         lib[lib == 0] = 1.0
         pc = counts.loc[mask, [g for g in ac.RECEPTORS
                                if g in counts.columns]].div(lib, axis=0) * 1e6
-        b = ac.bootstrap_receptor_support(pc, n_boot=N_BOOT)
+        b = ac.bootstrap_receptor_support(pc, n_boot=ac.N_BOOT)
         b.update({"dataset": "NodoMap:whole-cell", "tissue": label})
         support.append(b)
 
@@ -210,7 +209,7 @@ def main() -> int:
         lib[lib == 0] = 1.0
         per_cell = counts.loc[mask, [g for g in ac.RECEPTORS
                                      if g in counts.columns]].div(lib, axis=0) * 1e6
-        b = ac.bootstrap_receptor_support(per_cell, n_boot=N_BOOT)
+        b = ac.bootstrap_receptor_support(per_cell, n_boot=ac.N_BOOT)
         b.update({"dataset": f"NodoMap:{ds}", "tissue": "nodose+jugular"})
         support.append(b)
     sup = pd.DataFrame(support)[["tissue", "dataset", "top_gene", "runner_up",

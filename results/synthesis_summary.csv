@@ -1,4 +1,4 @@
 statement,value
-Oprl1 is the top-ranked opioid receptor in whole-cell data,"6/6 datasets, 2 ganglia; bootstrap support 0.54-1.00"
+Oprl1 is the top-ranked opioid receptor in whole-cell data,"6/6 datasets, 2 ganglia; bootstrap support 0.56-1.00"
 nuclear preparations invert this toward Oprm1,2/2 datasets; Oprm1 spans 250 kb vs Oprl1 6 kb
 the gene-length correlation depends on two of seven genes,log-log r = 0.84 (n = 7); r = 0.02 without Oprm1 and Oprd1

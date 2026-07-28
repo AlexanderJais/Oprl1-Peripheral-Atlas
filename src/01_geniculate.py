@@ -30,7 +30,6 @@ import pandas as pd
 import atlas_common as ac
 import atlas_style as st
 
-N_BOOT = 2000
 
 
 def load_dvoryanchikov():
@@ -148,7 +147,7 @@ def main() -> int:
         ranks.append(r)
 
         per_cell = mat.loc[[g for g in ac.RECEPTORS if g in mat.index]].T
-        b = ac.bootstrap_receptor_support(per_cell, n_boot=N_BOOT)
+        b = ac.bootstrap_receptor_support(per_cell, n_boot=ac.N_BOOT)
         b.update({"dataset": label, "tissue": "geniculate"})
         support.append(b)
 

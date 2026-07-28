@@ -1,9 +1,9 @@
 dataset,tissue_group,prep,top_receptor,determinate,support,margin
 GSE102443,geniculate,whole cell,Oprl1,True,1.0,6.91627206739856
-GSE135801,geniculate,whole cell,Oprl1,True,0.9765,4.019310520580632
-NodoMap:Bai,nodose/jugular,whole cell,Oprl1,True,0.974,1.268805841762647
-NodoMap:Buchanan,nodose/jugular,whole cell,Oprl1,True,0.5375,1.01777208996432
-NodoMap:Kupari,nodose/jugular,whole cell,Oprl1,True,0.9375,1.3263309699982837
+GSE135801,geniculate,whole cell,Oprl1,True,0.9736,4.019310520580632
+NodoMap:Bai,nodose/jugular,whole cell,Oprl1,True,0.9728,1.268805841762647
+NodoMap:Buchanan,nodose/jugular,whole cell,Oprl1,True,0.555,1.01777208996432
+NodoMap:Kupari,nodose/jugular,whole cell,Oprl1,True,0.9415,1.3263309699982837
 NodoMap:Zhao,nodose/jugular,whole cell,Oprl1,True,1.0,1.1855171148335704
 NodoMap:inhouse,nodose/jugular,nuclear,Oprm1,True,1.0,45.48037425274292
 GSE166648,NTS (central),nuclear,Oprm1,True,1.0,7.477338757033811

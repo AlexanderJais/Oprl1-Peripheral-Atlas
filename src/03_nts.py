@@ -33,7 +33,6 @@ CACHE = ac.DATA / "gse166648_targets.npz"
 
 TARGETS = ac.OPIOID_GENES + ac.SANITY_GENES + ["Gad1", "Slc17a7", "Glp1r", "Calcr"]
 MIN_SUBTYPE_CELLS = 30
-N_BOOT = 2000
 
 
 def stream_matrix(force=False):
@@ -124,7 +123,7 @@ def main() -> int:
     print("\n  Receptor rank in NTS neurons (nuclear prep — see 04_synthesis):")
     print(rank.to_string(index=False))
 
-    b = ac.bootstrap_receptor_support(cpm.loc[neuron], n_boot=N_BOOT)
+    b = ac.bootstrap_receptor_support(cpm.loc[neuron], n_boot=ac.N_BOOT)
     b.update({"dataset": "GSE166648", "tissue": "NTS"})
     sup = pd.DataFrame([b])[["tissue", "dataset", "top_gene", "runner_up",
                              "margin", "margin_lo", "margin_hi", "support",

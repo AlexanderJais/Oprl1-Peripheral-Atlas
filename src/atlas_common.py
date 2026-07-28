@@ -56,6 +56,12 @@ NODOSE_H5AD = NODOSE_ROOT / "data" / "nodomap_integrated.h5ad"
 GENICULATE_FPKM = "GSE102443_GEO-ID_Dvoryanchikov_2017_Datatable_FPKM.txt.gz"
 GENICULATE_XLSX = "gse135801/GSM4037432_GG_scRNAseq_Phox2b_expressed454.xlsx"
 
+# Resamples for every bootstrap in this project. 2,000 is enough to separate a
+# support of 0.54 from one of 1.00, but the third decimal is unstable at that
+# count and several supports here sit near 0.9, where the reported value should
+# not move between runs.
+N_BOOT = 10_000
+
 RECEPTORS = ["Oprl1", "Oprm1", "Oprd1", "Oprk1"]
 LIGANDS = ["Pnoc", "Penk", "Pdyn", "Pomc"]
 OPIOID_GENES = RECEPTORS + LIGANDS
@@ -156,7 +162,7 @@ def receptor_rank(levels: pd.Series) -> pd.DataFrame:
     return out.sort_values("rank").reset_index(drop=True)
 
 
-def bootstrap_receptor_support(per_cell: pd.DataFrame, n_boot: int = 2000,
+def bootstrap_receptor_support(per_cell: pd.DataFrame, n_boot: int = N_BOOT,
                                seed: int = 0) -> dict:
     """How much of the receptor ordering survives resampling the cells.
 

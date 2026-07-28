@@ -46,13 +46,15 @@ unit (`results/*_opioid_levels.csv`):
 
 The geniculate result carries the claim. *Oprl1* at 5.73 FPKM against *Oprm1* at 0.18 is an
 order-of-magnitude difference in transcript abundance rather than a difference in rank order, and
-it reproduces in GSE135801 (*Oprl1* 18.98 CPM, *Oprm1* 0.01 CPM). *Oprm1* is the least abundant of
+it reproduces in GSE135801 (*Oprl1* 18.98 CPM, *Oprm1* 0.01 CPM), where support is 0.974 and
+the interval on the margin runs from 0.99 to 36.7, so that dataset establishes the ordering
+without constraining its size. *Oprm1* is the least abundant of
 the four receptors in geniculate neurons.
 
 The nodose data agrees at a much smaller margin. *Oprl1* is highest there at 11.90 CPM against
 *Oprm1* 9.86, and comes first in each of the four whole-cell datasets separately (11.98, 11.84,
 11.09, 9.59 CPM). Resampling the cells 2,000 times, that ordering holds in 100%, 97% and 94% of
-resamples for Zhao, Bai and Kupari, and in 54% for Buchanan
+resamples for Zhao, Bai and Kupari, and in 56% for Buchanan
 (`results/*_rank_support.csv`). Buchanan gives an ordering indistinguishable from a tie. The four
 nodose datasets corroborate the geniculate result; they do not constitute four independent
 demonstrations of it.
@@ -61,7 +63,7 @@ The jugular ganglion marks the edge of the claim. Geniculate and nodose are epib
 placode-derived; the jugular is neural-crest-derived and sits in the same tissue block as the
 nodose, so it tests whether the ordering follows developmental origin. Restricted to whole-cell
 data, *Oprl1* leads there at 9.62 CPM against *Oprm1* 8.33, a margin of 1.16× with bootstrap
-support 0.897 and a 95% interval on the margin of 0.92 to 1.47, which includes 1. Across the three
+support 0.898 and a 95% interval on the margin of 0.92 to 1.46, which includes 1. Across the three
 jugular datasets with enough cells, Kupari and Zhao place *Oprl1* first (support 0.99 and 0.81)
 and Buchanan places *Oprm1* first at support 0.51. The crest ganglion agrees in direction at the
 weakest margin measured in any peripheral dataset here.
@@ -101,7 +103,16 @@ Both iPain atlases are majority single-nucleus (trigeminal 70,772 of 84,658, DRG
 191,798), so every figure above is restricted to whole-cell cells. Pooling preparations compresses
 the trigeminal margin from 2.08× to 1.18×.
 
-![Oprl1 across five ganglia](figures/figure1_oprl1_across_ganglia.png)
+![Oprl1 across the sensory ganglia](figures/figure1_oprl1_across_ganglia.png)
+
+The margins in figure 1 order by sequencing depth rather than by tissue. The two largest come
+from full-length libraries: the spiral ganglion at a median of 2,678,701 reads per cell and
+GSE102443 by SMART-seq. The three smallest come from 10x droplet data, where the NodoMap median
+is 1,570 UMI per cell, a factor of 1,700 below the spiral ganglion. The vestibular ganglion sits
+between them at 6,000 to 10,300 UMI. Margin size across panels therefore reports what each
+platform can resolve, and the ordering should not be read as a biological gradient across
+ganglia. The consistent finding across all eight is the direction, which holds regardless of
+depth; the size of the lead is only interpretable within a preparation.
 
 The eight-dataset version of this comparison, including the two nuclear preparations, is figure S3
 in [`SUPPLEMENT.md`](SUPPLEMENT.md).
@@ -389,8 +400,10 @@ Statistics are in `src/atlas_common.py`:
 
 - `receptor_rank()` orders the four receptors in one sample and reports `determinate = False` when
   every level is zero or the top two are tied.
-- `bootstrap_receptor_support()` gives the fraction of 2,000 cell resamples in which the observed
-  top receptor stays top, with a 95% interval on the margin.
+- `bootstrap_receptor_support()` gives the fraction of 10,000 cell resamples in which the observed
+  top receptor stays top, with a 95% interval on the margin. The count is set once, as
+  `atlas_common.N_BOOT`. At 2,000 resamples the third decimal moved between runs, which matters
+  for the supports near 0.9.
 - `stratified_odds_ratio()` computes a Mantel-Haenszel odds ratio holding capture depth fixed, and
   separately depth and cluster identity. Co-detection in droplet data is confounded by depth: a
   cell detecting one gene tends to detect more genes overall, so a raw overlap percentage produces

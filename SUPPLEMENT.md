@@ -153,10 +153,15 @@ dominated by per-cell capture depth.
 
 ## Bootstrap support for the receptor ordering
 
-`bootstrap_receptor_support()` resamples cells with replacement 2,000 times and reports how often
+`bootstrap_receptor_support()` resamples cells with replacement 10,000 times and reports how often
 the observed top receptor stays top (`results/*_rank_support.csv`). This appears in the main
 README because it qualifies the section 1 claim: NodoMap:Buchanan places *Oprl1* first by 1.8% and
-holds that ordering in 54% of resamples.
+holds that ordering in 56% of resamples.
+
+The count was raised from 2,000. Four of the ten supports sit between 0.89 and 0.98, where 2,000
+resamples left the third decimal unstable between runs. Raising it also widened the interval on
+the GSE135801 margin from 1.04-34.9 to 0.99-36.7, so that interval now includes 1: the geniculate
+replication establishes the ordering without constraining the size of the lead.
 
 ## Genes checked and not reported
 
