@@ -93,6 +93,15 @@ def main() -> int:
     ac.save_table(ac.check_markers(cpm.loc[neuron].mean(), "GSE166648 (neurons)"),
                   "nts_marker_checks.csv")
 
+    # The same ambient check every other dataset gets in src/11_quality_panel.py.
+    # The dorsal vagal complex annotation separates neurons from glia, so the
+    # comparison is available here without recomputing anything.
+    amb = ac.ambient_enrichment(cpm, neuron, "GSE166648 (NTS)",
+                                genes=ac.RECEPTORS + ["Snap25"])
+    ac.save_table(amb, "nts_ambient_check.csv")
+    print("  ambient check (log2 neuron over non-neuron): " + "  ".join(
+        f"{r.gene} {r.log2_enrichment:+.2f}" for r in amb.itertuples()))
+
     # ------------------------------------------- levels, neurons vs everything
     rows = []
     for g in ac.OPIOID_GENES:

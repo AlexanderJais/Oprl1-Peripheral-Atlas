@@ -1,13 +1,19 @@
 # Ganglia added from external atlases
 
-Results outside the numbered pipeline. The sensory sections below are exploratory; the autonomic
-and enteric sections are reproduced by `src/external/autonomic_ganglia.py` and
-`src/external/scg_GSE231766.py`, which fetch their own source files, apply the same marker gate as
-the numbered pipeline and write `results/autonomic_receptor_levels.csv`,
-`results/autonomic_marker_checks.csv`, `results/scg_GSE231766_receptor_levels.csv` and
-`results/scg_marker_checks.csv`.
+Ganglia reached through GEO and CZ CELLxGENE rather than through the geniculate and vagal
+pipelines. The vestibular, autonomic and enteric sections are reproduced by
+`src/10_peripheral_ganglia.py`, which fetches its own source files and applies one QC policy, one
+neuron definition, one marker gate and one ambient check to all of them, writing
+`results/peripheral_receptor_levels.csv`, `results/peripheral_marker_checks.csv` and
+`results/peripheral_ambient_checks.csv`. `src/11_quality_panel.py` then records which checks ran
+on which population and why any did not.
 
-Source for the sensory sections: CZ CELLxGENE collection
+The trigeminal, dorsal root and spiral sections predate that script and are not re-derived by it:
+the iPain dorsal root h5ad is 20.9 GB, above this session's disk allowance, and the spiral and
+trigeminal deposits contain sorted neurons with no non-neuronal compartment to score. Those
+limitations are recorded per population in `results/dataset_quality_panel.csv`.
+
+Source for the trigeminal and dorsal root sections: CZ CELLxGENE collection
 `03608e22-227a-4492-910b-3cb3f16f952e` (iPain Atlas), mouse.
 
 Both atlases are majority single-nucleus (TG 70,772 of 84,658; DRG 123,645 of 191,798), so
@@ -95,10 +101,6 @@ The caveat that stood against this result was that it rested on 298 cells in the
 that produces the largest margins throughout this project. GSE231766 addresses both halves of it.
 
 ## GSE231766, superior cervical ganglion, droplet
-
-Reproduced by `src/external/scg_GSE231766.py`, which fetches the GEO tarball and writes
-`results/scg_GSE231766_receptor_levels.csv` and `results/scg_marker_checks.csv`. It is the one
-analysis in this file with a checked-in script.
 
 Ziegler et al. 2023 (GSE231766), four 10x samples of the mouse superior cervical ganglion: two
 untreated animals and two with heart disease at 5 and 18 days after transverse aortic

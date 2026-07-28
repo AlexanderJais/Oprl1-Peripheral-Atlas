@@ -33,7 +33,7 @@ same ordering.
 
 Mean expression of the four opioid receptors, measured in the same cells, in each dataset's own
 unit, grouped by division of the peripheral nervous system
-(`results/receptor_levels_by_ganglion.csv`, `results/autonomic_receptor_levels.csv`):
+(`results/receptor_levels_by_ganglion.csv`, `results/peripheral_receptor_levels.csv`):
 
 **Sensory**
 
@@ -217,7 +217,7 @@ the trigeminal margin from 2.08× to 1.18×.
 
 Figure 1 shows sixteen of the nineteen populations, one panel per ganglion, blocked by division.
 The three omitted panels are the GSE232789 lumbar chain, pelvic and stellate ganglia, whose
-numbers are in the tables above and in `results/autonomic_receptor_levels.csv`; GSE232789 is
+numbers are in the tables above and in `results/peripheral_receptor_levels.csv`; GSE232789 is
 represented in the figure by the coeliac and sphenopalatine panels and the stellate panel comes
 from GSE231924 instead, so that no two figure panels of the same division come from the same
 deposit.
@@ -551,9 +551,37 @@ Statistics are in `src/atlas_common.py`:
   under analysis, since quantiles set by a population including glia do not describe the neurons.
 - `transcriptome_percentile()` and `leave_one_out_pearson()` support the sections above.
 
-Each dataset passes `check_markers()` before any *Oprl1* number is read from it. *Snap25* and
-*Actb* are enforced; the tissue-specific markers are recorded. Preparation type is read from the
-NodoMap `suspension_type` field and checked against the registry in `atlas_common.DATASETS`.
+### Uniform checks
+
+Every population that contributes a number to section 1 is held to the same four checks, and
+`results/dataset_quality_panel.csv` records what each returned. Where a check could not run, the
+panel carries the reason in place of the value.
+
+- `check_markers()` runs before any *Oprl1* number is read. *Snap25* and *Actb* are enforced and
+  raise `SanityCheckError`; the tissue-specific markers are recorded. All 21 populations pass.
+- `ambient_enrichment()` compares each receptor between neurons and the non-neuronal cells of the
+  same dissociation. No ambient correction is applied anywhere in this pipeline, so a receptor read
+  in neurons carries whatever the same transcript contributes to the soup.
+- `bootstrap_receptor_support()` gives the margin, its 95% interval and the support.
+- Each biological sample is ordered on its own cells, so no result rests on one animal.
+
+The ambient check ran on 14 of the 21 populations. The other seven are deposits of sorted or
+author-filtered neurons with no non-neuronal compartment to compare against, which is a property of
+the deposit rather than of this pipeline.
+
+*Oprl1*'s raw enrichment is not the quantity to read, because it also measures how cleanly the two
+compartments separated in a given dissociation. *Snap25* is neuronal by definition and calibrates
+that. Across the eleven peripheral populations where both are available, *Oprl1* sits within 0.67
+log2 of *Snap25*, median −0.14, so it behaves like a neuronal transcript to within a factor of 1.6
+of the pan-neuronal marker. In four of those eleven populations *Oprm1* is the more neuron-enriched
+of the two, so ambient RNA does not preferentially inflate the receptor that wins.
+
+The one preparation outside that range is the nuclear NTS dataset at −1.28, in the direction figure
+S1 predicts: nuclei retain unspliced pre-mRNA, which favours the long-intron receptors over
+*Oprl1*'s 6 kb.
+
+Preparation type is read from the NodoMap `suspension_type` field and checked against the registry
+in `atlas_common.DATASETS`.
 
 Figures follow the conventions of the sibling PNOC-Nodose project (`src/atlas_style.py`).
 
@@ -571,8 +599,8 @@ python3 src/05_vagal_coexpression.py         # Oprl1 against Glp1r and Cckar
 python3 src/06_oprl1_localisation.py         # annotations and transcriptome-wide correlation
 python3 src/07_transduction_effector_genes.py       # Piezo2, Gi effectors, nociceptor control
 python3 src/08_specificity_controls.py       # matched nulls, group sizes, ambient check
-python3 src/external/scg_GSE231766.py        # superior cervical ganglion, the second sympathetic control
-python3 src/external/autonomic_ganglia.py    # sympathetic, parasympathetic and enteric ganglia
+python3 src/10_peripheral_ganglia.py         # every ganglion outside the geniculate and vagal pipelines
+python3 src/11_quality_panel.py              # the uniform check panel over all 21 populations
 python3 src/09_main_figures.py               # consolidated figures 1 and 3
 python3 -m pytest tests -q                   # 33 unit tests
 ```
@@ -612,8 +640,9 @@ python3 -m pytest tests -q                   # 33 unit tests
 | `oprl1_across_datasets.csv` | *Oprl1* position among the four receptors, per dataset |
 | `top_receptor_by_dataset.csv` | top receptor per dataset, with bootstrap support |
 | `nts_by_subtype.csv` | *Oprl1* across the 25 NTS neuronal subtypes |
-| `scg_GSE231766_receptor_levels.csv` | superior cervical receptor levels, per population and per sample |
-| `autonomic_receptor_levels.csv` | sympathetic, parasympathetic and enteric levels, margins and support |
+| `peripheral_receptor_levels.csv` | levels, margins, support, depth and ambient score per population |
+| `peripheral_ambient_checks.csv` | neuron against non-neuron CPM for every receptor, per dataset |
+| `dataset_quality_panel.csv` | which checks ran on which population, and why any did not |
 | `receptor_levels_by_ganglion.csv` | the figure 1 table, one row per panel |
 | `geniculate_per_cell_GSE102443.csv` | per-cell *Oprl1* FPKM, split gustatory/somatosensory |
 | `*_opioid_levels.csv`, `*_receptor_rank.csv`, `*_rank_support.csv` | per-tissue levels, ordering, support |

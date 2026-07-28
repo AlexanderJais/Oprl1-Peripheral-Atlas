@@ -309,3 +309,48 @@ def test_no_ligand_receptor_ratio_survives_in_the_api():
     # This project reports Oprl1 expression. Receptor-to-ligand ratios were
     # removed deliberately; re-adding one should fail a test, not pass review.
     assert not hasattr(ac, "ligand_receptor_ratio")
+
+
+# --------------------------------------------------------- ambient enrichment
+
+def _two_compartments():
+    """Six cells: three neurons carrying Snap25 and Oprl1, three glia."""
+    return pd.DataFrame({
+        "Snap25": [100.0, 120.0, 110.0, 1.0, 2.0, 1.0],
+        "Oprl1": [20.0, 25.0, 22.0, 1.0, 1.0, 1.0],
+        "Plp1": [1.0, 2.0, 1.0, 400.0, 500.0, 450.0],
+    }), np.array([True, True, True, False, False, False])
+
+
+def test_ambient_enrichment_separates_neuronal_from_glial_transcripts():
+    cpm, neuron = _two_compartments()
+    tbl = ac.ambient_enrichment(cpm, neuron, "toy",
+                                genes=["Snap25", "Oprl1", "Plp1"]).set_index("gene")
+    assert tbl.loc["Snap25", "log2_enrichment"] > 5
+    assert tbl.loc["Oprl1", "log2_enrichment"] > 4
+    assert tbl.loc["Plp1", "log2_enrichment"] < -5
+    assert (tbl.n_neurons == 3).all() and (tbl.n_non_neurons == 3).all()
+
+
+def test_ambient_enrichment_needs_both_compartments():
+    cpm, _ = _two_compartments()
+    with pytest.raises(ac.SanityCheckError, match="non-neurons"):
+        ac.ambient_enrichment(cpm, np.ones(6, bool), "all-neurons")
+    with pytest.raises(ac.SanityCheckError, match="non-neurons"):
+        ac.ambient_enrichment(cpm, np.zeros(6, bool), "no-neurons")
+
+
+def test_ambient_enrichment_pseudocount_keeps_a_measured_zero_finite():
+    # A receptor absent from the non-neuronal compartment must not produce an
+    # infinite enrichment that then propagates into the quality panel.
+    cpm = pd.DataFrame({"Oprk1": [5.0, 6.0, 0.0, 0.0],
+                        "Snap25": [100.0, 90.0, 1.0, 1.0]})
+    tbl = ac.ambient_enrichment(cpm, np.array([True, True, False, False]),
+                                "zero-glia", genes=["Oprk1"])
+    assert np.isfinite(tbl.log2_enrichment).all()
+
+
+def test_ambient_enrichment_skips_genes_absent_from_the_matrix():
+    cpm, neuron = _two_compartments()
+    tbl = ac.ambient_enrichment(cpm, neuron, "toy", genes=["Oprl1", "Nosuchgene"])
+    assert list(tbl.gene) == ["Oprl1"]

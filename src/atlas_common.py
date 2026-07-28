@@ -354,6 +354,45 @@ def check_markers(levels: pd.Series, label: str, required=None,
     return tbl
 
 
+def ambient_enrichment(cpm: pd.DataFrame, neuron, label: str,
+                       genes=None) -> pd.DataFrame:
+    """How much of a gene's neuronal signal could be ambient RNA.
+
+    No ambient correction is applied anywhere in this project, so a gene read in
+    neurons carries whatever the same transcript contributes to the soup. The
+    test is the neuron-to-non-neuron ratio inside one dissociation: a transcript
+    that is genuinely neuronal is far higher in neurons than in the glia and
+    immune cells captured beside them, and a transcript that is mostly soup is
+    not.
+
+    `cpm` is cells x genes and `neuron` is the boolean mask used for the
+    receptor numbers. Returns one row per gene. `Plp1` and `Ptprc` are included
+    as negative controls: they should come out at or below zero.
+    """
+    neuron = np.asarray(neuron, dtype=bool)
+    if neuron.all() or not neuron.any():
+        raise SanityCheckError(
+            f"{label}: ambient enrichment needs both neurons and non-neurons; "
+            f"the matrix has {int(neuron.sum())} of {len(neuron)} neurons")
+    genes = list(RECEPTORS + ["Snap25", "Plp1", "Ptprc"] if genes is None
+                 else genes)
+    rows = []
+    for g in genes:
+        if g not in cpm.columns:
+            continue
+        n = float(cpm.loc[neuron, g].mean())
+        o = float(cpm.loc[~neuron, g].mean())
+        rows.append({
+            "dataset": label, "gene": g,
+            "neuron_CPM": round(n, 4), "non_neuron_CPM": round(o, 4),
+            "n_neurons": int(neuron.sum()), "n_non_neurons": int((~neuron).sum()),
+            # A pseudocount of 0.01 CPM keeps a measured zero in the
+            # non-neuronal compartment from producing an infinite ratio.
+            "log2_enrichment": round(float(np.log2((n + 0.01) / (o + 0.01))), 3),
+        })
+    return pd.DataFrame(rows)
+
+
 # ---------------------------------------------------------------------------
 # Loading
 # ---------------------------------------------------------------------------

@@ -29,24 +29,42 @@ GSE232789 (pelvic),Slc17a6,True,0.0,False
 GSE232789 (pelvic),Tac1,True,2.0236,False
 GSE232789 (pelvic),Calca,True,39.766,False
 GSE232789 (pelvic),Actb,True,2229.4702,True
+GSE231766 (superior cervical),Snap25,True,934.0972,True
+GSE231766 (superior cervical),Phox2b,True,126.8132,False
+GSE231766 (superior cervical),Slc17a6,True,0.3448,False
+GSE231766 (superior cervical),Tac1,True,4.779,False
+GSE231766 (superior cervical),Calca,True,1.7223,False
+GSE231766 (superior cervical),Actb,True,2593.8191,True
+"GSE231766 (superior cervical, heart disease)",Snap25,True,1430.3652,True
+"GSE231766 (superior cervical, heart disease)",Phox2b,True,298.8784,False
+"GSE231766 (superior cervical, heart disease)",Slc17a6,True,1.1083,False
+"GSE231766 (superior cervical, heart disease)",Tac1,True,5.4201,False
+"GSE231766 (superior cervical, heart disease)",Calca,True,0.1004,False
+"GSE231766 (superior cervical, heart disease)",Actb,True,2286.4587,True
 GSE330884 (intrinsic cardiac),Snap25,True,1205.1934,True
 GSE330884 (intrinsic cardiac),Phox2b,True,209.1408,False
 GSE330884 (intrinsic cardiac),Slc17a6,True,0.1826,False
 GSE330884 (intrinsic cardiac),Tac1,True,13.8435,False
 GSE330884 (intrinsic cardiac),Calca,True,0.4776,False
 GSE330884 (intrinsic cardiac),Actb,True,1727.2224,True
-"GSE263422 (enteric, P24)",Snap25,True,1063.5055,True
-"GSE263422 (enteric, P24)",Phox2b,True,742.0336,False
-"GSE263422 (enteric, P24)",Slc17a6,True,0.2449,False
-"GSE263422 (enteric, P24)",Tac1,True,57.8663,False
-"GSE263422 (enteric, P24)",Calca,True,1.6031,False
-"GSE263422 (enteric, P24)",Actb,True,2479.0532,True
-"GSE263422 (enteric, P7)",Snap25,True,1176.5129,True
-"GSE263422 (enteric, P7)",Phox2b,True,644.3322,False
-"GSE263422 (enteric, P7)",Slc17a6,True,3.9245,False
-"GSE263422 (enteric, P7)",Tac1,True,644.6396,False
-"GSE263422 (enteric, P7)",Calca,True,6.6998,False
-"GSE263422 (enteric, P7)",Actb,True,3984.5125,True
+"GSE263422 (enteric submucosal, P24)",Snap25,True,1063.5055,True
+"GSE263422 (enteric submucosal, P24)",Phox2b,True,742.0336,False
+"GSE263422 (enteric submucosal, P24)",Slc17a6,True,0.2449,False
+"GSE263422 (enteric submucosal, P24)",Tac1,True,57.8663,False
+"GSE263422 (enteric submucosal, P24)",Calca,True,1.6031,False
+"GSE263422 (enteric submucosal, P24)",Actb,True,2479.0532,True
+"GSE263422 (enteric submucosal, P7)",Snap25,True,1176.5129,True
+"GSE263422 (enteric submucosal, P7)",Phox2b,True,644.3322,False
+"GSE263422 (enteric submucosal, P7)",Slc17a6,True,3.9245,False
+"GSE263422 (enteric submucosal, P7)",Tac1,True,644.6396,False
+"GSE263422 (enteric submucosal, P7)",Calca,True,6.6998,False
+"GSE263422 (enteric submucosal, P7)",Actb,True,3984.5125,True
+GSE309608 (vestibular (VIII)),Snap25,True,3138.7173,True
+GSE309608 (vestibular (VIII)),Phox2b,True,0.0,False
+GSE309608 (vestibular (VIII)),Slc17a6,True,457.4887,False
+GSE309608 (vestibular (VIII)),Tac1,True,1069.5092,False
+GSE309608 (vestibular (VIII)),Calca,True,8.1805,False
+GSE309608 (vestibular (VIII)),Actb,True,1700.2493,True
 GSE231924 (stellate),Snap25,True,862.882,True
 GSE231924 (stellate),Phox2b,True,138.0135,False
 GSE231924 (stellate),Slc17a6,True,2.163,False

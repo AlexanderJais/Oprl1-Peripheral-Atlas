@@ -86,6 +86,34 @@ NodoMap contains around 50,000 satellite and myelinating glia, so the correlate 
 contamination component that the gene of interest does not: *Oprl1* is log2 +3.48 neuron over
 glia.
 
+## The ambient check across the atlas
+
+The same comparison now runs on every population that has a non-neuronal compartment to compare
+against, 14 of the 21 in `results/dataset_quality_panel.csv`. The remaining seven are deposits of
+sorted or author-filtered neurons.
+
+*Oprl1*'s enrichment on its own measures two things at once: how neuronal the transcript is, and
+how cleanly the two compartments separated in that dissociation. *Snap25* is neuronal by
+definition, so the difference isolates the first. Across the eleven peripheral populations where
+both are available, *Oprl1* sits between 0.67 log2 below *Snap25* and 0.58 above it, median −0.14.
+The extremes are the sphenopalatine (−0.55) and the superior cervical heart-disease pair (+0.58).
+
+The three populations with the lowest raw *Oprl1* enrichment are the superior cervical untreated
+pair (+0.75), the intrinsic cardiac ganglion (+0.75) and the P24 enteric neurons (+0.84). In all
+three, *Snap25* is also low (+0.80, +1.29, +1.29), which identifies the cause: the non-neuronal
+pool in those preparations contains neurons that failed the positive threshold, so it is not a
+clean reference. The difference against *Snap25* is the quantity that survives this, and it is
+−0.06, −0.54 and −0.45 there.
+
+*Oprm1* is the more neuron-enriched of the two in four of the eleven, including the coeliac
+ganglion (+5.43 against +3.48) and the superior cervical pair (+1.31 against +0.75). Ambient RNA
+therefore does not preferentially inflate the receptor that wins, which is what the check was
+built to test.
+
+The nuclear NTS preparation sits at −1.28, outside the peripheral range, in the direction figure S1
+predicts. *Oprm1* there is +2.34 and *Oprd1* +3.27 against *Oprl1*'s +0.18: the long-intron
+receptors gain in nuclei and the 6 kb one does not.
+
 ## Figures S5 and S6. The annotation panels behind section 3
 
 ![Oprl1 by annotation](figures/figureS5_oprl1_annotations.png)

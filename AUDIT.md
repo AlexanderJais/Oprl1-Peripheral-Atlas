@@ -211,6 +211,32 @@ have silently duplicated nuclei through `meta.loc[common]`.
   the pipeline was last verified against. `tests/` has 28 unit tests. `00_download_data.sh`
   fetches every input including the NodoMap atlas and checksums all five.
 
+## Two tiers of dataset, removed
+
+Datasets entered the project at different times and were held to different standards. The
+geniculate and vagal data passed `check_markers()`, and NodoMap alone had an ambient-RNA check;
+every ganglion added afterwards lived in a notes file with an ad-hoc loader and neither check. The
+split was historical, not methodological.
+
+- **`src/external/` is gone.** `src/10_peripheral_ganglia.py` now handles every ganglion outside
+  the geniculate and vagal pipelines with one QC policy (2,000 UMI, 1,000 genes), one neuron
+  definition (raw-count positive markers, CPM ceilings on `Sox10`, `Plp1` and `Ptprc`), one marker
+  gate and one ambient check. It reproduced every previously published number exactly.
+- **`ac.ambient_enrichment()`** is new and covered by four unit tests, including the pseudocount
+  that keeps a measured zero in the non-neuronal compartment from returning an infinite ratio.
+- **`src/03_nts.py`** now writes the same ambient table, which closed the last population where
+  the check was possible but had not been run.
+- **`src/11_quality_panel.py`** states, for all 21 populations, which of the four checks ran, what
+  each returned, and the reason where one could not. Seven populations are neurons-only deposits
+  and one, the iPain dorsal root, has a 20.9 GB source matrix above this session's disk allowance.
+  Those reasons are in the table rather than absent from it.
+
+The check changed how one number is read. Raw *Oprl1* neuronal enrichment ranges from +0.75 to
++3.48 log2 across populations, which looks like a large difference in how neuronal the transcript
+is. It is not: *Snap25* tracks it, and the difference between them spans only −0.67 to +0.58. The
+populations with low *Oprl1* enrichment are the ones where the non-neuronal pool still contains
+neurons, which the positive control reveals and the raw number hides.
+
 ## Still open
 
 - **No `LICENSE` file.** Choosing one is the author's call, not the auditor's.

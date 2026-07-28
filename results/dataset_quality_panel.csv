@@ -1,0 +1,22 @@
+division,dataset,tissue,prep,unit,n,n_samples,median_umi,top_gene,margin,margin_lo,margin_hi,support,samples_agreeing,marker_gate,ambient_check,Oprl1_log2_neuron_over_glia,Snap25_log2_neuron_over_glia,Oprl1_minus_Snap25,ambient_reason,Oprl1,Oprm1,Oprd1,Oprk1,Oprl1_pct,Oprm1_pct,Oprd1_pct,Oprk1_pct,runner_up,n_boot,over_Oprm1,Oprl1_percentile
+sensory,GSE114997,spiral (VIII),whole cell,CPM,226,,,Oprl1,inf,,,1.0,n/a,pass,not possible,,,,"deposit is 226 sorted neurons, no non-neuronal cells",,,,,,,,,,,,
+sensory,GSE102443,geniculate (VII),whole cell,FPKM,96,,,Oprl1,31.3,,,1.0,n/a,pass,not possible,,,,"deposit is 96 sorted neurons, no non-neuronal cells",,,,,,,,,,,,
+sensory,GSE309608,vestibular (VIII),whole cell,CPM,6596,4.0,55172.0,Oprl1,4.29,3.854,4.808,1.0,4/4,pass,run,2.119,1.887,0.232,,19.879,1.775,0.09,4.634,57.57,6.66,0.49,9.67,Oprk1,10000.0,11.2,66.2
+sensory,GSE135801,geniculate (VII),whole cell,CPM,454,,,Oprl1,4.02,0.99,36.7,0.974,n/a,pass,not possible,,,,"deposit is Phox2b-sorted neurons, no non-neuronal cells",,,,,,,,,,,,
+sensory,iPain,trigeminal (V),whole cell,CPM,2773,,,Oprl1,2.08,1.41,3.26,1.0,n/a,pass,not possible,,,,source h5ad is 0.6 GB and was not retained; not re-derived,,,,,,,,,,,,
+sensory,NodoMap,nodose (X),whole cell,CPM,26047,,1570.0,Oprl1,1.21,1.15,1.28,1.0,4/4,pass,run,3.529,,,,,,,,,,,,,,,
+sensory,NodoMap,jugular (X),whole cell,CPM,4593,,1570.0,Oprl1,1.16,0.92,1.46,0.898,2/3,pass,run,3.529,,,"scored on the pooled ganglion, not the jugular subset",,,,,,,,,,,,
+sensory,iPain,dorsal root,whole cell,CPM,31802,,,Oprl1,1.13,1.08,1.19,1.0,n/a,pass,not possible,,,,"source h5ad is 20.9 GB, above this session's disk allowance",,,,,,,,,,,,
+sympathetic,GSE232789,coeliac,whole cell,CPM,247,1.0,56023.0,Oprl1,44.41,20.421,197.626,1.0,1/1,pass,run,3.477,3.102,0.375,,25.033,0.421,0.026,0.564,66.4,4.05,0.4,2.83,Oprk1,10000.0,59.4,61.0
+sympathetic,GSE231766,superior cervical,whole cell,CPM,1382,2.0,9885.0,Oprl1,25.72,15.934,52.141,1.0,2/2,pass,run,0.746,0.803,-0.057,,18.679,0.27,0.568,0.726,21.56,0.43,1.23,1.37,Oprk1,10000.0,69.18,71.1
+sympathetic,GSE232789,lumbar chain,whole cell,CPM,887,1.0,73326.0,Oprl1,14.779,12.001,18.827,1.0,1/1,pass,run,2.53,2.648,-0.118,,24.757,1.675,0.033,0.393,76.55,11.61,0.23,2.71,Oprm1,10000.0,14.78,71.2
+sympathetic,GSE78845,thoracic chain,whole cell,CPM,298,,33099.0,Oprl1,14.69,9.35,27.27,1.0,n/a,pass,not possible,,,,"deposit is 298 sorted neurons, no non-neuronal cells",,,,,,,,,,,,
+sympathetic,GSE231766,"superior cervical, heart disease",whole cell,CPM,733,2.0,43142.0,Oprl1,12.294,8.457,19.527,1.0,2/2,pass,run,2.706,2.126,0.58,,27.863,0.373,1.932,2.266,58.53,2.18,7.91,7.09,Oprk1,10000.0,74.76,71.0
+sympathetic,GSE232789,stellate,whole cell,CPM,2589,1.0,27931.0,Oprl1,6.082,5.162,7.274,1.0,1/1,pass,run,2.032,2.176,-0.144,,27.55,0.562,0.031,4.53,52.53,1.35,0.12,8.96,Oprk1,10000.0,48.99,74.5
+sympathetic,GSE231924,stellate,whole cell,CPM,1303,,,Oprl1,4.677,3.024,8.078,1.0,,pass,not possible,,,,"deposit is author-filtered neurons, no non-neuronal cells",23.928,4.837,5.04,5.116,11.51,2.69,2.46,2.3,Oprk1,10000.0,4.95,61.4
+parasympathetic,GSE232789,sphenopalatine,whole cell,CPM,2014,1.0,37416.0,Oprl1,66.859,40.542,132.539,1.0,1/1,pass,run,2.608,3.162,-0.554,,19.502,0.292,0.04,0.015,49.9,0.89,0.2,0.05,Oprm1,10000.0,66.86,68.8
+parasympathetic,GSE330884,intrinsic cardiac,whole cell,CPM,4513,3.0,52533.0,Oprl1,3.654,3.288,4.075,1.0,3/3,pass,run,0.75,1.294,-0.544,,11.127,3.045,0.364,0.0,38.2,11.99,1.15,0.0,Oprm1,10000.0,3.65,60.5
+mixed autonomic,GSE232789,pelvic,whole cell,CPM,1444,2.0,40986.0,Oprl1,32.424,21.995,54.196,1.0,2/2,pass,run,2.692,3.093,-0.401,,16.332,0.504,0.43,0.46,51.04,2.35,2.7,2.08,Oprm1,10000.0,32.42,58.5
+enteric,GSE263422,"enteric submucosal, P7",whole cell,CPM,1648,2.0,8974.0,Oprk1,4.589,4.043,5.237,1.0,2/2,pass,run,1.973,2.646,-0.673,,26.698,0.74,2.294,122.506,23.36,0.97,2.12,32.71,Oprl1,10000.0,36.09,60.7
+enteric,GSE263422,"enteric submucosal, P24",whole cell,CPM,7787,3.0,12874.0,Oprl1,2.203,2.05,2.367,1.0,3/3,pass,run,0.836,1.286,-0.45,,35.567,0.179,16.142,3.77,32.37,0.18,17.63,1.08,Oprd1,10000.0,199.23,73.0
+central (reference),GSE166648,NTS,nuclear,CPM,49392,,,Oprm1,7.48,,,1.0,n/a,pass,run,0.185,1.466,-1.281,,,,,,,,,,,,,
