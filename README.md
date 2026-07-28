@@ -79,6 +79,12 @@ Depth is 730-fold above the nodose droplet median, which is what makes a zero in
 same neurons carry *Scn1a* at 310.2 CPM, *Pvalb* at 882.6 and *Scn10a* at 0.00, the Nav1.1
 profile that section 3 predicts should be *Oprl1*-high.
 
+One qualification applies to every row above. *Oprl1* dominates its receptor family without being
+an abundant transcript. It sits at the 73.6th percentile of the 32,565 genes expressed in nodose
+neurons and the 63.8th percentile in GSE102443, against *Trpv1* at the 95.3rd and *Scn10a* at the
+96.1st in the same nodose cells. The claim is about the opioid receptor family, not about
+transcript abundance in general.
+
 *Oprm1* in the dorsal root ganglion is highest in the peptidergic nociceptor populations, PEP1 at
 13.93 CPM and SST at 12.06, which is where the peripheral analgesia literature places it. The same
 pipeline that reproduces that distribution places *Oprl1* above *Oprm1* across the ganglion as a
