@@ -2,7 +2,7 @@
 
 In mouse geniculate ganglion neurons *Oprl1* is expressed 31-fold above *Oprm1* and is detected in
 92% of cells. The ordering reproduces on a second platform from a second laboratory. It holds in
-five ganglia spanning both developmental origins of the peripheral sensory system, including the
+eight datasets covering every sensory ganglion with public data, spanning all three developmental origins of the peripheral sensory system, including the
 dorsal root ganglion, where most work on opioid receptors in sensory neurons has been done and
 where that work targets *Oprm1*.
 
@@ -35,6 +35,7 @@ unit (`results/*_opioid_levels.csv`):
 | dataset | tissue | *Oprl1* | *Oprm1* | *Oprd1* | *Oprk1* | *Oprl1*:*Oprm1* |
 |---|---|---|---|---|---|---|
 | GSE114997 (CPM) | spiral (VIII) | 41.94 | 0.00 | 0.00 | 0.00 | only one detected |
+| GSE309608 (CPM) | vestibular (VIII) | 19.88 | 1.78 | 0.09 | 4.63 | 11.2× |
 | GSE102443 (FPKM) | geniculate | 5.73 | 0.18 | 0.31 | 0.83 | 31× |
 | GSE135801 (CPM) | geniculate | 18.98 | 0.01 | 4.72 | 3.61 | large |
 | NodoMap, nodose neurons (CPM) | nodose | 11.90 | 9.86 | 0.13 | 4.63 | 1.21× |
@@ -85,6 +86,12 @@ neurons and the 63.8th percentile in GSE102443, against *Trpv1* at the 95.3rd an
 96.1st in the same nodose cells. The claim is about the opioid receptor family, not about
 transcript abundance in general.
 
+The vestibular ganglion replicates the spiral result in the same placode. Across 6,596 neurons
+from four mice, *Oprl1* reaches 19.88 CPM in 57.6% of cells against *Oprk1* 4.63, *Oprm1* 1.78 and
+*Oprd1* 0.09, a margin of 4.29× over the runner-up with support 1.000 and the same ordering in
+each of the four samples separately. *Scn1a* reads 398.0 CPM and *Scn10a* 0.00, matching the
+spiral profile.
+
 *Oprm1* in the dorsal root ganglion is highest in the peptidergic nociceptor populations, PEP1 at
 13.93 CPM and SST at 12.06, which is where the peripheral analgesia literature places it. The same
 pipeline that reproduces that distribution places *Oprl1* above *Oprm1* across the ganglion as a
@@ -113,18 +120,18 @@ preparations retain unspliced pre-mRNA and *Oprm1* spans 250 kb against *Oprl1*'
 | trigeminal (V) | crest and placode | measured |
 | dorsal root ganglion | neural crest | measured |
 | spiral (VIII) | otic placode | measured |
-| vestibular (VIII) | otic placode | not measured |
-| petrosal (IX) | epibranchial placode | no dataset exists |
+| vestibular (VIII) | otic placode | measured |
+| petrosal (IX) | epibranchial placode | not separable from pooled tissue |
 
 The survey covers cranial visceral, gustatory, auditory and somatic afferents, and all three
 developmental origins of the peripheral sensory system.
 
-Petrosal has no dataset. A GEO search over expression profiling by high-throughput sequencing
-returns one hit for the term, and that record is a geniculate study. The petrosal is normally
-dissected as part of the nodose-petrosal-jugular complex and pooled, which is consistent with
-finding none in isolation. Vestibular data exists (GSE309608, GSE226515, four and six mouse
-samples) and has not been analysed here. The superior cervical ganglion, which would serve as a
-sympathetic specificity control, returns nothing in CELLxGENE.
+The petrosal is the one ganglion this survey cannot reach. Searching GEO across all assay types
+and organisms returns a single mouse record containing petrosal tissue, GSE145216, whose samples
+are titled "NJP ganglia": nodose, jugular and petrosal dissected and sequenced together. Petrosal
+neurons cannot be separated from that pool without an established distinguishing marker. The
+superior cervical ganglion, which would serve as a sympathetic specificity control, returns
+nothing in CELLxGENE.
 
 Human data is unavailable for a different reason. The CELLxGENE human DRG atlas (Nguyen et al.,
 eLife 2021, 1,837 nuclei) quantifies 31,654 genes including *OPRM1*, *OPRD1* and *OPRK1*, and
@@ -459,6 +466,7 @@ python3 -m pytest tests -q                   # 33 unit tests
 - GSE102443 Dvoryanchikov et al. 2017, *Nat Commun*, 96 geniculate neurons, SMART-seq
 - GSE135801 Zhang et al. 2019, *Cell* (Zuker lab), 454 Phox2b+ geniculate neurons
 - GSE166648 Ludwig et al., dorsal vagal complex snRNA-seq, 72,128 nuclei
+- GSE309608 four mouse vestibular ganglia, 10x
 - GSE114997 Shrestha et al. 2018, *Cell*, 226 spiral ganglion neurons, SMART-seq
 - iPain Atlas, mouse trigeminal (84,658 cells) and dorsal root ganglion (191,798 cells), via CZ
   CELLxGENE collection `03608e22-227a-4492-910b-3cb3f16f952e`

@@ -34,6 +34,38 @@ interpretable here.
 The same cells carry Scn1a at 310.2 CPM, Pvalb at 882.6 and Scn10a at 0.00: the Nav1.1-positive,
 Nav1.8-negative profile that section 3 predicts should be Oprl1-high.
 
+## Vestibular ganglion (VIII), GSE309608
+
+Four mouse vestibular ganglia, 10x raw feature matrices. Barcodes were filtered at 2,000 UMI and
+1,000 detected genes, leaving 25,431 cells at a median library of 6,000 to 10,300. Neurons were
+called on raw counts (Snap25 >= 5 and Tubb3 >= 5) with glial and immune barcodes excluded
+(Sox10 < 200, Plp1 < 500, Ptprc < 50 CPM), giving 6,596 neurons, 25.9% of QC-passing cells, at
+Snap25 3,139 CPM and Plp1 163 CPM.
+
+| gene | mean CPM | % of neurons detected |
+|---|---|---|
+| Oprl1 | 19.88 | 57.6 |
+| Oprk1 | 4.63 | 9.7 |
+| Oprm1 | 1.78 | 6.7 |
+| Oprd1 | 0.09 | 0.5 |
+
+Margin 4.29x over Oprk1 and 11.2x over Oprm1, bootstrap support 1.000. The same ordering appears
+in each of the four samples independently. Scn1a reads 398.0 CPM, Scn10a 0.00 and Pvalb 4,101,
+the Nav1.1-positive Nav1.8-negative profile also seen in the spiral ganglion.
+
+A first pass using a 500 UMI cutoff and a Snap25 CPM threshold called 88.6% of barcodes neurons
+and gave Oprl1 10.30 CPM. That filter was admitting ambient-dominated barcodes; the numbers above
+use the stricter one.
+
+## Petrosal ganglion (IX)
+
+No public dataset isolates the petrosal. A GEO search across all assay types and organisms returns
+one mouse record containing petrosal tissue, GSE145216, whose samples are titled "NJP ganglia":
+nodose, jugular and petrosal dissected and sequenced together. Petrosal neurons cannot be
+separated from that pool without a marker that distinguishes them, and none is established. The
+petrosal is therefore absent from this survey for a reason that is unlikely to change without a
+dedicated dissection.
+
 ## The proprioceptor prediction
 
 Stated in advance: if Oprl1 tracks Nav1.1 as a general property of sensory neurons, DRG
