@@ -1,7 +1,8 @@
 panel,dataset,tissue,unit,n,Oprl1,Oprm1,Oprd1,Oprk1,margin,support
-a,GSE102443,geniculate,FPKM,96,5.73,0.18,0.31,0.83,31.3,1.0
-b,GSE135801,geniculate,CPM,454,18.98,0.01,4.72,3.61,4.02,0.976
-c,iPain,trigeminal,CPM,2773,13.24,6.36,1.46,5.12,2.08,1.0
-d,NodoMap,nodose,CPM,26047,11.9,9.86,0.13,4.63,1.21,1.0
-e,NodoMap,jugular,CPM,4593,9.62,8.33,0.92,0.9,1.16,0.897
-f,iPain,dorsal root,CPM,31802,9.31,8.23,0.2,2.78,1.13,1.0
+a,GSE114997,spiral (VIII),CPM,226,41.94,0.0,0.0,0.0,inf,1.0
+b,GSE102443,geniculate,FPKM,96,5.73,0.18,0.31,0.83,31.3,1.0
+c,GSE135801,geniculate,CPM,454,18.98,0.01,4.72,3.61,4.02,0.976
+d,iPain,trigeminal,CPM,2773,13.24,6.36,1.46,5.12,2.08,1.0
+e,NodoMap,nodose,CPM,26047,11.9,9.86,0.13,4.63,1.21,1.0
+f,NodoMap,jugular,CPM,4593,9.62,8.33,0.92,0.9,1.16,0.897
+g,iPain,dorsal root,CPM,31802,9.31,8.23,0.2,2.78,1.13,1.0

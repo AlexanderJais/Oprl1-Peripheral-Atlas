@@ -24,7 +24,7 @@ import atlas_style as st
 def figure1():
     d = pd.read_csv(ac.RES / "receptor_levels_by_ganglion.csv")
     st.set_theme()
-    fig, axes = plt.subplots(1, len(d), figsize=(3.0 * len(d), 4.4))
+    fig, axes = plt.subplots(1, len(d), figsize=(2.7 * len(d), 4.4))
     for ax, r in zip(np.atleast_1d(axes), d.itertuples()):
         vals = [getattr(r, g) for g in ac.RECEPTORS]
         order = np.argsort(-np.array(vals))
@@ -36,7 +36,9 @@ def figure1():
             fontsize=12)
         st.panel_letter(ax, r.panel, dx=-0.30)
         ax.set_title(f"{r.tissue}\n{r.dataset}, n = {r.n:,}", fontsize=11, pad=8)
-        ax.text(0.5, -0.30, f"{r.margin:.2f}× over runner-up\nsupport {r.support:.2f}",
+        note = ("only receptor detected" if not np.isfinite(r.margin)
+                else f"{r.margin:.2f}× over runner-up")
+        ax.text(0.5, -0.30, f"{note}\nsupport {r.support:.2f}",
                 transform=ax.transAxes, ha="center", va="top", fontsize=8.5,
                 color="#444444")
     fig.suptitle("Oprl1 is the highest-expressed opioid receptor in every ganglion measured",

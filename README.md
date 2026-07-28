@@ -34,6 +34,7 @@ unit (`results/*_opioid_levels.csv`):
 
 | dataset | tissue | *Oprl1* | *Oprm1* | *Oprd1* | *Oprk1* | *Oprl1*:*Oprm1* |
 |---|---|---|---|---|---|---|
+| GSE114997 (CPM) | spiral (VIII) | 41.94 | 0.00 | 0.00 | 0.00 | only one detected |
 | GSE102443 (FPKM) | geniculate | 5.73 | 0.18 | 0.31 | 0.83 | 31× |
 | GSE135801 (CPM) | geniculate | 18.98 | 0.01 | 4.72 | 3.61 | large |
 | NodoMap, nodose neurons (CPM) | nodose | 11.90 | 9.86 | 0.13 | 4.63 | 1.21× |
@@ -71,6 +72,13 @@ CPM against *Oprm1* 6.36, a margin of 2.08× with support 1.000 and a 95% interv
 (n = 31,802 whole-cell neurons). The DRG margin is the narrowest measured here and the DRG sample
 is the second largest.
 
+The spiral ganglion gives the clearest case. In 226 neurons sequenced to a median depth of 2.7
+million reads, *Oprl1* is detected in 74.8% of cells at 41.94 CPM and *Oprm1*, *Oprd1* and
+*Oprk1* are detected in none. All four are present in the annotation, so those are measured zeros.
+Depth is 730-fold above the nodose droplet median, which is what makes a zero interpretable. The
+same neurons carry *Scn1a* at 310.2 CPM, *Pvalb* at 882.6 and *Scn10a* at 0.00, the Nav1.1
+profile that section 3 predicts should be *Oprl1*-high.
+
 *Oprm1* in the dorsal root ganglion is highest in the peptidergic nociceptor populations, PEP1 at
 13.93 CPM and SST at 12.06, which is where the peripheral analgesia literature places it. The same
 pipeline that reproduces that distribution places *Oprl1* above *Oprm1* across the ganglion as a
@@ -98,13 +106,19 @@ preparations retain unspliced pre-mRNA and *Oprm1* spans 250 kb against *Oprl1*'
 | jugular (X superior) | neural crest | measured |
 | trigeminal (V) | crest and placode | measured |
 | dorsal root ganglion | neural crest | measured |
-| petrosal (IX) | epibranchial placode | not measured |
-| spiral and vestibular (VIII) | otic placode | not measured |
+| spiral (VIII) | otic placode | measured |
+| vestibular (VIII) | otic placode | not measured |
+| petrosal (IX) | epibranchial placode | no dataset exists |
 
-The survey covers cranial visceral, gustatory and somatic afferents, and both developmental
-origins. Petrosal, spiral and vestibular ganglia return no hits across the 2,210 public datasets
-indexed by CZ CELLxGENE, searched by tissue annotation. The same search returns nothing for the
-superior cervical ganglion, which would serve as a sympathetic specificity control.
+The survey covers cranial visceral, gustatory, auditory and somatic afferents, and all three
+developmental origins of the peripheral sensory system.
+
+Petrosal has no dataset. A GEO search over expression profiling by high-throughput sequencing
+returns one hit for the term, and that record is a geniculate study. The petrosal is normally
+dissected as part of the nodose-petrosal-jugular complex and pooled, which is consistent with
+finding none in isolation. Vestibular data exists (GSE309608, GSE226515, four and six mouse
+samples) and has not been analysed here. The superior cervical ganglion, which would serve as a
+sympathetic specificity control, returns nothing in CELLxGENE.
 
 Human data is unavailable for a different reason. The CELLxGENE human DRG atlas (Nguyen et al.,
 eLife 2021, 1,837 nuclei) quantifies 31,654 genes including *OPRM1*, *OPRD1* and *OPRK1*, and
@@ -439,6 +453,7 @@ python3 -m pytest tests -q                   # 33 unit tests
 - GSE102443 Dvoryanchikov et al. 2017, *Nat Commun*, 96 geniculate neurons, SMART-seq
 - GSE135801 Zhang et al. 2019, *Cell* (Zuker lab), 454 Phox2b+ geniculate neurons
 - GSE166648 Ludwig et al., dorsal vagal complex snRNA-seq, 72,128 nuclei
+- GSE114997 Shrestha et al. 2018, *Cell*, 226 spiral ganglion neurons, SMART-seq
 - iPain Atlas, mouse trigeminal (84,658 cells) and dorsal root ganglion (191,798 cells), via CZ
   CELLxGENE collection `03608e22-227a-4492-910b-3cb3f16f952e`
 - NodoMap Cheng et al. 2026, *Cell Press Blue* 1:100072, doi:10.1016/j.cpblue.2026.100072,
