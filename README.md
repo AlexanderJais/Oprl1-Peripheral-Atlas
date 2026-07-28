@@ -248,6 +248,36 @@ The two single-nucleus datasets place *Oprm1* first. This is a preparation artef
 preparations retain unspliced pre-mRNA and *Oprm1* spans 250 kb against *Oprl1*'s 6 kb. See
 [`SUPPLEMENT.md`](SUPPLEMENT.md). Those datasets carry no claim here.
 
+### When the ordering appears
+
+The otic lineage is the one tissue in this atlas that can be followed from neurogenesis to the
+adult, so it is where the ordering can be dated. Three deposits cover it: GSE178931 at E9.5, E11.5
+and E13.5 on droplet, GSE165502 from E14.5 to P3 on SMART-seq2, and GSE114997 at P25 on SMART-seq
+(`results/otic_lineage_by_age.csv`).
+
+*Oprl1* is already the highest opioid receptor in the earliest otic neuroblasts. At E9.5, in 307
+cells called on *Neurod1* and *Tubb3* raw counts, it reads 1.80 CPM against *Oprd1* 0.30, *Oprk1*
+0.14 and *Oprm1* 0.00, a margin of 6.0× with support 0.994. It is first at every age after that,
+with support 1.000 throughout: 9.8× at E11.5, 3.9× at E13.5, then 14× to 42× from E14.5 to P3, and
+at P25 it is the only opioid receptor detected in the ganglion at all.
+
+![The otic lineage](figures/figure1b_otic_lineage.png)
+
+Absolute level is not comparable across the two dashed lines in figure 1b, since the deposit and
+the platform change there. Within GSE165502, which holds both fixed across six ages, *Oprl1* runs
+97, 134, 149, 148, 80 and 90 CPM from E14.5 to P3: a rise into late embryonic development and a
+fall towards birth, without ever losing first place.
+
+The other three receptors behave differently, and that is the substantive part. *Oprm1* rises to
+5.84 CPM at E14.5, then falls to 0.005 by P3 and to zero at P25. *Oprk1* peaks at 10.47 CPM at
+E16.5 and settles near 4.6. Both are transiently expressed in the developing ganglion and
+extinguished in the adult, while *Oprl1* persists. The adult spiral result in which *Oprl1* is the
+only receptor detected is the end of a process, not a property the tissue had throughout.
+
+Dominance is therefore present from differentiation rather than acquired. This is the answer for
+one lineage. The enteric result above shows that the answer is not the same everywhere: *Oprk1*
+leads at P7 in the gut and *Oprl1* leads by P24, so in that tissue the ordering is acquired.
+
 ### Coverage of the peripheral nervous system
 
 | division | ganglion | origin | status |
@@ -527,6 +557,34 @@ for *Pvalb* (1,576 CPM), *Runx3* (86.9) and *Scn1a* (226.4). It ranks first for 
 Both directions of the nodose result appear again: positive with *Scn1a*, negative with *Scn10a*,
 in a ganglion of different developmental origin and different modality.
 
+The prediction fails inside the spiral ganglion, and the reason is instructive. GSE114997 has 186
+wild-type P25 neurons at a median 2.7 million reads, enough to assign the type Ia, Ib and Ic
+subtypes and test the association within one ganglion rather than between ganglia. Subtypes were
+assigned twice, once by the published markers and once by unsupervised clustering with no
+knowledge of them; 151 of 186 neurons agree and only those are used
+(`results/spiral_subtype_per_cell.csv`). The assignment is what it should be: *Calb2* 10,577 CPM
+in Ia, *Calb1* 288 in Ib, *Lypd1* 3,848 and *Pou4f1* 957 in Ic.
+
+| subtype | n | *Oprl1* | *Scn1a* |
+|---|---|---|---|
+| Ia | 58 | 32.93 | 268.89 |
+| Ib | 50 | 42.02 | 324.12 |
+| Ic | 43 | 49.46 | 365.33 |
+
+*Oprl1* and *Scn1a* rise together across the three subtypes, which is the predicted direction, but
+neither the subtype difference nor the per-neuron correlation reaches significance:
+Kruskal-Wallis *p* = 0.107 over the three subtypes, and Spearman rho = -0.020, *p* = 0.80 between
+*Oprl1* and *Scn1a* across the 151 neurons individually.
+
+The test had little to work with. Every spiral subtype is Nav1.1-positive and Nav1.8-negative, and
+*Scn1a* varies only 1.36-fold across them against the 4.02-fold difference between the Nav1.1 and
+Nav1.8 clusters of the nodose. The association in sections above is between populations that
+differ in sodium channel class. Within a population that does not differ in sodium channel class,
+it is absent. That bounds the claim rather than contradicting it, and the bound should be stated:
+this is a between-population property, and no per-neuron association has been demonstrated
+anywhere in this atlas.
+
+
 ![The sodium channel gradient](figures/figure5_sodium_channel_gradient.png)
 
 The four nodose clusters that separate sodium channel class from fibre type, and the annotation
@@ -739,6 +797,7 @@ python3 src/10_peripheral_ganglia.py         # every ganglion outside the genicu
 python3 src/11_quality_panel.py              # the uniform check panel over all 21 populations
 python3 src/12_oprl1_signature.py            # the Oprl1 signature and figure 2
 python3 src/13_gpcr_rank.py                  # Oprl1 among all GPCRs and figure 3
+python3 src/14_otic_lineage.py               # the otic lineage E9.5 to P25, spiral subtypes
 python3 src/09_main_figures.py               # consolidated figures 1 and 3
 python3 -m pytest tests -q                   # 33 unit tests
 ```
@@ -747,6 +806,7 @@ python3 -m pytest tests -q                   # 33 unit tests
 |---|---|
 | `figure1_oprl1_across_ganglia` | the four receptors in all sixteen populations, blocked by division |
 | `figure2_oprl1_signature` | the signature, its consistency, the ambient axis and the raw levels |
+| `figure1b_otic_lineage` | the receptors from E9.5 to P25, and the spiral subtypes |
 | `figure3_gpcr_rank` | Oprl1 against all GPCRs measured in the same cells |
 | `figure4_geniculate_oprl1` | per-neuron *Oprl1* in both geniculate divisions |
 | `figure4b_nodose_oprl1` | *Oprl1* across the 21 nodose clusters and the four datasets |
@@ -789,6 +849,9 @@ python3 -m pytest tests -q                   # 33 unit tests
 | `gpcr_rank_by_population.csv` | Oprl1's GPCR rank, and the other three receptors', per population |
 | `gpcr_above_oprl1.csv` | every GPCR that outranks Oprl1, and in how many populations |
 | `gpcr_rank_summary.csv` | the median rank and its bootstrap interval |
+| `otic_lineage_by_age.csv` | the four receptors at ten ages from E9.5 to P25 |
+| `spiral_subtype_per_cell.csv` | Ia, Ib and Ic assignment and per-neuron levels |
+| `spiral_subtype_summary.csv`, `spiral_subtype_tests.csv` | subtype means and the two tests |
 | `receptor_levels_by_ganglion.csv` | the figure 1 table, one row per panel |
 | `geniculate_per_cell_GSE102443.csv` | per-cell *Oprl1* FPKM, split gustatory/somatosensory |
 | `*_opioid_levels.csv`, `*_receptor_rank.csv`, `*_rank_support.csv` | per-tissue levels, ordering, support |
@@ -808,6 +871,8 @@ python3 -m pytest tests -q                   # 33 unit tests
 - GSE309608 four mouse vestibular ganglia, 10x
 - IUPHAR/BPS Guide to Pharmacology, `targets_and_families.csv`, for the GPCR list
 - GSE114997 Shrestha et al. 2018, *Cell*, 226 spiral ganglion neurons, SMART-seq
+- GSE165502 mouse cochlea at E14.5, E15.5, E16.5, E17.5, E18.5 and P3, SMART-seq2
+- GSE178931 mouse otic tissue at E9.5, E11.5 and E13.5, 10x
 - iPain Atlas, mouse trigeminal (84,658 cells) and dorsal root ganglion (191,798 cells), via CZ
   CELLxGENE collection `03608e22-227a-4492-910b-3cb3f16f952e`
 - NodoMap Cheng et al. 2026, *Cell Press Blue* 1:100072, doi:10.1016/j.cpblue.2026.100072,

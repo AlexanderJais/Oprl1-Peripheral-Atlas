@@ -1,0 +1,7 @@
+dataset,gene,in_matrix,level,enforced
+GSE114997 (P25 wild type),Snap25,True,10413.6146,True
+GSE114997 (P25 wild type),Phox2b,True,0.0,False
+GSE114997 (P25 wild type),Slc17a6,True,340.1618,False
+GSE114997 (P25 wild type),Tac1,True,2.4096,False
+GSE114997 (P25 wild type),Calca,True,0.5644,False
+GSE114997 (P25 wild type),Actb,True,2364.2272,True

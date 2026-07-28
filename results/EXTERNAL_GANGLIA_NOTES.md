@@ -45,7 +45,37 @@ Library depth is 730-fold above the nodose droplet median, which is what makes a
 interpretable here.
 
 The same cells carry Scn1a at 310.2 CPM, Pvalb at 882.6 and Scn10a at 0.00: the Nav1.1-positive,
-Nav1.8-negative profile that section 3 predicts should be Oprl1-high.
+Nav1.8-negative profile that section 5 predicts should be Oprl1-high.
+
+The 226 cells pool two genotypes, 186 wild type and 40 Vglut3-/-. Restricting to wild type gives
+Oprl1 41.16 CPM against 41.94 pooled, with the other three receptors still reading exactly zero,
+so the figure 1 row is unaffected by the pooling. `src/14_otic_lineage.py` uses the wild-type
+cells only.
+
+### Type Ia, Ib and Ic
+
+The deposit carries no subtype labels, so they were assigned twice and only the 151 of 186 neurons
+where the two agree are used: once by the published markers Calb2 (Ia), Calb1 (Ib) and Lypd1 with
+Pou4f1 (Ic), and once by three-way clustering on the principal components of the 2,000 most
+variable genes, which never sees the markers.
+
+| subtype | n | Oprl1 | Scn1a | Calb2 | Calb1 | Lypd1 | Pou4f1 | Pvalb |
+|---|---|---|---|---|---|---|---|---|
+| Ia | 58 | 32.93 | 268.89 | 10576.5 | 5.2 | 1.0 | 9.5 | 895.0 |
+| Ib | 50 | 42.02 | 324.12 | 2128.9 | 287.9 | 19.5 | 140.8 | 794.8 |
+| Ic | 43 | 49.46 | 365.33 | 252.2 | 16.2 | 3848.1 | 956.7 | 933.6 |
+
+Oprl1 and Scn1a rise together across the three subtypes, and neither test clears its threshold:
+Kruskal-Wallis p = 0.107 across subtypes, Spearman rho = -0.020 with p = 0.80 between Oprl1 and
+Scn1a per neuron. Scn1a varies 1.36-fold across these subtypes against 4.02-fold between the
+Nav1.1 and Nav1.8 clusters of the nodose, so the test has little dynamic range to work with.
+
+### The lineage from E9.5
+
+`results/otic_lineage_by_age.csv` follows the same lineage from otic neurogenesis. Oprl1 is first
+at every one of the ten ages, from 307 Neurod1+/Tubb3+ neuroblasts at E9.5 (margin 6.0x, support
+0.994) to the adult ganglion. Oprm1 and Oprk1 are transiently expressed in the embryonic ganglion,
+peaking at E14.5 and E16.5, and are extinguished by P25.
 
 ## Vestibular ganglion (VIII), GSE309608
 
