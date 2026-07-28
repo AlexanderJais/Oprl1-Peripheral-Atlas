@@ -1,0 +1,42 @@
+# Trigeminal and dorsal root ganglion, iPain Atlas
+
+Exploratory results not yet wired into the pipeline. Source: CZ CELLxGENE collection
+`03608e22-227a-4492-910b-3cb3f16f952e` (iPain Atlas), mouse.
+
+Both atlases are majority single-nucleus (TG 70,772 of 84,658; DRG 123,645 of 191,798), so
+every number below is restricted to `suspension_type == "cell"` for the reason in figure S1.
+Pooling all preparations compresses the trigeminal margin from 2.08x to 1.18x.
+
+## Receptor levels, whole-cell neurons, mean CPM
+
+| ganglion | n | Oprl1 | Oprm1 | Oprd1 | Oprk1 | margin | 95% CI | support |
+|---|---|---|---|---|---|---|---|---|
+| trigeminal | 2,773 | 13.24 | 6.36 | 1.46 | 5.12 | 2.08x | 1.41-3.26 | 1.000 |
+| dorsal root | 31,802 | 9.31 | 8.23 | 0.20 | 2.78 | 1.13x | 1.08-1.19 | 1.000 |
+
+## The proprioceptor prediction
+
+Stated in advance: if Oprl1 tracks Nav1.1 as a general property of sensory neurons, DRG
+proprioceptors (Pvalb+/Runx3+/Ntrk3+, the most Nav1.1-dependent sensory population) should sit
+at or near the top of Oprl1 expression.
+
+NF2 is the proprioceptor population in this atlas and ranks 1 of 9 subtypes for Pvalb (1576
+CPM), Runx3 (86.9) and Scn1a (226.4). It also ranks 1 of 9 for Oprl1 (29.97 CPM). Oprm1 ranks
+7 of 9 in the same population.
+
+Across the 9 whole-cell DRG neuronal subtypes (`drg_oprl1_by_subtype.csv`):
+
+| partner | Spearman rho with Oprl1 | p |
+|---|---|---|
+| Scn1a | +0.862 | 0.0028 |
+| Runx3 | +0.837 | 0.0049 |
+| Pvalb | +0.817 | 0.0072 |
+| Ntrk3 | +0.550 | 0.125 |
+| Scn10a | -0.700 | 0.0358 |
+| Oprm1 | -0.183 | 0.637 |
+
+Both directions replicate the nodose result: positive with Scn1a, negative with Scn10a.
+
+Oprm1 is highest in PEP1 (13.93) and SST (12.06), the peptidergic nociceptor populations where
+the peripheral analgesia literature places it. The pipeline reproduces that distribution while
+showing Oprl1 higher overall.
