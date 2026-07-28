@@ -57,6 +57,31 @@ A first pass using a 500 UMI cutoff and a Snap25 CPM threshold called 88.6% of b
 and gave Oprl1 10.30 CPM. That filter was admitting ambient-dominated barcodes; the numbers above
 use the stricter one.
 
+## Sympathetic ganglion, GSE78845: the specificity control
+
+Furlan et al. 2016, 298 mouse thoracic sympathetic neurons, full-length, median library 33,099.
+Identity confirmed by Th 2,316 CPM, Dbh 1,822, Prph 1,222, Snap25 1,995.
+
+| gene | mean CPM | % of cells detected |
+|---|---|---|
+| Oprl1 | 62.30 | 82.2 |
+| Oprk1 | 4.24 | 7.0 |
+| Oprd1 | 3.90 | 10.4 |
+| Oprm1 | 1.48 | 4.4 |
+
+Margin 14.69x over the runner-up (95% interval 9.35 to 27.27), 42x over Oprm1, support 1.0000.
+Oprl1 sits at the 81.2nd percentile of expressed genes here, above the nodose (73.6) and
+geniculate (63.8) figures.
+
+This control was run to test whether the ordering is specific to sensory neurons. It is not.
+Sympathetic neurons are not sensory, are neural-crest-derived, and show the pattern at a larger
+margin than any sensory ganglion except the geniculate and the spiral. The restriction to
+"sensory" in earlier drafts of the title was an assumption that had never been tested, and the
+test does not support it.
+
+Caveats: one dataset, 298 cells, and a full-length preparation, which is the platform class that
+produces the largest margins throughout this project.
+
 ## Petrosal ganglion (IX)
 
 No public dataset isolates the petrosal. A GEO search across all assay types and organisms returns
