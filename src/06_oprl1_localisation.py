@@ -335,7 +335,7 @@ def figures(corr, per_cluster, umap, oprl1_cpm, is_nodose, fibre_percell):
     st.panel_letter(ax, "f", dx=-0.24)
     ax.set_title(f"All {len(corr):,} expressed genes", fontsize=11)
 
-    st.save(fig, "figure3_oprl1_localisation")
+    st.save(fig, "figureS5_oprl1_annotations")
 
 
 if __name__ == "__main__":

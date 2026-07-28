@@ -373,7 +373,7 @@ def figures(null_tbl, top, ann=None, grad=None):
     ax.set_title("Nav1.1 survives these four; myelination\nand sensor type do not",
                  fontsize=11)
     fig.tight_layout()
-    st.save(fig, "figure3b_nav_class_counterexamples")
+    st.save(fig, "figureS6_nav_counterexamples")
 
 
 if __name__ == "__main__":

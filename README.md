@@ -47,8 +47,6 @@ order-of-magnitude difference in transcript abundance rather than a difference i
 it reproduces in GSE135801 (*Oprl1* 18.98 CPM, *Oprm1* 0.01 CPM). *Oprm1* is the least abundant of
 the four receptors in geniculate neurons.
 
-![Oprl1 in the geniculate ganglion](figures/figure1_geniculate_oprl1.png)
-
 The nodose data agrees at a much smaller margin. *Oprl1* is highest there at 11.90 CPM against
 *Oprm1* 9.86, and comes first in each of the four whole-cell datasets separately (11.98, 11.84,
 11.09, 9.59 CPM). Resampling the cells 2,000 times, that ordering holds in 100%, 97% and 94% of
@@ -56,8 +54,6 @@ resamples for Zhao, Bai and Kupari, and in 54% for Buchanan
 (`results/*_rank_support.csv`). Buchanan gives an ordering indistinguishable from a tie. The four
 nodose datasets corroborate the geniculate result; they do not constitute four independent
 demonstrations of it.
-
-![Oprl1 across the NodoMap atlas](figures/figure2_nodose_oprl1.png)
 
 The jugular ganglion marks the edge of the claim. Geniculate and nodose are epibranchial
 placode-derived; the jugular is neural-crest-derived and sits in the same tissue block as the
@@ -84,7 +80,10 @@ Both iPain atlases are majority single-nucleus (trigeminal 70,772 of 84,658, DRG
 191,798), so every figure above is restricted to whole-cell cells. Pooling preparations compresses
 the trigeminal margin from 2.08× to 1.18×.
 
-The eight-dataset version of this comparison is figure S3 in [`SUPPLEMENT.md`](SUPPLEMENT.md).
+![Oprl1 across five ganglia](figures/figure1_oprl1_across_ganglia.png)
+
+The eight-dataset version of this comparison, including the two nuclear preparations, is figure S3
+in [`SUPPLEMENT.md`](SUPPLEMENT.md).
 
 The two single-nucleus datasets place *Oprm1* first. This is a preparation artefact: nuclear
 preparations retain unspliced pre-mRNA and *Oprm1* spans 250 kb against *Oprl1*'s 6 kb. See
@@ -121,7 +120,9 @@ not pass `check_markers`, the matched null or the ambient check that the other t
 
 In the geniculate, *Oprl1* is detected in 92% of the 96 neurons, at indistinguishable levels in
 both divisions: gustatory (Phox2b+) 6.29 FPKM, n = 61; somatosensory (Phox2b-) 4.77 FPKM, n = 35
-(figure 1b). Expression is pan-geniculate.
+Expression is pan-geniculate.
+
+![Oprl1 in the geniculate ganglion](figures/figure2_geniculate_oprl1.png)
 
 This claim also rests on full-length data. A 92% detection rate is interpretable only on a
 platform that can reach it. The droplet datasets reach 27.7% of cells in their highest cluster, so
@@ -131,7 +132,9 @@ fraction unresolved.
 In the nodose and jugular ganglia, *Oprl1* appears in every one of the 26 neuronal clusters, from
 27.7% of cells in NGN14 to 0.8% in NGN5, and is nearly absent from non-neuronal cells (log2
 neuronal enrichment +3.53, against *Oprk1* +3.49, *Oprm1* +3.24 and *Oprd1* +1.62). The highest
-clusters are NGN14 at 43.5 CPM, NGN17 at 31.7, NGN6 at 30.5 and NGN19 at 30.3 (figure 2b).
+clusters are NGN14 at 43.5 CPM, NGN17 at 31.7, NGN6 at 30.5 and NGN19 at 30.3.
+
+![Oprl1 across the NodoMap atlas](figures/figure2b_nodose_oprl1.png)
 
 ## 3. Expression is graded by sodium channel class, in the vagus and the DRG
 
@@ -184,8 +187,6 @@ NGN19 is an unmyelinated nociceptor and ranks 4th of 21. NGN21 is a myelinated N
 mechanosensor and ranks 17th. NGN1 is Nav1.8 and exceeds five of the nine Nav1.1 clusters. Sodium
 channel class separates these four; myelination and sensor type do not.
 
-![Nav class against the counterexamples](figures/figure3b_nav_class_counterexamples.png)
-
 The split also holds per cell against a matched null. Holding cluster and capture depth fixed, a
 neuron expressing *Scn1a* is 1.72× more likely to express *Oprl1*, against a null of
 expression-matched genes with median 1.36 (empirical *p* = 0.0099). *Scn10a* is 1.06 against a
@@ -217,6 +218,12 @@ for *Pvalb* (1,576 CPM), *Runx3* (86.9) and *Scn1a* (226.4). It ranks first for 
 Both directions of the nodose result appear again: positive with *Scn1a*, negative with *Scn10a*,
 in a ganglion of different developmental origin and different modality.
 
+![The sodium channel gradient](figures/figure3_sodium_channel_gradient.png)
+
+The four nodose clusters that separate sodium channel class from fibre type, and the annotation
+and transcriptome-wide panels behind this section, are figures S5 and S6 in
+[`SUPPLEMENT.md`](SUPPLEMENT.md).
+
 Nav1.1 supports high-frequency firing. *Oprl1* couples to Gi. Their co-occurrence identifies
 neurons in which a Gi-coupled receptor is positioned to reduce firing in cells equipped to fire
 rapidly. This description requires no projection target and no fibre class, and it applies to the
@@ -229,8 +236,6 @@ draft printed "pancreas 25.2 vs jejunum/ileum 5.3" beside that *p* value; those 
 NGN21, one cluster against one cluster, from levels the test excluded. The pancreas figure is one
 cluster's annotation in another laboratory's atlas and supports a retrograde-tracing experiment
 and nothing further.
-
-![Where Oprl1 sits](figures/figure3_oprl1_localisation.png)
 
 The transcriptome-wide correlate list carries a contamination component. All 54,640 genes were
 correlated with *Oprl1* across the 21 clusters, and 2,149 of 16,380 expressed genes reach FDR
@@ -387,22 +392,24 @@ python3 src/05_vagal_coexpression.py         # Oprl1 against Glp1r and Cckar
 python3 src/06_oprl1_localisation.py         # annotations and transcriptome-wide correlation
 python3 src/07_transduction_effector_genes.py       # Piezo2, Gi effectors, nociceptor control
 python3 src/08_specificity_controls.py       # matched nulls, group sizes, ambient check
+python3 src/09_main_figures.py               # consolidated figures 1 and 3
 python3 -m pytest tests -q                   # 33 unit tests
 ```
 
 | figure | contents |
 |---|---|
-| `figure1_geniculate_oprl1` | receptor levels, per-neuron *Oprl1*, opioid panel |
-| `figure2_nodose_oprl1` | receptor levels, *Oprl1* across 21 nodose clusters, per dataset |
-| `figure3_oprl1_localisation` | *Oprl1* by annotation, and the transcriptome-wide scan |
-| `figure3b_nav_class_counterexamples` | the four clusters separating Nav class from fibre type |
+| `figure1_oprl1_across_ganglia` | the four receptors in each of the five ganglia measured |
+| `figure2_geniculate_oprl1` | per-neuron *Oprl1* in both geniculate divisions |
+| `figure2b_nodose_oprl1` | *Oprl1* across the 21 nodose clusters and the four datasets |
+| `figure3_sodium_channel_gradient` | the Nav gradient in the nodose and the DRG proprioceptor test |
 | `figure4_vagal_oprl1_satiation` | *Oprl1* against *Glp1r* and *Cckar* |
 | `figure5_nts_oprl1` | *Oprl1* in NTS neurons and across the 25 subtypes |
 | `figure6_transduction_effector_genes` | *Piezo2*, the Gi effector genes, the nociceptor control |
-| `figureS1`-`figureS4` | see [`SUPPLEMENT.md`](SUPPLEMENT.md) |
+| `figureS1`-`figureS6` | see [`SUPPLEMENT.md`](SUPPLEMENT.md) |
 
 | table | contents |
 |---|---|
+| `receptor_levels_by_ganglion.csv` | the figure 1 table, five ganglia |
 | `EXTERNAL_GANGLIA_NOTES.md` | trigeminal and DRG receptor levels, and the proprioceptor test |
 | `drg_oprl1_by_subtype.csv` | *Oprl1* and Nav markers across the 9 DRG neuronal subtypes |
 | `nodose_oprl1_by_cluster_annotated.csv` | per-cluster *Oprl1* with the atlas annotations |

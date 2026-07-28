@@ -86,6 +86,21 @@ NodoMap contains around 50,000 satellite and myelinating glia, so the correlate 
 contamination component that the gene of interest does not: *Oprl1* is log2 +3.48 neuron over
 glia.
 
+## Figures S5 and S6. The annotation panels behind section 3
+
+![Oprl1 by annotation](figures/figureS5_oprl1_annotations.png)
+
+*Oprl1* on the NodoMap UMAP by fibre type, the same embedding showing *Oprl1*, cluster-level
+distributions for organ projection, fibre type and sodium channel class, and the
+transcriptome-wide scan over all 16,380 expressed genes with *Glp1r*, *Cckar* and *Cckbr* marked.
+
+![Nav class counterexamples](figures/figureS6_nav_counterexamples.png)
+
+All 21 nodose clusters ranked by *Oprl1*, coloured by sodium channel class and hatched by fibre
+type, and the four clusters that separate the two annotations: NGN19 (Nav1.1, unmyelinated
+nociceptor, 4th of 21), NGN21 (Nav1.1, myelinated mechanosensor, 17th), NGN1 (Nav1.8, above five
+Nav1.1 clusters) and NGN14.
+
 ## Stratum granularity
 
 Every odds ratio in this project rises as the stratification coarsens
