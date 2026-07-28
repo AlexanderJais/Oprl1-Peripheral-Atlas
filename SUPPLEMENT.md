@@ -44,6 +44,12 @@ ratios from 0.36 to 0.99 and show no trend. Three further limitations apply:
 The direction of the effect is reproducible and the mechanism is consistent with the two largest
 points. The quantitative relationship across all seven genes is not established.
 
+The inversion reproduces in a second ganglion and a second laboratory. GSE201654 sequenced mouse
+dorsal root ganglion nuclei, and the same tissue exists as whole cells in the iPain atlas.
+Whole-cell mouse DRG places *Oprl1* first at 9.31 CPM against *Oprm1* 8.23; nuclear mouse DRG
+places *Oprm1* first at 94.92 against *Oprl1* 7.60. Two tissues, two laboratories, the same
+reversal. Section 9 uses this as the standard against which the human data is read.
+
 Only whole-cell datasets support the receptor comparison in section 1. The two nuclear datasets
 are reported and excluded from that claim. GSE166648 is nuclear, so this atlas makes no
 peripheral-to-central comparison of receptor ordering.

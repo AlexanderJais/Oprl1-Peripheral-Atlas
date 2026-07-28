@@ -1,0 +1,4 @@
+dataset,prep,n,n_samples,median_umi,OPRL1,OPRM1,OPRD1,OPRK1,OPRL1_pct,OPRM1_pct,OPRD1_pct,OPRK1_pct,top_gene,runner_up,margin,margin_lo,margin_hi,support,n_boot,samples_by_top
+GSE201654 human DRG,single nucleus,9757.0,6,3033.0,0.422,5.252,1.505,28.313,0.13,1.56,0.61,8.66,OPRK1,OPRM1,5.391,4.453,6.687,1.0,10000.0,OPRK1 6
+GSE241386 human stellate,single nucleus,7441.0,1,3421.0,0.498,14.886,3.595,17.134,0.3,5.78,2.18,7.96,OPRK1,OPRM1,1.151,0.968,1.376,0.9438,10000.0,OPRK1 1
+GSE231763 human SCG,bulk RNA-seq,,6,,0.453,3.007,0.843,2.092,,,,,OPRM1,OPRK1,1.438,,,,,OPRM1 3 of 6

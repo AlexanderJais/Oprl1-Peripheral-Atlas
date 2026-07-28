@@ -6,7 +6,9 @@ eighteen of the nineteen peripheral populations measured here, covering every se
 with public data across all three developmental origins, the sympathetic, parasympathetic and
 enteric divisions of the autonomic nervous system, and the dorsal root ganglion, where most work
 on opioid receptors in peripheral neurons has been done and where that work targets *Oprm1*. The
-exception is enteric submucosal neurons at P7, where *Oprk1* is higher. Against the wider
+exception is enteric submucosal neurons at P7, where *Oprk1* is higher. This is a mouse result:
+section 9 shows that the human data available cannot settle the same question, and that the one
+unbiased human dataset argues against it. Against the wider
 denominator of every G protein-coupled receptor measured in the same cells, *Oprl1* ranks 31st of
 around 280 detected, the 90th percentile, while *Oprm1* and *Oprd1* sit at the middle of that
 distribution.
@@ -712,7 +714,68 @@ neurons, or *Oprl1* serves a function other than modulating taste transmission: 
 axonal excitability, or action on the somatosensory rather than the gustatory division. This
 repository cannot distinguish these possibilities.
 
-## 9. *Oprl1* in the nucleus of the solitary tract
+## 9. Human tissue: the question is open, and the preparation is why
+
+Every claim above is a mouse claim. Human peripheral ganglia come from
+post-mortem or surgical tissue that is snap-frozen, so essentially all human
+single-cell data from them is single-nucleus. Figure S1 established what that
+does to this comparison in mouse nodose tissue. GSE201654 lets it be checked in
+a second tissue and a second laboratory, because it is a cross-species atlas of
+dorsal root ganglion nuclei covering human, macaque, mouse and guinea pig on one
+protocol.
+
+The mouse arm is the control, and it fails in the informative direction. Mouse
+dorsal root ganglion in whole-cell data places *Oprl1* first at 9.31 CPM against
+*Oprm1* 8.23. The same tissue in nuclei places *Oprm1* first at 94.92 against
+*Oprl1* 7.60, a 12.5-fold reversal. The nuclear artefact of figure S1 is
+reproduced in a second ganglion and a second laboratory.
+
+![Human peripheral ganglia](figures/figure8_human_ganglia.png)
+
+That is the standard against which the human rows have to be read, and it means
+no human single-nucleus dataset in existence can establish a species difference,
+because the mouse behaves the same way under the same preparation
+(`results/human_xspecies_drg.csv`):
+
+| species | *OPRL1* | *OPRM1* | *OPRD1* | *OPRK1* | first in |
+|---|---|---|---|---|---|
+| guinea pig | 14.37 | 27.39 | 3.45 | 1.88 | *OPRM1* in 3 of 4 |
+| macaque | 9.89 | 52.43 | 3.77 | 2.34 | *OPRM1* in 6 of 6 |
+| mouse | 7.60 | 94.92 | 2.33 | 2.17 | *OPRM1* in 6 of 6 |
+| human | 0.45 | 5.48 | 1.89 | 26.21 | *OPRK1* in 6 of 6 |
+
+A second problem sits on top of the first. The human population called by the
+same rule does not look like neurons. *SNAP25* reads 29.6 CPM in it against
+469.9 in macaque, 512.9 in mouse and 781.2 in guinea pig under the identical
+protocol, and *OPRL1* comes out lower inside the called population than outside
+it, at log2 -1.63, where every other species gives a positive enrichment. The
+script prints a warning and reports no human ordering from these nuclei
+(`results/human_xspecies_markers.csv`).
+
+One human dataset escapes the preparation problem. GSE231763 is bulk RNA-seq of
+six human superior cervical ganglia, whole tissue rather than nuclei, and the
+libraries are what they claim to be: *SNAP25* 417 TPM, *TH* 283, *DBH* 659,
+*PRPH* 1,400, *NPY* 1,815. It places *OPRL1* last of the four at 0.453 TPM
+against *OPRM1* 3.007, *OPRK1* 2.092 and *OPRD1* 0.843, and *OPRL1* reads
+exactly zero in three of the six donors while 23,438 genes are non-zero in all
+six. In mouse the same ganglion gives *Oprl1* 18.68 CPM against *Oprm1* 0.27.
+
+This is the one piece of unbiased human evidence located for this project and it
+points against the mouse result. Three things limit it. It is whole tissue, and
+mouse superior cervical neurons carry *Oprl1* only 1.7-fold above the
+non-neuronal compartment, so dilution matters more here than it would for a
+sharply neuronal transcript. It is one ganglion from one laboratory. And it
+cannot be compared against a human whole-cell dataset, because none exists.
+
+The honest position is that the mouse result is not established in human, that
+the single-nucleus data cannot settle it in either direction, and that the only
+unbiased human dataset argues against it. Two experiments would resolve this and
+neither is a reanalysis: *OPRL1* in situ hybridisation on human ganglion
+sections, and whole-cell or bulk RNA-seq of an isolated human sensory ganglion.
+Until one of them exists, every claim in sections 1 to 8 should be read as a
+statement about mouse.
+
+## 10. *Oprl1* in the nucleus of the solitary tract
 
 *Oprl1* is expressed across all 25 NTS neuronal subtypes, highest in the glutamatergic Glu9 at
 27.8 CPM (n = 1,155), Glu13 at 22.6 and Glu7 at 21.9. GSE166648 is a nuclear preparation, so the
@@ -798,6 +861,7 @@ python3 src/11_quality_panel.py              # the uniform check panel over all 
 python3 src/12_oprl1_signature.py            # the Oprl1 signature and figure 2
 python3 src/13_gpcr_rank.py                  # Oprl1 among all GPCRs and figure 3
 python3 src/14_otic_lineage.py               # the otic lineage E9.5 to P25, spiral subtypes
+python3 src/15_human_ganglia.py              # human ganglia and the cross-species control
 python3 src/09_main_figures.py               # consolidated figures 1 and 3
 python3 -m pytest tests -q                   # 33 unit tests
 ```
@@ -808,6 +872,7 @@ python3 -m pytest tests -q                   # 33 unit tests
 | `figure2_oprl1_signature` | the signature, its consistency, the ambient axis and the raw levels |
 | `figure1b_otic_lineage` | the receptors from E9.5 to P25, and the spiral subtypes |
 | `figure3_gpcr_rank` | Oprl1 against all GPCRs measured in the same cells |
+| `figure8_human_ganglia` | human ganglia, and the preparation control in four species |
 | `figure4_geniculate_oprl1` | per-neuron *Oprl1* in both geniculate divisions |
 | `figure4b_nodose_oprl1` | *Oprl1* across the 21 nodose clusters and the four datasets |
 | `figure5_sodium_channel_gradient` | the Nav gradient in the nodose and the DRG proprioceptor test |
@@ -852,6 +917,9 @@ python3 -m pytest tests -q                   # 33 unit tests
 | `otic_lineage_by_age.csv` | the four receptors at ten ages from E9.5 to P25 |
 | `spiral_subtype_per_cell.csv` | Ia, Ib and Ic assignment and per-neuron levels |
 | `spiral_subtype_summary.csv`, `spiral_subtype_tests.csv` | subtype means and the two tests |
+| `human_receptor_levels.csv` | the three human datasets, with preparation recorded |
+| `human_xspecies_drg.csv`, `human_xspecies_markers.csv` | four species on one protocol, and what the called neurons look like |
+| `human_scg_bulk_tpm.csv` | the six human superior cervical ganglia, per donor |
 | `receptor_levels_by_ganglion.csv` | the figure 1 table, one row per panel |
 | `geniculate_per_cell_GSE102443.csv` | per-cell *Oprl1* FPKM, split gustatory/somatosensory |
 | `*_opioid_levels.csv`, `*_receptor_rank.csv`, `*_rank_support.csv` | per-tissue levels, ordering, support |
@@ -873,6 +941,9 @@ python3 -m pytest tests -q                   # 33 unit tests
 - GSE114997 Shrestha et al. 2018, *Cell*, 226 spiral ganglion neurons, SMART-seq
 - GSE165502 mouse cochlea at E14.5, E15.5, E16.5, E17.5, E18.5 and P3, SMART-seq2
 - GSE178931 mouse otic tissue at E9.5, E11.5 and E13.5, 10x
+- GSE201654 cross-species dorsal root ganglion nuclei: human, macaque, mouse, guinea pig
+- GSE241386 human stellate ganglion, single-nucleus 10x
+- GSE231763 human superior cervical ganglion, six donors, bulk RNA-seq
 - iPain Atlas, mouse trigeminal (84,658 cells) and dorsal root ganglion (191,798 cells), via CZ
   CELLxGENE collection `03608e22-227a-4492-910b-3cb3f16f952e`
 - NodoMap Cheng et al. 2026, *Cell Press Blue* 1:100072, doi:10.1016/j.cpblue.2026.100072,
