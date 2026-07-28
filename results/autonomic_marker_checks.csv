@@ -1,0 +1,55 @@
+dataset,gene,in_matrix,level,enforced
+GSE232789 (stellate),Snap25,True,632.3681,True
+GSE232789 (stellate),Phox2b,True,398.254,False
+GSE232789 (stellate),Slc17a6,True,0.019,False
+GSE232789 (stellate),Tac1,True,0.5324,False
+GSE232789 (stellate),Calca,True,0.5836,False
+GSE232789 (stellate),Actb,True,2490.6963,True
+GSE232789 (coeliac),Snap25,True,601.6966,True
+GSE232789 (coeliac),Phox2b,True,834.5977,False
+GSE232789 (coeliac),Slc17a6,True,0.0,False
+GSE232789 (coeliac),Tac1,True,0.0,False
+GSE232789 (coeliac),Calca,True,0.4749,False
+GSE232789 (coeliac),Actb,True,3984.8608,True
+GSE232789 (lumbar chain),Snap25,True,466.4834,True
+GSE232789 (lumbar chain),Phox2b,True,767.7438,False
+GSE232789 (lumbar chain),Slc17a6,True,0.0,False
+GSE232789 (lumbar chain),Tac1,True,0.0315,False
+GSE232789 (lumbar chain),Calca,True,10.2337,False
+GSE232789 (lumbar chain),Actb,True,3927.9392,True
+GSE232789 (sphenopalatine),Snap25,True,701.95,True
+GSE232789 (sphenopalatine),Phox2b,True,550.7858,False
+GSE232789 (sphenopalatine),Slc17a6,True,0.0,False
+GSE232789 (sphenopalatine),Tac1,True,124.8724,False
+GSE232789 (sphenopalatine),Calca,True,0.3829,False
+GSE232789 (sphenopalatine),Actb,True,1724.9932,True
+GSE232789 (pelvic),Snap25,True,741.2202,True
+GSE232789 (pelvic),Phox2b,True,641.8602,False
+GSE232789 (pelvic),Slc17a6,True,0.0,False
+GSE232789 (pelvic),Tac1,True,2.0236,False
+GSE232789 (pelvic),Calca,True,39.766,False
+GSE232789 (pelvic),Actb,True,2229.4702,True
+GSE330884 (intrinsic cardiac),Snap25,True,1205.1934,True
+GSE330884 (intrinsic cardiac),Phox2b,True,209.1408,False
+GSE330884 (intrinsic cardiac),Slc17a6,True,0.1826,False
+GSE330884 (intrinsic cardiac),Tac1,True,13.8435,False
+GSE330884 (intrinsic cardiac),Calca,True,0.4776,False
+GSE330884 (intrinsic cardiac),Actb,True,1727.2224,True
+"GSE263422 (enteric, P24)",Snap25,True,1063.5055,True
+"GSE263422 (enteric, P24)",Phox2b,True,742.0336,False
+"GSE263422 (enteric, P24)",Slc17a6,True,0.2449,False
+"GSE263422 (enteric, P24)",Tac1,True,57.8663,False
+"GSE263422 (enteric, P24)",Calca,True,1.6031,False
+"GSE263422 (enteric, P24)",Actb,True,2479.0532,True
+"GSE263422 (enteric, P7)",Snap25,True,1176.5129,True
+"GSE263422 (enteric, P7)",Phox2b,True,644.3322,False
+"GSE263422 (enteric, P7)",Slc17a6,True,3.9245,False
+"GSE263422 (enteric, P7)",Tac1,True,644.6396,False
+"GSE263422 (enteric, P7)",Calca,True,6.6998,False
+"GSE263422 (enteric, P7)",Actb,True,3984.5125,True
+GSE231924 (stellate),Snap25,True,862.882,True
+GSE231924 (stellate),Phox2b,True,138.0135,False
+GSE231924 (stellate),Slc17a6,True,2.163,False
+GSE231924 (stellate),Tac1,True,3.4383,False
+GSE231924 (stellate),Calca,True,24.4074,False
+GSE231924 (stellate),Actb,True,1100.113,True

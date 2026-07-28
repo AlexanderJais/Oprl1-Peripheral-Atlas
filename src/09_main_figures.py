@@ -21,36 +21,57 @@ import atlas_common as ac
 import atlas_style as st
 
 
+NCOL = 4
+
+
 def figure1():
+    """The four opioid receptors in every peripheral population measured.
+
+    Panels are blocked by division of the peripheral nervous system, in the
+    order sensory, sympathetic, parasympathetic and enteric, so that the
+    comparison between divisions is read down the figure rather than assembled
+    from the caption.
+    """
     d = pd.read_csv(ac.RES / "receptor_levels_by_ganglion.csv")
+    groups = list(dict.fromkeys(d.group))
+    block = {g: int(np.ceil((d.group == g).sum() / NCOL)) for g in groups}
+    nrow = sum(block.values())
+
     st.set_theme()
-    # Beyond six panels a single row is wider than a printed page, so the
-    # panels wrap onto two rows of equal width.
-    ncol = int(np.ceil(len(d) / 2)) if len(d) > 6 else len(d)
-    nrow = int(np.ceil(len(d) / ncol))
-    fig, axes = plt.subplots(nrow, ncol, figsize=(2.7 * ncol, 4.7 * nrow))
-    axes = np.atleast_1d(axes).ravel()
-    for ax in axes[len(d):]:
-        ax.set_axis_off()
-    for ax, r in zip(axes, d.itertuples()):
-        vals = [getattr(r, g) for g in ac.RECEPTORS]
-        order = np.argsort(-np.array(vals))
-        genes = [ac.RECEPTORS[i] for i in order]
-        st.expression_bars(
-            ax, [vals[i] for i in order], genes,
-            f"Mean expression ({r.unit})",
-            colors=[st.BAR_BLUE if g == "Oprl1" else st.BAR_GREY for g in genes],
-            fontsize=12)
-        st.panel_letter(ax, r.panel, dx=-0.30)
-        ax.set_title(f"{r.tissue}\n{r.dataset}, n = {r.n:,}", fontsize=11, pad=8)
-        note = ("only receptor detected" if not np.isfinite(r.margin)
-                else f"{r.margin:.2f}× over runner-up")
-        ax.text(0.5, -0.30, f"{note}\nsupport {r.support:.2f}",
-                transform=ax.transAxes, ha="center", va="top", fontsize=8.5,
-                color="#444444")
-    fig.suptitle("Oprl1 is the highest-expressed opioid receptor in every ganglion measured",
-                 fontsize=13, y=1.0)
-    fig.tight_layout(rect=(0, 0, 1, 0.97), h_pad=4.0)
+    fig = plt.figure(figsize=(2.9 * NCOL, 4.6 * nrow))
+    gs = fig.add_gridspec(nrow, NCOL, hspace=0.85, wspace=0.42,
+                          left=0.06, right=0.99, top=0.915, bottom=0.03)
+
+    row0 = 0
+    for g in groups:
+        sub = d[d.group == g]
+        for k, r in enumerate(sub.itertuples()):
+            ax = fig.add_subplot(gs[row0 + k // NCOL, k % NCOL])
+            vals = [getattr(r, gene) for gene in ac.RECEPTORS]
+            order = np.argsort(-np.array(vals))
+            genes = [ac.RECEPTORS[i] for i in order]
+            st.expression_bars(
+                ax, [vals[i] for i in order], genes,
+                f"Mean expression ({r.unit})",
+                colors=[st.BAR_BLUE if gene == "Oprl1" else st.BAR_GREY
+                        for gene in genes],
+                fontsize=12)
+            st.panel_letter(ax, r.panel, dx=-0.32)
+            ax.set_title(f"{r.tissue}\n{r.dataset}, n = {r.n:,}", fontsize=11,
+                         pad=8)
+            if k == 0:
+                # The rule clears the two-line panel title, so the group name
+                # never sits beside the first panel's tissue name.
+                y = ax.get_position().y1 + 0.031
+                fig.text(0.005, y + 0.005, g.capitalize(), fontsize=14,
+                         fontweight="bold", ha="left", va="bottom")
+                fig.lines.append(plt.Line2D(
+                    [0.005, 0.995], [y] * 2, transform=fig.transFigure,
+                    color="black", lw=1.0))
+        row0 += block[g]
+
+    fig.suptitle("The four opioid receptors across the peripheral nervous system",
+                 fontsize=15, y=0.995)
     st.save(fig, "figure1_oprl1_across_ganglia")
 
 

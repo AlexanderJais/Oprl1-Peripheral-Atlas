@@ -2,10 +2,11 @@
 
 In mouse geniculate ganglion neurons *Oprl1* is expressed 31-fold above *Oprm1* and is detected in
 92% of cells. The ordering reproduces on a second platform from a second laboratory. It holds in
-ten measurements covering every sensory ganglion with public data, across all three developmental
-origins, including the dorsal root ganglion, where most work on opioid receptors in sensory
-neurons has been done and where that work targets *Oprm1*. It also holds in two independent
-datasets of sympathetic neurons, which are not sensory.
+eighteen of the nineteen peripheral populations measured here, covering every sensory ganglion
+with public data across all three developmental origins, the sympathetic, parasympathetic and
+enteric divisions of the autonomic nervous system, and the dorsal root ganglion, where most work
+on opioid receptors in peripheral neurons has been done and where that work targets *Oprm1*. The
+exception is enteric submucosal neurons at P7, where *Oprk1* is higher.
 
 | input | tissue | source |
 |---|---|---|
@@ -31,21 +32,51 @@ same ordering.
 ## 1. *Oprl1* is the highest-expressed opioid receptor in every ganglion measured
 
 Mean expression of the four opioid receptors, measured in the same cells, in each dataset's own
-unit (`results/*_opioid_levels.csv`):
+unit, grouped by division of the peripheral nervous system
+(`results/receptor_levels_by_ganglion.csv`, `results/autonomic_receptor_levels.csv`):
+
+**Sensory**
 
 | dataset | tissue | *Oprl1* | *Oprm1* | *Oprd1* | *Oprk1* | *Oprl1*:*Oprm1* |
 |---|---|---|---|---|---|---|
-| GSE78845 (CPM) | sympathetic, thoracic | 62.30 | 1.48 | 3.90 | 4.24 | 42× |
-| GSE231766 (CPM) | sympathetic, superior cervical | 18.68 | 0.27 | 0.57 | 0.73 | 69× |
 | GSE114997 (CPM) | spiral (VIII) | 41.94 | 0.00 | 0.00 | 0.00 | only one detected |
 | GSE309608 (CPM) | vestibular (VIII) | 19.88 | 1.78 | 0.09 | 4.63 | 11.2× |
-| GSE102443 (FPKM) | geniculate | 5.73 | 0.18 | 0.31 | 0.83 | 31× |
-| GSE135801 (CPM) | geniculate | 18.98 | 0.01 | 4.72 | 3.61 | large |
-| NodoMap, nodose neurons (CPM) | nodose | 11.90 | 9.86 | 0.13 | 4.63 | 1.21× |
-| NodoMap, jugular neurons (CPM) | jugular | 9.62 | 8.33 | 0.92 | 0.90 | 1.16× |
-| iPain, trigeminal neurons (CPM) | trigeminal | 13.24 | 6.36 | 1.46 | 5.12 | 2.08× |
+| GSE102443 (FPKM) | geniculate (VII) | 5.73 | 0.18 | 0.31 | 0.83 | 31× |
+| GSE135801 (CPM) | geniculate (VII) | 18.98 | 0.01 | 4.72 | 3.61 | large |
+| iPain, trigeminal neurons (CPM) | trigeminal (V) | 13.24 | 6.36 | 1.46 | 5.12 | 2.08× |
+| NodoMap, nodose neurons (CPM) | nodose (X) | 11.90 | 9.86 | 0.13 | 4.63 | 1.21× |
+| NodoMap, jugular neurons (CPM) | jugular (X) | 9.62 | 8.33 | 0.92 | 0.90 | 1.16× |
 | iPain, DRG neurons (CPM) | dorsal root | 9.31 | 8.23 | 0.20 | 2.78 | 1.13× |
+
+**Sympathetic**
+
+| dataset | tissue | *Oprl1* | *Oprm1* | *Oprd1* | *Oprk1* | *Oprl1*:*Oprm1* |
+|---|---|---|---|---|---|---|
+| GSE78845 (CPM) | thoracic chain | 62.30 | 1.48 | 3.90 | 4.24 | 42× |
+| GSE232789 (CPM) | stellate | 27.55 | 0.56 | 0.03 | 4.53 | 49× |
+| GSE232789 (CPM) | coeliac | 25.03 | 0.42 | 0.03 | 0.56 | 59× |
+| GSE232789 (CPM) | lumbar chain | 24.76 | 1.68 | 0.03 | 0.39 | 15× |
+| GSE231924 (CPM) | stellate | 23.93 | 4.84 | 5.04 | 5.12 | 4.9× |
+| GSE231766 (CPM) | superior cervical | 18.68 | 0.27 | 0.57 | 0.73 | 69× |
+| GSE232789 (CPM) | pelvic (mixed) | 16.33 | 0.50 | 0.43 | 0.46 | 32× |
+
+**Parasympathetic and enteric**
+
+| dataset | tissue | *Oprl1* | *Oprm1* | *Oprd1* | *Oprk1* | *Oprl1*:*Oprm1* |
+|---|---|---|---|---|---|---|
+| GSE263422 (CPM) | enteric submucosal, P24 | 35.57 | 0.18 | 16.14 | 3.77 | 199× |
+| GSE263422 (CPM) | enteric submucosal, P7 | 26.70 | 0.74 | 2.29 | 122.51 | 36× |
+| GSE232789 (CPM) | sphenopalatine | 19.50 | 0.29 | 0.04 | 0.02 | 67× |
+| GSE330884 (CPM) | intrinsic cardiac | 11.13 | 3.05 | 0.36 | 0.00 | 3.7× |
+
+**Central, for reference**
+
+| dataset | tissue | *Oprl1* | *Oprm1* | *Oprd1* | *Oprk1* | *Oprl1*:*Oprm1* |
+|---|---|---|---|---|---|---|
 | GSE166648, NTS neurons (CPM) | NTS | 15.79 | 118.04 | 9.62 | 11.75 | 0.13× |
+
+*Oprl1* is highest in eighteen of the nineteen peripheral populations. The exception is the P7
+enteric row, treated in "The enteric exception" below.
 
 The geniculate result carries the claim. *Oprl1* at 5.73 FPKM against *Oprm1* at 0.18 is an
 order-of-magnitude difference in transcript abundance rather than a difference in rank order, and
@@ -85,7 +116,13 @@ Depth is 730-fold above the nodose droplet median, which is what makes a zero in
 same neurons carry *Scn1a* at 310.2 CPM, *Pvalb* at 882.6 and *Scn10a* at 0.00, the Nav1.1
 profile that section 3 predicts should be *Oprl1*-high.
 
-### The sensory restriction does not hold
+The vestibular ganglion replicates the spiral result in the same placode. Across 6,596 neurons
+from four mice, *Oprl1* reaches 19.88 CPM in 57.6% of cells against *Oprk1* 4.63, *Oprm1* 1.78 and
+*Oprd1* 0.09, a margin of 4.29× over the runner-up with support 1.000 and the same ordering in
+each of the four samples separately. *Scn1a* reads 398.0 CPM and *Scn10a* 0.00, matching the
+spiral profile.
+
+### The sympathetic division
 
 The title said sensory for six revisions without that being tested. Sympathetic neurons are the
 control: peripheral, not sensory, neural-crest-derived, and available at the same full-length
@@ -111,22 +148,61 @@ disease, so the disease condition neither produces the result nor obscures it. *
 CPM against *Scn10a* 0.09, the same sodium channel profile section 3 describes, in neurons that
 are not sensory at all.
 
-Two sympathetic preparations 20-fold apart in library depth agree on the direction and on the size
-of the lead over *Oprm1*, 42× and 69×. The claim extends to the sympathetic division of the
-autonomic nervous system. Whether it extends to the parasympathetic division or to the enteric
-nervous system has not been tested.
+A third dataset settles the sympathetic case. GSE231924 profiles cardiac-projecting neurons of the
+stellate ganglion, a third sympathetic ganglion from a third laboratory. *Oprl1* reaches 23.93 CPM
+in 1,303 neurons against *Oprk1* 5.12, *Oprd1* 5.04 and *Oprm1* 4.84, a margin of 4.68× with
+support 1.0000, and all eight mice place *Oprl1* first individually. Three sympathetic ganglia,
+three laboratories, and library depths 20-fold apart agree on the direction and on the size of the
+lead over *Oprm1*: 42×, 69× and 4.9×.
+
+### The parasympathetic division
+
+GSE232789 is the dataset that makes the comparison between divisions internal. One laboratory
+dissected the stellate, coeliac and lumbar chain ganglia (sympathetic), the sphenopalatine
+ganglion (cranial parasympathetic) and two pelvic ganglia, and sequenced them on one platform, so
+laboratory and chemistry drop out of the comparison.
+
+In 2,014 sphenopalatine neurons *Oprl1* reaches 19.50 CPM in 49.9% of cells against *Oprm1* 0.29,
+*Oprd1* 0.04 and *Oprk1* 0.02, a margin of 66.86× and the largest lead over *Oprm1* of any
+ganglion in this atlas. Identity is cholinergic and not noradrenergic (*Slc18a3* 252 CPM, *Chat*
+26, *Th* 2, *Dbh* 42), which is what distinguishes it from the sympathetic ganglia in the same
+dataset. The three sympathetic ganglia in that dataset give 27.55, 25.03 and 24.76 CPM and the two
+pelvic ganglia 16.33. Every ganglion in the series places *Oprl1* first.
+
+The intrinsic cardiac nervous system agrees at a smaller margin. In 4,513 neurons from three mice
+(GSE330884, *Slc5a7* 937 CPM, *Slc18a3* 475, *Prph* 2,992), *Oprl1* reaches 11.13 CPM against
+*Oprm1* 3.05, *Oprd1* 0.36 and *Oprk1* 0.00, a margin of 3.65× with support 1.0000 and the same
+ordering in each of the three samples. That is the narrowest parasympathetic margin measured and
+the only one where *Oprm1* is the runner-up rather than a trace transcript.
+
+### The enteric exception
+
+Enteric neurons are where the pattern breaks, and the break is developmental rather than regional.
+GSE263422 profiles submucosal neurons of the mouse small intestine at two ages, in one laboratory
+on one platform. At P24, *Oprl1* reaches 35.57 CPM against *Oprd1* 16.14, *Oprk1* 3.77 and *Oprm1*
+0.18, a margin of 2.20× with support 1.0000 and the same ordering in all three samples. At P7,
+*Oprk1* reaches 122.51 CPM against *Oprl1* 26.70, a margin of 4.59× the other way, with support
+1.0000 and the same ordering in both samples. This is the only population in this atlas where
+*Oprl1* is not the highest opioid receptor.
+
+The P7 result is not a depth artefact. The two ages come from the same laboratory, the same
+platform and the same tissue, and *Oprk1* falls from 122.51 CPM at 32.7% detection to 3.77 CPM at
+1.1% while *Oprl1* stays between 26 and 36 CPM. The direction of the change is specific to
+*Oprk1*. Whatever holds *Oprl1* at the top of the family elsewhere in the peripheral nervous
+system, it does not hold at P7 in the gut, and no other age series in this atlas has been examined
+for the same effect.
+
+*Oprm1* runs the other way in the same cells. At 0.18 CPM and 0.2% detection at P24 it is
+effectively absent, against a literature on opioid-induced constipation that is built on *Oprm1*
+in the gut wall. GSE263422 is submucosal, and that literature concerns the myenteric plexus, so
+this atlas does not contradict it; the two preparations do not sample the same neurons. No
+myenteric dataset in this survey passed neuronal QC, and the myenteric comparison is open.
 
 One qualification applies to every row above. *Oprl1* dominates its receptor family without being
 an abundant transcript. It sits at the 73.6th percentile of the 32,565 genes expressed in nodose
 neurons and the 63.8th percentile in GSE102443, against *Trpv1* at the 95.3rd and *Scn10a* at the
 96.1st in the same nodose cells. The claim is about the opioid receptor family, not about
 transcript abundance in general.
-
-The vestibular ganglion replicates the spiral result in the same placode. Across 6,596 neurons
-from four mice, *Oprl1* reaches 19.88 CPM in 57.6% of cells against *Oprk1* 4.63, *Oprm1* 1.78 and
-*Oprd1* 0.09, a margin of 4.29× over the runner-up with support 1.000 and the same ordering in
-each of the four samples separately. *Scn1a* reads 398.0 CPM and *Scn10a* 0.00, matching the
-spiral profile.
 
 *Oprm1* in the dorsal root ganglion is highest in the peptidergic nociceptor populations, PEP1 at
 13.93 CPM and SST at 12.06, which is where the peripheral analgesia literature places it. The same
@@ -137,22 +213,28 @@ Both iPain atlases are majority single-nucleus (trigeminal 70,772 of 84,658, DRG
 191,798), so every figure above is restricted to whole-cell cells. Pooling preparations compresses
 the trigeminal margin from 2.08× to 1.18×.
 
-![Oprl1 across the sensory ganglia](figures/figure1_oprl1_across_ganglia.png)
+![Oprl1 across the peripheral nervous system](figures/figure1_oprl1_across_ganglia.png)
 
-The margins in figure 1 order by sequencing depth rather than by tissue. The two largest come
-from full-length libraries: the spiral ganglion at a median of 2,678,701 reads per cell and
-GSE102443 by SMART-seq. The three smallest come from 10x droplet data, where the NodoMap median
-is 1,570 UMI per cell, a factor of 1,700 below the spiral ganglion. The vestibular ganglion sits
-between them at 6,000 to 10,300 UMI, and the superior cervical ganglion at 9,885. Margin size
-across panels therefore reports what each platform can resolve, and the ordering should not be
-read as a biological gradient across ganglia. The consistent finding across all ten is the
-direction, which holds regardless of depth; the size of the lead is only interpretable within a
-preparation.
+Figure 1 shows sixteen of the nineteen populations, one panel per ganglion, blocked by division.
+The three omitted panels are the GSE232789 lumbar chain, pelvic and stellate ganglia, whose
+numbers are in the tables above and in `results/autonomic_receptor_levels.csv`; GSE232789 is
+represented in the figure by the coeliac and sphenopalatine panels and the stellate panel comes
+from GSE231924 instead, so that no two figure panels of the same division come from the same
+deposit.
 
-The superior cervical ganglion is the exception that limits how far that reading goes. It sits at
-the same droplet depth as the vestibular ganglion and gives a margin six times larger, 25.72×
-against 4.29×. Depth sets a ceiling on the margin a dataset can report, and it does not determine
-where a dataset lands under that ceiling.
+Margin size in figure 1 tracks sequencing depth more than tissue. The two largest sensory margins
+come from full-length libraries: the spiral ganglion at a median of 2,678,701 reads per cell and
+GSE102443 by SMART-seq. The three smallest come from 10x droplet data, where the NodoMap median is
+1,570 UMI per cell, a factor of 1,700 below the spiral ganglion. Margin size across panels
+therefore reports partly what each platform can resolve, and the ordering should not be read as a
+biological gradient across ganglia. The consistent finding is the direction, which holds
+regardless of depth; the size of the lead is only interpretable within a preparation.
+
+Depth does not determine the margin on its own. The superior cervical ganglion sits at the same
+droplet depth as the vestibular ganglion and gives a margin six times larger, 25.72× against
+4.29×. Within GSE232789, where depth and chemistry are held constant across five ganglia, the
+margin still runs from 6.08× in the stellate to 66.86× in the sphenopalatine. Depth sets a ceiling
+on the margin a dataset can report, and it does not fix where a dataset lands under that ceiling.
 
 The eight-dataset version of this comparison, including the two nuclear preparations, is figure S3
 in [`SUPPLEMENT.md`](SUPPLEMENT.md).
@@ -161,23 +243,38 @@ The two single-nucleus datasets place *Oprm1* first. This is a preparation artef
 preparations retain unspliced pre-mRNA and *Oprm1* spans 250 kb against *Oprl1*'s 6 kb. See
 [`SUPPLEMENT.md`](SUPPLEMENT.md). Those datasets carry no claim here.
 
-### Coverage of the peripheral sensory series
+### Coverage of the peripheral nervous system
 
-| ganglion | origin | status |
-|---|---|---|
-| geniculate (VII) | epibranchial placode | measured |
-| nodose (X) | epibranchial placode | measured |
-| jugular (X superior) | neural crest | measured |
-| trigeminal (V) | crest and placode | measured |
-| dorsal root ganglion | neural crest | measured |
-| spiral (VIII) | otic placode | measured |
-| vestibular (VIII) | otic placode | measured |
-| sympathetic, thoracic (control) | neural crest | measured |
-| sympathetic, superior cervical (control) | neural crest | measured |
-| petrosal (IX) | epibranchial placode | not separable from pooled tissue |
+| division | ganglion | origin | status |
+|---|---|---|---|
+| sensory | geniculate (VII) | epibranchial placode | measured |
+| sensory | nodose (X) | epibranchial placode | measured |
+| sensory | jugular (X superior) | neural crest | measured |
+| sensory | trigeminal (V) | crest and placode | measured |
+| sensory | dorsal root ganglion | neural crest | measured |
+| sensory | spiral (VIII) | otic placode | measured |
+| sensory | vestibular (VIII) | otic placode | measured |
+| sensory | petrosal (IX) | epibranchial placode | not separable from pooled tissue |
+| sympathetic | thoracic chain | neural crest | measured |
+| sympathetic | stellate | neural crest | measured, two datasets |
+| sympathetic | superior cervical | neural crest | measured |
+| sympathetic | coeliac | neural crest | measured |
+| sympathetic | lumbar chain | neural crest | measured |
+| mixed autonomic | pelvic | neural crest | measured |
+| parasympathetic | sphenopalatine | neural crest | measured |
+| parasympathetic | intrinsic cardiac | neural crest | measured |
+| enteric | submucosal, small intestine | neural crest | measured, P7 and P24 |
+| enteric | myenteric | neural crest | no dataset passed neuronal QC |
 
-The survey covers cranial visceral, gustatory, auditory and somatic afferents, and all three
-developmental origins of the peripheral sensory system.
+The survey covers cranial visceral, gustatory, auditory and somatic afferents, all three
+developmental origins of the peripheral sensory system, and the sympathetic, parasympathetic and
+enteric divisions of the autonomic nervous system.
+
+Two gaps remain. The myenteric plexus is the one where the *Oprm1* literature would predict a
+different answer, and the datasets found for it (GSE292613 is the closest) contain glia and immune
+cells rather than neurons: *Snap25* is detected in 0.4% of its plexus barcodes. The other is
+developmental. The P7 enteric result shows that age can reverse the ordering, and no other
+ganglion in this atlas has been measured at more than one age.
 
 The petrosal is the one ganglion this survey cannot reach. Searching GEO across all assay types
 and organisms returns a single mouse record containing petrosal tissue, GSE145216, whose samples
@@ -474,8 +571,9 @@ python3 src/05_vagal_coexpression.py         # Oprl1 against Glp1r and Cckar
 python3 src/06_oprl1_localisation.py         # annotations and transcriptome-wide correlation
 python3 src/07_transduction_effector_genes.py       # Piezo2, Gi effectors, nociceptor control
 python3 src/08_specificity_controls.py       # matched nulls, group sizes, ambient check
-python3 src/09_main_figures.py               # consolidated figures 1 and 3
 python3 src/external/scg_GSE231766.py        # superior cervical ganglion, the second sympathetic control
+python3 src/external/autonomic_ganglia.py    # sympathetic, parasympathetic and enteric ganglia
+python3 src/09_main_figures.py               # consolidated figures 1 and 3
 python3 -m pytest tests -q                   # 33 unit tests
 ```
 
@@ -515,6 +613,8 @@ python3 -m pytest tests -q                   # 33 unit tests
 | `top_receptor_by_dataset.csv` | top receptor per dataset, with bootstrap support |
 | `nts_by_subtype.csv` | *Oprl1* across the 25 NTS neuronal subtypes |
 | `scg_GSE231766_receptor_levels.csv` | superior cervical receptor levels, per population and per sample |
+| `autonomic_receptor_levels.csv` | sympathetic, parasympathetic and enteric levels, margins and support |
+| `receptor_levels_by_ganglion.csv` | the figure 1 table, one row per panel |
 | `geniculate_per_cell_GSE102443.csv` | per-cell *Oprl1* FPKM, split gustatory/somatosensory |
 | `*_opioid_levels.csv`, `*_receptor_rank.csv`, `*_rank_support.csv` | per-tissue levels, ordering, support |
 
@@ -525,6 +625,11 @@ python3 -m pytest tests -q                   # 33 unit tests
 - GSE166648 Ludwig et al., dorsal vagal complex snRNA-seq, 72,128 nuclei
 - GSE78845 Furlan et al. 2016, 298 mouse thoracic sympathetic neurons, full-length
 - GSE231766 Ziegler et al. 2023, four mouse superior cervical ganglia, 10x
+- GSE231924 cardiac-projecting neurons of the mouse stellate ganglion, 10x, 1,303 neurons
+- GSE232789 six mouse autonomic ganglia in one experiment: stellate, coeliac, lumbar chain,
+  sphenopalatine and two pelvic, 10x
+- GSE330884 mouse intrinsic cardiac nervous system, three samples, 10x
+- GSE263422 mouse small-intestine enteric neurons at P7 and P24, 10x
 - GSE309608 four mouse vestibular ganglia, 10x
 - GSE114997 Shrestha et al. 2018, *Cell*, 226 spiral ganglion neurons, SMART-seq
 - iPain Atlas, mouse trigeminal (84,658 cells) and dorsal root ganglion (191,798 cells), via CZ
