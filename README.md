@@ -6,7 +6,10 @@ eighteen of the nineteen peripheral populations measured here, covering every se
 with public data across all three developmental origins, the sympathetic, parasympathetic and
 enteric divisions of the autonomic nervous system, and the dorsal root ganglion, where most work
 on opioid receptors in peripheral neurons has been done and where that work targets *Oprm1*. The
-exception is enteric submucosal neurons at P7, where *Oprk1* is higher.
+exception is enteric submucosal neurons at P7, where *Oprk1* is higher. Against the wider
+denominator of every G protein-coupled receptor measured in the same cells, *Oprl1* ranks 31st of
+around 280 detected, the 90th percentile, while *Oprm1* and *Oprd1* sit at the middle of that
+distribution.
 
 | input | tissue | source |
 |---|---|---|
@@ -114,7 +117,7 @@ million reads, *Oprl1* is detected in 74.8% of cells at 41.94 CPM and *Oprm1*, *
 *Oprk1* are detected in none. All four are present in the annotation, so those are measured zeros.
 Depth is 730-fold above the nodose droplet median, which is what makes a zero interpretable. The
 same neurons carry *Scn1a* at 310.2 CPM, *Pvalb* at 882.6 and *Scn10a* at 0.00, the Nav1.1
-profile that section 4 predicts should be *Oprl1*-high.
+profile that section 5 predicts should be *Oprl1*-high.
 
 The vestibular ganglion replicates the spiral result in the same placode. Across 6,596 neurons
 from four mice, *Oprl1* reaches 19.88 CPM in 57.6% of cells against *Oprk1* 4.63, *Oprm1* 1.78 and
@@ -145,7 +148,7 @@ untreated animals, *Oprl1* reaches 18.68 CPM against *Oprk1* 0.73, *Oprd1* 0.57 
 a margin of 25.72× over the runner-up and 69× over *Oprm1*, with support 1.0000. Each of the four
 samples in that dataset places *Oprl1* first on its own, including the two with experimental heart
 disease, so the disease condition neither produces the result nor obscures it. *Scn1a* reads 16.12
-CPM against *Scn10a* 0.09, the same sodium channel profile section 4 describes, in neurons that
+CPM against *Scn10a* 0.09, the same sodium channel profile section 5 describes, in neurons that
 are not sensory at all.
 
 A third dataset settles the sympathetic case. GSE231924 profiles cardiac-projecting neurons of the
@@ -202,7 +205,9 @@ One qualification applies to every row above. *Oprl1* dominates its receptor fam
 an abundant transcript. It sits at the 73.6th percentile of the 32,565 genes expressed in nodose
 neurons and the 63.8th percentile in GSE102443, against *Trpv1* at the 95.3rd and *Scn10a* at the
 96.1st in the same nodose cells. The claim is about the opioid receptor family, not about
-transcript abundance in general.
+transcript abundance in general. Section 3 puts the same question to the receptor family it
+belongs to and returns a median rank of 31st among the GPCRs detected in these neurons, which is
+the 90th percentile and not the top 20.
 
 *Oprm1* in the dorsal root ganglion is highest in the peptidergic nociceptor populations, PEP1 at
 13.93 CPM and SST at 12.06, which is where the peripheral analgesia literature places it. The same
@@ -305,7 +310,7 @@ Two design choices decide whether the answer means anything.
 The statistic is a log2 fold change computed **within depth strata**, not a correlation across
 cells. Per-cell Spearman between two sparsely detected transcripts measures capture depth: a cell
 with more UMI detects more of everything, so nearly every gene correlates positively with nearly
-every other. Section 4 records what that produced the first time this was attempted, a correlate
+every other. Section 5 records what that produced the first time this was attempted, a correlate
 list topped by a Schwann-cell transcript arriving as ambient RNA. Here every comparison is made
 between cells of the same dataset that detected a similar number of genes.
 
@@ -357,7 +362,7 @@ neurons than in the non-neuronal cells of the same ganglion. The five that are n
 *Galnt16*, *Nfatc2*, *Slc12a7* and *Asah2*, are drawn as open bars in figure 2 and should be
 treated as contamination candidates rather than partners.
 
-*Scn1a*, the sodium channel that section 4 places on *Oprl1* neurons in the vagus and the dorsal
+*Scn1a*, the sodium channel that section 5 places on *Oprl1* neurons in the vagus and the dorsal
 root ganglion, ranks 144th of 9,884 at +0.22, positive in 8 of the 11 populations where it was
 testable. The candidate-gene result from one atlas survives an unbiased scan of thirteen, in the
 top 1.5% of the transcriptome, without reaching the top 30.
@@ -369,13 +374,64 @@ stratum. GSE102443 could not be split either way, with 88 of 96 neurons positive
 from this analysis. Five of the thirteen populations come from GSE232789, so the deposit count is
 reported beside the dataset count in `results/oprl1_signature.csv`.
 
-## 3. *Oprl1* is expressed in most neurons of the ganglion
+## 3. Among all GPCRs, *Oprl1* sits at the 90th percentile and not in the top 20
+
+"Highest of the four opioid receptors" is a claim about a family of four, and it invites the reply
+that the family is uniformly low. Section 1 does not answer that reply. This section changes the
+denominator: *Oprl1* is ranked against every G protein-coupled receptor measured in the same
+cells, in the same thirteen populations.
+
+The receptor list is the curated non-sensory set from the IUPHAR/BPS Guide to Pharmacology, 356
+mouse symbols. Olfactory, vomeronasal and taste receptors are left out deliberately. The mouse
+genome carries over a thousand olfactory receptors that are silent outside the olfactory
+epithelium, and counting them would raise any rank in any tissue without meaning anything. Between
+219 and 323 of the 356 are detected in a given population, and that detected count is the
+denominator used below.
+
+The answer is mid-table and not top of the table. Across thirteen populations *Oprl1*'s median
+rank is **31st of the GPCRs detected**, a 95% interval of 24 to 35 over 10,000 resamples of the
+populations, and the 89.8th percentile. It reaches the top 20 in none of the thirteen and the top
+10 in none. The range is narrow: 21st in the GSE232789 stellate ganglion, 41st in the intrinsic
+cardiac ganglion, and between those two everywhere else.
+
+![Oprl1 among all GPCRs](figures/figure3_gpcr_rank.png)
+
+The reply this section was written to answer does not survive, because the family is not uniformly
+anything (`results/gpcr_rank_by_population.csv`):
+
+| receptor | median rank | median percentile of GPCRs detected |
+|---|---|---|
+| *Oprl1* | 31 | 89.8 |
+| *Oprk1* | 82 | 66.8 |
+| *Oprm1* | 138 | 48.1 |
+| *Oprd1* | 153 | 47.0 |
+
+*Oprm1* and *Oprd1* sit at the middle of the GPCR distribution in peripheral neurons. *Oprl1* sits
+four to five times higher in rank and a whole quartile higher in percentile. The separation
+between *Oprl1* and the rest of the opioid family is not an artefact of comparing four genes to
+each other.
+
+What outranks it is mostly not neuromodulation. One GPCR exceeds *Oprl1* in all thirteen
+populations, *Gabbr1*, the GABA-B receptor. Twenty-three exceed it in seven or more. Of the sixteen
+most frequent, five are adhesion GPCRs (*Adgrb3*, *Adgrl1*, *Adgrl3*, *Adgre1*) and five are Class
+A orphans or non-GPCR 7TM proteins (*Gpr22*, *Gpr85*, *Gpr137*, *Gpr162*, *Gpr27*, *Gpr45*).
+Setting those aside leaves four receptors with a known endogenous neurotransmitter or neuropeptide
+ligand that beat *Oprl1* in a majority of populations: *Gabbr1*, *Chrm2*, *Adcyap1r1* and *Cnr1*.
+*Ackr1* also appears in nine and is an atypical chemokine receptor of erythrocytes and
+endothelium, so its position is a contamination candidate rather than a neuronal result.
+
+The claim that this supports is narrower than the one it replaces, and it is the one to make:
+among peripheral neurons, *Oprl1* is a top-decile GPCR and the only opioid receptor that is. It is
+not among the ten or twenty most abundant receptors on these cells, and section 1's margins should
+not be read as implying that.
+
+## 4. *Oprl1* is expressed in most neurons of the ganglion
 
 In the geniculate, *Oprl1* is detected in 92% of the 96 neurons, at indistinguishable levels in
 both divisions: gustatory (Phox2b+) 6.29 FPKM, n = 61; somatosensory (Phox2b-) 4.77 FPKM, n = 35
 Expression is pan-geniculate.
 
-![Oprl1 in the geniculate ganglion](figures/figure3_geniculate_oprl1.png)
+![Oprl1 in the geniculate ganglion](figures/figure4_geniculate_oprl1.png)
 
 This claim also rests on full-length data. A 92% detection rate is interpretable only on a
 platform that can reach it. The droplet datasets reach 27.7% of cells in their highest cluster, so
@@ -387,9 +443,9 @@ In the nodose and jugular ganglia, *Oprl1* appears in every one of the 26 neuron
 neuronal enrichment +3.53, against *Oprk1* +3.49, *Oprm1* +3.24 and *Oprd1* +1.62). The highest
 clusters are NGN14 at 43.5 CPM, NGN17 at 31.7, NGN6 at 30.5 and NGN19 at 30.3.
 
-![Oprl1 across the NodoMap atlas](figures/figure3b_nodose_oprl1.png)
+![Oprl1 across the NodoMap atlas](figures/figure4b_nodose_oprl1.png)
 
-## 4. Expression is graded by sodium channel class, in the vagus and the DRG
+## 5. Expression is graded by sodium channel class, in the vagus and the DRG
 
 This gradient sits inside a gene expressed throughout the ganglion, and the effect is small
 relative to sections 1 and 2. It was established in the vagus and then tested in the dorsal root
@@ -471,7 +527,7 @@ for *Pvalb* (1,576 CPM), *Runx3* (86.9) and *Scn1a* (226.4). It ranks first for 
 Both directions of the nodose result appear again: positive with *Scn1a*, negative with *Scn10a*,
 in a ganglion of different developmental origin and different modality.
 
-![The sodium channel gradient](figures/figure4_sodium_channel_gradient.png)
+![The sodium channel gradient](figures/figure5_sodium_channel_gradient.png)
 
 The four nodose clusters that separate sodium channel class from fibre type, and the annotation
 and transcriptome-wide panels behind this section, are figures S5 and S6 in
@@ -507,7 +563,7 @@ Section 2 is the replacement for that list. It replaces a cluster-level correlat
 with a depth-stratified comparison in thirteen populations, and it recovers the contamination axis
 as its own negative tail rather than as a caveat.
 
-## 5. *Oprl1* shows no association with *Glp1r* or *Cckar*
+## 6. *Oprl1* shows no association with *Glp1r* or *Cckar*
 
 This project began by testing whether *Oprl1* occupies the *Glp1r* and *Cckar* afferents, which
 would place a Gi-coupled receptor on the first synapse of the gut-brain axis. The data rejects
@@ -538,7 +594,7 @@ The null median falls between 1.13 and 1.36. Values in the 1.3 to 1.5 band match
 expression-matched random gene produces. *Glp1r*, *Cckar* and *Cckbr* are at chance, and the
 data provides no support for *Oprl1* occupying the satiation-receptor populations.
 
-![Oprl1 and the satiation receptors](figures/figure5_vagal_oprl1_satiation.png)
+![Oprl1 and the satiation receptors](figures/figure6_vagal_oprl1_satiation.png)
 
 The co-expression table contains an internal comparator. After full adjustment *Cckbr* scores
 highest of the three testable partners at 1.47, against *Glp1r* 1.46 and *Cckar* 1.37, a spread of
@@ -549,14 +605,14 @@ value near 1.4 is a floor set by abundance.
 Two results survive the control: *Scn1a* above its null, and *Trpv1* and *Scn10a* below theirs.
 *Oprl1* is depleted from the nociceptor population.
 
-## 6. Mechanotransduction and Gi effector genes
+## 7. Mechanotransduction and Gi effector genes
 
-Section 4 predicts that N/OFQ acting on the vagus would reduce firing in Nav1.1 neurons. Three
+Section 5 predicts that N/OFQ acting on the vagus would reduce firing in Nav1.1 neurons. Three
 conditions would have to hold on the same cells: the mechanotransducer *Piezo2*, the Gi effector
 genes a NOP receptor signals through (*Kcnj3/6/9*, *Gnai*, *Gnao*, *Cacna1b*), and the absence of
 the nociceptor programme as an internal negative control.
 
-![Mechanotransduction and Gi effector genes](figures/figure6_transduction_effector_genes.png)
+![Mechanotransduction and Gi effector genes](figures/figure7_transduction_effector_genes.png)
 
 The negative control behaves as required. The nociceptor programme runs against *Oprl1* across
 clusters, with *Trpa1* rho = -0.68, *Trpv1* -0.66 and *Scn10a* -0.63, all *q* below 0.03, and
@@ -587,7 +643,7 @@ acting on a separate population whose output converges on the same afferent voll
 arrangement is consistent with everything measured here and is testable in the same *ex vivo*
 preparation.
 
-## 7. The geniculate result concerns taste, and conflicts with existing behaviour data
+## 8. The geniculate result concerns taste, and conflicts with existing behaviour data
 
 The strongest finding in this document, 5.73 against 0.18 FPKM in 92% of neurons across both
 divisions, is in the gustatory ganglion. NOP-knockout mice show unchanged taste reactivity to
@@ -598,14 +654,14 @@ neurons, or *Oprl1* serves a function other than modulating taste transmission: 
 axonal excitability, or action on the somatosensory rather than the gustatory division. This
 repository cannot distinguish these possibilities.
 
-## 8. *Oprl1* in the nucleus of the solitary tract
+## 9. *Oprl1* in the nucleus of the solitary tract
 
 *Oprl1* is expressed across all 25 NTS neuronal subtypes, highest in the glutamatergic Glu9 at
 27.8 CPM (n = 1,155), Glu13 at 22.6 and Glu7 at 21.9. GSE166648 is a nuclear preparation, so the
 receptor ordering within it is unusable and no peripheral-to-central comparison is made. The
 per-subtype distribution is unaffected by that limitation.
 
-![Oprl1 across NTS neuronal subtypes](figures/figure7_nts_oprl1.png)
+![Oprl1 across NTS neuronal subtypes](figures/figure9_nts_oprl1.png)
 
 ---
 
@@ -682,6 +738,7 @@ python3 src/08_specificity_controls.py       # matched nulls, group sizes, ambie
 python3 src/10_peripheral_ganglia.py         # every ganglion outside the geniculate and vagal pipelines
 python3 src/11_quality_panel.py              # the uniform check panel over all 21 populations
 python3 src/12_oprl1_signature.py            # the Oprl1 signature and figure 2
+python3 src/13_gpcr_rank.py                  # Oprl1 among all GPCRs and figure 3
 python3 src/09_main_figures.py               # consolidated figures 1 and 3
 python3 -m pytest tests -q                   # 33 unit tests
 ```
@@ -690,12 +747,13 @@ python3 -m pytest tests -q                   # 33 unit tests
 |---|---|
 | `figure1_oprl1_across_ganglia` | the four receptors in all sixteen populations, blocked by division |
 | `figure2_oprl1_signature` | the signature, its consistency, the ambient axis and the raw levels |
-| `figure3_geniculate_oprl1` | per-neuron *Oprl1* in both geniculate divisions |
-| `figure3b_nodose_oprl1` | *Oprl1* across the 21 nodose clusters and the four datasets |
-| `figure4_sodium_channel_gradient` | the Nav gradient in the nodose and the DRG proprioceptor test |
-| `figure5_vagal_oprl1_satiation` | *Oprl1* against *Glp1r* and *Cckar* |
-| `figure6_transduction_effector_genes` | *Piezo2*, the Gi effector genes, the nociceptor control |
-| `figure7_nts_oprl1` | *Oprl1* in NTS neurons and across the 25 subtypes |
+| `figure3_gpcr_rank` | Oprl1 against all GPCRs measured in the same cells |
+| `figure4_geniculate_oprl1` | per-neuron *Oprl1* in both geniculate divisions |
+| `figure4b_nodose_oprl1` | *Oprl1* across the 21 nodose clusters and the four datasets |
+| `figure5_sodium_channel_gradient` | the Nav gradient in the nodose and the DRG proprioceptor test |
+| `figure6_vagal_oprl1_satiation` | *Oprl1* against *Glp1r* and *Cckar* |
+| `figure7_transduction_effector_genes` | *Piezo2*, the Gi effector genes, the nociceptor control |
+| `figure9_nts_oprl1` | *Oprl1* in NTS neurons and across the 25 subtypes |
 | `figureS1`-`figureS6` | see [`SUPPLEMENT.md`](SUPPLEMENT.md) |
 
 | table | contents |
@@ -728,6 +786,9 @@ python3 -m pytest tests -q                   # 33 unit tests
 | `oprl1_signature.csv` | every gene ranked, with interval, support, breadth and ambient score |
 | `oprl1_signature_by_dataset.csv` | the fold change per gene in each of the 13 populations |
 | `oprl1_signature_ambient.csv` | neuron over non-neuron for every gene tested |
+| `gpcr_rank_by_population.csv` | Oprl1's GPCR rank, and the other three receptors', per population |
+| `gpcr_above_oprl1.csv` | every GPCR that outranks Oprl1, and in how many populations |
+| `gpcr_rank_summary.csv` | the median rank and its bootstrap interval |
 | `receptor_levels_by_ganglion.csv` | the figure 1 table, one row per panel |
 | `geniculate_per_cell_GSE102443.csv` | per-cell *Oprl1* FPKM, split gustatory/somatosensory |
 | `*_opioid_levels.csv`, `*_receptor_rank.csv`, `*_rank_support.csv` | per-tissue levels, ordering, support |
@@ -745,6 +806,7 @@ python3 -m pytest tests -q                   # 33 unit tests
 - GSE330884 mouse intrinsic cardiac nervous system, three samples, 10x
 - GSE263422 mouse small-intestine enteric neurons at P7 and P24, 10x
 - GSE309608 four mouse vestibular ganglia, 10x
+- IUPHAR/BPS Guide to Pharmacology, `targets_and_families.csv`, for the GPCR list
 - GSE114997 Shrestha et al. 2018, *Cell*, 226 spiral ganglion neurons, SMART-seq
 - iPain Atlas, mouse trigeminal (84,658 cells) and dorsal root ganglion (191,798 cells), via CZ
   CELLxGENE collection `03608e22-227a-4492-910b-3cb3f16f952e`

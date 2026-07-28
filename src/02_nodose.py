@@ -313,7 +313,7 @@ def figures(adata, obs, counts, cpm_all, cluster, per_cluster, tbl):
     ax.set_title("Reproduces across all four\nwhole-cell datasets", fontsize=11, pad=10)
 
     fig.tight_layout()
-    st.save(fig, "figure3b_nodose_oprl1")
+    st.save(fig, "figure4b_nodose_oprl1")
 
     # ---- Supplementary: the full opioid panel, neurons against everything else
     fig, axes = plt.subplots(1, 2, figsize=(11.0, 4.6), sharey=True)

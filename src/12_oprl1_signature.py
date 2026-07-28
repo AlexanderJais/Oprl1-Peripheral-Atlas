@@ -1,6 +1,6 @@
 """The Oprl1 signature: genes that travel with Oprl1 across the whole atlas.
 
-Section 3 found that Oprl1 tracks Nav1.1 in the nodose ganglion and the DRG.
+Section 5 finds that Oprl1 tracks Nav1.1 in the nodose ganglion and the DRG.
 That was a candidate-gene result read off cluster annotations. This script asks
 the unbiased version of the same question in every dataset that carries a full
 transcriptome, and keeps only what reproduces across them.
@@ -9,7 +9,7 @@ WHAT IS CORRELATED, AND WHY NOT SPEARMAN
 
 Per-cell Spearman between two sparsely detected transcripts is dominated by
 capture depth: a cell with more UMI detects more of everything, so almost every
-gene correlates positively with almost every other gene. Section 6 of the README
+gene correlates positively with almost every other gene. Section 5 of the README
 records what that produced the first time, a correlate list whose top entry was
 a Schwann-cell transcript riding in on ambient RNA.
 

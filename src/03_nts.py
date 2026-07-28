@@ -198,7 +198,7 @@ def figures(X, cpm, neuron, sub, subtbl, overall):
     ax.set_title("Oprl1 across all 25 NTS neuronal subtypes", fontsize=11, pad=10)
 
     fig.tight_layout()
-    st.save(fig, "figure7_nts_oprl1")
+    st.save(fig, "figure9_nts_oprl1")
 
 
 if __name__ == "__main__":

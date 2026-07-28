@@ -277,7 +277,7 @@ def figures(adata, obs, counts, detected, cpm, per_cluster, co, corr,
     ax.set_title("(d) The association survives depth and cluster control",
                  fontsize=10)
 
-    st.save(fig, "figure5_vagal_oprl1_satiation")
+    st.save(fig, "figure6_vagal_oprl1_satiation")
 
 
 if __name__ == "__main__":

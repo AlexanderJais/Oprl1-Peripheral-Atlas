@@ -117,7 +117,7 @@ def figure3():
                  fontsize=11, pad=8)
 
     fig.tight_layout()
-    st.save(fig, "figure4_sodium_channel_gradient")
+    st.save(fig, "figure5_sodium_channel_gradient")
 
 
 if __name__ == "__main__":

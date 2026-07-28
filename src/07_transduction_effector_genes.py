@@ -1,6 +1,6 @@
 """Mechanotransduction and Gi effector genes against Oprl1.
 
-Section 4 of the README places Oprl1 on Nav1.1 nodose neurons. If N/OFQ reduces
+Section 5 of the README places Oprl1 on Nav1.1 nodose neurons. If N/OFQ reduces
 firing in those cells, three conditions hold on the same neurons, and each is
 checkable in this atlas:
 
@@ -215,7 +215,7 @@ def figures(mod, piezo):
     st.panel_letter(ax, "e", dx=-0.28)
     ax.set_title("Per cell, holding cluster\nand depth fixed", fontsize=11)
 
-    st.save(fig, "figure6_transduction_effector_genes")
+    st.save(fig, "figure7_transduction_effector_genes")
 
 
 def _cluster_frame():

@@ -1,0 +1,2 @@
+n_populations,median_rank,rank_ci_lo,rank_ci_hi,median_percentile,percentile_ci_lo,percentile_ci_hi,gpcr_list_size,in_top_10,in_top_20,n_boot
+13,31.0,24.0,35.0,89.8,87.5,90.9,356,0,0,10000

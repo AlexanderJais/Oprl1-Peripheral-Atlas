@@ -231,7 +231,7 @@ def figures(dv, zk, per_cell):
     ax.set_title("GSE135801 — 454 geniculate neurons", fontsize=11, pad=12)
 
     fig.tight_layout()
-    st.save(fig, "figure3_geniculate_oprl1")
+    st.save(fig, "figure4_geniculate_oprl1")
 
 
 if __name__ == "__main__":
