@@ -41,6 +41,13 @@ expressing somata are larger than its non-expressing somata. But it reaches
 those types at roughly 1 TPM, where OPRM1 reaches nociceptors at 13, so the
 pooled ordering still places OPRL1 last.
 
+The tissue is worth stating precisely, because src/23 turns on it. The three
+donors were ventilated organ donors, and the ganglia were recovered 1.3, 6.9 and
+1.3 hours after the ventilator, then frozen (Yu et al., Supplementary Table 1).
+That is far from an autopsy interval, but it is not a live biopsy either, and
+the somata carry a stress signature: ATF3 sits at 25 TPM and is detected in half
+of them even outside the 23-cell cluster the authors themselves label hATF3.
+
 Run from the repository root. Sources are fetched into scratch/human/ on first
 use and reused. The GRCh38 annotation is ~55 MB.
 """
