@@ -30,12 +30,16 @@ Multi-tissue deposits are split by column-name prefix before anything is
 computed. GSE248462 deposits arcuate nucleus and nodose ganglion in one matrix,
 and read whole it reports the brain.
 
+Matrices are streamed once for the sixteen genes this screen reads and then
+deleted: 223 supplementary files do not fit in a session's disk allowance, and
+reading isoform-level tables whole exhausted memory and killed the first run.
+
 Run from the repository root: python3 src/20_bulk_composition_screen.py
-Source files are cached under scratch/bulk/ and reused.
 """
 
+import csv
 import gzip
-import io
+import itertools
 import json
 import os
 import re
@@ -168,16 +172,102 @@ def matrix_file(gse):
     return flat[0], ""
 
 
-def read_matrix(gse, fname):
-    cached = CACHE / f"{gse}__{fname}"
-    if not cached.exists():
-        CACHE.mkdir(parents=True, exist_ok=True)
-        cached.write_bytes(_get(f"{FTP}/{gse[:-3]}nnn/{gse}/suppl/{fname}"))
-    raw = cached.read_bytes()
-    if fname.endswith(".gz"):
-        raw = gzip.decompress(raw)
-    sep = "," if ".csv" in fname.lower() else "\t"
-    return pd.read_csv(io.BytesIO(raw), sep=sep, low_memory=False)
+# Only these genes are ever read out of a matrix, so a matrix is streamed and
+# discarded rather than loaded. Some deposits publish isoform-level tables of
+# several hundred thousand rows, and reading those whole exhausted memory and
+# killed the first full run at series 83 of 223.
+WANTED = set(MARKERS + INJURY + ac.RECEPTORS)
+MAX_DOWNLOAD_MB = 400
+
+
+def stream_matrix(path, sep, symbols):
+    """One pass over a matrix: per-column totals, and only the wanted rows.
+
+    Returns (rows, totals, columns). `totals` is the column sum over every gene
+    in the file, which is the library size CPM needs; `rows` holds just the
+    sixteen genes this screen reads. Memory is bounded by the header width
+    rather than by the file.
+    """
+    opener = gzip.open if str(path).endswith(".gz") else open
+    with opener(path, "rt", newline="", encoding="utf-8", errors="replace") as fh:
+        reader = csv.reader(fh, delimiter=sep)
+        try:
+            header = next(reader)
+        except StopIteration:
+            return {}, None, []
+        head = []
+        for row in reader:
+            head.append(row)
+            if len(head) >= 200:
+                break
+        if not head:
+            return {}, None, []
+
+        width = len(header)
+        # A leading index column leaves the header one field short of the rows.
+        if len(head[0]) == width + 1:
+            header = [""] + header
+            width += 1
+
+        def looks_numeric(j):
+            ok = 0
+            for row in head:
+                if len(row) != width:
+                    continue
+                try:
+                    float(row[j]); ok += 1
+                except ValueError:
+                    pass
+            return ok >= 0.8 * len(head)
+
+        cols = [j for j in range(width)
+                if not NOT_A_SAMPLE.search(str(header[j])) and looks_numeric(j)]
+        if len(cols) < 3:
+            return {}, None, []
+
+        # The gene column is whichever non-numeric column carries symbols or
+        # Ensembl identifiers in the rows already buffered.
+        gene_j = None
+        for j in range(width):
+            if j in cols:
+                continue
+            vals = [row[j] for row in head if len(row) == width]
+            if any(re.fullmatch("Snap25|Actb|Gapdh", v, re.I) for v in vals):
+                gene_j = j; mapper = None; break
+            if symbols and sum(bool(ENSEMBL.search(v)) for v in vals) > 0.5 * len(vals):
+                gene_j = j; mapper = symbols; break
+        if gene_j is None:
+            return {}, None, []
+
+        def symbol(v):
+            if mapper is None:
+                return v
+            m = ENSEMBL.search(v)
+            return mapper.get(m.group(0)) if m else None
+
+        totals = np.zeros(len(cols))
+        rows = {}
+        for row in itertools.chain(head, reader):
+            if len(row) != width:
+                continue
+            try:
+                vals = np.array([float(row[j]) for j in cols])
+            except ValueError:
+                continue
+            totals += vals
+            g = symbol(row[gene_j])
+            if g in WANTED and g not in rows:
+                rows[g] = vals
+        return rows, totals, [str(header[j]) for j in cols]
+
+
+def fetch(gse, fname):
+    """Download to a scratch file, to be streamed and then deleted."""
+    CACHE.mkdir(parents=True, exist_ok=True)
+    dest = CACHE / f"{gse}__{fname}"
+    if not dest.exists():
+        dest.write_bytes(_get(f"{FTP}/{gse[:-3]}nnn/{gse}/suppl/{fname}"))
+    return dest
 
 
 ENSEMBL = re.compile(r"ENSMUSG\d{11}")
@@ -190,35 +280,6 @@ def _symbol_map():
         return {}
     d = pd.read_csv(path, usecols=["gene", "ensembl_id"])
     return dict(zip(d.ensembl_id, d.gene))
-
-
-def gene_column(d, symbols=None):
-    """The column carrying gene identity, as symbols or as Ensembl IDs.
-
-    A deposit keyed on ENSMUSG identifiers is not a deposit without gene names,
-    and dropping those loses several of the few series that reach this far. The
-    map comes from the atlas's own annotation, so a symbol resolved here is the
-    same symbol used everywhere else in this project.
-    """
-    for c in d.columns:
-        if d[c].astype(str).str.fullmatch("Snap25|Actb|Gapdh", case=False).any():
-            return c
-    if not symbols:
-        return None
-    for c in d.columns:
-        col = d[c].astype(str)
-        if col.str.contains(ENSEMBL, regex=True).mean() > 0.5:
-            d["_symbol"] = (col.str.extract(f"({ENSEMBL.pattern})", expand=False)
-                            .map(symbols))
-            if d["_symbol"].notna().sum() > 1000:
-                return "_symbol"
-            d.drop(columns=["_symbol"], inplace=True)
-    return None
-
-
-def sample_columns(d):
-    return [c for c in d.select_dtypes("number").columns
-            if not NOT_A_SAMPLE.search(str(c))]
 
 
 def column_groups(cols):
@@ -242,35 +303,43 @@ def screen_one(gse, title, n, symbols=None):
     base = {"gse": gse, "n_samples": n, "title": title, "file": fname or ""}
     if fname is None:
         return [{**base, "group": "", "verdict": "no matrix", "reason": why}]
+    path = None
     try:
-        d = read_matrix(gse, fname)
+        path = fetch(gse, fname)
+        size_mb = path.stat().st_size / 1e6
+        if size_mb > MAX_DOWNLOAD_MB:
+            return [{**base, "group": "", "verdict": "too large",
+                     "reason": f"{size_mb:.0f} MB supplementary file"}]
+        sep = "," if ".csv" in fname.lower() else "\t"
+        rows, totals, colnames = stream_matrix(path, sep, symbols)
     except Exception as e:
         return [{**base, "group": "", "verdict": "unreadable",
                  "reason": f"{type(e).__name__}"}]
+    finally:
+        # Streamed once and discarded: 223 cached matrices do not fit in the
+        # session's disk allowance.
+        if path is not None and path.exists():
+            path.unlink()
 
-    gc = gene_column(d, symbols)
-    if gc is None:
-        return [{**base, "group": "", "verdict": "no gene symbols",
-                 "reason": "no gene symbol or Ensembl ID column"}]
-    cols = sample_columns(d)
-    if len(cols) < 3:
-        return [{**base, "group": "", "verdict": "no samples",
-                 "reason": f"{len(cols)} numeric non-statistic columns"}]
+    if totals is None or len(colnames) < 3:
+        return [{**base, "group": "", "verdict": "unusable layout",
+                 "reason": "no gene column, or fewer than 3 sample columns"}]
+    if not rows:
+        return [{**base, "group": "", "verdict": "no markers",
+                 "reason": "none of the screened genes appear in the matrix"}]
 
     unit = "length-normalised" if LENGTH_NORMALISED.search(fname) else "counts"
-    d = d.copy()
-    d[gc] = d[gc].astype(str)
+    index = {c: i for i, c in enumerate(colnames)}
     out = []
-    for group, cc in column_groups(cols).items():
-        vals = d[cc].apply(pd.to_numeric, errors="coerce")
-        total = vals.sum()
-        if not (total > 0).all():
+    for group, cc in column_groups(colnames).items():
+        idx = [index[c] for c in cc]
+        tot = totals[idx]
+        if not (tot > 0).all():
             continue
-        cpm = vals.div(total, axis=1) * 1e6
 
         def level(g):
-            m = d[gc].str.fullmatch(g, case=False).values
-            return float(cpm[m].values.mean()) if m.any() else np.nan
+            v = rows.get(g)
+            return float(np.mean(v[idx] / tot * 1e6)) if v is not None else np.nan
 
         row = {**base, "group": group, "n_columns": len(cc), "unit": unit}
         row.update({g: round(level(g), 3) for g in MARKERS + INJURY + ac.RECEPTORS})
