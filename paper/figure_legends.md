@@ -144,6 +144,40 @@ establish a species difference in the ordering: the mouse arm of the one cross-s
 experiment, shown in (B), reverses in the same direction.
 
 
+## Figure 3. The four opioid receptor genes in bulk RNA-seq of ganglion tissue
+
+Public bulk RNA-seq of mouse peripheral ganglia, screened for neuronal content and for a
+length-normalised unit before any receptor value was read. Levels are the mean CPM over the samples
+of a group. *Oprl1* is blue and the other three receptors are graded grey, as in Figure S1.
+
+(A and B) Seven control-against-nerve-injury comparisons drawn from four series, each pair taken
+from one laboratory, one protocol and one unit, so that the lesion is the only difference between
+the two arms. A line joins the two arms of one comparison. (A) *Atf3*, whose median rises from 82 to 595 CPM. (B) *Oprl1* and *Oprm1*. *Oprl1* runs from 7.0 to 26.6 CPM in the control arms and from
+7.0 to 12.5 CPM after injury, and is lower after injury in all seven; *Oprm1* is lower in seven of
+seven.
+
+(C) Eight purified dorsal root ganglion neuronal subtypes, GSE131230, in the deposit's own order.
+*Snap25* exceeds *Plp1* by 48- to 112-fold in these groups, so they are neurons rather than
+ganglion tissue. *Oprm1* reaches 528.76 CPM in peptidergic nociceptors and 118.70 in C-LTMRs
+against *Oprl1* at 4.93 and 6.56; *Oprl1* reaches 15.68 CPM in Aβ RA-LTMRs and 11.95 in
+proprioceptors against *Oprm1* at 2.43 and 4.09.
+
+(D) *Oprl1* against *Oprm1* in the 50 peripheral sample sets that clear both gates, one point per
+set, with the deposits that publish both a length-normalised and a count matrix of the same samples
+entered once. Two cortex groups clear the gates, since a neuronal gate does not distinguish brain
+from ganglion, and are excluded here. The dashed line is equality. Circles are groups in which *Snap25* is below five times *Plp1*,
+which is ganglion tissue; triangles are groups above that, which are purified neurons. A level of
+zero is drawn at the axis floor. *Oprl1* is the higher of the two in 31 of the 31 circles and in 10
+of the 19 triangles.
+
+The screen read 223 series and 315 column groups. A group is read only if *Snap25* reaches 100 CPM
+and five per cent of *Plp1*, and only if the deposit supplies TPM, FPKM or RPKM, since counts scale
+with transcript length and an ordering read from them would compare transcript sizes. Groups that
+fail either gate are kept in `results/bulk_composition_screen.csv` with the reason. Matrices holding
+more than one tissue are split by column name before anything is computed.
+
+See also Figure 1 and Table S1.
+
 ## Figure S1. The lead is a difference in prevalence, related to Figure 1
 
 A population mean is the product of the fraction of neurons in which a gene is detected and the

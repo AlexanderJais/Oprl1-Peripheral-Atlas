@@ -374,6 +374,40 @@ def screen_one(gse, title, n, symbols=None):
                     "reason": "no column group had a positive library size"}]
 
 
+# Control and nerve-injury arms of the same series, so laboratory, protocol and
+# unit are matched and only the lesion differs. Chosen by reading the group
+# names the screen produced; every series that publishes both arms is here.
+AXOTOMY_PAIRS = [
+    ("GSE97090", "Sham", "SNA"), ("GSE97090", "Sham", "NAC"),
+    ("GSE149770", "ShamOld", "SNIOld"),
+    ("GSE161342", "PBS", "PBS.SNC"), ("GSE161342", "IPA", "IPA.SNC"),
+    ("GSE138769", "EESham", "EESNA"), ("GSE138769", "SHSham", "SHSNA"),
+]
+
+# Eight purified dorsal root ganglion neuronal subtypes, in the order the
+# deposit uses: unmyelinated nociceptors and C-LTMRs first, then the myelinated
+# low-threshold afferents and the proprioceptor.
+SUBTYPE_SERIES = "GSE131230"
+SUBTYPE_ORDER = ["Nonpeptidergic Nociceptor", "Peptidergic Nociceptor", "C-LTMR",
+                 "Aδ-LTMR", "Aβ RA-LTMR", "Aβ SA1-LTMR", "Aβ Field-LTMR",
+                 "Proprioceptor"]
+
+
+def axotomy_table(tbl: pd.DataFrame) -> pd.DataFrame:
+    """The matched control and injury arms, as levels rather than as ratios."""
+    r = tbl.set_index(["gse", "group"])
+    rows = []
+    for gse, ctrl, inj in AXOTOMY_PAIRS:
+        if (gse, ctrl) not in r.index or (gse, inj) not in r.index:
+            continue
+        a, b = r.loc[(gse, ctrl)], r.loc[(gse, inj)]
+        for gene in ["Atf3"] + ac.RECEPTORS:
+            rows.append({"gse": gse, "control": ctrl, "injury": inj, "gene": gene,
+                         "control_CPM": round(float(a[gene]), 4),
+                         "injury_CPM": round(float(b[gene]), 4)})
+    return pd.DataFrame(rows)
+
+
 def main() -> int:
     limit = int(os.environ.get("BULK_LIMIT", "0")) or None
     cands = candidates(limit)
@@ -398,6 +432,16 @@ def main() -> int:
             + MARKERS + ["Snap25_over_Plp1"] + INJURY + ["title", "file"])
     tbl = tbl.reindex(columns=[c for c in cols if c in tbl.columns])
     ac.save_table(tbl, "bulk_composition_screen.csv")
+
+    axo = axotomy_table(tbl)
+    if len(axo):
+        ac.save_table(axo, "bulk_axotomy_pairs.csv")
+        n = axo.groupby(["gse", "injury"]).ngroups
+        fell = axo[axo.gene == "Oprl1"]
+        print(f"\n  {n} matched control-against-injury comparisons in "
+              f"{axo.gse.nunique()} series.")
+        print(f"  Oprl1 is lower after injury in "
+              f"{int((fell.injury_CPM < fell.control_CPM).sum())} of {len(fell)}.")
 
     print("\n  Verdicts over every column group:")
     print(tbl.verdict.value_counts().to_string())

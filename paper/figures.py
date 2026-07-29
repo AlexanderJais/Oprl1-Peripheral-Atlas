@@ -14,7 +14,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
+import re
+
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mticker
 import numpy as np
 import pandas as pd
 
@@ -257,6 +260,127 @@ def figure2():
     return fig
 
 
+# The eight purified dorsal root ganglion subtypes of GSE131230, in the
+# deposit's own order: unmyelinated nociceptors and C-LTMRs, then the
+# myelinated low-threshold afferents, then the proprioceptor.
+SUBTYPE_ORDER = ["Nonpeptidergic Nociceptor", "Peptidergic Nociceptor", "C-LTMR",
+                 "Aδ-LTMR", "Aβ RA-LTMR", "Aβ SA1-LTMR", "Aβ Field-LTMR",
+                 "Proprioceptor"]
+
+
+def figure3():
+    """Bulk ganglion tissue: composition, nerve injury, and neuronal subtype."""
+    scr = pd.read_csv(ac.RES / "bulk_composition_screen.csv")
+    axo = pd.read_csv(ac.RES / "bulk_axotomy_pairs.csv")
+
+    # The screen gates on neuronal content, which a brain sample also clears,
+    # so tissue identity is applied here: the screen's job is to record every
+    # group with its reason, and this figure is about peripheral ganglia.
+    NOT_PERIPHERAL = re.compile(r"cortex|hippocamp|brain|spinal|striat|"
+                                r"arcuate|\bArc|hypothal", re.I)
+    read = scr[(scr.verdict == "read")
+               & ~scr.group.str.contains(NOT_PERIPHERAL)].copy()
+    # A deposit that publishes FPKM and counts of the same samples appears
+    # twice; the length-normalised copy is the one this figure plots.
+    read["set"] = read.gse + "|" + read.group.str.replace(
+        r"^(FPKM|count|TPM)\.", "", regex=True)
+    read = read.sort_values("unit").drop_duplicates("set")
+
+    # The bottom row carries subtype names at 45 degrees, the longest of which
+    # is "Nonpeptidergic Nociceptor", so the two rows need different clearance
+    # beneath them.
+    PANEL_H, ABOVE = 1.50, 0.34
+    BELOW_TOP, BELOW_BOTTOM = 0.34, 1.12
+    height = ABOVE + PANEL_H + (BELOW_TOP + ABOVE) + PANEL_H + BELOW_BOTTOM
+
+    st.set_theme()
+    fig = plt.figure(figsize=(st.W_2COL, height))
+    left, right = 0.10, 0.99
+    row1 = height - ABOVE
+    gs1 = fig.add_gridspec(1, 2, left=left, right=right, top=row1 / height,
+                           bottom=(row1 - PANEL_H) / height,
+                           wspace=0.34, width_ratios=[1, 1.25])
+    axA, axB = fig.add_subplot(gs1[0, 0]), fig.add_subplot(gs1[0, 1])
+    row2 = row1 - PANEL_H - BELOW_TOP - ABOVE
+    gs2 = fig.add_gridspec(1, 2, left=left, right=right, top=row2 / height,
+                           bottom=(row2 - PANEL_H) / height,
+                           wspace=0.34, width_ratios=[1.6, 1])
+    axC, axD = fig.add_subplot(gs2[0, 0]), fig.add_subplot(gs2[0, 1])
+
+    # (A) and (B): every quantity is a level, so the lesion and the receptors
+    # are read on the same axis rather than as a change in a ratio.
+    def paired(ax, genes, colours):
+        x = [0, 1]
+        for gene, colour in zip(genes, colours):
+            g = axo[axo.gene == gene]
+            for r in g.itertuples():
+                ax.plot(x, [r.control_CPM, r.injury_CPM], "-", color=colour,
+                        lw=0.7, alpha=0.85, zorder=3)
+            ax.plot([0] * len(g), g.control_CPM, "o", color=colour, ms=3.4,
+                    mec="black", mew=0.4, zorder=4, label=rf"$\it{{{gene}}}$")
+            ax.plot([1] * len(g), g.injury_CPM, "o", color=colour, ms=3.4,
+                    mec="black", mew=0.4, zorder=4)
+        ax.set_yscale("log")
+        ax.set_xlim(-0.35, 1.35)
+        ax.set_xticks(x)
+        ax.set_xticklabels(["control", "nerve injury"], fontsize=st.FS_TICK)
+        ax.set_ylabel("mean expression (CPM)", fontsize=st.FS_LABEL)
+
+    paired(axA, ["Atf3"], [st.HIGHLIGHT])
+    axA.legend(loc="upper left", fontsize=st.FS_NOTE, frameon=False,
+               handletextpad=0.3, borderpad=0.1)
+    paired(axB, ["Oprl1", "Oprm1"], [st.BAR_BLUE, RECEPTOR_FILL["Oprm1"]])
+    axB.legend(loc="upper right", fontsize=st.FS_NOTE, frameon=False, ncol=2,
+               handletextpad=0.3, borderpad=0.1, columnspacing=1.0)
+
+    # (C) Purified subtypes of one ganglion, on absolute levels.
+    sub = scr[(scr.gse == "GSE131230") & scr.group.isin(SUBTYPE_ORDER)]
+    sub = sub.set_index("group").reindex([s for s in SUBTYPE_ORDER
+                                          if s in set(sub.group)])
+    x = np.arange(len(sub))
+    for i, gene in enumerate(ac.RECEPTORS):
+        axC.bar(x + (i - 1.5) * 0.20, sub[gene], 0.20,
+                color=RECEPTOR_FILL[gene], edgecolor="black", linewidth=0.4,
+                zorder=3, label=rf"$\it{{{gene}}}$")
+    axC.set_yscale("log")
+    axC.set_xticks(x)
+    axC.set_xticklabels(sub.index, rotation=45, ha="right", fontsize=st.FS_TICK)
+    axC.set_xlim(-0.6, len(sub) - 0.4)
+    axC.set_ylabel("mean expression (CPM)", fontsize=st.FS_LABEL)
+    axC.legend(loc="upper left", fontsize=st.FS_NOTE, ncol=4, frameon=False,
+               handlelength=1.1, columnspacing=0.9, handletextpad=0.4)
+
+    # (D) The two receptors against each other, so neither axis is a ratio and
+    # the diagonal carries the comparison.
+    tissue = read.Snap25_over_Plp1 < 5
+    for mask, marker, face, label in (
+            (tissue, "o", st.BAR_BLUE, "ganglion tissue"),
+            (~tissue, "^", "white", "purified neurons")):
+        axD.plot(read.loc[mask, "Oprm1"].clip(lower=0.01),
+                 read.loc[mask, "Oprl1"].clip(lower=0.01), marker,
+                 ms=3.6, mfc=face, mec="black", mew=0.4, ls="none",
+                 zorder=3, label=label)
+    lim = (0.004, 1000)
+    axD.plot(lim, lim, "--", color="black", lw=0.5, zorder=2)
+    axD.set_xscale("log"); axD.set_yscale("log")
+    axD.set_xlim(*lim); axD.set_ylim(*lim)
+    axD.set_xlabel(r"$\it{Oprm1}$ (CPM)", fontsize=st.FS_LABEL)
+    axD.set_ylabel(r"$\it{Oprl1}$ (CPM)", fontsize=st.FS_LABEL)
+    axD.legend(loc="lower right", fontsize=st.FS_NOTE, frameon=False,
+               handletextpad=0.3, borderpad=0.1)
+
+    # On a log axis spanning less than two decades matplotlib labels the minor
+    # ticks as well, which fills the axis with 3 x 10^2 and its neighbours.
+    for ax in (axA, axB, axC, axD):
+        ax.yaxis.set_minor_formatter(mticker.NullFormatter())
+        ax.xaxis.set_minor_formatter(mticker.NullFormatter())
+
+    for ax, letter, dx in ((axA, "A", -0.17), (axB, "B", -0.12),
+                           (axC, "C", -0.09), (axD, "D", -0.16)):
+        st.panel_letter(ax, letter, dx=dx, dy=1.06)
+    return fig
+
+
 # Figure 1 says "Oprl1 blue, the other three grey". The supplemental panels put
 # all four side by side, so the other three are separated by value rather than
 # by hue, and the sentence still holds.
@@ -443,6 +567,7 @@ def emit(fig, name, max_w=174.5, max_h=235.0):
 if __name__ == "__main__":
     emit(figure1(), "Figure1")
     emit(figure2(), "Figure2")
+    emit(figure3(), "Figure3")
     # Supplemental figures are supplied as separate files, so the 174 mm text
     # column does not bind them; S1 needs the width for 15 populations.
     emit(figureS1(), "FigureS1",

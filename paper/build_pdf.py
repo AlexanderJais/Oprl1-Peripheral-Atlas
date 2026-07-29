@@ -149,13 +149,18 @@ def results_with_figures(legends):
     text = read("results")
     parts = re.split(r"^## ", text, flags=re.M)
     head = render(parts[0])
-    blocks = []
+    blocks, placed = [], set()
     for i, block in enumerate(parts[1:], start=1):
         title, _, body = block.partition("\n")
         blocks.append(f"<h3>{title.strip()}</h3>" + render(body, False))
         if str(i) in legends:
             blocks.append(figure_block(str(i), legends, PAPER / "figures"
                                        / f"Figure{i}.png"))
+            placed.add(str(i))
+    # A numbered figure whose Results section is not yet written still belongs
+    # in the manuscript; it follows the section before it rather than vanishing.
+    for n in sorted(k for k in legends if k.isdigit() and k not in placed):
+        blocks.append(figure_block(n, legends, PAPER / "figures" / f"Figure{n}.png"))
     return head + "".join(blocks)
 
 
