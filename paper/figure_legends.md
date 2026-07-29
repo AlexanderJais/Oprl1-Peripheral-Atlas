@@ -72,11 +72,6 @@ Whole-cell and single-nucleus measurements of the same tissue, and the gene prop
 them. Solid bars are whole-cell data and hatched bars are nuclear data throughout. *Oprl1* is blue
 where the panel distinguishes genes by colour, as in Figure 1.
 
-Axes in (A) and (B) are linear, so the size of the nuclear gain reads directly off them. At that
-scale the whole-cell ordering the panels are compared against, *Oprl1* 11.13 CPM over *Oprm1* 8.42
-in the vagal ganglia and 9.31 over 8.23 in the dorsal root ganglion, is smaller than the line
-weight; the values are given below and the ordering itself is Figure 1.
-
 (A) Vagal ganglia (X), NodoMap. The whole-cell value is the unweighted mean over the atlas's four
 whole-cell deposits, 30,640 neurons; the nuclear value is the atlas's own 765 nuclei, the same
 tissue and the same integration. Whole cell: *Oprl1* 11.13 CPM, *Oprm1* 8.42, *Oprk1* 4.85,

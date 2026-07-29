@@ -112,8 +112,11 @@ def _paired_receptor_bars(ax, whole, nuclear, ylim):
            linewidth=0.5, zorder=3)
     ax.bar(x + 0.20, nuclear, 0.38, color=colors, edgecolor="black",
            linewidth=0.5, hatch=NUC_HATCH, zorder=3)
-    # Linear, so the size of the nuclear gain reads directly off the axis.
-    ax.set_ylim(0, ylim)
+    # Logarithmic: the whole-cell ordering these panels are compared against is
+    # a 1.1-fold difference, and a linear axis that fits the 244 CPM nuclear
+    # Oprm1 bar renders it thinner than the line weight.
+    ax.set_yscale("log")
+    ax.set_ylim(*ylim)
     ax.set_xticks(x)
     ax.set_xticklabels(ac.RECEPTORS, rotation=45, ha="right",
                        fontstyle="italic", fontsize=st.FS_TICK)
@@ -152,7 +155,7 @@ def figureS1():
     ax = axes[0]
     _paired_receptor_bars(ax, [bias.loc[g, "whole_cell_CPM"] for g in ac.RECEPTORS],
                           [bias.loc[g, "nuclear_CPM"] for g in ac.RECEPTORS],
-                          270)
+                          (0.1, 1000))
     wc_n = int(nod[(nod.prep == "whole cell") & (nod.gene == "Oprl1")
                    & (nod.tissue == "nodose+jugular")].n_cells.sum())
     nu_n = int(nod[(nod.prep == "nuclear") & (nod.gene == "Oprl1")].n_cells.iloc[0])
@@ -165,7 +168,7 @@ def figureS1():
     drg = gang[gang.tissue == "dorsal root"].iloc[0]
     _paired_receptor_bars(ax, [getattr(drg, g) for g in ac.RECEPTORS],
                           [xsp.loc["mouse", g.upper()] for g in ac.RECEPTORS],
-                          105)
+                          (0.1, 1000))
     ax.set_title(f"Dorsal root ganglion\n{drg.n:,} cells, "
                  f"{int(round(xsp.loc['mouse', 'n'] * xsp.loc['mouse', 'n_samples'])):,}"
                  " nuclei", fontsize=st.FS_NOTE, pad=3)
