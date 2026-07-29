@@ -80,6 +80,29 @@ of 25.4 and 0.45 (Figure 2F), and *Oprm1* is detected in 71.9% of nuclei against
 cells (Figures 2C and 2D). The nuclear values report a combination of transcript abundance and
 gene length.
 
+Intronic sequence is the component that carries the length effect. Genomic span stands in for the
+pre-mRNA a nucleus holds, and the two can be separated: exonic length is the union of a gene's exons
+over all its transcripts, and intronic length is the remainder of the span. Median whole-cell
+expression holds between 14.1 and 19.6 CPM across deciles of intronic length whose medians run from
+0.93 to 229.2 kb, a 246-fold range, while nuclear expression rises from 8.0 to 91.9 CPM over the
+same deciles (Figure 2G). Over the individual genes, intronic length correlates with the
+nuclear-to-whole-cell ratio at r = +0.474 and exonic length at r = +0.377; holding the other fixed,
+intronic length gives +0.362 and exonic length +0.197. Neither reaches the +0.592 of the whole span,
+and length in any form accounts for 35% of the variance at most, so the two components do not
+partition the effect cleanly and neither is the whole of it. The union of exons overstates the
+mature transcript of any one isoform and understates introns by the same amount, which works against
+the intronic account rather than for it.
+
+The four receptors separate the two components sharply. *Oprm1* carries 271.7 kb of intron and
+*Oprd1* 29.8 kb, against 8.6 kb in *Oprk1* and 3.4 kb in *Oprl1* (Figure 2H). Ordered by intronic
+length the four run *Oprm1*, *Oprd1*, *Oprk1*, *Oprl1*, which is their order by the
+nuclear-to-whole-cell ratio exactly; ordered by exonic length they do not, because *Oprk1* carries
+the most exonic sequence of the four at 9.2 kb and gains least of the four in nuclei, at a ratio of
+1.14. *Oprl1* and *Oprk1* are intron-poor, at fractions of 0.47 and 0.48 against a genome-wide
+median of 0.84, while *Oprm1* and *Oprd1* are intron-rich at 0.97 and 0.88. That is why *Oprl1* is
+depleted in nuclei rather than merely unchanged: it has little unspliced sequence to contribute, and
+the transcripts a nucleus does hold are counted against a gene body that is mostly exon.
+
 Dissociation is a second preparation effect, and it is separable from this one. Whole-cell
 libraries are made from live enzymatic dissociation, which axotomises every neuron, and they carry
 that injury: *Fos* reads 448.82 CPM in whole cells against 0.87 in nuclei, and *Atf3*, the axotomy

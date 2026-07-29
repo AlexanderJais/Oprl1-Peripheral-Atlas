@@ -74,8 +74,12 @@ See also Figure 2, Figure S1, Figure S2, and Table S1.
 ## Figure 2. A nuclear preparation reverses the receptor ordering
 
 Whole-cell and single-nucleus measurements of the same tissue, and the gene property that separates
-them. Solid bars are whole-cell data and hatched bars are nuclear data throughout, as the key above
-the panels gives. *Oprl1* is blue where the panel distinguishes genes by colour, as in Figure 1.
+them. (A) to (D) measure the receptors and their detection under both preparations; (E) and (F)
+establish that nuclear levels track the length of the transcription unit and whole-cell levels do
+not; (G) and (H) resolve that length into its exonic and intronic parts. Solid bars are whole-cell
+data and hatched bars are nuclear data throughout, as the key above the panels gives. *Oprl1* is
+blue where the panel distinguishes genes by colour, as in Figure 1. Gene models are Ensembl GRCm39
+release 112, the annotation the spans in (E) and (F) are taken from.
 
 (A) Vagal ganglia (X), NodoMap. The whole-cell value is the unweighted mean over the atlas's four
 whole-cell deposits, 30,640 neurons; the nuclear value is the atlas's own 765 nuclei, the same
@@ -126,22 +130,35 @@ runs from 0.46 to 5.22 and crosses 1 at 15.8 kb. Both panels use the vagal neuro
 atlas and one chemistry, so the contrast is between preparations rather than between studies.
 Spans are Ensembl GRCm39 gene loci.
 
-(G) The summary of (E), against intronic length rather than genomic span. Intronic length is the
-span less the union of a gene's exons over all its transcripts, so it is the sequence a nucleus
-holds unspliced; the union overstates the mature transcript of any single isoform and understates
-introns by the same amount. Whole-cell medians run between 14.1 and 19.6 CPM across deciles whose
-median intronic length runs from 0.93 to 229.2 kb, and nuclear medians rise from 8.0 to 91.9. Over
-the individual genes intronic length correlates with the nuclear-to-whole-cell ratio at r = +0.474
-and exonic length at r = +0.377, against r = +0.592 for the whole span; with the other held fixed,
-intronic length gives r = +0.362 and exonic length r = +0.197. Length in any form leaves most of the
-variance unaccounted for.
+(G) The summary of (E), against intronic length rather than genomic span, over the same 14,876
+genes and in the same form: one marker per decile, open circles for whole cell and filled squares
+for nuclear. Exonic length is the union of a gene's exons over all of its transcripts, counting
+overlap once, and intronic length is the span less that union, so it is the sequence a nucleus holds
+unspliced. Deciles are ten equal-count bins of intronic length. Whole-cell medians run between 14.1
+and 19.6 CPM across deciles whose median intronic length runs from 0.93 to 229.2 kb, a 246-fold
+range, and nuclear medians rise from 8.0 to 91.9 CPM over the same deciles. Over the individual
+genes, intronic length correlates with the nuclear-to-whole-cell ratio at r = +0.474 and exonic
+length at r = +0.377, against r = +0.592 for the whole span; holding the other fixed, intronic
+length gives r = +0.362 and exonic length r = +0.197. Neither component alone predicts the ratio as
+well as the span they sum to, and length in any form accounts for at most 35% of its variance, so
+the intronic and exonic contributions do not partition the effect cleanly. Two features of the
+measurement work against the intronic account rather than for it: the union over isoforms overstates
+the mature transcript of any one isoform and understates introns by the same amount, and internal
+priming on adenosine homopolymers acts on A-rich sequence wherever it lies, exon as well as intron.
+Neither length predicts the whole-cell level, at r = +0.032 for intronic and +0.113 for exonic,
+which is the control that matters: the effect belongs to the nuclear preparation.
 
-(H) Exonic and intronic length of the four receptor loci, from the same annotation. *Oprm1* carries
-271.7 kb of intron and *Oprd1* 29.8 kb, against 8.6 kb in *Oprk1* and 3.4 kb in *Oprl1*, whose
-intron fractions are 0.47 and 0.48 against a genome-wide median of 0.84. *Oprk1* carries the most
-exonic sequence of the four, 9.2 kb, and is the receptor that gains least in nuclei. Ordering the
-four by intronic length reproduces their ordering by the ratio in (F); ordering them by exonic
-length does not.
+(H) Exonic and intronic length of the four receptor loci, from the same annotation, on one
+logarithmic axis. *Oprl1* is 3.8 kb of exon and 3.4 kb of intron, *Oprm1* 8.0 and 271.7, *Oprd1* 4.0
+and 29.8, and *Oprk1* 9.2 and 8.6. Intron fractions are 0.47 for *Oprl1*, 0.48 for *Oprk1*, 0.88 for
+*Oprd1* and 0.97 for *Oprm1*, against a genome-wide median of 0.84, so *Oprl1* and *Oprk1* are
+intron-poor genes and the other two are intron-rich. Ordering the four by intronic length gives
+*Oprm1*, *Oprd1*, *Oprk1*, *Oprl1*, which is their order by the nuclear-to-whole-cell ratio in (F)
+exactly. Ordering them by exonic length gives *Oprk1*, *Oprm1*, *Oprd1*, *Oprl1*, which is not:
+*Oprk1* carries the most exonic sequence of the four and is the one that gains least in nuclei, at a
+ratio of 1.14. Four genes cannot establish a genome-wide rule, and (G) shows that the split does not
+partition the effect cleanly over all 14,876; what this panel establishes is that the component
+which orders these four is the intronic one.
 
 A nucleus holds nascent transcript that has not been spliced or exported, and single-nucleus
 quantification counts reads across the whole gene body, introns included, since restricting to
@@ -149,7 +166,9 @@ exons discards most of a nuclear library. Signal accrues with the length of the 
 rather than with the number of finished transcripts. Whole-cell libraries sample the cytoplasmic
 pool, the mature mRNA a neuron translates, and 3' counting of that pool has no length term. This is
 a bias in a known direction rather than a failure of the assay, and it reaches the opioid receptors
-because they span 7 to 280 kb.
+because they span 7 to 280 kb, of which 3.4 to 271.7 kb is intron. The four differ in intron content
+by a factor of 81 and in exonic length by a factor of 2.4, and it is the first of those that orders
+their behaviour under the two preparations.
 
 Preparation is confounded with laboratory in (A) and (B), since no laboratory here has run both
 preparations on one tissue. (E) and (F) do not rest on that contrast: both are internal to a single
