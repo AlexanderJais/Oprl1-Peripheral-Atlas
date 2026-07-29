@@ -865,6 +865,7 @@ python3 src/15_human_ganglia.py              # human ganglia and the cross-speci
 python3 src/09_main_figures.py               # consolidated figures 1 and 3
 python3 paper/figures.py                     # manuscript figures, to Cell Press specification
 python3 paper/tables.py                      # manuscript table S1, the inventory behind figure 1
+python3 paper/build_pdf.py                   # the whole manuscript as one PDF
 python3 -m pytest tests -q                   # 33 unit tests
 ```
 

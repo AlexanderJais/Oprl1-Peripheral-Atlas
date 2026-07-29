@@ -12,5 +12,14 @@ openpyxl>=3.1
 pandas>=2.0
 scipy>=1.10
 
+# Manuscript PDF only: python3 paper/build_pdf.py
+markdown>=3.5
+weasyprint>=60
+
+# Figures are typeset in Helvetica or a metric-compatible substitute, in the
+# order src/atlas_style.py sets. Nimbus Sans is what the committed figures use;
+# without it matplotlib falls through to Liberation Sans silently and every
+# glyph in every figure moves. On Debian and Ubuntu: apt install fonts-urw-base35
+#
 # Tests only: python3 -m pytest tests -q
 pytest>=7.0
