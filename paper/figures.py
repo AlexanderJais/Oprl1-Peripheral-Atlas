@@ -130,26 +130,27 @@ def figureS1():
     gang = pd.read_csv(ac.RES / "receptor_levels_by_ganglion.csv")
     xsp = pd.read_csv(ac.RES / "human_xspecies_drg.csv").set_index("species")
 
-    # The top row is titled and the bottom row is not, so each row gets its own
-    # gridspec rather than a shared one that would pad both alike.
+    # Two paired comparisons across the top, three derived panels below, so each
+    # row gets its own gridspec: the rows differ in column count and only the
+    # top row is titled.
     PANEL_H, BELOW = 1.45, 0.38
-    TITLED, BARE = 0.36, 0.24
+    TITLED, BARE = 0.36, 0.42
     TOP_PAD, BOT_PAD = TITLED + 0.04, BELOW + 0.06
     height = TOP_PAD + 2 * PANEL_H + BELOW + BARE + BOT_PAD
 
     st.set_theme()
     plt.rcParams["hatch.linewidth"] = 0.4
     fig = plt.figure(figsize=(st.W_2COL, height))
-    left, right, wspace = 0.075, 0.99, 0.40
+    left, right = 0.088, 0.99
     axes = []
     y = height - TOP_PAD
-    for _ in range(2):
-        gs = fig.add_gridspec(1, 2, left=left, right=right, top=y / height,
+    for ncol, wspace in ((2, 0.40), (3, 0.52)):
+        gs = fig.add_gridspec(1, ncol, left=left, right=right, top=y / height,
                               bottom=(y - PANEL_H) / height, wspace=wspace)
-        axes += [fig.add_subplot(gs[0, i]) for i in range(2)]
+        axes += [fig.add_subplot(gs[0, i]) for i in range(ncol)]
         y -= PANEL_H + BELOW + BARE
-    for ax, letter in zip(axes, "ABCD"):
-        st.panel_letter(ax, letter, dx=-0.16, dy=1.26)
+    for ax, letter in zip(axes, "ABCDE"):
+        st.panel_letter(ax, letter, dx=-0.20, dy=1.26)
 
     # (A) One tissue, both preparations, from the same atlas.
     ax = axes[0]
@@ -173,35 +174,32 @@ def figureS1():
                  f"{int(round(xsp.loc['mouse', 'n'] * xsp.loc['mouse', 'n_samples'])):,}"
                  " nuclei", fontsize=st.FS_NOTE, pad=3)
 
-    # (C) Detection rate, as a within-dataset ratio so sequencing depth cancels.
-    ax = axes[2]
+    # (C and D) Detection rate per gene per deposit, on one scale. Plotted as
+    # the two rates rather than their ratio: a ratio hides which of the two
+    # moved, and here only one of them does.
     det = (nod[nod.dataset.str.contains(":") & (nod.tissue == "nodose+jugular")]
            .pivot_table(index="dataset", columns="gene", values="pct_detected"))
     prep = (nod[nod.dataset.str.contains(":")].groupby("dataset")["prep"].first())
-    det = det.assign(prep=prep, ratio=det.Oprm1 / det.Oprl1)
+    det = det.assign(prep=prep)
     det = pd.concat([det[det.prep == "whole cell"].sort_index(),
                      det[det.prep == "nuclear"]])
     x = np.arange(len(det))
-    ax.bar(x, det.ratio, 0.68, color=st.BAR_GREY, edgecolor="black",
-           linewidth=0.5, zorder=3,
-           hatch=["" if p == "whole cell" else NUC_HATCH for p in det.prep])
-    ax.axhline(1.0, color="black", lw=0.5, ls=(0, (3, 2)), zorder=2)
-    ax.set_yscale("log")
-    # Decade labels are useless over one decade of data; label the values.
-    ax.set_yticks([0.5, 1, 2, 5, 10])
-    ax.set_yticklabels(["0.5", "1", "2", "5", "10"], fontsize=st.FS_TICK)
-    ax.set_yticks([], minor=True)
-    ax.set_ylim(0.4, 12)
-    ax.set_xticks(x)
+    hatch = ["" if p == "whole cell" else NUC_HATCH for p in det.prep]
     # The atlas calls its own deposit "in-house". Named here for its authors, as
     # the other four are, since in-house reads as ours on this page.
-    ax.set_xticklabels([s.split(":")[1].replace("inhouse", "Cheng")
-                        for s in det.index], rotation=45, ha="right",
-                       fontsize=st.FS_TICK)
-    ax.set_ylabel(_it("Oprm1", "Oprl1") + " detection", fontsize=st.FS_LABEL)
+    names = [d.split(":")[1].replace("inhouse", "Cheng") for d in det.index]
+    top = float(np.ceil(det[["Oprl1", "Oprm1"]].to_numpy().max() / 10) * 10)
+    for ax, gene, color in ((axes[2], "Oprl1", st.BAR_BLUE),
+                            (axes[3], "Oprm1", st.BAR_GREY)):
+        ax.bar(x, det[gene], 0.68, color=color, edgecolor="black",
+               linewidth=0.5, zorder=3, hatch=hatch)
+        ax.set_xticks(x)
+        ax.set_xticklabels(names, rotation=45, ha="right", fontsize=st.FS_TICK)
+        ax.set_ylim(0, top)
+        ax.set_ylabel(rf"$\it{{{gene}}}$ detection (%)", fontsize=st.FS_LABEL)
 
-    # (D) The shift against how much intron a gene has to retain.
-    ax = axes[3]
+    # (E) The shift against how much intron a gene has to retain.
+    ax = axes[4]
     v = bias.reset_index()
     missing = v.genomic_span_kb.isna()
     if missing.any():

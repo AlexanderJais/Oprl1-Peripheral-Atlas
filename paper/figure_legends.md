@@ -83,25 +83,26 @@ neurons: *Oprl1* 9.31 CPM, *Oprm1* 8.23, *Oprk1* 2.78, *Oprd1* 0.20. Nuclear, GS
 six samples and 13,243 nuclei: *Oprm1* 94.92, *Oprl1* 7.60, *Oprd1* 2.33, *Oprk1* 2.17. *Oprm1* is
 first in each of the six nuclear samples.
 
-(C) Detection rate of *Oprm1* divided by detection rate of *Oprl1*, within each of the five deposits
-that make up the NodoMap integration, so per-dataset sequencing depth cancels. The four whole-cell
-deposits give 1.18 (Bai), 1.04 (Buchanan), 0.54 (Kupari) and 0.92 (Zhao); the nuclear deposit gives
-8.46. Deposits are named for the authors of the data. Bai, Buchanan, Kupari and Zhao are published
-cell suspensions that the NodoMap authors re-analysed; Cheng is the deposit the atlas labels
-in-house, the 765 nuclei the NodoMap authors generated themselves, and is the nuclear arm of (A) and
-(D) as well. *Oprl1* is detected in 8.5% of those nuclei against 7.7% of Zhao's cells, so the
-nuclear libraries are not simply deeper.
+(C and D) Detection rate of *Oprl1* and of *Oprm1* in each of the five deposits that make up the
+NodoMap integration, on one scale. Deposits are named for the authors of the data. Bai, Buchanan,
+Kupari and Zhao are published cell suspensions that the NodoMap authors re-analysed; Cheng is the
+deposit the atlas labels in-house, the 765 nuclei the NodoMap authors generated themselves, and is
+the nuclear arm of (A) and (E) as well. (C) *Oprl1* is detected in 8.5% of the nuclei, inside the
+5.3% to 27.5% range of the four whole-cell deposits. (D) *Oprm1* is detected in 71.9% of the same
+nuclei, against 5.5% to 32.4% in the whole-cell deposits, so it exceeds the highest whole-cell
+value by 2.2-fold. Detection rate scales with sequencing depth, which differs between deposits;
+(C) is what shows that depth does not account for (D), since the two genes were counted in the same
+libraries.
 
-(D) Ratio of nuclear to whole-cell level in (A) against the genomic span of the gene, both axes
-logarithmic, for all eight opioid genes. The dashed line at 1 is no change, and the axis is
-logarithmic so that a fall and a rise of the same factor sit the same distance from it. *Oprm1* spans 280 kb and gains 29.05-fold, *Oprd1* 34 kb
-and 24.44-fold, *Pnoc* 25 kb and 1.52-fold, *Oprk1* 18 kb and 0.95-fold, *Pdyn* 14 kb and
-0.99-fold, *Penk* 9 kb and 0.39-fold, *Oprl1* 7 kb and 0.47-fold, *Pomc* 6 kb and 0.36-fold.
-Log-log Pearson r = 0.88, Spearman rho = 0.95, p = 0.0004 over the eight genes. Dropping *Oprm1*
-and *Oprd1*, the two genes that gain most, leaves r = 0.95. Dashed line marks no change. Spans are
-Ensembl GRCm39 gene loci (`data/raw/ensembl_gene_spans.csv`); taking them instead from a deposit's
-own coordinate columns, as an earlier version of this analysis did, omits *Pnoc*, which GSE102443
-does not quantify.
+(E) Ratio of nuclear to whole-cell level in (A) against the genomic span of the gene, for all eight
+opioid genes. *Oprm1* spans 280 kb and gains 29.05-fold, *Oprd1* 34 kb and 24.44-fold, *Pnoc* 25 kb
+and 1.52-fold, *Oprk1* 18 kb and 0.95-fold, *Pdyn* 14 kb and 0.99-fold, *Penk* 9 kb and 0.39-fold,
+*Oprl1* 7 kb and 0.47-fold, *Pomc* 6 kb and 0.36-fold. Log-log Pearson r = 0.88, Spearman rho =
+0.95, p = 0.0004 over the eight genes; dropping *Oprm1* and *Oprd1*, the two that gain most, leaves
+r = 0.95. The dashed line at 1 is no change, and both axes are logarithmic so that a fall and a
+rise of the same factor sit the same distance from it. Spans are Ensembl GRCm39 gene loci
+(`data/raw/ensembl_gene_spans.csv`); taking them instead from a deposit's own coordinate columns,
+as an earlier version of this analysis did, omits *Pnoc*, which GSE102443 does not quantify.
 
 Nuclear libraries retain unspliced pre-mRNA, so a gene's signal scales with how much intron it
 carries. This is a bias in a known direction rather than a failure of the assay, and it is fatal to
@@ -111,7 +112,7 @@ the ordering by span holds across all eight opioid genes, including three that a
 Preparation is confounded with laboratory in both (A) and (B), since no laboratory here has run
 both preparations on one tissue, and an intron-inclusive alignment would produce the same signature
 as pre-mRNA retention. What separates those readings from a laboratory effect is that the shift is
-ordered by gene length (D) and reproduces in two tissues across two independent pairs of
+ordered by gene length (E) and reproduces in two tissues across two independent pairs of
 laboratories (A and B).
 
 Every panel of Figure 1 therefore uses whole-cell data, and no human single-nucleus dataset can
