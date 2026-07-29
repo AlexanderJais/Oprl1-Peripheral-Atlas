@@ -104,7 +104,7 @@ was verified rather than changed.
 
 ## Severity 3 — overstated claims → stated accurately
 
-### 3.1 The gene-length mechanism rests on two of seven points — NOW STATED, ANALYSIS KEPT
+### 3.1 The gene-length mechanism rests on two of seven points — SUPERSEDED, SEE NOTE BELOW
 
 | points | *n* | log-log Pearson *r* |
 |---|---|---|
@@ -121,6 +121,15 @@ states the *r* = 0.02 figure in the same paragraph as the *r* = 0.84 figure, and
 panel title was changed from "The inversion **is** a gene-length effect" to "tracks gene
 length". The `Oprd1`-against-a-0.22-CPM-floor problem and the `Pomc`-is-ambient problem are
 named in the README.
+
+**Superseded.** The fragility was an artefact of where the spans came from. They were taken from
+GSE102443's own `Begin`/`End` columns, which quantify 17,225 features and do not include `Pnoc`,
+so `Pnoc` was dropped from the fit without a note, and which put `Pdyn` at 2 kb against a 13.5 kb
+locus. Spans now come from Ensembl GRCm39 for all eight genes (`00b_fetch_gene_spans.py`,
+`data/raw/ensembl_gene_spans.csv`). On that annotation the fit is *r* = 0.88 over 8 genes with
+Spearman rho = 0.95 at *p* = 0.0004, and dropping `Oprm1` and `Oprd1` together leaves *r* = 0.95
+rather than 0.02. The finding this section records was real for the input it had; the input was
+wrong. The `Oprd1` and `Pomc` caveats below are unaffected.
 
 ### 3.2 Preparation type is perfectly confounded with laboratory — NOW STATED
 

@@ -17,22 +17,28 @@ of the shift tracks genomic span (`results/nuclear_bias_vs_gene_length.csv`):
 
 | gene | genomic span | nuclear / whole-cell level |
 |---|---|---|
-| *Oprm1* | 250 kb | 29.0× |
+| *Oprm1* | 280 kb | 29.0× |
 | *Oprd1* | 34 kb | 24.4× |
+| *Pnoc* | 25 kb | 1.52× |
 | *Oprk1* | 18 kb | 0.95× |
-| *Oprl1* | 6 kb | 0.47× |
+| *Pdyn* | 14 kb | 0.99× |
+| *Penk* | 9 kb | 0.39× |
+| *Oprl1* | 7 kb | 0.47× |
 | *Pomc* | 6 kb | 0.36× |
-| *Penk* | 5 kb | 0.39× |
-| *Pdyn* | 2 kb | 0.99× |
 
-log-log Pearson *r* = 0.84 over 7 genes; Spearman rho = 0.58, *p* = 0.18. Nuclear preparations
-retain unspliced pre-mRNA, so genes with long introns gain signal. *Oprm1* spans 250 kb against
-*Oprl1*'s 6 kb and gains 29-fold, enough to move it from second to first. Weighting the whole-cell
+log-log Pearson *r* = 0.88 over 8 genes; Spearman rho = 0.95, *p* = 0.0004. Nuclear preparations
+retain unspliced pre-mRNA, so genes with long introns gain signal. *Oprm1* spans 280 kb against
+*Oprl1*'s 7 kb and gains 29-fold, enough to move it from second to first. Weighting the whole-cell
 baseline by cell count rather than by dataset changes little (*Oprm1* 25.4×, *Oprl1* 0.45×).
 
-Two genes carry the correlation. Dropping *Oprm1* and *Oprd1* takes *r* from 0.84 to 0.02
-(`results/nuclear_bias_sensitivity.csv`, panel b); the remaining five genes span 2 to 18 kb with
-ratios from 0.36 to 0.99 and show no trend. Three further limitations apply:
+Spans are read from Ensembl (GRCm39, `data/raw/ensembl_gene_spans.csv`) rather than from a
+dataset's own coordinate columns. Taking them from GSE102443, as this analysis originally did,
+dropped *Pnoc* silently, because that deposit quantifies 17,225 features and none of them is
+*Pnoc*, and it put *Pdyn* at 2 kb against the 13.5 kb locus. Correcting the source is what changed
+the numbers above: the correlation had been *r* = 0.84 with rho = 0.58 at *p* = 0.18, and it had
+collapsed to *r* = 0.02 when *Oprm1* and *Oprd1* were dropped together. On one annotation for all
+eight genes it does not: dropping both leaves *r* = 0.95
+(`results/nuclear_bias_sensitivity.csv`). Three limitations still apply:
 
 - *Oprd1*'s 24.4× is a ratio against a 0.22 CPM baseline, where the estimate is unstable.
 - Preparation is confounded with laboratory. One nuclear nodose dataset exists (765 neurons,

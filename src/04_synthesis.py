@@ -57,11 +57,18 @@ def load_support():
 
 
 def gene_spans():
-    """Genomic span per gene, from the only source here that carries coordinates."""
-    span = pd.read_csv(ac.DATA / ac.GENICULATE_FPKM, sep="\t",
-                       usecols=["Gene", "Begin", "End"], low_memory=False)
-    return (span.assign(kb=(span.End - span.Begin).abs() / 1000)
-            .groupby("Gene")["kb"].max().rename_axis("gene"))
+    """Genomic span per gene, from one annotation for all of them.
+
+    Read from Ensembl rather than from a dataset's own coordinate columns.
+    GSE102443 quantifies 17,225 features and none of them is Pnoc, so taking
+    spans from it dropped Pnoc from the comparison without saying so.
+    """
+    span = pd.read_csv(ac.DATA / "ensembl_gene_spans.csv")
+    missing = set(ac.OPIOID_GENES) - set(span.gene)
+    if missing:
+        raise ac.SanityCheckError(
+            f"no genomic span for {sorted(missing)}; run 00b_fetch_gene_spans.py")
+    return span.set_index("gene")["span_kb"]
 
 
 def main() -> int:
@@ -162,9 +169,10 @@ def main() -> int:
                  f"Oprm1 spans {bias.set_index('gene').loc['Oprm1','genomic_span_kb']:.0f} kb "
                  f"vs Oprl1 {bias.set_index('gene').loc['Oprl1','genomic_span_kb']:.0f} kb",
     }, {
-        "statement": "the gene-length correlation depends on two of seven genes",
+        "statement": "that correlation does not depend on the two long receptors",
         "value": f"log-log r = {r:.2f} (n = {len(v)}); "
-                 f"r = {r_both:.2f} without Oprm1 and Oprd1",
+                 f"r = {r_both:.2f} without Oprm1 and Oprd1; "
+                 f"Spearman rho = {rho:.2f}, p = {p_rho:.4f}",
     }])
     ac.save_table(summary, "synthesis_summary.csv")
     print("\n" + summary.to_string(index=False))

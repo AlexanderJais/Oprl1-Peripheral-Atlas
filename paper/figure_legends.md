@@ -68,9 +68,9 @@ See also Figure S1, Figure S3, and Table S1.
 
 ## Figure S1. A nuclear preparation reverses the receptor ordering, related to Figure 1
 
-Whole-cell and single-nucleus measurements of the same tissue, and the gene property that
-separates them. Solid bars are whole-cell data and hatched bars are nuclear data throughout.
-*Oprl1* is blue where the panel distinguishes genes by colour.
+Whole-cell and single-nucleus measurements of the same tissue, and the gene property that separates
+them. Solid bars are whole-cell data and hatched bars are nuclear data throughout. *Oprl1* is blue
+where the panel distinguishes genes by colour, as in Figure 1.
 
 (A) Vagal ganglia (X), NodoMap. The whole-cell value is the unweighted mean over the atlas's four
 whole-cell deposits, 30,640 neurons; the nuclear value is the atlas's own 765 nuclei, the same
@@ -83,39 +83,36 @@ neurons: *Oprl1* 9.31 CPM, *Oprm1* 8.23, *Oprk1* 2.78, *Oprd1* 0.20. Nuclear, GS
 six samples and 13,243 nuclei: *Oprm1* 94.92, *Oprl1* 7.60, *Oprd1* 2.33, *Oprk1* 2.17. *Oprm1* is
 first in each of the six nuclear samples.
 
-(C) Detection rate of *Oprm1* divided by detection rate of *Oprl1*, within each of the five
-datasets that make up the NodoMap integration, so per-dataset sequencing depth cancels. The four
-whole-cell deposits give 1.18 (Bai), 1.04 (Buchanan), 0.54 (Kupari) and 0.92 (Zhao); the nuclear
-deposit gives 8.46. Bai, Buchanan, Kupari and Zhao are published cell-suspension deposits that the
-NodoMap authors re-analysed; in-house is the atlas's own label for the 765 nuclei they generated
-themselves, and is the nuclear arm of (A), (D) and (F) as well. *Oprl1* is detected in 8.5% of
-those nuclei against 7.7% of Zhao's cells, so the nuclear libraries are not simply deeper.
+(C) Detection rate of *Oprm1* divided by detection rate of *Oprl1*, within each of the five deposits
+that make up the NodoMap integration, so per-dataset sequencing depth cancels. The four whole-cell
+deposits give 1.18 (Bai), 1.04 (Buchanan), 0.54 (Kupari) and 0.92 (Zhao); the nuclear deposit gives
+8.46. Deposits are named for the authors of the data. Bai, Buchanan, Kupari and Zhao are published
+cell suspensions that the NodoMap authors re-analysed; Cheng is the deposit the atlas labels
+in-house, the 765 nuclei the NodoMap authors generated themselves, and is the nuclear arm of (A) and
+(D) as well. *Oprl1* is detected in 8.5% of those nuclei against 7.7% of Zhao's cells, so the
+nuclear libraries are not simply deeper.
 
-(D) Ratio of nuclear to whole-cell level in (A), against the genomic span of the gene, both axes
-logarithmic. *Oprm1* spans 250 kb and gains 29.05-fold, *Oprd1* 34 kb and 24.44-fold, *Oprk1*
-18 kb and 0.95-fold, *Oprl1* 6 kb and 0.47-fold, *Pomc* 6 kb and 0.36-fold, *Penk* 5 kb and
-0.39-fold, *Pdyn* 2 kb and 0.99-fold. Log-log Pearson r = 0.84 over the seven genes; the rank
-correlation is Spearman rho = 0.58, p = 0.18, which does not reach significance at n = 7. Dashed
-line marks no change.
-
-(E) The same correlation with each gene removed in turn. It survives dropping any single gene
-(r = 0.69 to 0.90) and collapses to r = 0.02 when *Oprm1* and *Oprd1* are dropped together, so the
-seven-gene fit rests on the two long genes. The replication in (B) is what carries the claim, not
-the fit.
-
-(F) The same NodoMap barcodes with and without the nuclei. Restricted to whole cells, the nodose
-ganglion places *Oprl1* first at 11.90 CPM against *Oprm1* 9.86; adding the 507 nuclei, 1.9% of the
-barcodes, gives *Oprm1* 14.63 against *Oprl1* 11.75. In the jugular ganglion 258 nuclei, 5.3% of
-the barcodes, move *Oprm1* from 8.33 to 19.33 CPM while *Oprl1* holds at 9.5. Only *Oprl1* and
-*Oprm1* are drawn.
+(D) Ratio of nuclear to whole-cell level in (A) against the genomic span of the gene, both axes
+logarithmic, for all eight opioid genes. *Oprm1* spans 280 kb and gains 29.05-fold, *Oprd1* 34 kb
+and 24.44-fold, *Pnoc* 25 kb and 1.52-fold, *Oprk1* 18 kb and 0.95-fold, *Pdyn* 14 kb and
+0.99-fold, *Penk* 9 kb and 0.39-fold, *Oprl1* 7 kb and 0.47-fold, *Pomc* 6 kb and 0.36-fold.
+Log-log Pearson r = 0.88, Spearman rho = 0.95, p = 0.0004 over the eight genes. Dropping *Oprm1*
+and *Oprd1*, the two genes that gain most, leaves r = 0.95. Dashed line marks no change. Spans are
+Ensembl GRCm39 gene loci (`data/raw/ensembl_gene_spans.csv`); taking them instead from a deposit's
+own coordinate columns, as an earlier version of this analysis did, omits *Pnoc*, which GSE102443
+does not quantify.
 
 Nuclear libraries retain unspliced pre-mRNA, so a gene's signal scales with how much intron it
 carries. This is a bias in a known direction rather than a failure of the assay, and it is fatal to
-this particular comparison because the four receptors span 6 to 250 kb. Preparation is confounded
-with laboratory in both (A) and (B), since no laboratory here has run both preparations on one
-tissue, and an intron-inclusive alignment would produce the same signature as pre-mRNA retention.
-What separates those readings from a laboratory effect is that the shift is ordered by gene length
-(D) and reproduces in two tissues across two independent pairs of laboratories (A and B). Every panel of Figure 1
-therefore uses whole-cell data, and no human single-nucleus dataset can establish a species
-difference in the ordering: the mouse arm of the one cross-species nuclear experiment, shown in
-(B), reverses in the same direction.
+this comparison because the four receptors span 7 to 280 kb. It is not confined to the receptors:
+the ordering by span holds across all eight opioid genes, including three that are not receptors.
+
+Preparation is confounded with laboratory in both (A) and (B), since no laboratory here has run
+both preparations on one tissue, and an intron-inclusive alignment would produce the same signature
+as pre-mRNA retention. What separates those readings from a laboratory effect is that the shift is
+ordered by gene length (D) and reproduces in two tissues across two independent pairs of
+laboratories (A and B).
+
+Every panel of Figure 1 therefore uses whole-cell data, and no human single-nucleus dataset can
+establish a species difference in the ordering: the mouse arm of the one cross-species nuclear
+experiment, shown in (B), reverses in the same direction.

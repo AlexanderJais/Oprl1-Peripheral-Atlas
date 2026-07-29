@@ -124,23 +124,29 @@ def figureS1():
     """What a nuclear preparation does to the receptor ordering."""
     nod = pd.read_csv(ac.RES / "nodose_opioid_levels.csv")
     bias = pd.read_csv(ac.RES / "nuclear_bias_vs_gene_length.csv").set_index("gene")
-    loo = pd.read_csv(ac.RES / "nuclear_bias_sensitivity.csv")
     gang = pd.read_csv(ac.RES / "receptor_levels_by_ganglion.csv")
     xsp = pd.read_csv(ac.RES / "human_xspecies_drg.csv").set_index("species")
 
-    PANEL_H, ABOVE, BELOW = 1.28, 0.36, 0.40
-    TOP_PAD, BOT_PAD = ABOVE + 0.06, BELOW + 0.06
-    height = TOP_PAD + BOT_PAD + 2 * PANEL_H + ABOVE + BELOW
+    # The top row is titled and the bottom row is not, so each row gets its own
+    # gridspec rather than a shared one that would pad both alike.
+    PANEL_H, BELOW = 1.45, 0.38
+    TITLED, BARE = 0.36, 0.24
+    TOP_PAD, BOT_PAD = TITLED + 0.04, BELOW + 0.06
+    height = TOP_PAD + 2 * PANEL_H + BELOW + BARE + BOT_PAD
 
     st.set_theme()
     plt.rcParams["hatch.linewidth"] = 0.4
     fig = plt.figure(figsize=(st.W_2COL, height))
-    gs = fig.add_gridspec(2, 3, left=0.098, right=0.99,
-                          top=1 - TOP_PAD / height, bottom=BOT_PAD / height,
-                          hspace=(ABOVE + BELOW) / PANEL_H, wspace=0.62)
-    axes = [fig.add_subplot(gs[i // 3, i % 3]) for i in range(6)]
-    for ax, letter in zip(axes, "ABCDEF"):
-        st.panel_letter(ax, letter, dx=-0.42, dy=1.30)
+    left, right, wspace = 0.075, 0.99, 0.40
+    axes = []
+    y = height - TOP_PAD
+    for _ in range(2):
+        gs = fig.add_gridspec(1, 2, left=left, right=right, top=y / height,
+                              bottom=(y - PANEL_H) / height, wspace=wspace)
+        axes += [fig.add_subplot(gs[0, i]) for i in range(2)]
+        y -= PANEL_H + BELOW + BARE
+    for ax, letter in zip(axes, "ABCD"):
+        st.panel_letter(ax, letter, dx=-0.16, dy=1.26)
 
     # (A) One tissue, both preparations, from the same atlas.
     ax = axes[0]
@@ -178,28 +184,33 @@ def figureS1():
            hatch=["" if p == "whole cell" else NUC_HATCH for p in det.prep])
     ax.axhline(1.0, color="black", lw=0.5, ls=(0, (3, 2)), zorder=2)
     ax.set_yscale("log")
-    # Decade labels are useless over half a decade of data; label the values.
+    # Decade labels are useless over one decade of data; label the values.
     ax.set_yticks([0.5, 1, 2, 5, 10])
     ax.set_yticklabels(["0.5", "1", "2", "5", "10"], fontsize=st.FS_TICK)
     ax.set_yticks([], minor=True)
     ax.set_ylim(0.4, 12)
     ax.set_xticks(x)
-    ax.set_xticklabels([s.split(":")[1].replace("inhouse", "in-house")
+    # The atlas calls its own deposit "in-house". Named here for its authors, as
+    # the other four are, since in-house reads as ours on this page.
+    ax.set_xticklabels([s.split(":")[1].replace("inhouse", "Cheng")
                         for s in det.index], rotation=45, ha="right",
                        fontsize=st.FS_TICK)
     ax.set_ylabel(_it("Oprm1", "Oprl1") + " detection", fontsize=st.FS_LABEL)
-    ax.set_title("Vagal ganglia (X)\nfive constituent datasets",
-                 fontsize=st.FS_NOTE, pad=3)
 
-    # (D) The shift is a function of how much intron a gene has to retain.
+    # (D) The shift against how much intron a gene has to retain.
     ax = axes[3]
-    v = bias.reset_index().dropna(subset=["genomic_span_kb",
-                                          "nuclear_over_whole_cell"])
+    v = bias.reset_index()
+    missing = v.genomic_span_kb.isna()
+    if missing.any():
+        raise ac.SanityCheckError(
+            f"no genomic span for {sorted(v.gene[missing])}; the panel would "
+            "drop them without saying so")
     ax.scatter(v.genomic_span_kb, v.nuclear_over_whole_cell, s=11,
                c=[st.BAR_BLUE if g == "Oprl1" else "black" for g in v.gene],
                edgecolors="black", linewidths=0.4, zorder=3)
-    offsets = {"Oprl1": (4, 1.5), "Pomc": (4, -7), "Penk": (-19, -2),
-               "Pdyn": (3, 2.5), "Oprd1": (-15, 3)}
+    offsets = {"Oprl1": (4, 1.5), "Pomc": (-20, -1), "Penk": (4, -6),
+               "Pdyn": (-20, 1), "Oprd1": (-16, 4), "Oprm1": (-19, 4),
+               "Oprk1": (3, -7)}
     for _, rr in v.iterrows():
         ax.annotate(rr.gene, (rr.genomic_span_kb, rr.nuclear_over_whole_cell),
                     fontsize=st.FS_TICK, fontstyle="italic", zorder=4,
@@ -207,58 +218,11 @@ def figureS1():
                     textcoords="offset points")
     ax.set_xscale("log")
     ax.set_yscale("log")
-    ax.set_xlim(1.2, 600)
+    ax.set_xlim(3, 800)
     ax.set_ylim(0.2, 90)
     ax.axhline(1.0, color="black", lw=0.5, ls=(0, (3, 2)), zorder=2)
     ax.set_xlabel("genomic span (kb)", fontsize=st.FS_LABEL)
     ax.set_ylabel("nuclear / whole cell", fontsize=st.FS_LABEL)
-    r = float(np.corrcoef(np.log10(v.genomic_span_kb),
-                          np.log10(v.nuclear_over_whole_cell))[0, 1])
-    ax.set_title(f"Vagal ganglia (X)\nseven genes, log-log r = {r:.2f}",
-                 fontsize=st.FS_NOTE, pad=3)
-
-    # (E) How much of (D) rests on any one gene.
-    ax = axes[4]
-    d = loo[loo.dropped != "(none)"]
-    y = np.arange(len(d))
-    ax.barh(y, d.pearson_r, 0.68, color=st.BAR_GREY, edgecolor="black",
-            linewidth=0.5, zorder=3)
-    ax.axvline(r, color="black", lw=0.5, ls=(0, (3, 2)), zorder=2)
-    ax.set_yticks(y)
-    ax.set_yticklabels(d.dropped, fontsize=st.FS_TICK, fontstyle="italic")
-    ax.invert_yaxis()
-    ax.set_xlim(0, 1.0)
-    ax.set_xlabel("log-log r without that gene", fontsize=st.FS_LABEL)
-    ax.set_title("Vagal ganglia (X)\none gene removed", fontsize=st.FS_NOTE, pad=3)
-
-    # (F) What a small nuclear fraction does to a whole-cell atlas.
-    ax = axes[5]
-    pairs = [("nodose", "NodoMap:whole-cell"), ("nodose", "NodoMap"),
-             ("jugular", "NodoMap:whole-cell"), ("jugular", "NodoMap")]
-    labels, bars = [], {g: [] for g in ("Oprl1", "Oprm1")}
-    for tissue, dataset in pairs:
-        sub = nod[(nod.tissue == tissue) & (nod.dataset == dataset)]
-        for g in bars:
-            bars[g].append(float(sub[sub.gene == g].mean_level.iloc[0]))
-        labels.append(f"{tissue[0].upper() + tissue[1:]}\n"
-                      + ("cells" if dataset.endswith("whole-cell")
-                         else "+ nuclei"))
-    x = np.arange(len(pairs))
-    for i, (g, color) in enumerate((("Oprl1", st.BAR_BLUE),
-                                    ("Oprm1", st.BAR_GREY))):
-        ax.bar(x + (i - 0.5) * 0.38, bars[g], 0.38, color=color,
-               edgecolor="black", linewidth=0.5, zorder=3, label=g,
-               hatch=["", NUC_HATCH, "", NUC_HATCH])
-    ax.set_xticks(x)
-    ax.set_xticklabels(labels, fontsize=st.FS_TICK)
-    ax.set_ylabel("mean expression (CPM)", fontsize=st.FS_LABEL)
-    leg = ax.legend(loc="upper left", fontsize=st.FS_NOTE, handlelength=1.3,
-                    handleheight=1.0, borderpad=0.2, labelspacing=0.3,
-                    handletextpad=0.4)
-    for t in leg.get_texts():
-        t.set_fontstyle("italic")
-    ax.set_title("Vagal ganglia (X)\nwith and without the nuclei",
-                 fontsize=st.FS_NOTE, pad=3)
     return fig
 
 

@@ -247,7 +247,7 @@ The eight-dataset version of this comparison, including the two nuclear preparat
 in [`SUPPLEMENT.md`](SUPPLEMENT.md).
 
 The two single-nucleus datasets place *Oprm1* first. This is a preparation artefact: nuclear
-preparations retain unspliced pre-mRNA and *Oprm1* spans 250 kb against *Oprl1*'s 6 kb. See
+preparations retain unspliced pre-mRNA and *Oprm1* spans 280 kb against *Oprl1*'s 7 kb. See
 [`SUPPLEMENT.md`](SUPPLEMENT.md). Those datasets carry no claim here.
 
 ### When the ordering appears
