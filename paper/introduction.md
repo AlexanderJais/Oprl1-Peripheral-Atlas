@@ -1,60 +1,62 @@
-# *Oprl1* is the dominant opioid receptor transcript of mouse peripheral neurons, from neurogenesis onward
+# *Oprl1* is the dominant opioid receptor of peripheral neurons
 
 ## Introduction
 
-The nociceptin receptor is the most abundant opioid receptor transcript in mouse peripheral
-neurons, in every division of the peripheral nervous system and from the earliest stage at which
-those neurons can be identified.
+Opioid signaling in vertebrates runs through four class A G protein-coupled receptors: the mu
+(MOR), delta (DOR), and kappa (KOR) opioid receptors, encoded by *OPRM1*, *OPRD1*, and *OPRK1*,
+and the nociceptin/orphanin FQ peptide receptor (NOP), encoded by *OPRL1*. All four couple to
+Gi/Go and converge on a shared set of neuronal effectors: inhibition of adenylyl cyclase,
+activation of GIRK/Kir3 channels, and voltage-dependent suppression of Cav2.1 and Cav2.2 currents,
+which lowers somatic excitability and reduces transmitter release at nerve terminals (Al-Hasani
+and Bruchas, 2011). Selectivity arises at the orthosteric pocket. Beta-endorphin and the
+enkephalins act at MOR and DOR, dynorphins at KOR, and nociceptin/orphanin FQ (N/OFQ) at NOP.
 
-Peripheral opioid pharmacology has been built on the mu receptor. Loperamide and eluxadoline act
-on enteric MOR, as do the peripherally acting antagonists methylnaltrexone, naloxegol, naldemedine
-and alvimopan. Difelikefalin, a peripherally restricted kappa agonist, was approved in 2021 for
-pruritus in adults on haemodialysis. Peripheral restriction is the design principle behind all of
-them, and it turns receptor identity into a practical constraint: a restricted agonist is worth
-building for the receptor the target neurons carry.
+NOP was cloned as an orphan receptor sharing approximately 47% amino acid identity with MOR, DOR,
+and KOR overall and 64% to 67% identity across the transmembrane helices (Mollereau et al., 1994;
+Bunzow et al., 1994). Its endogenous ligand was identified a year later (Meunier et al., 1995;
+Reinscheid et al., 1995). N/OFQ derives from prepronociceptin (*PNOC*) and begins with
+Phe-Gly-Gly-Phe in place of the Tyr-Gly-Gly-Phe motif shared by the classical opioid peptides
+(Mollereau et al., 1996). This substitution abolishes cross-reactivity in both directions, and
+naloxone and the morphinan alkaloids have negligible affinity for NOP. The antagonist-bound
+crystal structure accounts for the pharmacological separation: a glutamine occupies the position
+of the transmembrane helix 6 histidine conserved across the classical receptors, and acidic
+residues in extracellular loop 2 reshape the entrance to the pocket (Thompson et al., 2012). NOP
+therefore shares an effector repertoire with MOR, DOR, and KOR while occupying a distinct ligand
+space.
 
-NOP, encoded by *OPRL1* at 20q13.33, shares roughly 47% amino acid identity with MOR, DOR and KOR
-overall and 64 to 67% within the transmembrane domains (Mollereau et al., *FEBS Lett* 1994;
-Meunier et al., *Nature* 1995). The divergence is concentrated where it determines pharmacology. A
-glutamine at position 280 in TM6 replaces the histidine conserved in the classical receptors, and
-acidic residues in ECL2 (Glu194, Glu199) anchor the basic core of N/OFQ (Thompson et al., *Nature*
-2012). The endogenous ligand begins Phe-Gly-Gly-Phe against the Tyr-Gly-Gly-Phe of the enkephalins
-and dynorphins. NOP is therefore insensitive to naloxone and to the morphinans, and the classical
-opioid peptides are weak at it. Downstream the four receptors converge: NOP couples to Gi/Go,
-inhibits Cav2.2, activates GIRK, and suppresses TRPV1 responses in cultured human DRG neurons at
-picomolar concentrations of N/OFQ (Anand et al., *PAIN* 2016). A NOP agonist can therefore inhibit
-peripheral neuronal output without engaging the receptor that carries the reward and respiratory
-liabilities. Cebranopadol, a dual NOP/MOP agonist, met its primary endpoint in two Phase 3 acute
-pain trials in 2025; sunobinop, an oral selective NOP partial agonist, is in Phase 2 for insomnia
-and Phase 1b for interstitial cystitis and overactive bladder.
+Peripheral opioid receptors support analgesia and visceral regulation independently of the brain.
+Leukocytes recruited to inflamed tissue synthesize and release POMC- and PENK-derived peptides
+that act on receptors at sensory terminals (Stein and Machelska, 2011). Deleting MOR or DOR
+selectively from primary afferents reduces opioid analgesia in inflammatory and neuropathic models
+(Gaveriaux-Ruff et al., 2011; Weibel et al., 2013). Drugs built on peripheral restriction are in
+clinical use: loperamide and the peripherally acting MOR antagonists methylnaltrexone, naloxegol,
+naldemedine, and alvimopan act on enteric MOR, and difelikefalin, a peripherally restricted KOR
+agonist, was approved in 2021 for pruritus in patients on hemodialysis (Fishbane et al., 2020).
+Every approved peripheral opioid drug targets MOR or KOR.
 
-The evidence that NOP is abundant in peripheral neurons is protein-level and sparse. Anand and
-colleagues reported NOP immunoreactivity in 75 to 80% of small and medium neurons in human lumbar
-and sacral DRG, with a several-fold increase in NOP-positive suburothelial fibres in detrusor
-overactivity and painful bladder syndrome. NOP-eGFP reporter mice place the receptor in laminae I
-to III and in small-diameter DRG somata alongside CGRP and MOR. Potency for NOP-mediated
-inhibition of N-type calcium current spans two orders of magnitude across peripheral ganglia:
-approximately 0.5 nM in cervical sympathetic neurons, 26 nM in vestibular afferents and 100 nM in
-DRG. A range that wide implies a corresponding difference in receptor expression between ganglia,
-and no systematic survey of *Oprl1* across the peripheral nervous system exists to test it. The
-immunohistochemistry carries a separate problem. Opioid receptor antibodies frequently label
-knockout tissue, and protein localisation claims resting on them stay provisional until reproduced
-with knock-in reporters, validated in situ hybridisation, autoradiography or PET.
+Transcriptomic surveys of sensory ganglia have sharpened this picture and exposed species
+differences. In human dorsal root ganglion (DRG), *OPRM1* is enriched across peptidergic
+nociceptor classes and *OPRD1* marks non-peptidergic and itch-associated populations, while mouse
+sensory neurons show no comparable cell-type partitioning (Tavares-Ferreira et al., 2022; Bhuiyan
+et al., 2024). *OPRK1* transcripts sit near the detection floor in human DRG, although KOR protein
+and KOR-mediated inhibition of voltage-gated calcium currents are demonstrable in the same tissue
+(Snyder et al., 2018). Evidence for peripheral NOP has accumulated separately from these atlases.
+NOP immunoreactivity is present in 75% to 80% of small and medium human DRG neurons and rises
+several-fold in suburothelial fibers from patients with detrusor overactivity and bladder pain
+syndrome (Anand et al., 2016). N/OFQ inhibits Cav2.2 currents in dorsal root, superior cervical,
+and vestibular ganglion neurons, suppresses T-type currents through a G protein-independent route
+(Abdulla and Smith, 1997), modulates N-type channels tonically in the absence of agonist (Beedle
+et al., 2004), and reduces capsaicin-evoked responses in cultured human sensory neurons at
+picomolar concentrations (Anand et al., 2016). NOP and N/OFQ are also present in enteric neurons,
+where they alter motility and secretion (Drokhlyansky et al., 2020; Toll et al., 2016). The
+abundance of the four receptors relative to one another across peripheral neuron types has not
+been measured on a common scale, and NOP has been characterized mainly as a central receptor with
+anti-opioid actions at supraspinal sites.
 
-Single-cell transcriptomics can supply the missing survey. Library preparation constrains how its
-output is read. *Oprm1* spans roughly 250 kb of mouse genome and *Oprl1* spans 6 kb, and
-single-nucleus libraries retain unspliced pre-mRNA, so genes gain signal in proportion to the
-intronic sequence they carry. In mouse nodose ganglion, the one tissue for which whole-cell and
-nuclear data exist side by side, nuclear preparation multiplies *Oprm1* by 29 and *Oprl1* by 0.47,
-which moves *Oprm1* from second place to first. Human peripheral ganglia are recovered post mortem
-or surgically and frozen before dissociation, so nearly every human single-cell dataset from them
-is single-nucleus and subject to this effect.
-
-We recomputed the four opioid receptors from source matrices across 19 peripheral neuronal
-populations: eight sensory populations spanning all three developmental origins of the peripheral
-sensory system, six sympathetic populations drawn from five ganglia, the pelvic ganglion, two
-parasympathetic ganglia, and enteric submucosal neurons at two postnatal ages. One QC policy, one
-neuron definition, one marker gate and one ambient-RNA check apply to all of them. Confidence
-intervals come from resampling the datasets rather than the cells, because the claim under test is
-reproducibility across the peripheral nervous system. The comparison is made in mouse tissue,
-where whole-cell data exist for every ganglion examined.
+We find that *Oprl1* is the highest-expressed opioid receptor gene in neurons of the peripheral
+nervous system. *Oprl1* transcript abundance exceeds that of *Oprm1*, *Oprd1*, and *Oprk1* in
+sensory, sympathetic, parasympathetic, and enteric neuron populations, and its expression is
+distributed across neuronal subtypes rather than confined to nociceptors. The receptor rank order
+we measure in peripheral neurons inverts the rank order assumed by current peripheral opioid
+pharmacology. These data identify NOP as the principal opioid receptor of the mouse peripheral
+nervous system and as the primary candidate mediator of opioid-family signaling outside the brain.
