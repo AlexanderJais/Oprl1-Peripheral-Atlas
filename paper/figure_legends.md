@@ -86,8 +86,10 @@ first in each of the six nuclear samples.
 (C) Detection rate of *Oprm1* divided by detection rate of *Oprl1*, within each of the five
 datasets that make up the NodoMap integration, so per-dataset sequencing depth cancels. The four
 whole-cell deposits give 1.18 (Bai), 1.04 (Buchanan), 0.54 (Kupari) and 0.92 (Zhao); the nuclear
-deposit gives 8.46. *Oprl1* is detected in 8.5% of the nuclei against 7.7% of Zhao's cells, so the
-nuclear libraries are not simply deeper.
+deposit gives 8.46. Bai, Buchanan, Kupari and Zhao are published cell-suspension deposits that the
+NodoMap authors re-analysed; in-house is the atlas's own label for the 765 nuclei they generated
+themselves, and is the nuclear arm of (A), (D) and (F) as well. *Oprl1* is detected in 8.5% of
+those nuclei against 7.7% of Zhao's cells, so the nuclear libraries are not simply deeper.
 
 (D) Ratio of nuclear to whole-cell level in (A), against the genomic span of the gene, both axes
 logarithmic. *Oprm1* spans 250 kb and gains 29.05-fold, *Oprd1* 34 kb and 24.44-fold, *Oprk1*
@@ -109,7 +111,11 @@ the barcodes, move *Oprm1* from 8.33 to 19.33 CPM while *Oprl1* holds at 9.5. On
 
 Nuclear libraries retain unspliced pre-mRNA, so a gene's signal scales with how much intron it
 carries. This is a bias in a known direction rather than a failure of the assay, and it is fatal to
-this particular comparison because the four receptors span 6 to 250 kb. Every panel of Figure 1
+this particular comparison because the four receptors span 6 to 250 kb. Preparation is confounded
+with laboratory in both (A) and (B), since no laboratory here has run both preparations on one
+tissue, and an intron-inclusive alignment would produce the same signature as pre-mRNA retention.
+What separates those readings from a laboratory effect is that the shift is ordered by gene length
+(D) and reproduces in two tissues across two independent pairs of laboratories (A and B). Every panel of Figure 1
 therefore uses whole-cell data, and no human single-nucleus dataset can establish a species
 difference in the ordering: the mouse arm of the one cross-species nuclear experiment, shown in
 (B), reverses in the same direction.
