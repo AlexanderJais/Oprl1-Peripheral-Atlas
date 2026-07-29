@@ -130,7 +130,7 @@ def _paired_receptor_bars(ax, whole, nuclear, ylim):
     ax.set_ylabel("mean expression (CPM)", fontsize=st.FS_LABEL)
 
 
-def figureS1():
+def figure2():
     """What a nuclear preparation does to the receptor ordering."""
     nod = pd.read_csv(ac.RES / "nodose_opioid_levels.csv")
     bias = pd.read_csv(ac.RES / "nuclear_bias_vs_gene_length.csv").set_index("gene")
@@ -141,29 +141,34 @@ def figureS1():
     dec = pd.read_csv(ac.RES / "preparation_bias_by_span_decile.csv")
     rec = pd.read_csv(ac.RES / "preparation_bias_receptors.csv").set_index("gene")
 
-    # The four measured panels across the top, the two genome-wide panels below
-    # at half the count and so twice the width. Each row gets its own gridspec:
-    # the rows differ in column count and only the top row is titled.
+    # Three rows of two. As a supplemental figure this was four panels across
+    # the top and two below, on a 228 mm landscape canvas that a reviewer reads
+    # on one page; a main figure is bound by the 174 mm text column, and four
+    # panels across that width leaves each one under 25 mm of drawing area with
+    # five rotated deposit names beneath it. Two per row is what the column
+    # affords. It also falls out by pairs: the two tissues measured under both
+    # preparations, the two detection rates, the two genome-wide panels. Each
+    # row gets its own gridspec, since only the top row carries titles.
     PANEL_H, BELOW = 1.60, 0.38
     TITLED, BARE = 0.36, 0.42
     KEY = 0.20                      # the preparation key, above every panel
     TOP_PAD, BOT_PAD = TITLED + KEY + 0.04, BELOW + 0.06
-    height = TOP_PAD + 2 * PANEL_H + BELOW + BARE + BOT_PAD
+    NROW = 3
+    height = (TOP_PAD + NROW * PANEL_H + (NROW - 1) * (BELOW + BARE) + BOT_PAD)
 
     st.set_theme()
     plt.rcParams["hatch.linewidth"] = 0.4
-    fig = plt.figure(figsize=(st.W_SUPP, height))
-    left, right = 0.075, 0.99
+    fig = plt.figure(figsize=(st.W_2COL, height))
+    left, right = 0.085, 0.99
     axes = []
     y = height - TOP_PAD
-    for ncol, wspace in ((4, 0.62), (2, 0.34)):
-        gs = fig.add_gridspec(1, ncol, left=left, right=right, top=y / height,
-                              bottom=(y - PANEL_H) / height, wspace=wspace)
-        axes += [fig.add_subplot(gs[0, i]) for i in range(ncol)]
+    for _ in range(NROW):
+        gs = fig.add_gridspec(1, 2, left=left, right=right, top=y / height,
+                              bottom=(y - PANEL_H) / height, wspace=0.30)
+        axes += [fig.add_subplot(gs[0, i]) for i in range(2)]
         y -= PANEL_H + BELOW + BARE
     for ax, letter in zip(axes, "ABCDEF"):
-        st.panel_letter(ax, letter, dx=-0.34 if letter in "ABCD" else -0.17,
-                        dy=1.26)
+        st.panel_letter(ax, letter, dx=-0.155, dy=1.26)
 
     # (A) One tissue, both preparations, from the same atlas.
     ax = axes[0]
@@ -283,5 +288,4 @@ def emit(fig, name, max_w=174.5, max_h=235.0):
 
 if __name__ == "__main__":
     emit(figure1(), "Figure1")
-    emit(figureS1(), "FigureS1",
-         max_w=st.W_SUPP * 25.4 + 0.5, max_h=st.H_SUPP * 25.4)
+    emit(figure2(), "Figure2")

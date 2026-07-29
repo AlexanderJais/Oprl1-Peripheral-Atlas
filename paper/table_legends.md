@@ -21,7 +21,7 @@ title, all of which the PNAS paper carries. Full citations are in
 Divisions are the blocks of Figure 1. The pelvic ganglion carries both sympathetic and
 parasympathetic neurons and is grouped with the sympathetic block, as in the figure;
 `results/dataset_quality_panel.csv` records it as mixed autonomic. All nineteen populations are
-whole-cell, for the reason given in Figure S1; both iPain atlases are majority single-nucleus and
+whole-cell, for the reason given in Figure 2; both iPain atlases are majority single-nucleus and
 are restricted here to `suspension_type == "cell"`.
 
 Levels are pseudobulk means over all neurons of the population, in the unit each dataset was

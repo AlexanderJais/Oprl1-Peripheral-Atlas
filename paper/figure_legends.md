@@ -56,7 +56,7 @@ holds between 26 and 36 CPM.
 
 All panels use whole-cell data. Both iPain atlases are majority single-nucleus and are restricted
 here to `suspension_type == "cell"`; pooling preparations compresses the trigeminal margin from
-2.08-fold to 1.18-fold, for the reason given in Figure S1. Neurons were called on raw counts with
+2.08-fold to 1.18-fold, for the reason given in Figure 2. Neurons were called on raw counts with
 glial and immune barcodes excluded, and every population passed the same marker gate and ambient-
 RNA check before any receptor value was read from it. Margins are the ratio of the highest to the
 second-highest receptor; intervals in parentheses are 95% bootstrap intervals over 10,000
@@ -66,9 +66,9 @@ samples, so laboratory and platform are constant across those five. That deposit
 two batches, stellate with sphenopalatine and the first pelvic sample, lumbar chain with celiac and
 the second, and median library ranges 2.6-fold across the five, from 27,931 to 73,326 UMI.
 
-See also Figure S1, Figure S3, and Table S1.
+See also Figure 2, Figure S3, and Table S1.
 
-## Figure S1. A nuclear preparation reverses the receptor ordering, related to Figure 1
+## Figure 2. A nuclear preparation reverses the receptor ordering
 
 Whole-cell and single-nucleus measurements of the same tissue, and the gene property that separates
 them. Solid bars are whole-cell data and hatched bars are nuclear data throughout, as the key above

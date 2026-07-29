@@ -46,7 +46,7 @@ matches the rest of the panel.
 
 Single-nucleus libraries from vagal and dorsal root ganglia place *Oprm1* first, at 244.49 CPM
 against 5.22 for *Oprl1* and at 94.92 against 7.60, and the whole-cell fractions of those same
-atlases place *Oprl1* first (Figures S1A and S1B). The two preparations sample different RNA. A
+atlases place *Oprl1* first (Figures 2A and 2B). The two preparations sample different RNA. A
 nucleus holds transcript that is still being made, unspliced and not yet exported, so most of a
 nuclear library is intronic; single-nucleus quantification counts reads across the entire gene body
 because counting exons alone would discard that majority. The number of reads assigned to a gene
@@ -55,8 +55,8 @@ neuron has made. Whole-cell libraries sample the cytoplasmic pool, which is the 
 available for translation, and 3' counting of that pool carries no length term. Across 14,876
 protein-coding genes quantified in both preparations, nuclear expression rises with genomic span
 (r = +0.403) and whole-cell expression stays flat over a 68-fold range of length (r = +0.022;
-Figure S1E). *Oprm1* spans 279.7 kb and *Oprl1* spans 7.1 kb, giving nuclear-to-whole-cell ratios
-of 25.4 and 0.45 (Figure S1F), and *Oprm1* is detected in 71.9% of nuclei against 5.5% to 32.4% of
-cells (Figures S1C and S1D). The nuclear values report a combination of transcript abundance and
+Figure 2E). *Oprm1* spans 279.7 kb and *Oprl1* spans 7.1 kb, giving nuclear-to-whole-cell ratios
+of 25.4 and 0.45 (Figure 2F), and *Oprm1* is detected in 71.9% of nuclei against 5.5% to 32.4% of
+cells (Figures 2C and 2D). The nuclear values report a combination of transcript abundance and
 gene length. Several of the largest sensory ganglion atlases are single-nucleus, which accounts for
 the prevailing view that *Oprm1* is the dominant opioid receptor of peripheral neurons.
