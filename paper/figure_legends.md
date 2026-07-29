@@ -106,8 +106,9 @@ as an earlier version of this analysis did, omits *Pnoc*, which GSE102443 does n
 
 Nuclear libraries retain unspliced pre-mRNA, so a gene's signal scales with how much intron it
 carries. This is a bias in a known direction rather than a failure of the assay, and it is fatal to
-this comparison because the four receptors span 7 to 280 kb. It is not confined to the receptors:
-the ordering by span holds across all eight opioid genes, including three that are not receptors.
+this comparison because the four receptors span 7 to 280 kb. The ordering by span holds across all
+eight opioid genes, including the four ligand precursors, so it is a property of the preparation
+and not of the receptor family.
 
 Preparation is confounded with laboratory in both (A) and (B), since no laboratory here has run
 both preparations on one tissue, and an intron-inclusive alignment would produce the same signature

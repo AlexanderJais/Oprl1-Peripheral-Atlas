@@ -56,3 +56,38 @@ full-length libraries and the three smallest from droplet libraries, where the N
 the ordering within the droplet data: the superior cervical ganglion and the vestibular ganglion
 sit at comparable depth and give margins of 25.72-fold and 4.29-fold, and the five ganglia of one
 experiment span an 11-fold range in margin at one depth and one chemistry.
+
+## The ordering requires whole-cell data
+
+Every population in Figure 1 was measured on whole cells, because a nuclear preparation reverses
+the result. The four whole-cell deposits of the NodoMap vagal atlas give *Oprl1* 11.13 CPM against
+*Oprm1* 8.42; the 765 nuclei in the same atlas, from the same tissue and the same integration, give
+*Oprm1* 244.49 against *Oprl1* 5.22 (Figure S1A). *Oprm1* rises 29-fold and *Oprl1* falls by half.
+The dorsal root ganglion repeats this in a second laboratory. Whole cells place *Oprl1* first at
+9.31 CPM against 8.23 in 31,802 neurons; 13,243 nuclei from six samples place *Oprm1* first at
+94.92 against 7.60, in each of the six (Figure S1B).
+
+The shift is confined to one of the two genes. *Oprl1* is detected in 8.5% of those nuclei, inside
+the 5.3% to 27.5% range of the four whole-cell deposits, while *Oprm1* is detected in 71.9% against
+a whole-cell range of 5.5% to 32.4%, which exceeds the highest whole-cell value by 2.2-fold
+(Figures S1C and S1D). Both genes were counted in the same libraries, so sequencing depth does not
+separate them. Across all eight opioid genes the nuclear-to-whole-cell ratio scales with genomic
+span, log-log r = 0.88 and Spearman rho = 0.95 at p = 0.0004 (Figure S1E). *Oprm1* spans 280 kb and
+gains 29.05-fold, *Oprl1* spans 7 kb and loses half, and the four ligand precursors fall on the
+same line. Nuclear libraries retain unspliced pre-mRNA, so a gene's signal scales with the intron
+it carries, and the four receptors span 7 to 280 kb.
+
+Mixing the two preparations moves the result part of the way. The trigeminal margin is 2.08-fold
+over whole cells and 1.18-fold when the nuclear barcodes of the same atlas are pooled in; in the
+NodoMap vagal ganglia, 507 nuclei among 26,554 nodose barcodes take *Oprm1* from 9.86 to 14.63 CPM
+and put it first. Both iPain atlases are majority single-nucleus, and every value drawn from them
+here comes from the whole-cell fraction alone.
+
+Preparation is confounded with laboratory in both paired comparisons, since no laboratory here ran
+both preparations on one tissue, and an intron-inclusive alignment would leave the same signature
+as pre-mRNA retention. Two features separate those readings from a laboratory effect: the shift is
+ordered by gene length across eight genes, and it reproduces in two tissues across two independent
+pairs of laboratories. The same reasoning applies to the human data, where essentially all
+peripheral ganglion single-cell data is single-nucleus, and no such dataset can establish a species
+difference in the ordering while the mouse arm of the one cross-species nuclear experiment reverses
+in the same direction.
