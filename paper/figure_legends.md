@@ -65,3 +65,51 @@ ganglia were dissected and sequenced together, so laboratory, platform, and sequ
 constant across those five.
 
 See also Figure S1, Figure S3, and Table S1.
+
+## Figure S1. A nuclear preparation reverses the receptor ordering, related to Figure 1
+
+Whole-cell and single-nucleus measurements of the same tissue, and the gene property that
+separates them. Solid bars are whole-cell data and hatched bars are nuclear data throughout.
+*Oprl1* is blue where the panel distinguishes genes by colour.
+
+(A) Vagal ganglia (X), NodoMap. The whole-cell value is the unweighted mean over the atlas's four
+whole-cell deposits, 30,640 neurons; the nuclear value is the atlas's own 765 nuclei, the same
+tissue and the same integration. Whole cell: *Oprl1* 11.13 CPM, *Oprm1* 8.42, *Oprk1* 4.85,
+*Oprd1* 0.22. Nuclear: *Oprm1* 244.49, *Oprd1* 5.38, *Oprl1* 5.22, *Oprk1* 4.63. *Oprm1* rises
+29-fold and *Oprl1* falls by half, which moves *Oprm1* from second to first.
+
+(B) Dorsal root ganglion, a second tissue and a second laboratory. Whole cell, iPain atlas, 31,802
+neurons: *Oprl1* 9.31 CPM, *Oprm1* 8.23, *Oprk1* 2.78, *Oprd1* 0.20. Nuclear, GSE201654 mouse arm,
+six samples and 13,243 nuclei: *Oprm1* 94.92, *Oprl1* 7.60, *Oprd1* 2.33, *Oprk1* 2.17. *Oprm1* is
+first in each of the six nuclear samples.
+
+(C) Detection rate of *Oprm1* divided by detection rate of *Oprl1*, within each of the five
+datasets that make up the NodoMap integration, so per-dataset sequencing depth cancels. The four
+whole-cell deposits give 1.18 (Bai), 1.04 (Buchanan), 0.54 (Kupari) and 0.92 (Zhao); the nuclear
+deposit gives 8.46. *Oprl1* is detected in 8.5% of the nuclei against 7.7% of Zhao's cells, so the
+nuclear libraries are not simply deeper.
+
+(D) Ratio of nuclear to whole-cell level in (A), against the genomic span of the gene, both axes
+logarithmic. *Oprm1* spans 250 kb and gains 29.05-fold, *Oprd1* 34 kb and 24.44-fold, *Oprk1*
+18 kb and 0.95-fold, *Oprl1* 6 kb and 0.47-fold, *Pomc* 6 kb and 0.36-fold, *Penk* 5 kb and
+0.39-fold, *Pdyn* 2 kb and 0.99-fold. Log-log Pearson r = 0.84 over the seven genes; the rank
+correlation is Spearman rho = 0.58, p = 0.18, which does not reach significance at n = 7. Dashed
+line marks no change.
+
+(E) The same correlation with each gene removed in turn. It survives dropping any single gene
+(r = 0.69 to 0.90) and collapses to r = 0.02 when *Oprm1* and *Oprd1* are dropped together, so the
+seven-gene fit rests on the two long genes. The replication in (B) is what carries the claim, not
+the fit.
+
+(F) The same NodoMap barcodes with and without the nuclei. Restricted to whole cells, the nodose
+ganglion places *Oprl1* first at 11.90 CPM against *Oprm1* 9.86; adding the 507 nuclei, 1.9% of the
+barcodes, gives *Oprm1* 14.63 against *Oprl1* 11.75. In the jugular ganglion 258 nuclei, 5.3% of
+the barcodes, move *Oprm1* from 8.33 to 19.33 CPM while *Oprl1* holds at 9.5. Only *Oprl1* and
+*Oprm1* are drawn.
+
+Nuclear libraries retain unspliced pre-mRNA, so a gene's signal scales with how much intron it
+carries. This is a bias in a known direction rather than a failure of the assay, and it is fatal to
+this particular comparison because the four receptors span 6 to 250 kb. Every panel of Figure 1
+therefore uses whole-cell data, and no human single-nucleus dataset can establish a species
+difference in the ordering: the mouse arm of the one cross-species nuclear experiment, shown in
+(B), reverses in the same direction.

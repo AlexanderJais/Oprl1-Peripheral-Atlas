@@ -99,6 +99,19 @@ def set_theme(base: float = FS_TICK) -> None:
     if name not in ("Helvetica", "Nimbus Sans", "Arial", "Liberation Sans"):
         print(f"  [warn] the sans-serif stack resolves to {name}; Cell Press "
               "requires Arial or Helvetica")
+    # Point mathtext at the same family, so an italic gene symbol inside an axis
+    # label is set in the figure's own font rather than matplotlib's default
+    # serif math face.
+    mpl.rcParams.update({
+        "mathtext.fontset": "custom",
+        "mathtext.rm": name,
+        "mathtext.it": f"{name}:italic",
+        "mathtext.bf": f"{name}:bold",
+        "mathtext.cal": name,
+        "mathtext.sf": name,
+        "mathtext.tt": name,
+        "mathtext.default": "regular",
+    })
     return name
 
 
