@@ -94,27 +94,30 @@ value by 2.2-fold. Detection rate scales with sequencing depth, which differs be
 (C) is what shows that depth does not account for (D), since the two genes were counted in the same
 libraries.
 
-(E) Median expression against genomic span, over the 12,557 protein-coding genes of the atlas that
-reach 1 CPM in both preparations, binned into span deciles. Genes were selected on expression and
-never on length. Whole-cell medians run between 19.4 and 29.6 CPM across deciles whose median spans
-run from 4.0 kb to 253.0 kb, and correlate with span at r = -0.065 over the individual genes.
-Nuclear medians rise from 14.0 to 114.4 CPM over the same deciles, r = +0.43. Gene length carries
-no information about how much mature transcript a neuron holds, so the preparation whose levels
-track it is the distorted one.
+(E) Median expression against genomic span, over the 14,876 protein-coding genes of the atlas that
+reach 0.1 CPM in both preparations, binned into span deciles, one marker per decile. Genes were selected on expression and
+never on length, and the floor is low enough to admit all four opioid receptors. Whole-cell medians
+run between 13.7 and 20.0 CPM across deciles whose median spans run from 3.5 kb to 238.4 kb, a
+68-fold range of length, and correlate with span at r = +0.022 over the individual genes. Nuclear
+medians rise from 7.1 to 94.1 CPM over the same deciles, r = +0.403. Gene length carries no
+information about how much mature transcript a neuron holds, so the preparation whose levels track
+it is the distorted one. Raising the floor to 1 CPM sharpens both figures, to r = -0.065 and
+r = +0.433, and removing it entirely leaves r = +0.117 and r = +0.399
+(`results/preparation_bias_floor_sensitivity.csv`).
 
-(F) The ratio of the two, for every one of those genes, against genomic span. Grey points are
-individual genes, the black line is the median per span decile, and the dashed line is no change.
-The ratio rises from 0.43 in the shortest decile to 4.75 in the longest and crosses 1 at 21 kb. The
-four receptors are marked, filled where they clear the 1 CPM floor and open where they do not.
-*Oprl1* at 7.1 kb sits at 0.45, the 35th percentile of the 1,982 genes within a factor of 1.6 of its
-length. *Oprk1* at 17.7 kb sits at 1.14 and the 65th percentile of its own length class. Both behave
-as ordinary genes of their size. *Oprm1* at 279.7 kb sits at 25.4 against a median of 4.45 for genes
-of comparable length, the 96th percentile of that class, so its length accounts for most of its
-gain and not all of it. *Oprd1* is open because it reads 0.25 CPM in whole cells and contributes
-nothing to the fit; its ratio of 21.6 is measured against that denominator and is correspondingly
-uncertain, and it is drawn so that all four receptors are visible rather than three. Both panels use
-the vagal neurons of (A), one atlas and one chemistry, so the contrast is between preparations
-rather than between studies. Spans are Ensembl GRCm39 gene loci.
+(F) Nuclear level divided by whole-cell level, for every one of those genes, against genomic span.
+Grey points are individual genes, the black line is the median per span decile, and the dashed line
+is no change. The ratio rises from 0.46 in the shortest decile to 5.22 in the longest and crosses 1
+at 15.8 kb. All four opioid receptors are marked. *Oprl1* at 7.1 kb sits at 0.45, the 32nd
+percentile of the 2,431 genes within a factor of 1.6 of its length, and *Oprk1* at 17.7 kb sits at
+1.14 and the 60th percentile of its own length class, so both behave as ordinary genes of their
+size. *Oprm1* at 279.7 kb sits at 25.4 against a median of 4.94 for genes of comparable length, the
+94th percentile of that class. *Oprd1* at 33.8 kb sits at 21.6 against a median of 1.24, the 99th
+percentile, the largest departure of the four; its whole-cell level is 0.25 CPM, so that ratio is
+measured on a small denominator and is the least certain of the four. For *Oprm1* and *Oprd1*
+length accounts for part of the gain and not all of it. Both panels use the vagal neurons of (A),
+one atlas and one chemistry, so the contrast is between preparations rather than between studies.
+Spans are Ensembl GRCm39 gene loci.
 
 A nucleus holds nascent transcript that has not been spliced or exported, and single-nucleus
 quantification counts reads across the whole gene body, introns included, since restricting to
@@ -126,7 +129,7 @@ because they span 7 to 280 kb.
 
 Preparation is confounded with laboratory in (A) and (B), since no laboratory here has run both
 preparations on one tissue. (E) and (F) do not rest on that contrast: both are internal to a single
-atlas and a single chemistry, and they identify the biased measurement from the behaviour of 12,557
+atlas and a single chemistry, and they identify the biased measurement from the behaviour of 14,876
 genes rather than from any receptor.
 
 Every panel of Figure 1 therefore uses whole-cell data, and no human single-nucleus dataset can

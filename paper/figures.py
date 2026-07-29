@@ -215,15 +215,14 @@ def figureS1():
     # is the distorted one: the length of a transcription unit says nothing
     # about how much mature message a neuron carries.
     ax = axes[4]
-    for col, label, marker, ls in (("median_whole_cell", "whole cell", "o", "-"),
-                                   ("median_nuclear", "nuclear", "s", "--")):
-        ax.plot(dec.span_med, dec[col], ls, marker=marker, color="black",
-                markersize=2.6, linewidth=0.7, markerfacecolor=(
-                    "white" if col.endswith("whole_cell") else "black"),
+    for col, label, marker, fill in (("median_whole_cell", "whole cell", "o", "white"),
+                                     ("median_nuclear", "nuclear", "s", "black")):
+        ax.plot(dec.span_med, dec[col], linestyle="none", marker=marker,
+                color="black", markersize=3.0, markerfacecolor=fill,
                 markeredgewidth=0.5, label=label, zorder=3)
     ax.set_xscale("log")
     ax.set_yscale("log")
-    ax.set_ylim(8, 200)
+    ax.set_ylim(5, 200)
     ax.set_xlabel("genomic span (kb), decile median", fontsize=st.FS_LABEL)
     ax.set_ylabel("median expression (CPM)", fontsize=st.FS_LABEL)
     ax.legend(loc="upper left", fontsize=st.FS_NOTE, handlelength=1.8,
@@ -237,15 +236,11 @@ def figureS1():
             zorder=4)
     ax.axhline(1.0, color="black", lw=0.5, ls=(0, (3, 2)), zorder=3)
     offsets = {"Oprl1": (-4, -11), "Oprm1": (-21, 5), "Oprk1": (4, 3),
-               "Oprd1": (-21, 4)}
+               "Oprd1": (-22, 3)}
     for gene in rec.index:
         colour = st.BAR_BLUE if gene == "Oprl1" else "black"
-        # Oprd1 sits below the expression floor the fit was computed on, so it
-        # is drawn open: shown, and visibly not carrying the result.
-        filled = bool(rec.loc[gene, "above_floor"])
         ax.scatter([rec.loc[gene, "span_kb"]], [rec.loc[gene, "ratio"]], s=14,
-                   c=colour if filled else "white", edgecolors=colour,
-                   linewidths=0.6, zorder=5)
+                   c=colour, edgecolors="black", linewidths=0.4, zorder=5)
         ax.annotate(gene, (rec.loc[gene, "span_kb"], rec.loc[gene, "ratio"]),
                     fontsize=st.FS_TICK, fontstyle="italic", zorder=5,
                     xytext=offsets.get(gene, (4, 3)), textcoords="offset points")

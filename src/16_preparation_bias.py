@@ -35,7 +35,11 @@ import atlas_common as ac
 
 NEURON_CLASSES = ["Nodose ganglion neuron", "Jugular ganglion neuron"]
 BLOCK = 4096          # cells per read, to keep the CSR stream off the heap
-MIN_CPM = 1.0         # a ratio on a near-zero denominator is not informative
+# A floor only to keep ratios off a near-zero denominator. It is set low enough
+# to admit all four opioid receptors, which are the subject of this atlas and
+# must never be filtered out of an analysis about them. The relationship is
+# reported at a range of floors below, and does not depend on the choice.
+MIN_CPM = 0.1
 SPANS_ALL = "ensembl_gene_spans_all.csv.gz"
 
 
@@ -123,6 +127,32 @@ def main() -> int:
     keep = d[(d.whole_cell_CPM >= MIN_CPM) & (d.nuclear_CPM >= MIN_CPM)].copy()
     keep["ratio"] = keep.nuclear_CPM / keep.whole_cell_CPM
     print(f"  {len(keep):,} of them at >= {MIN_CPM} CPM in both preparations")
+    missing = [g for g in ac.RECEPTORS if g not in set(keep.gene)]
+    if missing:
+        raise ac.SanityCheckError(
+            f"the {MIN_CPM} CPM floor excludes {missing}; this atlas is about "
+            "those four genes and an analysis of them cannot filter them out")
+
+    # The floor is a judgement call, so its effect is measured rather than
+    # asserted. Only the ratios need it: they divide by the whole-cell level.
+    sens = []
+    for floor in (0.0, 0.05, 0.1, 0.25, 0.5, 1.0):
+        k = d[(d.whole_cell_CPM >= floor) & (d.nuclear_CPM >= floor)]
+        if len(k) < 50:
+            continue
+        ratio = k.nuclear_CPM / k.whole_cell_CPM
+        lx = np.log10(k.span_kb)
+        sens.append({"floor_cpm": floor, "n": len(k),
+                     "r_ratio": round(float(np.corrcoef(lx, np.log10(ratio))[0, 1]), 3),
+                     "r_whole_cell": round(float(np.corrcoef(
+                         lx, np.log10(k.whole_cell_CPM.clip(lower=1e-3)))[0, 1]), 3),
+                     "r_nuclear": round(float(np.corrcoef(
+                         lx, np.log10(k.nuclear_CPM.clip(lower=1e-3)))[0, 1]), 3),
+                     "receptors_included": int(k.gene.isin(ac.RECEPTORS).sum())})
+    sens = pd.DataFrame(sens)
+    print("\n  Sensitivity to the expression floor:")
+    print(sens.to_string(index=False))
+    ac.save_table(sens, "preparation_bias_floor_sensitivity.csv")
 
     x = np.log10(keep.span_kb)
     out = []
@@ -156,17 +186,10 @@ def main() -> int:
           "one distorted by it:")
     print(dec.to_string(index=False))
 
-    # Where the four receptors sit on that distribution. Taken from the
-    # unfiltered frame and flagged, so a receptor below the floor is visible as
-    # a receptor below the floor rather than as a receptor that vanished.
-    rec = d[d.gene.isin(ac.RECEPTORS)].copy()
-    rec["ratio"] = rec.nuclear_CPM / rec.whole_cell_CPM.where(rec.whole_cell_CPM > 0)
-    rec["above_floor"] = ((rec.whole_cell_CPM >= MIN_CPM)
-                          & (rec.nuclear_CPM >= MIN_CPM))
-    rec = rec.set_index("gene").reindex(ac.RECEPTORS)
+    # Where the four receptors sit on that distribution.
+    rec = keep[keep.gene.isin(ac.RECEPTORS)].set_index("gene").reindex(ac.RECEPTORS)
     rec["pct_all_genes"] = [
-        round(float((keep.ratio < v).mean() * 100), 1) if np.isfinite(v) else np.nan
-        for v in rec.ratio]
+        round(float((keep.ratio < v).mean() * 100), 1) for v in rec.ratio]
     # Also against genes of its own length, which is the comparison that says
     # whether length alone accounts for where a receptor lands.
     band = []
@@ -178,13 +201,8 @@ def main() -> int:
     print("\n  The receptors on that distribution, against all genes and "
           "against genes of their own length:")
     print(rec[["span_kb", "whole_cell_CPM", "nuclear_CPM", "ratio",
-               "above_floor", "pct_all_genes", "n_peers", "peer_median_ratio",
+               "pct_all_genes", "n_peers", "peer_median_ratio",
                "pct_of_peers"]].round(3).to_string())
-    below = list(rec.index[~rec.above_floor])
-    if below:
-        print(f"  [note] {below} did not reach {MIN_CPM} CPM in both "
-              "preparations, so it carries no weight in the fit and is drawn "
-              "as an open symbol")
     ac.save_table(rec.reset_index(), "preparation_bias_receptors.csv")
 
     ac.save_table(keep[["gene", "ensembl_id", "span_kb", "whole_cell_CPM",

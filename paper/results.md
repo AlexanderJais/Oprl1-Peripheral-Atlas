@@ -71,13 +71,15 @@ decided without appeal to either result.
 Genomic span decides it. The length of a transcription unit is a property of the locus and carries
 no information about how much mature message a neuron holds, so a measurement that reports
 abundance should not track it. We computed both preparations for every protein-coding gene in the
-atlas and kept the 12,557 that reach 1 CPM in both, filtering on expression and never on length.
-Whole-cell levels do not move with span: median expression runs between 19.4 and 29.6 CPM across
-span deciles whose medians run from 4.0 kb to 253.0 kb, a 60-fold range of length, and the
-correlation is r = -0.065. Nuclear levels rise monotonically over those same deciles, from 14.0 to
-114.4 CPM, r = +0.43 (Figure S1E). The ratio between the two preparations therefore climbs with
-length, from 0.43 in the shortest decile to 4.75 in the longest, crossing 1 at 21 kb (Figure S1F).
-The nuclear measurement is the one a nuisance variable predicts.
+atlas and kept the 14,876 that reach 0.1 CPM in both, filtering on expression and never on length,
+at a floor low enough to admit all four opioid receptors. Whole-cell levels do not move with span:
+median expression runs between 13.7 and 20.0 CPM across span deciles whose medians run from 3.5 kb
+to 238.4 kb, a 68-fold range of length, and the correlation is r = +0.022. Nuclear levels rise
+monotonically over those same deciles, from 7.1 to 94.1 CPM, r = +0.403 (Figure S1E). The ratio of
+nuclear level to whole-cell level therefore climbs with length, from 0.46 in the shortest decile to
+5.22 in the longest, crossing 1 at 15.8 kb (Figure S1F). The nuclear measurement is the one a
+nuisance variable predicts, and the separation widens as the floor rises rather than depending on
+it.
 
 The composition of nuclear RNA accounts for this. A nucleus holds nascent transcript that has not
 been spliced or exported, and single-nucleus quantification counts reads across the whole gene
@@ -88,14 +90,15 @@ translates, and 3' counting of that pool has no length term. The flat curve in F
 absence measured rather than assumed.
 
 The four opioid receptors span 7 to 280 kb, which is why the distortion reaches them. *Oprl1*, at
-7.1 kb, has a nuclear-to-whole-cell ratio of 0.45, the 35th percentile among the 1,982 genes within
-a factor of 1.6 of its length. *Oprk1*, at 17.7 kb, sits at 1.14 and the 65th percentile of its own
+7.1 kb, has a nuclear-to-whole-cell ratio of 0.45, the 32nd percentile among the 2,431 genes within
+a factor of 1.6 of its length. *Oprk1*, at 17.7 kb, sits at 1.14 and the 60th percentile of its own
 length class. Both behave as ordinary genes of their size, and the ordering between them survives
-the preparation. *Oprm1*, at 279.7 kb, has a ratio of 25.4 against a median of 4.45 for genes of
-comparable length, which places it at the 96th percentile of that class. Length accounts for most
-of its gain and not all of it, so the nuclear *Oprm1* value is inflated twice over and is not an
-estimate of transcript abundance. *Oprd1* stays out of this comparison at 0.22 CPM in whole cells.
-Detection follows the levels: *Oprm1* is called in 71.9% of the nuclei against 5.5% to 32.4% of
+the preparation. *Oprm1*, at 279.7 kb, has a ratio of 25.4 against a median of 4.94 for genes of
+comparable length, the 94th percentile of that class. *Oprd1*, at 33.8 kb, has a ratio of 21.6
+against a median of 1.24, the 99th percentile and the largest departure of the four, on a
+whole-cell level of 0.25 CPM that makes it the least certain of the four. For both of those genes
+length accounts for part of the nuclear gain and not all of it, so neither nuclear value is an
+estimate of transcript abundance. Detection follows the levels: *Oprm1* is called in 71.9% of the nuclei against 5.5% to 32.4% of
 cells across the four whole-cell deposits, while *Oprl1* is called in 8.5% of the same nuclei,
 inside the 5.3% to 27.5% whole-cell range (Figures S1C and S1D). Both genes were counted in the
 same libraries, so sequencing depth does not separate them.
@@ -111,7 +114,7 @@ alone.
 Preparation is confounded with laboratory in the two paired comparisons, since no laboratory here
 ran both preparations on one tissue. The genome-wide result does not rest on that contrast: it is
 internal to one atlas and one chemistry, and it identifies the biased measurement from the
-behaviour of 12,557 genes rather than from any receptor. The same reasoning carries to human
+behaviour of 14,876 genes rather than from any receptor. The same reasoning carries to human
 tissue, where post-mortem and surgical ganglia are frozen and essentially all single-cell data from
 them is single-nucleus. No such dataset can establish a species difference in the receptor ordering
 while the mouse arm of the one cross-species nuclear experiment reverses in the same direction.
