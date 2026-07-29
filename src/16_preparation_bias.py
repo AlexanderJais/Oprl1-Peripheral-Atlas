@@ -137,17 +137,21 @@ def main() -> int:
     # asserted. Only the ratios need it: they divide by the whole-cell level.
     sens = []
     for floor in (0.0, 0.05, 0.1, 0.25, 0.5, 1.0):
-        k = d[(d.whole_cell_CPM >= floor) & (d.nuclear_CPM >= floor)]
+        # Strictly greater than, so the no-floor row still has a positive
+        # denominator for the ratio and a defined logarithm for both levels.
+        # Substituting a pseudo-value for zero would put the correlation on
+        # numbers that were never measured.
+        k = d[(d.whole_cell_CPM > floor) & (d.nuclear_CPM > floor)]
         if len(k) < 50:
             continue
-        ratio = k.nuclear_CPM / k.whole_cell_CPM
         lx = np.log10(k.span_kb)
         sens.append({"floor_cpm": floor, "n": len(k),
-                     "r_ratio": round(float(np.corrcoef(lx, np.log10(ratio))[0, 1]), 3),
+                     "r_ratio": round(float(np.corrcoef(
+                         lx, np.log10(k.nuclear_CPM / k.whole_cell_CPM))[0, 1]), 3),
                      "r_whole_cell": round(float(np.corrcoef(
-                         lx, np.log10(k.whole_cell_CPM.clip(lower=1e-3)))[0, 1]), 3),
+                         lx, np.log10(k.whole_cell_CPM))[0, 1]), 3),
                      "r_nuclear": round(float(np.corrcoef(
-                         lx, np.log10(k.nuclear_CPM.clip(lower=1e-3)))[0, 1]), 3),
+                         lx, np.log10(k.nuclear_CPM))[0, 1]), 3),
                      "receptors_included": int(k.gene.isin(ac.RECEPTORS).sum())})
     sens = pd.DataFrame(sens)
     print("\n  Sensitivity to the expression floor:")

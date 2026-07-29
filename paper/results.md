@@ -78,8 +78,9 @@ to 238.4 kb, a 68-fold range of length, and the correlation is r = +0.022. Nucle
 monotonically over those same deciles, from 7.1 to 94.1 CPM, r = +0.403 (Figure S1E). The ratio of
 nuclear level to whole-cell level therefore climbs with length, from 0.46 in the shortest decile to
 5.22 in the longest, crossing 1 at 15.8 kb (Figure S1F). The nuclear measurement is the one a
-nuisance variable predicts, and the separation widens as the floor rises rather than depending on
-it.
+nuisance variable predicts. The floor does not carry that: over floors from none at all to 1 CPM
+the whole-cell correlation runs from +0.117 to -0.065 and the nuclear one from +0.399 to +0.433, so
+raising it sharpens the separation rather than creating it.
 
 The composition of nuclear RNA accounts for this. A nucleus holds nascent transcript that has not
 been spliced or exported, and single-nucleus quantification counts reads across the whole gene
@@ -98,7 +99,9 @@ comparable length, the 94th percentile of that class. *Oprd1*, at 33.8 kb, has a
 against a median of 1.24, the 99th percentile and the largest departure of the four, on a
 whole-cell level of 0.25 CPM that makes it the least certain of the four. For both of those genes
 length accounts for part of the nuclear gain and not all of it, so neither nuclear value is an
-estimate of transcript abundance. Detection follows the levels: *Oprm1* is called in 71.9% of the nuclei against 5.5% to 32.4% of
+estimate of transcript abundance.
+
+Detection follows the levels. *Oprm1* is called in 71.9% of the nuclei against 5.5% to 32.4% of
 cells across the four whole-cell deposits, while *Oprl1* is called in 8.5% of the same nuclei,
 inside the 5.3% to 27.5% whole-cell range (Figures S1C and S1D). Both genes were counted in the
 same libraries, so sequencing depth does not separate them.

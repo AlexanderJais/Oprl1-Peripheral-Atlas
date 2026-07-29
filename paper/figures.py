@@ -215,10 +215,11 @@ def figureS1():
     # is the distorted one: the length of a transcription unit says nothing
     # about how much mature message a neuron carries.
     ax = axes[4]
-    for col, label, marker, fill in (("median_whole_cell", "whole cell", "o", "white"),
-                                     ("median_nuclear", "nuclear", "s", "black")):
-        ax.plot(dec.span_med, dec[col], linestyle="none", marker=marker,
-                color="black", markersize=3.0, markerfacecolor=fill,
+    for col, label, marker, ls, fill in (
+            ("median_whole_cell", "whole cell", "o", "-", "white"),
+            ("median_nuclear", "nuclear", "s", "--", "black")):
+        ax.plot(dec.span_med, dec[col], ls, marker=marker, color="black",
+                markersize=2.8, linewidth=0.7, markerfacecolor=fill,
                 markeredgewidth=0.5, label=label, zorder=3)
     ax.set_xscale("log")
     ax.set_yscale("log")
@@ -232,8 +233,6 @@ def figureS1():
     ax = axes[5]
     ax.scatter(gw.span_kb, gw.ratio, s=0.6, c="#C8C8C8", linewidths=0,
                rasterized=True, zorder=2)
-    ax.plot(dec.span_med, dec.median_ratio, "-", color="black", linewidth=0.8,
-            zorder=4)
     ax.axhline(1.0, color="black", lw=0.5, ls=(0, (3, 2)), zorder=3)
     offsets = {"Oprl1": (-4, -11), "Oprm1": (-21, 5), "Oprk1": (4, 3),
                "Oprd1": (-22, 3)}
