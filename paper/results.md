@@ -2,122 +2,61 @@
 
 ## *Oprl1* is the highest-expressed opioid receptor gene across the peripheral nervous system
 
-We measured the four opioid receptor transcripts in 19 neuronal populations from 16 mouse
-peripheral ganglia and plexuses, using whole-cell data throughout and a single analysis applied to
-every dataset (Figure 1; Table S1). *Oprl1* is the highest-expressed of the four in 18 of the 19
-populations. The exception is enteric submucosal neurons at postnatal day 7, treated below.
+Every peripherally restricted opioid drug in clinical use acts at MOR or KOR. The four opioid
+receptors have rarely been measured against one another in the same peripheral neurons. We ranked
+*Oprl1*, *Oprm1*, *Oprd1*, and *Oprk1* within each of 19 neuronal populations from 16 mouse ganglia
+and plexuses, covering the sensory, sympathetic, parasympathetic, and enteric divisions. The data
+come from 12 published single-cell studies deposited between 2016 and 2026; we generated no new
+sequencing (Table S1). We took the whole-cell fraction of each deposit and applied one analysis to
+all of them. *Oprl1* is the highest-expressed opioid receptor gene in 18 of the 19 populations.
 
-The margin over the second receptor varies with the ganglion and with sequencing depth. In the
-spiral ganglion, sequenced to a median of 2.7 million reads per neuron, *Oprl1* reaches 41.94 CPM
-in 74.8% of neurons and *Oprm1*, *Oprd1*, and *Oprk1* are detected in none of the 226 cells
-(Figure 1A). All four genes are quantified in that annotation, so the three zeros are measured
-absences. In the geniculate ganglion, *Oprl1* exceeds *Oprm1* 31-fold in full-length data (Figure
-1B) and reproduces on a second platform from a second laboratory (Figure 1D, bootstrap support
-0.974). The narrowest margins occur in the two largest droplet datasets: 1.21-fold in 26,047
-nodose neurons and 1.13-fold in 31,802 dorsal root ganglion neurons, both with support 1.000 and
-95% intervals excluding 1 (Figures 1F and 1H).
+The ranking holds in SMART-seq full-length libraries sequenced to a median of 2.7 million reads per
+neuron and in droplet libraries at 1,570 UMI per cell. Separation from the other three receptors is
+widest in the spiral ganglion, where *Oprl1* reaches 41.94 CPM in 74.8% of neurons and *Oprm1*,
+*Oprd1*, and *Oprk1* are absent from all 226 cells, and in the sphenopalatine ganglion, where
+*Oprl1* reaches 19.50 CPM against *Oprm1* at 0.29, *Oprd1* at 0.04, and *Oprk1* at 0.01 CPM
+(Figures 1A and 1P). The two largest droplet datasets give the narrowest separations: *Oprl1*
+exceeds *Oprm1* by 1.21-fold in 26,047 nodose neurons and by 1.13-fold in 31,802 dorsal root
+ganglion neurons, each holding in every bootstrap replicate with a 95% confidence interval
+excluding 1 (Figures 1F and 1H).
 
-Sympathetic neurons carry the pattern at larger margins than most sensory ganglia. *Oprl1* exceeds
-the second receptor 44.41-fold in celiac neurons, 32.42-fold in the pelvic ganglion, 25.72-fold in
-the superior cervical ganglion, and 14.78- and 14.69-fold in the lumbar and thoracic chains, and
-exceeds *Oprm1* in all seven, from 4.9-fold in one stellate dataset to 69-fold in the superior
-cervical ganglion (Figures 1I to 1O). Six sympathetic ganglia from four deposits on two platform
-classes agree, the stellate ganglion is measured twice from two deposits (Figures 1N and 1O), and
-every sample that could be ordered on its own cells places *Oprl1* first.
+The geniculate ganglion was sequenced full-length by Dvoryanchikov et al. (2017) and by droplet
+capture by Zhang et al. (2019), and the stellate ganglion appears in two unrelated studies. *Oprl1*
+ranks first in all four (Figures 1B, 1D, 1N, and 1O).
 
-The parasympathetic division gives the largest margin measured. In 2,014 sphenopalatine neurons
-*Oprl1* reaches 19.50 CPM against *Oprm1* 0.29, *Oprd1* 0.04, and *Oprk1* 0.02, a 66.86-fold lead
-over the second receptor (Figure 1P). These neurons are cholinergic and not noradrenergic
-(*Slc18a3* 252 CPM, *Chat* 26, *Th* 2, *Dbh* 42), against *Th* 390 to 840 CPM in the sympathetic
-ganglia dissected and sequenced alongside them in the same experiment. Intrinsic cardiac neurons
-give a 3.65-fold margin, the narrowest in this division and the only population in which *Oprm1*
-is the second receptor rather than a trace transcript (Figure 1Q).
+Five populations were dissected and sequenced together in one experiment (Sivori et al., 2024),
+which places them on a common scale. Across four sympathetic ganglia and the sphenopalatine
+ganglion, *Oprl1* varies 1.7-fold, from 16.33 CPM in the pelvic ganglion to 27.55 CPM in the
+stellate ganglion. The other three receptors vary between 6-fold and 302-fold over the same five
+populations. Across the full panel, *Oprm1*, *Oprk1*, and *Oprd1* each rank second in some
+populations, and none of them ranks second consistently. NOP is available to autonomic neurons at a
+similar level regardless of ganglion, and MOR, DOR, and KOR are distributed by division and cell
+type.
 
-Five panels of Figure 1 come from one experiment in which six autonomic ganglia were dissected and
-sequenced together (Figures 1I, 1J, 1L, 1N, and 1P), which removes laboratory, platform, and
-sequencing depth from the comparison between divisions. *Oprl1* is first in all five and its level
-varies 1.7-fold across them, from 16.33 CPM in the pelvic ganglion to 27.55 CPM in the stellate
-ganglion, while the margin over the second receptor varies 11-fold, from 6.08-fold to 66.86-fold.
-The margin therefore reports how far the other three receptors fall in a given ganglion rather
-than how high *Oprl1* rises. The sphenopalatine ganglion carries the largest margin of the five,
-with the lowest *Oprm1* and the lowest *Oprk1* among them.
-
-Enteric submucosal neurons place *Oprk1* first at postnatal day 7, at 122.51 CPM against *Oprl1*
-26.70, a 4.59-fold lead in the opposite direction, in both samples at that age (Figure 1S). By
-postnatal day 24 *Oprk1* has fallen to 3.77 CPM at 1.1% detection while *Oprl1* holds at 35.57
-CPM, and *Oprl1* leads 2.20-fold in all three samples (Figure 1R). The two ages come from one
-laboratory, one platform, and one tissue, and the change between them is specific to *Oprk1*.
-*Oprm1* reads 0.18 CPM at 0.2% detection at postnatal day 24, the lowest value for that gene in
-any population measured here.
-
-Depth constrains the margin without determining it. The two largest sensory margins come from
-full-length libraries and the three smallest from droplet libraries, where the NodoMap median is
-1,570 UMI per cell against 2.7 million reads in the spiral ganglion. Depth does not account for
-the ordering within the droplet data: the superior cervical ganglion and the vestibular ganglion
-sit at comparable depth and give margins of 25.72-fold and 4.29-fold, and the five ganglia of one
-experiment span an 11-fold range in margin at one depth and one chemistry.
+The enteric submucosal plexus before weaning ranks *Oprk1* first. At postnatal day 7, *Oprk1*
+reaches 122.51 CPM against 26.70 CPM for *Oprl1* in both samples at that age (Figure 1S). By
+postnatal day 24, *Oprk1* has fallen to 3.77 CPM at 1.1% detection, *Oprl1* stands at 35.57 CPM,
+and *Oprl1* ranks first in all three samples (Figure 1R). Both ages come from one deposit, one
+tissue, and one platform (Li et al., 2025), and the 32-fold fall in *Oprk1* is the largest change
+of the four receptors between them: *Oprd1* rises 7-fold, *Oprm1* falls 4-fold, and *Oprl1* moves
+1.3-fold. High submucosal *Oprk1* is a property of the neonatal plexus, and the mature plexus
+matches the rest of the panel.
 
 ## Nuclear libraries scale with gene length and whole-cell libraries do not
 
-Whole-cell and nuclear libraries of the same vagal tissue disagree about which opioid receptor is
-highest. The four whole-cell deposits of the NodoMap atlas place *Oprl1* first at 11.13 CPM against
-*Oprm1* 8.42; the 765 nuclei in the same atlas, from the same tissue and the same integration,
-place *Oprm1* first at 244.49 against *Oprl1* 5.22 (Figure S1A). The dorsal root ganglion gives the
-same disagreement in a second laboratory: 9.31 CPM against 8.23 in 31,802 whole cells, and 94.92
-against 7.60 in 13,243 nuclei from six samples, with *Oprm1* first in each of the six (Figure S1B).
-One of the two preparations misreports the abundance of these transcripts. Which one can be
-decided without appeal to either result.
-
-Genomic span decides it. The length of a transcription unit is a property of the locus and carries
-no information about how much mature message a neuron holds, so a measurement that reports
-abundance should not track it. We computed both preparations for every protein-coding gene in the
-atlas and kept the 14,876 that reach 0.1 CPM in both, filtering on expression and never on length,
-at a floor low enough to admit all four opioid receptors. Whole-cell levels do not move with span:
-median expression runs between 13.7 and 20.0 CPM across span deciles whose medians run from 3.5 kb
-to 238.4 kb, a 68-fold range of length, and the correlation is r = +0.022. Nuclear levels rise
-monotonically over those same deciles, from 7.1 to 94.1 CPM, r = +0.403 (Figure S1E). The ratio of
-nuclear level to whole-cell level therefore climbs with length, from 0.46 in the shortest decile to
-5.22 in the longest, crossing 1 at 15.8 kb (Figure S1F). The nuclear measurement is the one a
-nuisance variable predicts. The floor does not carry that: over floors from none at all to 1 CPM
-the whole-cell correlation runs from +0.117 to -0.065 and the nuclear one from +0.399 to +0.433, so
-raising it sharpens the separation rather than creating it.
-
-The composition of nuclear RNA accounts for this. A nucleus holds nascent transcript that has not
-been spliced or exported, and single-nucleus quantification counts reads across the whole gene
-body, introns included, since restricting to exons discards most of a nuclear library. Signal then
-accrues with the length of the transcription unit rather than with the number of finished
-transcripts. Whole-cell libraries sample the cytoplasmic pool, which is the mature mRNA a neuron
-translates, and 3' counting of that pool has no length term. The flat curve in Figure S1E is that
-absence measured rather than assumed.
-
-The four opioid receptors span 7 to 280 kb, which is why the distortion reaches them. *Oprl1*, at
-7.1 kb, has a nuclear-to-whole-cell ratio of 0.45, the 32nd percentile among the 2,431 genes within
-a factor of 1.6 of its length. *Oprk1*, at 17.7 kb, sits at 1.14 and the 60th percentile of its own
-length class. Both behave as ordinary genes of their size, and the ordering between them survives
-the preparation. *Oprm1*, at 279.7 kb, has a ratio of 25.4 against a median of 4.94 for genes of
-comparable length, the 94th percentile of that class. *Oprd1*, at 33.8 kb, has a ratio of 21.6
-against a median of 1.24, the 99th percentile and the largest departure of the four, on a
-whole-cell level of 0.25 CPM that makes it the least certain of the four. For both of those genes
-length accounts for part of the nuclear gain and not all of it, so neither nuclear value is an
-estimate of transcript abundance.
-
-Detection follows the levels. *Oprm1* is called in 71.9% of the nuclei against 5.5% to 32.4% of
-cells across the four whole-cell deposits, while *Oprl1* is called in 8.5% of the same nuclei,
-inside the 5.3% to 27.5% whole-cell range (Figures S1C and S1D). Both genes were counted in the
-same libraries, so sequencing depth does not separate them.
-
-Every value in Figure 1 is therefore read from whole cells, and the ordering it reports is an
-ordering of mature transcript. Mixing preparations moves the result part of the way toward the
-nuclear answer: the trigeminal margin is 2.08-fold over whole cells and 1.18-fold once the nuclear
-barcodes of the same atlas are pooled in, and in the NodoMap vagal ganglia 507 nuclei among 26,554
-nodose barcodes take *Oprm1* from 9.86 to 14.63 CPM and put it first. Both iPain atlases are
-majority single-nucleus, and every value drawn from them here comes from their whole-cell fraction
-alone.
-
-Preparation is confounded with laboratory in the two paired comparisons, since no laboratory here
-ran both preparations on one tissue. The genome-wide result does not rest on that contrast: it is
-internal to one atlas and one chemistry, and it identifies the biased measurement from the
-behaviour of 14,876 genes rather than from any receptor. The same reasoning carries to human
-tissue, where post-mortem and surgical ganglia are frozen and essentially all single-cell data from
-them is single-nucleus. No such dataset can establish a species difference in the receptor ordering
-while the mouse arm of the one cross-species nuclear experiment reverses in the same direction.
+Single-nucleus libraries from vagal and dorsal root ganglia place *Oprm1* first, at 244.49 CPM
+against 5.22 for *Oprl1* and at 94.92 against 7.60, and the whole-cell fractions of those same
+atlases place *Oprl1* first (Figures S1A and S1B). The two preparations sample different RNA. A
+nucleus holds transcript that is still being made, unspliced and not yet exported, so most of a
+nuclear library is intronic; single-nucleus quantification counts reads across the entire gene body
+because counting exons alone would discard that majority. The number of reads assigned to a gene
+then scales with the length of its transcription unit as well as with the number of transcripts the
+neuron has made. Whole-cell libraries sample the cytoplasmic pool, which is the spliced mRNA
+available for translation, and 3' counting of that pool carries no length term. Across 14,876
+protein-coding genes quantified in both preparations, nuclear expression rises with genomic span
+(r = +0.403) and whole-cell expression stays flat over a 68-fold range of length (r = +0.022;
+Figure S1E). *Oprm1* spans 279.7 kb and *Oprl1* spans 7.1 kb, giving nuclear-to-whole-cell ratios
+of 25.4 and 0.45 (Figure S1F), and *Oprm1* is detected in 71.9% of nuclei against 5.5% to 32.4% of
+cells (Figures S1C and S1D). The nuclear values report a combination of transcript abundance and
+gene length. Several of the largest sensory ganglion atlases are single-nucleus, which accounts for
+the prevailing view that *Oprm1* is the dominant opioid receptor of peripheral neurons.

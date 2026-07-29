@@ -61,9 +61,10 @@ glial and immune barcodes excluded, and every population passed the same marker 
 RNA check before any receptor value was read from it. Margins are the ratio of the highest to the
 second-highest receptor; intervals in parentheses are 95% bootstrap intervals over 10,000
 resamples of the cells, and support is the fraction of those resamples retaining the observed top
-receptor. Panels (I), (J), (L), (N), and (P) come from a single experiment in which six autonomic
-ganglia were dissected and sequenced together, so laboratory, platform, and sequencing depth are
-constant across those five.
+receptor. Panels (I), (J), (L), (N), and (P) come from one study of five autonomic ganglia in six
+samples, so laboratory and platform are constant across those five. That deposit was sequenced in
+two batches, stellate with sphenopalatine and the first pelvic sample, lumbar chain with celiac and
+the second, and median library ranges 2.6-fold across the five, from 27,931 to 73,326 UMI.
 
 See also Figure S1, Figure S3, and Table S1.
 
