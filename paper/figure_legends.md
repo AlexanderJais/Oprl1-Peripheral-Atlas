@@ -72,6 +72,11 @@ Whole-cell and single-nucleus measurements of the same tissue, and the gene prop
 them. Solid bars are whole-cell data and hatched bars are nuclear data throughout. *Oprl1* is blue
 where the panel distinguishes genes by colour, as in Figure 1.
 
+Axes in (A) and (B) are linear, so the size of the nuclear gain reads directly off them. At that
+scale the whole-cell ordering the panels are compared against, *Oprl1* 11.13 CPM over *Oprm1* 8.42
+in the vagal ganglia and 9.31 over 8.23 in the dorsal root ganglion, is smaller than the line
+weight; the values are given below and the ordering itself is Figure 1.
+
 (A) Vagal ganglia (X), NodoMap. The whole-cell value is the unweighted mean over the atlas's four
 whole-cell deposits, 30,640 neurons; the nuclear value is the atlas's own 765 nuclei, the same
 tissue and the same integration. Whole cell: *Oprl1* 11.13 CPM, *Oprm1* 8.42, *Oprk1* 4.85,
@@ -93,7 +98,8 @@ in-house, the 765 nuclei the NodoMap authors generated themselves, and is the nu
 nuclear libraries are not simply deeper.
 
 (D) Ratio of nuclear to whole-cell level in (A) against the genomic span of the gene, both axes
-logarithmic, for all eight opioid genes. *Oprm1* spans 280 kb and gains 29.05-fold, *Oprd1* 34 kb
+logarithmic, for all eight opioid genes. The dashed line at 1 is no change, and the axis is
+logarithmic so that a fall and a rise of the same factor sit the same distance from it. *Oprm1* spans 280 kb and gains 29.05-fold, *Oprd1* 34 kb
 and 24.44-fold, *Pnoc* 25 kb and 1.52-fold, *Oprk1* 18 kb and 0.95-fold, *Pdyn* 14 kb and
 0.99-fold, *Penk* 9 kb and 0.39-fold, *Oprl1* 7 kb and 0.47-fold, *Pomc* 6 kb and 0.36-fold.
 Log-log Pearson r = 0.88, Spearman rho = 0.95, p = 0.0004 over the eight genes. Dropping *Oprm1*
