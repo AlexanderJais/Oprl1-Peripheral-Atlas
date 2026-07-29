@@ -9,7 +9,7 @@ one neuron definition, one marker gate and one ambient check for every dataset
 it handles.
 
   GSE232789  six autonomic ganglia from one laboratory on one platform:
-             stellate, coeliac and lumbar chain (sympathetic), sphenopalatine
+             stellate, celiac and lumbar chain (sympathetic), sphenopalatine
              (cranial parasympathetic) and two pelvic ganglia (mixed). The
              within-dataset design removes laboratory and platform from the
              comparison between divisions.
@@ -78,7 +78,7 @@ DATASETS = [
          markers=["Th", "Dbh", "Chat", "Slc18a3", "Phox2b", "Prph"],
          populations=[
              ("stellate", "sympathetic", "stellate"),
-             ("coeliac", "sympathetic", "coeliac"),
+             ("celiac", "sympathetic", "celiac"),
              ("lumbar chain", "sympathetic", "lumbar"),
              ("sphenopalatine", "parasympathetic", "sphenopalatine"),
              ("pelvic", "mixed autonomic", "pelvic"),

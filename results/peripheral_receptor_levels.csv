@@ -1,6 +1,6 @@
 dataset,tissue,division,n,n_samples,median_umi,Oprl1,Oprm1,Oprd1,Oprk1,Oprl1_pct,Oprm1_pct,Oprd1_pct,Oprk1_pct,top_gene,runner_up,margin,margin_lo,margin_hi,support,n_boot,over_Oprm1,Oprl1_percentile,samples_agreeing,Oprl1_log2_neuron_over_glia
 GSE232789,stellate,sympathetic,2589,1.0,27931.0,27.55,0.562,0.031,4.53,52.53,1.35,0.12,8.96,Oprl1,Oprk1,6.082,5.162,7.274,1.0,10000,48.99,74.5,1/1,2.032
-GSE232789,coeliac,sympathetic,247,1.0,56023.0,25.033,0.421,0.026,0.564,66.4,4.05,0.4,2.83,Oprl1,Oprk1,44.41,20.421,197.626,1.0,10000,59.4,61.0,1/1,3.477
+GSE232789,celiac,sympathetic,247,1.0,56023.0,25.033,0.421,0.026,0.564,66.4,4.05,0.4,2.83,Oprl1,Oprk1,44.41,20.421,197.626,1.0,10000,59.4,61.0,1/1,3.477
 GSE232789,lumbar chain,sympathetic,887,1.0,73326.0,24.757,1.675,0.033,0.393,76.55,11.61,0.23,2.71,Oprl1,Oprm1,14.779,12.001,18.827,1.0,10000,14.78,71.2,1/1,2.53
 GSE232789,sphenopalatine,parasympathetic,2014,1.0,37416.0,19.502,0.292,0.04,0.015,49.9,0.89,0.2,0.05,Oprl1,Oprm1,66.859,40.542,132.539,1.0,10000,66.86,68.8,1/1,2.608
 GSE232789,pelvic,mixed autonomic,1444,2.0,40986.0,16.332,0.504,0.43,0.46,51.04,2.35,2.7,2.08,Oprl1,Oprm1,32.424,21.995,54.196,1.0,10000,32.42,58.5,2/2,2.692

@@ -59,7 +59,7 @@ unit, grouped by division of the peripheral nervous system
 |---|---|---|---|---|---|---|
 | GSE78845 (CPM) | thoracic chain | 62.30 | 1.48 | 3.90 | 4.24 | 42× |
 | GSE232789 (CPM) | stellate | 27.55 | 0.56 | 0.03 | 4.53 | 49× |
-| GSE232789 (CPM) | coeliac | 25.03 | 0.42 | 0.03 | 0.56 | 59× |
+| GSE232789 (CPM) | celiac | 25.03 | 0.42 | 0.03 | 0.56 | 59× |
 | GSE232789 (CPM) | lumbar chain | 24.76 | 1.68 | 0.03 | 0.39 | 15× |
 | GSE231924 (CPM) | stellate | 23.93 | 4.84 | 5.04 | 5.12 | 4.9× |
 | GSE231766 (CPM) | superior cervical | 18.68 | 0.27 | 0.57 | 0.73 | 69× |
@@ -163,7 +163,7 @@ lead over *Oprm1*: 42×, 69× and 4.9×.
 ### The parasympathetic division
 
 GSE232789 is the dataset that makes the comparison between divisions internal. One laboratory
-dissected the stellate, coeliac and lumbar chain ganglia (sympathetic), the sphenopalatine
+dissected the stellate, celiac and lumbar chain ganglia (sympathetic), the sphenopalatine
 ganglion (cranial parasympathetic) and two pelvic ganglia, and sequenced them on one platform, so
 laboratory and chemistry drop out of the comparison.
 
@@ -225,7 +225,7 @@ the trigeminal margin from 2.08× to 1.18×.
 Figure 1 shows sixteen of the nineteen populations, one panel per ganglion, blocked by division.
 The three omitted panels are the GSE232789 lumbar chain, pelvic and stellate ganglia, whose
 numbers are in the tables above and in `results/peripheral_receptor_levels.csv`; GSE232789 is
-represented in the figure by the coeliac and sphenopalatine panels and the stellate panel comes
+represented in the figure by the celiac and sphenopalatine panels and the stellate panel comes
 from GSE231924 instead, so that no two figure panels of the same division come from the same
 deposit.
 
@@ -295,7 +295,7 @@ leads at P7 in the gut and *Oprl1* leads by P24, so in that tissue the ordering 
 | sympathetic | thoracic chain | neural crest | measured |
 | sympathetic | stellate | neural crest | measured, two datasets |
 | sympathetic | superior cervical | neural crest | measured |
-| sympathetic | coeliac | neural crest | measured |
+| sympathetic | celiac | neural crest | measured |
 | sympathetic | lumbar chain | neural crest | measured |
 | mixed autonomic | pelvic | neural crest | measured |
 | parasympathetic | sphenopalatine | neural crest | measured |
@@ -932,7 +932,7 @@ python3 -m pytest tests -q                   # 33 unit tests
 - GSE78845 Furlan et al. 2016, 298 mouse thoracic sympathetic neurons, full-length
 - GSE231766 Ziegler et al. 2023, four mouse superior cervical ganglia, 10x
 - GSE231924 cardiac-projecting neurons of the mouse stellate ganglion, 10x, 1,303 neurons
-- GSE232789 six mouse autonomic ganglia in one experiment: stellate, coeliac, lumbar chain,
+- GSE232789 six mouse autonomic ganglia in one experiment: stellate, celiac, lumbar chain,
   sphenopalatine and two pelvic, 10x
 - GSE330884 mouse intrinsic cardiac nervous system, three samples, 10x
 - GSE263422 mouse small-intestine enteric neurons at P7 and P24, 10x

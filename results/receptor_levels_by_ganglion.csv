@@ -7,7 +7,7 @@ sensory,e,iPain,trigeminal (V),CPM,2773,13.24,6.36,1.46,5.12,Oprl1,2.08,1.0,1000
 sensory,f,NodoMap,nodose (X),CPM,26047,11.9,9.86,0.13,4.63,Oprl1,1.21,1.0,10000
 sensory,g,NodoMap,jugular (X),CPM,4593,9.62,8.33,0.92,0.9,Oprl1,1.16,0.898,10000
 sensory,h,iPain,dorsal root,CPM,31802,9.31,8.23,0.2,2.78,Oprl1,1.13,1.0,10000
-sympathetic,i,GSE232789,coeliac,CPM,247,25.033,0.421,0.026,0.564,Oprl1,44.41,1.0,10000
+sympathetic,i,GSE232789,celiac,CPM,247,25.033,0.421,0.026,0.564,Oprl1,44.41,1.0,10000
 sympathetic,j,GSE231766,superior cervical,CPM,1382,18.68,0.27,0.57,0.73,Oprl1,25.72,1.0,10000
 sympathetic,k,GSE78845,thoracic chain,CPM,298,62.3,1.48,3.9,4.24,Oprl1,14.69,1.0,10000
 sympathetic,l,GSE231924,stellate,CPM,1303,23.928,4.837,5.04,5.116,Oprl1,4.68,1.0,10000

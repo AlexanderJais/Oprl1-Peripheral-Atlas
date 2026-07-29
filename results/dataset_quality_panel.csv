@@ -7,7 +7,7 @@ sensory,iPain,trigeminal (V),whole cell,CPM,2773,,,Oprl1,2.08,1.41,3.26,1.0,n/a,
 sensory,NodoMap,nodose (X),whole cell,CPM,26047,,1570.0,Oprl1,1.21,1.15,1.28,1.0,4/4,pass,run,3.529,,,,,,,,,,,,,,,
 sensory,NodoMap,jugular (X),whole cell,CPM,4593,,1570.0,Oprl1,1.16,0.92,1.46,0.898,2/3,pass,run,3.529,,,"scored on the pooled ganglion, not the jugular subset",,,,,,,,,,,,
 sensory,iPain,dorsal root,whole cell,CPM,31802,,,Oprl1,1.13,1.08,1.19,1.0,n/a,pass,not possible,,,,"source h5ad is 20.9 GB, above this session's disk allowance",,,,,,,,,,,,
-sympathetic,GSE232789,coeliac,whole cell,CPM,247,1.0,56023.0,Oprl1,44.41,20.421,197.626,1.0,1/1,pass,run,3.477,3.102,0.375,,25.033,0.421,0.026,0.564,66.4,4.05,0.4,2.83,Oprk1,10000.0,59.4,61.0
+sympathetic,GSE232789,celiac,whole cell,CPM,247,1.0,56023.0,Oprl1,44.41,20.421,197.626,1.0,1/1,pass,run,3.477,3.102,0.375,,25.033,0.421,0.026,0.564,66.4,4.05,0.4,2.83,Oprk1,10000.0,59.4,61.0
 sympathetic,GSE231766,superior cervical,whole cell,CPM,1382,2.0,9885.0,Oprl1,25.72,15.934,52.141,1.0,2/2,pass,run,0.746,0.803,-0.057,,18.679,0.27,0.568,0.726,21.56,0.43,1.23,1.37,Oprk1,10000.0,69.18,71.1
 sympathetic,GSE232789,lumbar chain,whole cell,CPM,887,1.0,73326.0,Oprl1,14.779,12.001,18.827,1.0,1/1,pass,run,2.53,2.648,-0.118,,24.757,1.675,0.033,0.393,76.55,11.61,0.23,2.71,Oprm1,10000.0,14.78,71.2
 sympathetic,GSE78845,thoracic chain,whole cell,CPM,298,,33099.0,Oprl1,14.69,9.35,27.27,1.0,n/a,pass,not possible,,,,"deposit is 298 sorted neurons, no non-neuronal cells",,,,,,,,,,,,

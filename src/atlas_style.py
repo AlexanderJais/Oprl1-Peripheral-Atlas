@@ -39,25 +39,67 @@ FEATURE_LOW = "#DEDEDE"
 PREP_HATCH = {"whole cell": "", "nuclear": "///"}
 
 
-def set_theme() -> None:
+# Cell Press artwork specification. Column widths are fixed by the journal and
+# every main figure is built to one of them, so nothing is rescaled at
+# submission and no font is resized away from the value set here.
+MM = 1 / 25.4
+W_1COL, W_15COL, W_2COL = 85 * MM, 114 * MM, 174 * MM
+H_MAX = 235 * MM
+
+# Arial or Helvetica, and nothing else. Helvetica is listed first for a
+# production system that licenses it; Nimbus Sans is the URW clone with
+# identical metrics, and Liberation Sans carries Arial's metrics. DejaVu, the
+# matplotlib default, is neither and is last so a missing font is visible rather
+# than silently substituted.
+SANS = ["Helvetica", "Nimbus Sans", "Arial", "Liberation Sans", "FreeSans",
+        "DejaVu Sans"]
+
+# Type sizes in points, as they will appear on the printed page.
+FS_PANEL = 8       # panel letter, bold capital
+FS_LABEL = 7       # axis labels
+FS_TICK = 6.5      # tick labels
+FS_NOTE = 6.5      # in-panel identifiers
+
+
+def set_theme(base: float = FS_TICK) -> None:
+    """Cell Press house style: Arial or Helvetica, thin rules, vector text."""
     mpl.rcParams.update({
         "figure.dpi": 150,
-        "savefig.dpi": 300,
+        "savefig.dpi": 600,
         "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.02,
         "font.family": "sans-serif",
-        "font.sans-serif": ["DejaVu Sans", "Nimbus Sans", "Helvetica", "Arial"],
+        "font.sans-serif": SANS,
+        "font.size": base,
         "axes.spines.top": False,
         "axes.spines.right": False,
         "axes.edgecolor": "black",
-        "axes.linewidth": 0.8,
-        "axes.titlesize": 11,
-        "axes.labelsize": 10,
-        "xtick.labelsize": 8,
-        "ytick.labelsize": 8,
+        # Cell Press sets 0.25 pt as the minimum reproducible rule; 0.5 pt
+        # survives reduction without thickening the figure.
+        "axes.linewidth": 0.5,
+        "xtick.major.width": 0.5,
+        "ytick.major.width": 0.5,
+        "xtick.major.size": 2.0,
+        "ytick.major.size": 2.0,
+        "axes.titlesize": FS_NOTE,
+        "axes.labelsize": FS_LABEL,
+        "xtick.labelsize": FS_TICK,
+        "ytick.labelsize": FS_TICK,
         "legend.frameon": False,
+        "legend.fontsize": FS_TICK,
         "pdf.fonttype": 42,
         "ps.fonttype": 42,
+        "svg.fonttype": "none",
     })
+    # Report which family actually resolved, so a missing Helvetica is caught
+    # here rather than at proof stage.
+    resolved = mpl.font_manager.findfont(
+        mpl.font_manager.FontProperties(family=SANS))
+    name = mpl.font_manager.FontProperties(fname=resolved).get_name()
+    if name not in ("Helvetica", "Nimbus Sans", "Arial", "Liberation Sans"):
+        print(f"  [warn] the sans-serif stack resolves to {name}; Cell Press "
+              "requires Arial or Helvetica")
+    return name
 
 
 def save(fig, name: str) -> None:
@@ -103,13 +145,15 @@ BAR_GREY = "#BFBFBF"
 HIGHLIGHT = "#D62728"
 
 
-def panel_letter(ax, letter, dx=-0.16, dy=1.06):
-    ax.text(dx, dy, letter, transform=ax.transAxes, fontsize=19,
-            fontweight="bold", va="top", ha="left")
+def panel_letter(ax, letter, dx=-0.16, dy=1.06, fontsize=FS_PANEL):
+    """Bold capital, top left of the panel, as Cell Press sets them."""
+    ax.text(dx, dy, str(letter).upper(), transform=ax.transAxes,
+            fontsize=fontsize, fontweight="bold", va="top", ha="left")
 
 
 def expression_bars(ax, values, labels, ylabel, colors=None, nd_mask=None,
-                    italic=True, rotation=45, annotate=False, fontsize=13):
+                    italic=True, rotation=45, annotate=False, fontsize=13,
+                    linewidth=1.4):
     """Mean expression per gene, in the dataset's own unit.
 
     `nd_mask` marks genes that were measured and not detected; they get an
@@ -120,13 +164,13 @@ def expression_bars(ax, values, labels, ylabel, colors=None, nd_mask=None,
     x = np.arange(len(v))
     if colors is None:
         colors = [BAR_BLUE] * len(v)
-    ax.bar(x, np.nan_to_num(v), color=colors, edgecolor="black", linewidth=1.4,
-           width=0.68, zorder=3)
+    ax.bar(x, np.nan_to_num(v), color=colors, edgecolor="black",
+           linewidth=linewidth, width=0.68, zorder=3)
     ax.set_xticks(x)
     ax.set_xticklabels(labels, rotation=rotation, ha="right", fontsize=fontsize,
                        fontstyle="italic" if italic else "normal")
     ax.set_ylabel(ylabel, fontsize=fontsize)
-    ax.tick_params(axis="y", labelsize=fontsize - 1)
+    ax.tick_params(axis="y", labelsize=fontsize)
     top = float(np.nanmax(v)) if np.isfinite(v).any() else 1.0
     ax.set_ylim(0, top * 1.15)
     if nd_mask is not None:
@@ -161,7 +205,7 @@ def violin_points(ax, groups, values_by_group, ylabel, color=BAR_BLUE,
     ax.set_xticks(range(len(groups)))
     ax.set_xticklabels(groups, fontsize=fontsize)
     ax.set_ylabel(ylabel, fontsize=fontsize)
-    ax.tick_params(axis="y", labelsize=fontsize - 1)
+    ax.tick_params(axis="y", labelsize=fontsize)
     ax.set_xlim(-0.6, len(groups) - 0.4)
     return ax
 

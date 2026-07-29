@@ -23,14 +23,18 @@ import atlas_style as st
 
 NCOL = 4
 
+# Panels carry identifiers only. Every statement about what the figure shows,
+# including the margins, the bootstrap support and the preparation of each
+# dataset, belongs to the legend in paper/figure_legends.md.
+
 
 def figure1():
-    """The four opioid receptors in every peripheral population measured.
+    """The four opioid receptors in each peripheral neuronal population.
 
-    Panels are blocked by division of the peripheral nervous system, in the
-    order sensory, sympathetic, parasympathetic and enteric, so that the
-    comparison between divisions is read down the figure rather than assembled
-    from the caption.
+    Built to the Cell Press two-column width so nothing is rescaled at
+    submission. Panels are blocked by division of the peripheral nervous
+    system; the division names are the only text in the figure that is not a
+    tissue name, a sample size, a gene symbol or an axis value.
     """
     d = pd.read_csv(ac.RES / "receptor_levels_by_ganglion.csv")
     groups = list(dict.fromkeys(d.group))
@@ -38,9 +42,9 @@ def figure1():
     nrow = sum(block.values())
 
     st.set_theme()
-    fig = plt.figure(figsize=(2.9 * NCOL, 4.6 * nrow))
-    gs = fig.add_gridspec(nrow, NCOL, hspace=0.85, wspace=0.42,
-                          left=0.06, right=0.99, top=0.915, bottom=0.03)
+    fig = plt.figure(figsize=(st.W_2COL, 1.62 * nrow + 0.30))
+    gs = fig.add_gridspec(nrow, NCOL, hspace=1.02, wspace=0.62,
+                          left=0.062, right=0.995, top=0.945, bottom=0.045)
 
     row0 = 0
     for g in groups:
@@ -51,27 +55,26 @@ def figure1():
             order = np.argsort(-np.array(vals))
             genes = [ac.RECEPTORS[i] for i in order]
             st.expression_bars(
-                ax, [vals[i] for i in order], genes,
-                f"Mean expression ({r.unit})",
+                ax, [vals[i] for i in order], genes, r.unit,
                 colors=[st.BAR_BLUE if gene == "Oprl1" else st.BAR_GREY
                         for gene in genes],
-                fontsize=12)
-            st.panel_letter(ax, r.panel, dx=-0.32)
-            ax.set_title(f"{r.tissue}\n{r.dataset}, n = {r.n:,}", fontsize=11,
-                         pad=8)
+                fontsize=st.FS_TICK, linewidth=0.5, rotation=45)
+            st.panel_letter(ax, r.panel, dx=-0.40, dy=1.30)
+            tissue = r.tissue[0].upper() + r.tissue[1:]
+            ax.set_title(f"{tissue}\nn = {r.n:,}", fontsize=st.FS_NOTE, pad=3)
             if k == 0:
-                # The rule clears the two-line panel title, so the group name
-                # never sits beside the first panel's tissue name.
-                y = ax.get_position().y1 + 0.031
-                fig.text(0.005, y + 0.005, g.capitalize(), fontsize=14,
-                         fontweight="bold", ha="left", va="bottom")
+                # The rule sits above the two-line tissue label of the first
+                # panel in the block, so the division name never reads as part
+                # of it.
+                y = ax.get_position().y1 + 0.052
+                fig.text(0.004, y + 0.004, g[0].upper() + g[1:],
+                         fontsize=st.FS_LABEL, fontweight="bold", ha="left",
+                         va="bottom")
                 fig.lines.append(plt.Line2D(
-                    [0.005, 0.995], [y] * 2, transform=fig.transFigure,
-                    color="black", lw=1.0))
+                    [0.004, 0.996], [y] * 2, transform=fig.transFigure,
+                    color="black", lw=0.5))
         row0 += block[g]
 
-    fig.suptitle("The four opioid receptors across the peripheral nervous system",
-                 fontsize=15, y=0.995)
     st.save(fig, "figure1_oprl1_across_ganglia")
 
 

@@ -79,7 +79,7 @@ POPULATIONS = [
     ("GSE135801", "geniculate (VII)", "sensory"),
     ("GSE309608", "vestibular (VIII)", "sensory"),
     ("GSE232789", "stellate", "sympathetic"),
-    ("GSE232789", "coeliac", "sympathetic"),
+    ("GSE232789", "celiac", "sympathetic"),
     ("GSE232789", "lumbar chain", "sympathetic"),
     ("GSE231766", "superior cervical", "sympathetic"),
     ("GSE231924", "stellate", "sympathetic"),

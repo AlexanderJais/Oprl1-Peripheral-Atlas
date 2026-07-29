@@ -189,7 +189,7 @@ not recoverable and no depth comparison is made against it.
 
 ## GSE232789, six autonomic ganglia in one experiment
 
-One laboratory, one platform, six dissections: stellate, coeliac and lumbar chain (sympathetic),
+One laboratory, one platform, six dissections: stellate, celiac and lumbar chain (sympathetic),
 sphenopalatine (cranial parasympathetic) and two pelvic ganglia. This is the only dataset in the
 project where the comparison between autonomic divisions carries no laboratory or chemistry
 difference. Neurons were called on raw counts (Snap25 >= 5 and Tubb3 >= 5) with glial and immune
@@ -198,7 +198,7 @@ barcodes excluded (Sox10 < 200, Plp1 < 500, Ptprc < 50 CPM).
 | ganglion | division | n | Oprl1 | Oprm1 | Oprd1 | Oprk1 | margin | support |
 |---|---|---|---|---|---|---|---|---|
 | stellate | sympathetic | 2,589 | 27.55 | 0.56 | 0.03 | 4.53 | 6.08x | 1.000 |
-| coeliac | sympathetic | 247 | 25.03 | 0.42 | 0.03 | 0.56 | 44.41x | 1.000 |
+| celiac | sympathetic | 247 | 25.03 | 0.42 | 0.03 | 0.56 | 44.41x | 1.000 |
 | lumbar chain | sympathetic | 887 | 24.76 | 1.68 | 0.03 | 0.39 | 14.78x | 1.000 |
 | sphenopalatine | parasympathetic | 2,014 | 19.50 | 0.29 | 0.04 | 0.02 | 66.86x | 1.000 |
 | pelvic | mixed | 1,444 | 16.33 | 0.50 | 0.43 | 0.46 | 32.42x | 1.000 |
