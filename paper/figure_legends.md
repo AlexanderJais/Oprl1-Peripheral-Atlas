@@ -156,11 +156,17 @@ the two arms. A line joins the two arms of one comparison. (A) *Atf3*, whose med
 7.0 to 12.5 CPM after injury, and is lower after injury in all seven; *Oprm1* is lower in seven of
 seven.
 
-(C) Eight purified dorsal root ganglion neuronal subtypes, GSE131230, in the deposit's own order.
-*Snap25* exceeds *Plp1* by 48- to 112-fold in these groups, so they are neurons rather than
-ganglion tissue. *Oprm1* reaches 528.76 CPM in peptidergic nociceptors and 118.70 in C-LTMRs
-against *Oprl1* at 4.93 and 6.56; *Oprl1* reaches 15.68 CPM in Aβ RA-LTMRs and 11.95 in
-proprioceptors against *Oprm1* at 2.43 and 4.09.
+(C) *Oprl1* against *Atf3* in the groups that carry no experimental lesion, so that *Atf3* reads
+the handling a preparation received rather than a nerve injury. (A) and (B) measure a chronic
+lesion over days; dissociation is an hour of enzyme, and this panel is the nearest test of it these
+data allow. It does not resolve. Across the 111 groups there is no relationship (r = -0.02 on log
+axes); among the 30 purified sets, where dissociation is certain, r = -0.45, but leaving out any
+one series moves it between -0.19 and -0.77 and it is not significant without GSE227968, and the
+three series with three or more purified groups give -0.42, -0.05 and +0.05. A partial correlation
+holding *Snap25* fixed reaches -0.86, but *Oprl1* correlates with *Snap25* at +0.63, so the
+covariate rather than *Atf3* carries that number and it is not evidence. No deposit varies
+dissociation while holding tissue, study and composition fixed, which is the comparison this
+question needs.
 
 (D) *Oprl1* against *Oprm1* in the 50 peripheral sample sets that clear both gates, one point per
 set, with the deposits that publish both a length-normalised and a count matrix of the same samples
@@ -176,7 +182,7 @@ with transcript length and an ordering read from them would compare transcript s
 fail either gate are kept in `results/bulk_composition_screen.csv` with the reason. Matrices holding
 more than one tissue are split by column name before anything is computed.
 
-See also Figure 1 and Table S1.
+See also Figure 1, Figure S3, and Table S1.
 
 ## Figure S1. The lead is a difference in prevalence, related to Figure 1
 
@@ -231,3 +237,18 @@ work assumes otherwise. The four receptors do not sit in it, so the length relat
 is not a restatement of the dissociation response. Neither analysis can exclude a small
 dissociation contribution to the receptors themselves, which is a question for measurement in
 undissociated tissue.
+
+
+## Figure S3. The four receptors across purified dorsal root ganglion subtypes, related to Figure 1
+
+Eight purified dorsal root ganglion neuronal subtypes, GSE131230, in the deposit's own order, from
+the bulk screen behind Figure 3. *Snap25* exceeds *Plp1* by 48- to 112-fold in these groups, so
+they are neurons rather than ganglion tissue; they were dissociated and sorted, and *Atf3* runs
+from 20 to 154 CPM across them. Levels are mean CPM and colours are those of Figure S1.
+
+*Oprm1* reaches 528.76 CPM in peptidergic nociceptors, 118.70 in C-LTMRs and 27.86 in
+non-peptidergic nociceptors, against *Oprl1* at 4.93, 6.56 and 1.44. *Oprl1* reaches 15.68 CPM in
+Aβ RA-LTMRs, 20.53 in Aβ SA1-LTMRs and 11.95 in proprioceptors, against *Oprm1* at 2.43, 18.23 and
+4.09. The dorsal root ganglion mean in Figure 1H, where *Oprl1* leads by 1.13-fold over all
+neurons, therefore averages populations that differ in direction rather than measuring a small
+difference common to them.

@@ -268,6 +268,36 @@ SUBTYPE_ORDER = ["Nonpeptidergic Nociceptor", "Peptidergic Nociceptor", "C-LTMR"
                  "Proprioceptor"]
 
 
+def figureS3():
+    """The four receptors across purified dorsal root ganglion subtypes."""
+    scr = pd.read_csv(ac.RES / "bulk_composition_screen.csv")
+    sub = scr[(scr.gse == "GSE131230") & scr.group.isin(SUBTYPE_ORDER)]
+    sub = sub.set_index("group").reindex([s for s in SUBTYPE_ORDER
+                                          if s in set(sub.group)])
+
+    PANEL_H, ABOVE, BELOW = 1.70, 0.30, 1.15
+    height = ABOVE + PANEL_H + BELOW
+    st.set_theme()
+    fig = plt.figure(figsize=(st.W_15COL, height))
+    gs = fig.add_gridspec(1, 1, left=0.135, right=0.99,
+                          top=(height - ABOVE) / height, bottom=BELOW / height)
+    ax = fig.add_subplot(gs[0, 0])
+    x = np.arange(len(sub))
+    for i, gene in enumerate(ac.RECEPTORS):
+        ax.bar(x + (i - 1.5) * 0.20, sub[gene], 0.20, color=RECEPTOR_FILL[gene],
+               edgecolor="black", linewidth=0.4, zorder=3,
+               label=rf"$\it{{{gene}}}$")
+    ax.set_yscale("log")
+    ax.yaxis.set_minor_formatter(mticker.NullFormatter())
+    ax.set_xticks(x)
+    ax.set_xticklabels(sub.index, rotation=45, ha="right", fontsize=st.FS_TICK)
+    ax.set_xlim(-0.6, len(sub) - 0.4)
+    ax.set_ylabel("mean expression (CPM)", fontsize=st.FS_LABEL)
+    ax.legend(loc="upper left", fontsize=st.FS_NOTE, ncol=4, frameon=False,
+              handlelength=1.1, columnspacing=0.9, handletextpad=0.4)
+    return fig
+
+
 def figure3():
     """Bulk ganglion tissue: composition, nerve injury, and neuronal subtype."""
     scr = pd.read_csv(ac.RES / "bulk_composition_screen.csv")
@@ -278,6 +308,10 @@ def figure3():
     # group with its reason, and this figure is about peripheral ganglia.
     NOT_PERIPHERAL = re.compile(r"cortex|hippocamp|brain|spinal|striat|"
                                 r"arcuate|\bArc|hypothal", re.I)
+    # Series whose Atf3 is raised by an experimental nerve lesion rather than by
+    # handling; they carry (A) and (B) and are excluded from (C).
+    CHRONIC_LESION_SERIES = {"GSE97090", "GSE149770", "GSE161342", "GSE138769",
+                             "GSE67130", "GSE188922"}
     read = scr[(scr.verdict == "read")
                & ~scr.group.str.contains(NOT_PERIPHERAL)].copy()
     # A deposit that publishes FPKM and counts of the same samples appears
@@ -290,7 +324,7 @@ def figure3():
     # is "Nonpeptidergic Nociceptor", so the two rows need different clearance
     # beneath them.
     PANEL_H, ABOVE = 1.50, 0.34
-    BELOW_TOP, BELOW_BOTTOM = 0.34, 1.12
+    BELOW_TOP, BELOW_BOTTOM = 0.34, 0.46
     height = ABOVE + PANEL_H + (BELOW_TOP + ABOVE) + PANEL_H + BELOW_BOTTOM
 
     st.set_theme()
@@ -303,8 +337,7 @@ def figure3():
     axA, axB = fig.add_subplot(gs1[0, 0]), fig.add_subplot(gs1[0, 1])
     row2 = row1 - PANEL_H - BELOW_TOP - ABOVE
     gs2 = fig.add_gridspec(1, 2, left=left, right=right, top=row2 / height,
-                           bottom=(row2 - PANEL_H) / height,
-                           wspace=0.34, width_ratios=[1.6, 1])
+                           bottom=(row2 - PANEL_H) / height, wspace=0.34)
     axC, axD = fig.add_subplot(gs2[0, 0]), fig.add_subplot(gs2[0, 1])
 
     # (A) and (B): every quantity is a level, so the lesion and the receptors
@@ -333,22 +366,23 @@ def figure3():
     axB.legend(loc="upper right", fontsize=st.FS_NOTE, frameon=False, ncol=2,
                handletextpad=0.3, borderpad=0.1, columnspacing=1.0)
 
-    # (C) Purified subtypes of one ganglion, on absolute levels.
-    sub = scr[(scr.gse == "GSE131230") & scr.group.isin(SUBTYPE_ORDER)]
-    sub = sub.set_index("group").reindex([s for s in SUBTYPE_ORDER
-                                          if s in set(sub.group)])
-    x = np.arange(len(sub))
-    for i, gene in enumerate(ac.RECEPTORS):
-        axC.bar(x + (i - 1.5) * 0.20, sub[gene], 0.20,
-                color=RECEPTOR_FILL[gene], edgecolor="black", linewidth=0.4,
-                zorder=3, label=rf"$\it{{{gene}}}$")
-    axC.set_yscale("log")
-    axC.set_xticks(x)
-    axC.set_xticklabels(sub.index, rotation=45, ha="right", fontsize=st.FS_TICK)
-    axC.set_xlim(-0.6, len(sub) - 0.4)
-    axC.set_ylabel("mean expression (CPM)", fontsize=st.FS_LABEL)
-    axC.legend(loc="upper left", fontsize=st.FS_NOTE, ncol=4, frameon=False,
-               handlelength=1.1, columnspacing=0.9, handletextpad=0.4)
+    # (C) The acute question, which (A) and (B) do not answer: those are
+    # chronic lesions over days, while dissociation is an hour of enzyme. Here
+    # Atf3 is read as a continuous measure of how hard a preparation was
+    # handled, in groups carrying no experimental lesion.
+    lesion = scr.gse.isin(CHRONIC_LESION_SERIES)
+    q = scr[(scr.Atf3 > 0) & (scr.Oprl1 > 0) & (scr.Snap25 > 0) & ~lesion
+            & ~scr.group.str.contains(NOT_PERIPHERAL)].copy()
+    for mask, marker, face, label in (
+            (q.Snap25_over_Plp1 < 5, "o", st.BAR_BLUE, "ganglion tissue"),
+            (q.Snap25_over_Plp1 >= 5, "^", "white", "purified neurons")):
+        axC.plot(q.loc[mask, "Atf3"], q.loc[mask, "Oprl1"], marker, ms=3.6,
+                 mfc=face, mec="black", mew=0.4, ls="none", zorder=3, label=label)
+    axC.set_xscale("log"); axC.set_yscale("log")
+    axC.set_xlabel(r"$\it{Atf3}$ (CPM)", fontsize=st.FS_LABEL)
+    axC.set_ylabel(r"$\it{Oprl1}$ (CPM)", fontsize=st.FS_LABEL)
+    axC.legend(loc="lower left", fontsize=st.FS_NOTE, frameon=False,
+               handletextpad=0.3, borderpad=0.1)
 
     # (D) The two receptors against each other, so neither axis is a ratio and
     # the diagonal carries the comparison.
@@ -376,7 +410,7 @@ def figure3():
         ax.xaxis.set_minor_formatter(mticker.NullFormatter())
 
     for ax, letter, dx in ((axA, "A", -0.17), (axB, "B", -0.12),
-                           (axC, "C", -0.09), (axD, "D", -0.16)):
+                           (axC, "C", -0.16), (axD, "D", -0.16)):
         st.panel_letter(ax, letter, dx=dx, dy=1.06)
     return fig
 
@@ -573,3 +607,4 @@ if __name__ == "__main__":
     emit(figureS1(), "FigureS1",
          max_w=st.W_SUPP * 25.4 + 0.5, max_h=st.H_SUPP * 25.4)
     emit(figureS2(), "FigureS2")
+    emit(figureS3(), "FigureS3")

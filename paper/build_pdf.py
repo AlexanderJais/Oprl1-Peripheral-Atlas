@@ -168,7 +168,7 @@ def supplement(legends):
     """The supplemental figures and Table S1, on landscape pages."""
     figs = "".join(
         figure_block(n, legends, PAPER / "figures" / f"Figure{n}.png")
-        for n in ("S1", "S2") if n in legends)
+        for n in ("S1", "S2", "S3") if n in legends)
     table = (PAPER / "tables" / "TableS1.md").read_text()
     # Drop the rendered file's own title and its pointer back to the sources.
     table = re.sub(r"\A# Table S1\n+\*.*?\*\n", "", table, flags=re.S)
