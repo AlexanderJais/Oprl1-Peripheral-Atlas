@@ -1,4 +1,4 @@
-# *Oprl1* is the dominant opioid receptor of peripheral neurons
+# *Oprl1* is the most broadly expressed opioid receptor gene of peripheral neurons
 
 ## Introduction
 
@@ -53,10 +53,12 @@ abundance of the four receptors relative to one another across peripheral neuron
 been measured on a common scale, and NOP has been characterized mainly as a central receptor with
 anti-opioid actions at supraspinal sites.
 
-We find that *Oprl1* is the highest-expressed opioid receptor gene in neurons of the peripheral
-nervous system. *Oprl1* transcript abundance exceeds that of *Oprm1*, *Oprd1*, and *Oprk1* in
-sensory, sympathetic, parasympathetic, and enteric neuron populations, and its expression is
-distributed across neuronal subtypes rather than confined to nociceptors. The receptor rank order
-we measure in peripheral neurons inverts the rank order assumed by current peripheral opioid
-pharmacology. These data identify NOP as the principal opioid receptor of the mouse peripheral
-nervous system and as the primary candidate mediator of opioid-family signaling outside the brain.
+We find that *Oprl1* is the most broadly expressed opioid receptor gene in neurons of the
+peripheral nervous system. It carries the highest population mean of the four in 18 of 19 neuronal
+populations across the sensory, sympathetic, parasympathetic, and enteric divisions, and it is
+detected in more neurons than *Oprm1*, *Oprd1*, or *Oprk1* in almost every population in which all
+four detection rates are recorded. Among the neurons that do express them the four sit far closer
+together, so the difference is principally one of prevalence rather than of abundance per neuron.
+The distribution we measure inverts the rank order assumed by current peripheral opioid
+pharmacology, and identifies *Oprl1* as the opioid receptor transcript most widely available to
+peripheral neurons. Whether NOP protein follows the transcript is not established by these data.

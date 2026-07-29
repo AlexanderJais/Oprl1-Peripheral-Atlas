@@ -98,6 +98,8 @@ figcaption .lead {
    than starting three rows from the foot of the one before it. */
 .supplement h3 { break-before: page; font-size: 9.5pt; margin: 0 0 2.5mm 0; }
 .supplement h3.first { break-before: avoid; }
+.supplement figure { break-before: page; }
+.supplement figcaption { font-size: 8pt; }
 .supplement table { break-inside: avoid; }
 """
 
@@ -158,7 +160,10 @@ def results_with_figures(legends):
 
 
 def supplement(legends):
-    """Table S1 and its legend, on landscape pages."""
+    """The supplemental figures and Table S1, on landscape pages."""
+    figs = "".join(
+        figure_block(n, legends, PAPER / "figures" / f"Figure{n}.png")
+        for n in ("S1", "S2") if n in legends)
     table = (PAPER / "tables" / "TableS1.md").read_text()
     # Drop the rendered file's own title and its pointer back to the sources.
     table = re.sub(r"\A# Table S1\n+\*.*?\*\n", "", table, flags=re.S)
@@ -170,7 +175,9 @@ def supplement(legends):
     html = html.replace("<h3>", '<h3 class="first">', 1)
     # The list of reasons belongs under table (b), not on a page of its own.
     html = html.replace("<h3>Why an ambient", '<h3 class="first">Why an ambient')
-    return f'<section class="supplement"><h2>Supplemental information</h2>{html}</section>'
+    return ('<section class="supplement">'
+            "<h2>Supplemental information</h2>"
+            + figs + html + "</section>")
 
 
 def main() -> int:

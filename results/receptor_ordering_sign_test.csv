@@ -1,0 +1,5 @@
+unit,k,n,null_p,null,p_value
+population,18,19,0.25,four receptors exchangeable,2.11e-10
+population,18,19,0.5,Oprl1 against the field,3.81e-05
+deposit,11,12,0.25,four receptors exchangeable,2.21e-06
+deposit,11,12,0.5,Oprl1 against the field,0.00317

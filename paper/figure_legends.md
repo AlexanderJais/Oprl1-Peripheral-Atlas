@@ -1,6 +1,6 @@
 # Figure legends
 
-## Figure 1. *Oprl1* is the highest-expressed opioid receptor gene in peripheral neurons
+## Figure 1. *Oprl1* leads the four opioid receptor genes in 18 of 19 peripheral populations
 
 Mean expression of the four opioid receptor genes in each of 19 peripheral neuronal populations,
 grouped by division of the peripheral nervous system. Roman numerals give the cranial nerve of
@@ -61,12 +61,15 @@ glial and immune barcodes excluded, and every population passed the same marker 
 RNA check before any receptor value was read from it. Margins are the ratio of the highest to the
 second-highest receptor; intervals in parentheses are 95% bootstrap intervals over 10,000
 resamples of the cells, and support is the fraction of those resamples retaining the observed top
-receptor. Panels (I), (J), (L), (N), and (P) come from one study of five autonomic ganglia in six
+receptor. The bootstrap resamples cells and therefore describes how far a population's ordering
+depends on which cells were captured; it is not an interval across animals, and the inference
+across populations and deposits is the sign test given in the Results. Panels (I), (J), (L), (N),
+and (P) come from one study of five autonomic ganglia in six
 samples, so laboratory and platform are constant across those five. That deposit was sequenced in
 two batches, stellate with sphenopalatine and the first pelvic sample, lumbar chain with celiac and
 the second, and median library ranges 2.6-fold across the five, from 27,931 to 73,326 UMI.
 
-See also Figure 2, Figure S3, and Table S1.
+See also Figure 2, Figure S1, Figure S2, and Table S1.
 
 ## Figure 2. A nuclear preparation reverses the receptor ordering
 
@@ -139,3 +142,58 @@ genes rather than from any receptor.
 Every panel of Figure 1 therefore uses whole-cell data, and no human single-nucleus dataset can
 establish a species difference in the ordering: the mouse arm of the one cross-species nuclear
 experiment, shown in (B), reverses in the same direction.
+
+
+## Figure S1. The lead is a difference in prevalence, related to Figure 1
+
+A population mean is the product of the fraction of neurons in which a gene is detected and the
+mean level in those neurons, and the two carry different biology. Panels cover the 15 of the 19
+Figure 1 populations that record detection for all four receptors; panel letters are those of
+Figure 1 and the tissue name follows each. *Oprl1* is blue, as in Figure 1, and the other three are
+separated by shade rather than by hue.
+
+(A) Percentage of neurons in which each receptor is detected. *Oprl1* is the most widely detected
+of the four in 14 of the 15 populations, from 7.2% in the jugular ganglion to 91.7% in the
+full-length geniculate deposit, against 0.2% to 12.0% for *Oprm1*. The exception is the enteric
+plexus at postnatal day 7, where *Oprk1* reaches 32.7% against 23.4%, the same population that
+reverses in Figure 1S.
+
+(B) Mean level among the neurons that detect the gene, which is the population mean divided by the
+prevalence in (A). Bars are faded where fewer than 100 neurons are positive, because a mean over
+few positive cells is floored by the one-count detection limit rather than measured, and that floor
+inflates the rarely detected receptors. The four receptors sit far closer together here than in
+Figure 1.
+
+(C) The margin between the top two receptors on the population mean, against the margin between the
+top two on the mean among positive cells, for the 8 populations where a second receptor reaches 100
+positive neurons. The dashed line is equality. Every population falls below it: the median margin
+is 3.97-fold on the population mean and 1.17-fold among positive cells. The top receptor differs
+between the two measures in the vestibular ganglion (C) and the jugular (G). Because the
+conditional mean favours the rarely detected receptors, this panel understates the prevalence
+difference rather than overstating it.
+
+## Figure S2. Dissociation is a second preparation effect and is separable from length, related to Figure 2
+
+Whole-cell libraries are made by live enzymatic dissociation, which axotomises every neuron and
+induces an immediate-early and injury programme; the nuclei used in Figure 2 come from tissue that
+was never dissociated alive. Axotomy lowers opioid and raises nociceptin responsiveness in dorsal
+root ganglion neurons (Abdulla and Smith, 1998), which is the direction that would produce this
+atlas's result artefactually. Both panels use the 14,876 genes of Figure 2E and 2F.
+
+(A) Nuclear level divided by whole-cell level against genomic span, as in Figure 2F. Grey points
+are all 14,876 genes, red points the twelve dissociation-induced genes, and the four opioid
+receptors are marked and coloured as in Figure S1. The dissociation genes lie at the floor of the
+cloud at every span; the receptors lie within it or above it.
+
+(B) The same genes as a percentile of the ratio among genes within a factor of 1.6 of the same
+span, which is what separates an induced gene from a long one. The dashed line is the median of
+each gene's own length class. The twelve dissociation genes sit at a median 1.9th percentile,
+9 of them below the 10th, and 11 of the 12 fall below the lowest of the four receptors; *Fos* reads
+448.82 CPM in whole cells against 0.87 in nuclei and *Atf3* 151.72 against 6.15. The receptors sit
+at the 31.8th (*Oprl1*), 60.1st (*Oprk1*), 93.6th (*Oprm1*) and 99.2nd (*Oprd1*) percentiles.
+
+The whole-cell libraries therefore carry a real and large injury programme, and no claim in this
+work assumes otherwise. The four receptors do not sit in it, so the length relationship of Figure 2
+is not a restatement of the dissociation response. Neither analysis can exclude a small
+dissociation contribution to the receptors themselves, which is a question for measurement in
+undissociated tissue.

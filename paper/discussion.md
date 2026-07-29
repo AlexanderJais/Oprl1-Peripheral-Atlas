@@ -20,8 +20,29 @@ promoters and slow splicing, a description that fits *Oprm1* (Liu et al., 2021),
 signal beyond what span predicts; global length scaling will over-correct rapidly spliced genes and
 under-correct *Oprm1*. Dissociation offers a competing account, since it axotomizes every neuron
 and axotomy lowers opioid responsiveness while raising nociceptin responsiveness in DRG neurons
-(Abdulla and Smith, 1998), and that account predicts no transcriptome-wide length correlation.
+(Abdulla and Smith, 1998). That account is not idle here: the whole-cell libraries carry the injury
+programme plainly, with *Fos* at 448.82 CPM against 0.87 in nuclei and *Atf3* at 151.72 against
+6.15, and the twelve dissociation-induced genes sit at a median 1.9th percentile of their own
+length class. The two effects are nonetheless separable, because the receptors sit at the 31.8th to
+99.2nd percentiles of theirs and 11 of the 12 induced genes fall below the lowest of them
+(Figure S2). Dissociation perturbs these libraries and does not account for the reversal; what it
+leaves open is a smaller contribution to the receptors themselves, which only measurement in
+undissociated tissue can close.
 Ranking genes by CPM within a nuclear library confounds transcript abundance with transcription
 unit length. MOR primacy in peripheral analgesia rests on knockout phenotypes, reporter knock-in
 lines, radioligand binding and in situ hybridization (Scherrer et al., 2009; Wang et al., 2018);
 single-nucleus atlases have inflated that hierarchy rather than established it.
+
+The transcript measurement reported here is not itself evidence about receptor protein, and the
+orthogonal evidence for peripheral NOP was gathered before these atlases existed. NOP
+immunoreactivity is present in 75% to 80% of small and medium human dorsal root ganglion neurons
+and rises in suburothelial fibers in bladder pain syndrome (Anand et al., 2016), a prevalence of
+the same order as the transcript prevalence measured here. N/OFQ inhibits Cav2.2 currents in
+dorsal root, superior cervical, and vestibular ganglion neurons (Abdulla and Smith, 1997; Beedle et
+al., 2004), which are three of the ganglia in this survey, modulates N-type channels tonically in
+the absence of agonist (Beedle et al., 2004), and reduces capsaicin-evoked responses in cultured
+human sensory neurons at picomolar concentrations (Anand et al., 2016). Protein and function
+therefore converge on the distribution the transcripts describe. What no dataset here establishes
+is that relative transcript abundance predicts relative receptor density, and the claim this work
+supports is about the availability of the transcript rather than about a pharmacological
+hierarchy.

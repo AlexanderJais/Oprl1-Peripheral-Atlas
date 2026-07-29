@@ -1,0 +1,61 @@
+panel,division,population,dataset,unit,n_neurons,gene,mean_level,pct_detected,n_positive,level_if_positive
+B,sensory,geniculate (VII),GSE102443,FPKM,96,Oprl1,5.7329,91.67,88,6.254
+B,sensory,geniculate (VII),GSE102443,FPKM,96,Oprm1,0.1829,10.42,10,1.755
+B,sensory,geniculate (VII),GSE102443,FPKM,96,Oprd1,0.3051,25.0,24,1.22
+B,sensory,geniculate (VII),GSE102443,FPKM,96,Oprk1,0.8289,25.0,24,3.316
+C,sensory,vestibular (VIII),GSE309608,CPM,6596,Oprl1,19.879,57.57,3797,34.53
+C,sensory,vestibular (VIII),GSE309608,CPM,6596,Oprm1,1.775,6.66,439,26.652
+C,sensory,vestibular (VIII),GSE309608,CPM,6596,Oprd1,0.09,0.49,32,18.367
+C,sensory,vestibular (VIII),GSE309608,CPM,6596,Oprk1,4.634,9.67,638,47.921
+D,sensory,geniculate (VII),GSE135801,CPM,454,Oprl1,18.9825,19.6,89,96.849
+D,sensory,geniculate (VII),GSE135801,CPM,454,Oprm1,0.013,0.22,1,5.909
+D,sensory,geniculate (VII),GSE135801,CPM,454,Oprd1,4.7228,3.08,14,153.338
+D,sensory,geniculate (VII),GSE135801,CPM,454,Oprk1,3.6103,4.19,19,86.165
+F,sensory,nodose (X),NodoMap,CPM,26047,Oprl1,11.9028,9.13,2378,130.37
+F,sensory,nodose (X),NodoMap,CPM,26047,Oprm1,9.8637,8.35,2175,118.128
+F,sensory,nodose (X),NodoMap,CPM,26047,Oprd1,0.1297,0.15,39,86.467
+F,sensory,nodose (X),NodoMap,CPM,26047,Oprk1,4.6266,3.84,1000,120.484
+G,sensory,jugular (X),NodoMap,CPM,4593,Oprl1,9.6247,7.21,331,133.491
+G,sensory,jugular (X),NodoMap,CPM,4593,Oprm1,8.3326,5.88,270,141.711
+G,sensory,jugular (X),NodoMap,CPM,4593,Oprd1,0.9239,1.09,50,84.761
+G,sensory,jugular (X),NodoMap,CPM,4593,Oprk1,0.8982,0.78,36,115.154
+I,sympathetic,celiac,GSE232789,CPM,247,Oprl1,25.033,66.4,164,37.7
+I,sympathetic,celiac,GSE232789,CPM,247,Oprm1,0.421,4.05,10,10.395
+I,sympathetic,celiac,GSE232789,CPM,247,Oprd1,0.026,0.4,1,6.5
+I,sympathetic,celiac,GSE232789,CPM,247,Oprk1,0.564,2.83,7,19.929
+J,sympathetic,pelvic,GSE232789,CPM,1444,Oprl1,16.332,51.04,737,31.998
+J,sympathetic,pelvic,GSE232789,CPM,1444,Oprm1,0.504,2.35,34,21.447
+J,sympathetic,pelvic,GSE232789,CPM,1444,Oprd1,0.43,2.7,39,15.926
+J,sympathetic,pelvic,GSE232789,CPM,1444,Oprk1,0.46,2.08,30,22.115
+K,sympathetic,superior cervical,GSE231766,CPM,1382,Oprl1,18.679,21.56,298,86.637
+K,sympathetic,superior cervical,GSE231766,CPM,1382,Oprm1,0.27,0.43,6,62.791
+K,sympathetic,superior cervical,GSE231766,CPM,1382,Oprd1,0.568,1.23,17,46.179
+K,sympathetic,superior cervical,GSE231766,CPM,1382,Oprk1,0.726,1.37,19,52.993
+L,sympathetic,lumbar chain,GSE232789,CPM,887,Oprl1,24.757,76.55,679,32.341
+L,sympathetic,lumbar chain,GSE232789,CPM,887,Oprm1,1.675,11.61,103,14.427
+L,sympathetic,lumbar chain,GSE232789,CPM,887,Oprd1,0.033,0.23,2,14.348
+L,sympathetic,lumbar chain,GSE232789,CPM,887,Oprk1,0.393,2.71,24,14.502
+N,sympathetic,stellate,GSE232789,CPM,2589,Oprl1,27.55,52.53,1360,52.446
+N,sympathetic,stellate,GSE232789,CPM,2589,Oprm1,0.562,1.35,35,41.63
+N,sympathetic,stellate,GSE232789,CPM,2589,Oprd1,0.031,0.12,3,25.833
+N,sympathetic,stellate,GSE232789,CPM,2589,Oprk1,4.53,8.96,232,50.558
+O,sympathetic,stellate,GSE231924,CPM,1303,Oprl1,23.928,11.51,150,207.889
+O,sympathetic,stellate,GSE231924,CPM,1303,Oprm1,4.837,2.69,35,179.814
+O,sympathetic,stellate,GSE231924,CPM,1303,Oprd1,5.04,2.46,32,204.878
+O,sympathetic,stellate,GSE231924,CPM,1303,Oprk1,5.116,2.3,30,222.435
+P,parasympathetic and enteric,sphenopalatine (VII),GSE232789,CPM,2014,Oprl1,19.502,49.9,1005,39.082
+P,parasympathetic and enteric,sphenopalatine (VII),GSE232789,CPM,2014,Oprm1,0.292,0.89,18,32.809
+P,parasympathetic and enteric,sphenopalatine (VII),GSE232789,CPM,2014,Oprd1,0.04,0.2,4,20.0
+P,parasympathetic and enteric,sphenopalatine (VII),GSE232789,CPM,2014,Oprk1,0.015,0.05,1,30.0
+Q,parasympathetic and enteric,intrinsic cardiac,GSE330884,CPM,4513,Oprl1,11.127,38.2,1724,29.128
+Q,parasympathetic and enteric,intrinsic cardiac,GSE330884,CPM,4513,Oprm1,3.045,11.99,541,25.396
+Q,parasympathetic and enteric,intrinsic cardiac,GSE330884,CPM,4513,Oprd1,0.364,1.15,52,31.652
+Q,parasympathetic and enteric,intrinsic cardiac,GSE330884,CPM,4513,Oprk1,0.0,0.0,0,
+R,parasympathetic and enteric,"enteric submucosal, P24",GSE263422,CPM,7787,Oprl1,35.567,32.37,2521,109.876
+R,parasympathetic and enteric,"enteric submucosal, P24",GSE263422,CPM,7787,Oprm1,0.179,0.18,14,99.444
+R,parasympathetic and enteric,"enteric submucosal, P24",GSE263422,CPM,7787,Oprd1,16.142,17.63,1373,91.56
+R,parasympathetic and enteric,"enteric submucosal, P24",GSE263422,CPM,7787,Oprk1,3.77,1.08,84,349.074
+S,parasympathetic and enteric,"enteric submucosal, P7",GSE263422,CPM,1648,Oprl1,26.698,23.36,385,114.289
+S,parasympathetic and enteric,"enteric submucosal, P7",GSE263422,CPM,1648,Oprm1,0.74,0.97,16,76.289
+S,parasympathetic and enteric,"enteric submucosal, P7",GSE263422,CPM,1648,Oprd1,2.294,2.12,35,108.208
+S,parasympathetic and enteric,"enteric submucosal, P7",GSE263422,CPM,1648,Oprk1,122.506,32.71,539,374.522

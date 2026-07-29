@@ -1,0 +1,16 @@
+panel,population,n_neurons,top_by_mean,margin_by_mean,n_genes_testable_per_cell,top_per_cell,margin_per_cell,ordering_changes
+B,geniculate (VII),96,Oprl1,6.916,0,,,
+C,vestibular (VIII),6596,Oprl1,4.29,3,Oprk1,1.388,True
+D,geniculate (VII),454,Oprl1,4.019,0,,,
+F,nodose (X),26047,Oprl1,1.207,3,Oprl1,1.082,False
+G,jugular (X),4593,Oprl1,1.155,2,Oprm1,1.062,True
+I,celiac,247,Oprl1,44.385,1,,,
+J,pelvic,1444,Oprl1,32.405,1,,,
+K,superior cervical,1382,Oprl1,25.729,1,,,
+L,lumbar chain,887,Oprl1,14.78,2,Oprl1,2.242,False
+N,stellate,2589,Oprl1,6.082,2,Oprl1,1.037,False
+O,stellate,1303,Oprl1,4.677,1,,,
+P,sphenopalatine (VII),2014,Oprl1,66.788,1,,,
+Q,intrinsic cardiac,4513,Oprl1,3.654,2,Oprl1,1.147,False
+R,"enteric submucosal, P24",7787,Oprl1,2.203,2,Oprl1,1.2,False
+S,"enteric submucosal, P7",1648,Oprk1,4.589,2,Oprk1,3.277,False

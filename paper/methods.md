@@ -81,6 +81,29 @@ otherwise reported identically, which is what this number prevents.
 Where a deposit resolves into biological samples, each sample was also ordered on its own cells,
 and the count of samples placing the top receptor first is reported alongside the bootstrap.
 
+The bootstrap resamples cells, so it describes one population and not a difference between animals.
+Cells within a ganglion are not independent replicates, four of the nineteen populations come from
+a single animal, and nine do not record how many contributed, so no interval computed over cells is
+treated as inference about the claim the atlas makes. That claim is tested at its own unit with a
+sign test: the count of populations, and more conservatively of deposits, that place *Oprl1* first,
+against a null in which the four receptors are exchangeable (p = 0.25) and against the more
+conservative null of *Oprl1* against the field (p = 0.5). A deposit counts as leading only if
+*Oprl1* is first in every population it contributes, so the five autonomic ganglia of one
+experiment enter once and GSE263422 is scored against the atlas on its postnatal day 7 sample.
+
+## Prevalence against level in positive cells
+
+A population mean is the product of the fraction of neurons in which a gene is detected and its
+mean level in those neurons, and the two are reported separately wherever both are recorded, which
+is 15 of the 19 populations. The mean among positive cells is the population mean divided by the
+detection fraction.
+
+That quantity is biased, in a direction that matters. A droplet library cannot record less than one
+count, so a gene detected in few cells has its conditional mean floored by the quantisation limit
+rather than measured, which inflates the rarely detected receptors and works against *Oprl1*. The
+comparison is therefore conservative for the prevalence claim, and no ordering is read from a gene
+detected in fewer than 100 neurons. The count of positive cells is reported for every entry.
+
 ## Whole-cell against nuclear preparation
 
 Figure 2 compares the two preparations within the NodoMap integration: the same tissue, the same
@@ -102,6 +125,17 @@ Pearson on log10 span against log10 expression, with Spearman on the untransform
 alongside. The floor was varied from none at all to 1 CPM: the whole-cell correlation runs from
 +0.117 to -0.065 and the nuclear one from +0.399 to +0.433, so the choice of floor sharpens the
 separation rather than creating it. Span deciles are ten equal-count bins of genes.
+
+## Dissociation signature
+
+The competing account of the preparation difference is dissociation rather than length: whole-cell
+libraries are made by live enzymatic dissociation, which axotomises every neuron, while the nuclei
+here come from tissue that was never dissociated alive. Twelve immediate-early and injury genes
+were scored exactly as the receptors are, by the ratio of nuclear to whole-cell level against the
+ratio of every gene within a factor of 1.6 of the same genomic span: the activity-induced set
+*Fos*, *Fosb*, *Jun*, *Junb*, *Jund*, *Egr1*, *Arc* and *Npas4*, the heat-shock pair *Hspa1a* and
+*Hspa1b*, and the axotomy markers *Atf3* and *Socs3*. The gene set was fixed before the scores were
+computed and is not selected on the result.
 
 ## Figures and tables
 

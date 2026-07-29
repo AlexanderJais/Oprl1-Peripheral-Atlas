@@ -257,6 +257,160 @@ def figure2():
     return fig
 
 
+# Figure 1 says "Oprl1 blue, the other three grey". The supplemental panels put
+# all four side by side, so the other three are separated by value rather than
+# by hue, and the sentence still holds.
+RECEPTOR_FILL = {"Oprl1": st.BAR_BLUE, "Oprm1": "#595959",
+                 "Oprd1": "#8C8C8C", "Oprk1": "#C9C9C9"}
+MIN_POSITIVE = 100      # matches src/17_prevalence_decomposition.py
+
+
+def _population_labels(d):
+    """Panel letter and a short tissue name, for an x axis of 15 populations."""
+    short = {"enteric submucosal, P24": "enteric P24",
+             "enteric submucosal, P7": "enteric P7",
+             "superior cervical": "sup. cervical",
+             "sphenopalatine (VII)": "sphenopalatine"}
+    out = []
+    for panel, tissue in d[["panel", "population"]].drop_duplicates().values:
+        t = short.get(tissue, tissue.split(" (")[0])
+        out.append(f"{panel}  {t}")
+    return out
+
+
+def figureS1():
+    """A population mean is a prevalence and a per-cell level, separated here."""
+    d = pd.read_csv(ac.RES / "receptor_prevalence_decomposition.csv")
+    o = pd.read_csv(ac.RES / "receptor_prevalence_orderings.csv")
+    o = o[o.margin_per_cell.notna()]
+    panels = list(dict.fromkeys(d.panel))
+    labels = _population_labels(d)
+
+    # Laid out in inches from the top down. Both rows carry rotated population
+    # names, so each needs BELOW beneath it and ABOVE for its panel letter.
+    PANEL_H, BELOW, ABOVE = 1.55, 0.78, 0.34
+    height = ABOVE + PANEL_H + (BELOW + ABOVE) + PANEL_H + BELOW
+
+    st.set_theme()
+    fig = plt.figure(figsize=(st.W_SUPP, height))
+    left, right = 0.055, 0.99
+    row1 = height - ABOVE
+    gs1 = fig.add_gridspec(1, 1, left=left, right=right, top=row1 / height,
+                           bottom=(row1 - PANEL_H) / height)
+    axA = fig.add_subplot(gs1[0, 0])
+    row2 = row1 - PANEL_H - BELOW - ABOVE
+    gs2 = fig.add_gridspec(1, 3, left=left, right=right, top=row2 / height,
+                           bottom=(row2 - PANEL_H) / height, wspace=0.38)
+    axB = fig.add_subplot(gs2[0, 0:2])
+    axC = fig.add_subplot(gs2[0, 2])
+
+    x = np.arange(len(panels))
+    w = 0.20
+    for i, gene in enumerate(ac.RECEPTORS):
+        g = d[d.gene == gene].set_index("panel").loc[panels]
+        off = (i - 1.5) * w
+        axA.bar(x + off, g.pct_detected, w, color=RECEPTOR_FILL[gene],
+                edgecolor="black", linewidth=0.4, zorder=3,
+                label=rf"$\it{{{gene}}}$")
+        # A conditional mean over few positive cells is floored by the one-count
+        # detection limit rather than measured, so it is drawn but faded.
+        solid = g.n_positive >= MIN_POSITIVE
+        axB.bar(x + off, g.level_if_positive.where(solid), w,
+                color=RECEPTOR_FILL[gene], edgecolor="black", linewidth=0.4, zorder=3)
+        axB.bar(x + off, g.level_if_positive.where(~solid), w,
+                color=RECEPTOR_FILL[gene], edgecolor="black", linewidth=0.4,
+                alpha=0.30, zorder=3)
+
+    for ax, ylab in ((axA, "neurons detecting (%)"),
+                     (axB, "level in positive cells (CPM)")):
+        ax.set_xticks(x)
+        ax.set_xticklabels(labels, rotation=45, ha="right", fontsize=st.FS_TICK)
+        ax.set_xlim(-0.6, len(panels) - 0.4)
+        ax.set_ylabel(ylab, fontsize=st.FS_LABEL)
+    axA.set_ylim(0, 100)
+    axB.set_yscale("log")
+    axA.legend(loc="upper right", fontsize=st.FS_NOTE, ncol=4, frameon=False,
+               handlelength=1.1, columnspacing=1.0, handletextpad=0.4)
+
+    lim = (0.9, max(o.margin_by_mean.max(), o.margin_per_cell.max()) * 1.6)
+    axC.plot(lim, lim, color="black", lw=0.5, ls="--", zorder=1)
+    axC.scatter(o.margin_by_mean, o.margin_per_cell, s=16, color=st.BAR_BLUE,
+                edgecolor="black", linewidth=0.4, zorder=3)
+    # F and G sit on top of one another at the foot of the identity line, so
+    # labels alternate side rather than all trailing right.
+    for i, r in enumerate(o.sort_values("margin_by_mean").itertuples()):
+        dx, dy = ((4, -1) if i % 2 == 0 else (-4, 3))
+        axC.annotate(r.panel, (r.margin_by_mean, r.margin_per_cell),
+                     textcoords="offset points", xytext=(dx, dy),
+                     ha="left" if dx > 0 else "right", fontsize=st.FS_NOTE)
+    axC.set_xscale("log"); axC.set_yscale("log")
+    axC.set_xlim(*lim); axC.set_ylim(*lim)
+    axC.set_xlabel("margin on the population mean", fontsize=st.FS_LABEL)
+    axC.set_ylabel("margin in positive cells", fontsize=st.FS_LABEL)
+
+    for ax, letter in zip((axA, axB, axC), "ABC"):
+        st.panel_letter(ax, letter, dx=-0.055 if ax is not axC else -0.20, dy=1.10)
+    return fig
+
+
+def figureS2():
+    """Dissociation is a second preparation effect, and it is not this one."""
+    g = pd.read_csv(ac.RES / "preparation_bias_genomewide.csv")
+    s = pd.read_csv(ac.RES / "dissociation_signature.csv")
+    dis, rec = s[s.set == "dissociation"], s[s.set == "receptor"]
+
+    PANEL_H, BELOW, ABOVE = 2.05, 0.42, 0.30
+    height = ABOVE + PANEL_H + BELOW + 0.08
+    st.set_theme()
+    fig = plt.figure(figsize=(st.W_2COL, height))
+    # The 99th-percentile marker in (B) sits on the axis edge and its radius
+    # falls outside the canvas at a full-bleed right margin.
+    gs = fig.add_gridspec(1, 2, left=0.085, right=0.982,
+                          top=(height - ABOVE) / height,
+                          bottom=BELOW / height, wspace=0.34)
+    axA, axB = fig.add_subplot(gs[0, 0]), fig.add_subplot(gs[0, 1])
+
+    axA.scatter(g.span_kb, g.ratio, s=0.6, color=st.FEATURE_LOW, linewidths=0,
+                rasterized=True, zorder=1)
+    axA.axhline(1.0, color="black", lw=0.5, ls="--", zorder=2)
+    axA.scatter(dis.span_kb, dis.ratio, s=14, color=st.HIGHLIGHT,
+                edgecolor="black", linewidth=0.4, zorder=4,
+                label="dissociation-induced")
+    axA.scatter(rec.span_kb, rec.ratio, s=14,
+                color=[RECEPTOR_FILL[x] for x in rec.gene],
+                edgecolor="black", linewidth=0.4, zorder=4)
+    for r in rec.itertuples():
+        axA.annotate(rf"$\it{{{r.gene}}}$", (r.span_kb, r.ratio),
+                     textcoords="offset points", xytext=(5, -1),
+                     fontsize=st.FS_NOTE)
+    axA.set_xscale("log"); axA.set_yscale("log")
+    axA.set_xlabel("genomic span (kb)", fontsize=st.FS_LABEL)
+    axA.set_ylabel("nuclear / whole cell", fontsize=st.FS_LABEL)
+    axA.legend(loc="upper left", fontsize=st.FS_NOTE, frameon=False,
+               handletextpad=0.3, borderpad=0.1)
+
+    # Percentile within the gene's own length class, which is what separates an
+    # induced gene from a long one.
+    both = pd.concat([dis.sort_values("pct_of_peers"),
+                      rec.sort_values("pct_of_peers")], ignore_index=True)
+    ypos = np.arange(len(both))
+    colors = [st.HIGHLIGHT if r.set == "dissociation" else RECEPTOR_FILL[r.gene]
+              for r in both.itertuples()]
+    axB.hlines(ypos, 0, both.pct_of_peers, color=colors, lw=0.9, zorder=3)
+    axB.scatter(both.pct_of_peers, ypos, s=13, color=colors, edgecolor="black",
+                linewidth=0.4, zorder=4)
+    axB.axvline(50, color="black", lw=0.5, ls="--", zorder=2)
+    axB.set_yticks(ypos)
+    axB.set_yticklabels([rf"$\it{{{n}}}$" for n in both.gene], fontsize=st.FS_TICK)
+    axB.set_ylim(-0.8, len(both) - 0.2)
+    axB.set_xlim(0, 103)
+    axB.set_xlabel("percentile among genes of the same span", fontsize=st.FS_LABEL)
+
+    for ax, letter in zip((axA, axB), "AB"):
+        st.panel_letter(ax, letter, dx=-0.16, dy=1.06)
+    return fig
+
+
 def emit(fig, name, max_w=174.5, max_h=235.0):
     """Write the figure and refuse it if it breaks the journal's limits."""
     OUT.mkdir(parents=True, exist_ok=True)
@@ -289,3 +443,8 @@ def emit(fig, name, max_w=174.5, max_h=235.0):
 if __name__ == "__main__":
     emit(figure1(), "Figure1")
     emit(figure2(), "Figure2")
+    # Supplemental figures are supplied as separate files, so the 174 mm text
+    # column does not bind them; S1 needs the width for 15 populations.
+    emit(figureS1(), "FigureS1",
+         max_w=st.W_SUPP * 25.4 + 0.5, max_h=st.H_SUPP * 25.4)
+    emit(figureS2(), "FigureS2")
