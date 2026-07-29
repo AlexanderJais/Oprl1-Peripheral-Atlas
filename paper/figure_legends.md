@@ -126,6 +126,23 @@ runs from 0.46 to 5.22 and crosses 1 at 15.8 kb. Both panels use the vagal neuro
 atlas and one chemistry, so the contrast is between preparations rather than between studies.
 Spans are Ensembl GRCm39 gene loci.
 
+(G) The summary of (E), against intronic length rather than genomic span. Intronic length is the
+span less the union of a gene's exons over all its transcripts, so it is the sequence a nucleus
+holds unspliced; the union overstates the mature transcript of any single isoform and understates
+introns by the same amount. Whole-cell medians run between 14.1 and 19.6 CPM across deciles whose
+median intronic length runs from 0.93 to 229.2 kb, and nuclear medians rise from 8.0 to 91.9. Over
+the individual genes intronic length correlates with the nuclear-to-whole-cell ratio at r = +0.474
+and exonic length at r = +0.377, against r = +0.592 for the whole span; with the other held fixed,
+intronic length gives r = +0.362 and exonic length r = +0.197. Length in any form leaves most of the
+variance unaccounted for.
+
+(H) Exonic and intronic length of the four receptor loci, from the same annotation. *Oprm1* carries
+271.7 kb of intron and *Oprd1* 29.8 kb, against 8.6 kb in *Oprk1* and 3.4 kb in *Oprl1*, whose
+intron fractions are 0.47 and 0.48 against a genome-wide median of 0.84. *Oprk1* carries the most
+exonic sequence of the four, 9.2 kb, and is the receptor that gains least in nuclei. Ordering the
+four by intronic length reproduces their ordering by the ratio in (F); ordering them by exonic
+length does not.
+
 A nucleus holds nascent transcript that has not been spliced or exported, and single-nucleus
 quantification counts reads across the whole gene body, introns included, since restricting to
 exons discards most of a nuclear library. Signal accrues with the length of the transcription unit

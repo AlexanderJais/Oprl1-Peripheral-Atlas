@@ -1,6 +1,6 @@
-data/raw/
-data/*.npz
-__pycache__/
 *.pyc
 .pytest_cache/
+__pycache__/
+data/*.npz
+data/raw/
 scratch/

@@ -143,6 +143,8 @@ def figure2():
     gw = pd.read_csv(ac.RES / "preparation_bias_genomewide.csv")
     dec = pd.read_csv(ac.RES / "preparation_bias_by_span_decile.csv")
     rec = pd.read_csv(ac.RES / "preparation_bias_receptors.csv").set_index("gene")
+    idec = pd.read_csv(ac.RES / "intron_content_by_decile.csv")
+    intr = pd.read_csv(ac.RES / "intron_content.csv").set_index("ensembl_id")
 
     # Three rows of two. As a supplemental figure this was four panels across
     # the top and two below, on a 228 mm landscape canvas that a reviewer reads
@@ -152,11 +154,11 @@ def figure2():
     # affords. It also falls out by pairs: the two tissues measured under both
     # preparations, the two detection rates, the two genome-wide panels. Each
     # row gets its own gridspec, since only the top row carries titles.
-    PANEL_H, BELOW = 1.60, 0.38
-    TITLED, BARE = 0.36, 0.42
+    PANEL_H, BELOW = 1.42, 0.38
+    TITLED, BARE = 0.36, 0.38
     KEY = 0.20                      # the preparation key, above every panel
     TOP_PAD, BOT_PAD = TITLED + KEY + 0.04, BELOW + 0.06
-    NROW = 3
+    NROW = 4
     height = (TOP_PAD + NROW * PANEL_H + (NROW - 1) * (BELOW + BARE) + BOT_PAD)
 
     st.set_theme()
@@ -170,7 +172,7 @@ def figure2():
                               bottom=(y - PANEL_H) / height, wspace=0.30)
         axes += [fig.add_subplot(gs[0, i]) for i in range(2)]
         y -= PANEL_H + BELOW + BARE
-    for ax, letter in zip(axes, "ABCDEF"):
+    for ax, letter in zip(axes, "ABCDEFGH"):
         st.panel_letter(ax, letter, dx=-0.155, dy=1.26)
 
     # (A) One tissue, both preparations, from the same atlas.
@@ -257,6 +259,40 @@ def figure2():
     ax.set_ylim(0.02, 200)
     ax.set_xlabel("genomic span (kb)", fontsize=st.FS_LABEL)
     ax.set_ylabel("nuclear / whole cell", fontsize=st.FS_LABEL)
+
+    # (G) The same summary as (E), against intronic length rather than span,
+    # which is the sequence a nucleus holds unspliced.
+    ax = axes[6]
+    ax.plot(idec.intronic_kb, idec.whole_cell_CPM, "o-", color="black",
+            mfc="white", ms=3.2, lw=0.7, label="whole cell")
+    ax.plot(idec.intronic_kb, idec.nuclear_CPM, "s--", color="black",
+            mfc="black", ms=3.0, lw=0.7, label="nuclear")
+    ax.set_xscale("log"); ax.set_yscale("log")
+    ax.yaxis.set_minor_formatter(mticker.NullFormatter())
+    ax.set_xlabel("intronic length (kb), decile median", fontsize=st.FS_LABEL)
+    ax.set_ylabel("median expression (CPM)", fontsize=st.FS_LABEL)
+    ax.legend(loc="upper left", fontsize=st.FS_NOTE, frameon=False,
+              handletextpad=0.4, borderpad=0.1)
+
+    # (H) The two components of each receptor's locus, in kilobases, so the
+    # ordering of the panel can be compared with the ordering of (F).
+    ax = axes[7]
+    # Gene symbols are not unique in the annotation, so the receptors are taken
+    # by the accession src/16 already resolved for them.
+    r = intr.loc[rec.loc[ac.RECEPTORS, "ensembl_id"]]
+    x = np.arange(len(ac.RECEPTORS))
+    ax.bar(x - 0.19, r.exonic_kb, 0.36, color=st.BAR_GREY, edgecolor="black",
+           linewidth=0.5, zorder=3, label="exonic")
+    ax.bar(x + 0.19, r.intronic_kb, 0.36, color=st.HIGHLIGHT, edgecolor="black",
+           linewidth=0.5, zorder=3, label="intronic")
+    ax.set_yscale("log")
+    ax.yaxis.set_minor_formatter(mticker.NullFormatter())
+    ax.set_xticks(x)
+    ax.set_xticklabels(ac.RECEPTORS, rotation=45, ha="right",
+                       fontstyle="italic", fontsize=st.FS_TICK)
+    ax.set_ylabel("length (kb)", fontsize=st.FS_LABEL)
+    ax.legend(loc="upper left", fontsize=st.FS_NOTE, frameon=False, ncol=2,
+              handlelength=1.1, columnspacing=0.9, handletextpad=0.4)
     return fig
 
 
