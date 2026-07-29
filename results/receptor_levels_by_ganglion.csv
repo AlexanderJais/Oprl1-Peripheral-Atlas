@@ -14,7 +14,7 @@ sympathetic,l,GSE232789,lumbar chain,CPM,887,24.757,1.675,0.033,0.393,Oprl1,14.7
 sympathetic,m,GSE78845,thoracic chain,CPM,298,62.3,1.48,3.9,4.24,Oprl1,14.69,1.0,10000
 sympathetic,n,GSE232789,stellate,CPM,2589,27.55,0.562,0.031,4.53,Oprl1,6.08,1.0,10000
 sympathetic,o,GSE231924,stellate,CPM,1303,23.928,4.837,5.04,5.116,Oprl1,4.68,1.0,10000
-parasympathetic and enteric,p,GSE232789,sphenopalatine,CPM,2014,19.502,0.292,0.04,0.015,Oprl1,66.86,1.0,10000
+parasympathetic and enteric,p,GSE232789,sphenopalatine (VII),CPM,2014,19.502,0.292,0.04,0.015,Oprl1,66.86,1.0,10000
 parasympathetic and enteric,q,GSE330884,intrinsic cardiac,CPM,4513,11.127,3.045,0.364,0.0,Oprl1,3.65,1.0,10000
 parasympathetic and enteric,r,GSE263422,"enteric submucosal, P24",CPM,7787,35.567,0.179,16.142,3.77,Oprl1,2.2,1.0,10000
 parasympathetic and enteric,s,GSE263422,"enteric submucosal, P7",CPM,1648,26.698,0.74,2.294,122.506,Oprk1,4.59,1.0,10000

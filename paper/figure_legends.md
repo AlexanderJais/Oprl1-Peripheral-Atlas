@@ -3,31 +3,31 @@
 ## Figure 1. *Oprl1* is the highest-expressed opioid receptor gene in peripheral neurons
 
 Mean expression of the four opioid receptor genes in each of 19 peripheral neuronal populations,
-grouped by division of the peripheral nervous system. The pelvic ganglion carries both sympathetic
-and parasympathetic neurons and is grouped with the sympathetic block. Bars are pseudobulk means
-over all neurons of the population, in the unit each dataset was measured in, ordered within each
-panel from highest to lowest. *Oprl1* is blue and the other three receptors are gray. Sample size
-is the number of neurons contributing to the panel.
+grouped by division of the peripheral nervous system. Roman numerals give the cranial nerve of
+ganglia that belong to one. Bars are pseudobulk means over all neurons of the population, in the
+unit each dataset was measured in, ordered within each panel from highest to lowest. *Oprl1* is
+blue and the other three receptors are gray. Sample size is the number of neurons contributing to
+the panel.
 
-(A) Spiral ganglion, GSE114997, full-length SMART-seq, median 2,678,701 reads per neuron. *Oprl1*
-41.94 CPM in 74.8% of neurons; *Oprm1*, *Oprd1*, and *Oprk1* detected in no cell. All four genes
-are present in the annotation, so the three zeros are measured absences.
+(A) Spiral ganglion (VIII), GSE114997, full-length SMART-seq, median 2,678,701 reads per neuron.
+*Oprl1* 41.94 CPM in 74.8% of neurons; *Oprm1*, *Oprd1*, and *Oprk1* detected in no cell. All four
+genes are present in the annotation, so the three zeros are measured absences.
 
-(B and D) Geniculate ganglion on two platforms from two laboratories. (B) GSE102443, full-length
-SMART-seq, FPKM, 31.30-fold over the second receptor, bootstrap support 1.000. (D) GSE135801, 3'
-droplet, 4.02-fold, support 0.974 (95% interval 0.99 to 36.70).
+(B and D) Geniculate ganglion (VII) on two platforms from two laboratories. (B) GSE102443, full-
+length SMART-seq, FPKM, 31.30-fold over the second receptor, bootstrap support 1.000. (D)
+GSE135801, 3' droplet, 4.02-fold, support 0.974 (95% interval 0.99 to 36.70).
 
-(C) Vestibular ganglion, GSE309608, four mice, 4.29-fold (3.85 to 4.81), support 1.000, same
-ordering in each mouse.
+(C) Vestibular ganglion (VIII), GSE309608, four mice, 4.29-fold (3.85 to 4.81), support 1.000,
+same ordering in each mouse.
 
-(E) Trigeminal ganglion, iPain atlas, whole-cell neurons only, 2.08-fold (1.41 to 3.26).
+(E) Trigeminal ganglion (V), iPain atlas, whole-cell neurons only, 2.08-fold (1.41 to 3.26).
 
-(F and G) Nodose and jugular ganglia, NodoMap atlas, whole-cell datasets only. Nodose 1.21-fold
-(1.15 to 1.28), support 1.000, first in all four contributing datasets; jugular 1.16-fold (0.92 to
-1.46), support 0.898, first in two of three.
+(F and G) Inferior (nodose) and superior (jugular) ganglia of the vagus (X), NodoMap atlas, whole-
+cell datasets only. Nodose 1.21-fold (1.15 to 1.28), support 1.000, first in all four contributing
+datasets; jugular 1.16-fold (0.92 to 1.46), support 0.898, first in two of three.
 
-(H) Dorsal root ganglion, iPain atlas, whole-cell neurons only, 1.13-fold (1.08 to 1.19), the
-narrowest margin measured and the second largest sample.
+(H) Dorsal root ganglion, a spinal ganglion with no cranial nerve, iPain atlas, whole-cell neurons
+only, 1.13-fold (1.08 to 1.19), the narrowest margin measured and the second largest sample.
 
 (I to O) Sympathetic ganglia, ordered by margin. Celiac 44.41-fold (20.42 to 197.63), pelvic
 32.42-fold (22.00 to 54.20), superior cervical 25.72-fold (15.93 to 52.14), lumbar chain
@@ -36,14 +36,16 @@ to 7.27), stellate 4.68-fold (3.02 to 8.08). Support 1.000 throughout. (I), (J),
 from GSE232789; (K) from the two untreated animals of GSE231766; (M) from GSE78845; (O) from
 GSE231924, which profiles cardiac-projecting neurons and places *Oprl1* first in each of eight
 mice. The stellate ganglion appears twice, in (N) and (O), from two deposits, two laboratories,
-and two neuron-calling routes.
+and two neuron-calling routes. The pelvic ganglion carries both sympathetic and parasympathetic
+neurons and is grouped here with the sympathetic block.
 
-(P and Q) Parasympathetic ganglia. (P) Sphenopalatine ganglion, GSE232789, 66.86-fold (40.54 to
-132.54), the largest margin in the study. These neurons are cholinergic and not noradrenergic
-(*Slc18a3* 252 CPM, *Chat* 26, *Th* 2, *Dbh* 42) against *Th* 390 to 840 CPM in the sympathetic
-ganglia of the same experiment. (Q) Intrinsic cardiac nervous system, GSE330884, three mice,
-3.65-fold (3.29 to 4.08), the only population in this division in which *Oprm1* is the second
-receptor.
+(P and Q) Parasympathetic ganglia. (P) Sphenopalatine ganglion (VII), also called the
+pterygopalatine ganglion, GSE232789, 66.86-fold (40.54 to 132.54), the largest margin in the
+study. These neurons are cholinergic and not noradrenergic (*Slc18a3* 252 CPM, *Chat* 26, *Th* 2,
+*Dbh* 42) against *Th* 390 to 840 CPM in the sympathetic ganglia of the same experiment. (Q)
+Intrinsic cardiac nervous system, GSE330884, three mice, 3.65-fold (3.29 to 4.08), the only
+population in this division in which *Oprm1* is the second receptor. These ganglia are intrinsic
+to the heart and receive vagal preganglionic input, so they carry no cranial nerve numeral.
 
 (R and S) Enteric submucosal neurons of the small intestine at two ages, GSE263422, one laboratory
 and one platform. (R) Postnatal day 24, *Oprl1* first at 2.20-fold (2.05 to 2.37) in all three
