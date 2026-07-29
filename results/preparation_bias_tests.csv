@@ -1,0 +1,4 @@
+quantity,n,log_log_pearson_r,spearman_rho,p
+whole-cell level,12557,-0.0652,-0.0347,9.9e-05
+nuclear level,12557,0.4328,0.419,0
+nuclear / whole cell,12557,0.6714,0.6455,0

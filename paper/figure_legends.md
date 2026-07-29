@@ -94,27 +94,37 @@ value by 2.2-fold. Detection rate scales with sequencing depth, which differs be
 (C) is what shows that depth does not account for (D), since the two genes were counted in the same
 libraries.
 
-(E) Ratio of nuclear to whole-cell level in (A) against the genomic span of the gene, for all eight
-opioid genes. *Oprm1* spans 280 kb and gains 29.05-fold, *Oprd1* 34 kb and 24.44-fold, *Pnoc* 25 kb
-and 1.52-fold, *Oprk1* 18 kb and 0.95-fold, *Pdyn* 14 kb and 0.99-fold, *Penk* 9 kb and 0.39-fold,
-*Oprl1* 7 kb and 0.47-fold, *Pomc* 6 kb and 0.36-fold. Log-log Pearson r = 0.88, Spearman rho =
-0.95, p = 0.0004 over the eight genes; dropping *Oprm1* and *Oprd1*, the two that gain most, leaves
-r = 0.95. The dashed line at 1 is no change, and both axes are logarithmic so that a fall and a
-rise of the same factor sit the same distance from it. Spans are Ensembl GRCm39 gene loci
-(`data/raw/ensembl_gene_spans.csv`); taking them instead from a deposit's own coordinate columns,
-as an earlier version of this analysis did, omits *Pnoc*, which GSE102443 does not quantify.
+(E) Median expression against genomic span, over the 12,557 protein-coding genes of the atlas that
+reach 1 CPM in both preparations, binned into span deciles. Genes were selected on expression and
+never on length. Whole-cell medians run between 19.4 and 29.6 CPM across deciles whose median spans
+run from 4.0 kb to 253.0 kb, and correlate with span at r = -0.065 over the individual genes.
+Nuclear medians rise from 14.0 to 114.4 CPM over the same deciles, r = +0.43. Gene length carries
+no information about how much mature transcript a neuron holds, so the preparation whose levels
+track it is the distorted one.
 
-Nuclear libraries retain unspliced pre-mRNA, so a gene's signal scales with how much intron it
-carries. This is a bias in a known direction rather than a failure of the assay, and it is fatal to
-this comparison because the four receptors span 7 to 280 kb. The ordering by span holds across all
-eight opioid genes, including the four ligand precursors, so it is a property of the preparation
-and not of the receptor family.
+(F) The ratio of the two, for every one of those genes, against genomic span. Grey points are
+individual genes, the black line is the median per span decile, and the dashed line is no change.
+The ratio rises from 0.43 in the shortest decile to 4.75 in the longest and crosses 1 at 21 kb.
+*Oprl1* at 7.1 kb sits at 0.45, the 35th percentile of the 1,982 genes within a factor of 1.6 of its
+length; *Oprk1* at 17.7 kb sits at 1.14 and the 65th percentile of its own length class; *Oprm1* at
+279.7 kb sits at 25.4 against a median of 4.45 for genes of comparable length, the 96th percentile
+of that class, so its length accounts for most of its gain and not all of it. *Oprd1* is absent from
+(E) and (F), at 0.22 CPM in whole cells and below the floor. Both panels use the vagal neurons of
+(A), one atlas and one chemistry, so the contrast is between preparations rather than between
+studies. Spans are Ensembl GRCm39 gene loci.
 
-Preparation is confounded with laboratory in both (A) and (B), since no laboratory here has run
-both preparations on one tissue, and an intron-inclusive alignment would produce the same signature
-as pre-mRNA retention. What separates those readings from a laboratory effect is that the shift is
-ordered by gene length (E) and reproduces in two tissues across two independent pairs of
-laboratories (A and B).
+A nucleus holds nascent transcript that has not been spliced or exported, and single-nucleus
+quantification counts reads across the whole gene body, introns included, since restricting to
+exons discards most of a nuclear library. Signal accrues with the length of the transcription unit
+rather than with the number of finished transcripts. Whole-cell libraries sample the cytoplasmic
+pool, the mature mRNA a neuron translates, and 3' counting of that pool has no length term. This is
+a bias in a known direction rather than a failure of the assay, and it reaches the opioid receptors
+because they span 7 to 280 kb.
+
+Preparation is confounded with laboratory in (A) and (B), since no laboratory here has run both
+preparations on one tissue. (E) and (F) do not rest on that contrast: both are internal to a single
+atlas and a single chemistry, and they identify the biased measurement from the behaviour of 12,557
+genes rather than from any receptor.
 
 Every panel of Figure 1 therefore uses whole-cell data, and no human single-nucleus dataset can
 establish a species difference in the ordering: the mouse arm of the one cross-species nuclear

@@ -53,6 +53,9 @@ fetch "$GEO/GSE166nnn/GSE166648/suppl/GSE166648_snRNA_unnormdata.csv.gz" \
 fetch "https://datasets.cellxgene.cziscience.com/a503329b-7bac-4a9f-be64-03cefc978452.h5ad" \
       "$NODOSE_ROOT/data/nodomap_integrated.h5ad"
 
+# Gene coordinates for the preparation-bias analysis come from Ensembl rather
+# than from any deposit's own columns; see 00b_fetch_gene_spans.py, which writes
+# ensembl_gene_spans.csv, and the BioMart pull that writes the genome-wide table.
 echo
 echo "Verifying checksums ..."
 sha256sum -c --quiet - <<EOF

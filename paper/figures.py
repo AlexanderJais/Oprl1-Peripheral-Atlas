@@ -130,9 +130,13 @@ def figureS1():
     gang = pd.read_csv(ac.RES / "receptor_levels_by_ganglion.csv")
     xsp = pd.read_csv(ac.RES / "human_xspecies_drg.csv").set_index("species")
 
-    # Two paired comparisons across the top, three derived panels below, so each
-    # row gets its own gridspec: the rows differ in column count and only the
-    # top row is titled.
+    gw = pd.read_csv(ac.RES / "preparation_bias_genomewide.csv")
+    dec = pd.read_csv(ac.RES / "preparation_bias_by_span_decile.csv")
+    rec = pd.read_csv(ac.RES / "preparation_bias_receptors.csv").set_index("gene")
+
+    # The four measured panels across the top, the two genome-wide panels below
+    # at half the count and so twice the width. Each row gets its own gridspec:
+    # the rows differ in column count and only the top row is titled.
     PANEL_H, BELOW = 1.45, 0.38
     TITLED, BARE = 0.36, 0.42
     TOP_PAD, BOT_PAD = TITLED + 0.04, BELOW + 0.06
@@ -141,16 +145,17 @@ def figureS1():
     st.set_theme()
     plt.rcParams["hatch.linewidth"] = 0.4
     fig = plt.figure(figsize=(st.W_2COL, height))
-    left, right = 0.088, 0.99
+    left, right = 0.105, 0.99
     axes = []
     y = height - TOP_PAD
-    for ncol, wspace in ((2, 0.40), (3, 0.52)):
+    for ncol, wspace in ((4, 0.62), (2, 0.34)):
         gs = fig.add_gridspec(1, ncol, left=left, right=right, top=y / height,
                               bottom=(y - PANEL_H) / height, wspace=wspace)
         axes += [fig.add_subplot(gs[0, i]) for i in range(ncol)]
         y -= PANEL_H + BELOW + BARE
-    for ax, letter in zip(axes, "ABCDE"):
-        st.panel_letter(ax, letter, dx=-0.20, dy=1.26)
+    for ax, letter in zip(axes, "ABCDEF"):
+        st.panel_letter(ax, letter, dx=-0.34 if letter in "ABCD" else -0.17,
+                        dy=1.26)
 
     # (A) One tissue, both preparations, from the same atlas.
     ax = axes[0]
@@ -198,33 +203,43 @@ def figureS1():
         ax.set_ylim(0, top)
         ax.set_ylabel(rf"$\it{{{gene}}}$ detection (%)", fontsize=st.FS_LABEL)
 
-    # (E) The shift against how much intron a gene has to retain.
+    # (E) Which of the two measurements moves with gene length. Whichever it is
+    # is the distorted one: the length of a transcription unit says nothing
+    # about how much mature message a neuron carries.
     ax = axes[4]
-    v = bias.reset_index()
-    missing = v.genomic_span_kb.isna()
-    if missing.any():
-        raise ac.SanityCheckError(
-            f"no genomic span for {sorted(v.gene[missing])}; the panel would "
-            "drop them without saying so")
-    ax.scatter(v.genomic_span_kb, v.nuclear_over_whole_cell, s=11,
-               c=[st.BAR_BLUE if g == "Oprl1" else "black" for g in v.gene],
-               edgecolors="black", linewidths=0.4, zorder=3)
-    offsets = {"Oprl1": (4, 1.5), "Pomc": (-20, -1), "Penk": (4, -6),
-               "Pdyn": (-20, 1), "Oprd1": (-16, 4), "Oprm1": (-19, 4),
-               "Oprk1": (3, -7)}
-    for _, rr in v.iterrows():
-        ax.annotate(rr.gene, (rr.genomic_span_kb, rr.nuclear_over_whole_cell),
-                    fontsize=st.FS_TICK, fontstyle="italic", zorder=4,
-                    xytext=offsets.get(rr.gene, (4, 2.5)),
-                    textcoords="offset points")
-    # Both axes logarithmic. y is a fold change against the dashed reference at
-    # 1, and on a linear axis a 3-fold fall and a 3-fold rise are not the same
-    # distance from it, which is the comparison the panel is for.
+    for col, label, marker, ls in (("median_whole_cell", "whole cell", "o", "-"),
+                                   ("median_nuclear", "nuclear", "s", "--")):
+        ax.plot(dec.span_med, dec[col], ls, marker=marker, color="black",
+                markersize=2.6, linewidth=0.7, markerfacecolor=(
+                    "white" if col.endswith("whole_cell") else "black"),
+                markeredgewidth=0.5, label=label, zorder=3)
     ax.set_xscale("log")
     ax.set_yscale("log")
-    ax.set_xlim(3, 800)
-    ax.set_ylim(0.2, 90)
-    ax.axhline(1.0, color="black", lw=0.5, ls=(0, (3, 2)), zorder=2)
+    ax.set_ylim(8, 200)
+    ax.set_xlabel("genomic span (kb), decile median", fontsize=st.FS_LABEL)
+    ax.set_ylabel("median expression (CPM)", fontsize=st.FS_LABEL)
+    ax.legend(loc="upper left", fontsize=st.FS_NOTE, handlelength=1.8,
+              borderpad=0.2, labelspacing=0.3, handletextpad=0.5)
+
+    # (F) Every expressed gene, and where the receptors sit among them.
+    ax = axes[5]
+    ax.scatter(gw.span_kb, gw.ratio, s=0.6, c="#C8C8C8", linewidths=0,
+               rasterized=True, zorder=2)
+    ax.plot(dec.span_med, dec.median_ratio, "-", color="black", linewidth=0.8,
+            zorder=4)
+    ax.axhline(1.0, color="black", lw=0.5, ls=(0, (3, 2)), zorder=3)
+    offsets = {"Oprl1": (-4, -11), "Oprm1": (-21, 5), "Oprk1": (4, 3)}
+    for gene in rec.index:
+        colour = st.BAR_BLUE if gene == "Oprl1" else "black"
+        ax.scatter([rec.loc[gene, "span_kb"]], [rec.loc[gene, "ratio"]], s=14,
+                   c=colour, edgecolors="black", linewidths=0.4, zorder=5)
+        ax.annotate(gene, (rec.loc[gene, "span_kb"], rec.loc[gene, "ratio"]),
+                    fontsize=st.FS_TICK, fontstyle="italic", zorder=5,
+                    xytext=offsets.get(gene, (4, 3)), textcoords="offset points")
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlim(0.15, 3000)
+    ax.set_ylim(0.02, 200)
     ax.set_xlabel("genomic span (kb)", fontsize=st.FS_LABEL)
     ax.set_ylabel("nuclear / whole cell", fontsize=st.FS_LABEL)
     return fig
