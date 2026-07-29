@@ -33,28 +33,47 @@ def figure1():
     """The four opioid receptor genes in 19 peripheral neuronal populations."""
     d = pd.read_csv(ac.RES / "receptor_levels_by_ganglion.csv")
     groups = list(dict.fromkeys(d.group))
-    block = {g: int(np.ceil((d.group == g).sum() / NCOL)) for g in groups}
+    rows = {g: int(np.ceil((d.group == g).sum() / NCOL)) for g in groups}
 
-    # A thin empty row between blocks. Without it the division rule lands on the
-    # rotated gene labels of the row above, which hang below their axes.
-    SPACER = 0.36
-    heights, start = [], {}
-    for i, g in enumerate(groups):
-        if i:
-            heights.append(SPACER)
-        start[g] = len(heights)
-        heights += [1.0] * block[g]
+    # Laid out in inches rather than by gridspec spacing. A spacer row cannot
+    # give a small gap between blocks, because hspace applies on both sides of
+    # it, so a block gap is never less than twice a row gap however thin the
+    # spacer is. Each block gets its own gridspec at an explicit position.
+    # Gene labels sit horizontally. Rotating them costs about 0.2 inches of
+    # clearance under every row, which over five rows is more vertical space
+    # than the rotation saves horizontally.
+    PANEL_H = 0.95     # axes height
+    ABOVE = 0.38       # two-line tissue title and the panel letter above it
+    BELOW = 0.14       # one line of gene labels
+    WITHIN = ABOVE + BELOW
+    HEAD = ABOVE       # top of the axes to the rule
+    BETWEEN = BELOW + 0.16 + ABOVE      # the rule and the division name between
+    TOP_PAD = ABOVE + 0.16
+    BOT_PAD = BELOW + 0.04
+
+    n_rows = sum(rows.values())
+    height = (TOP_PAD + BOT_PAD + n_rows * PANEL_H
+              + sum(r - 1 for r in rows.values()) * WITHIN
+              + (len(groups) - 1) * BETWEEN)
 
     st.set_theme()
-    fig = plt.figure(figsize=(st.W_2COL, 1.50 * sum(heights) + 0.30))
-    gs = fig.add_gridspec(len(heights), NCOL, height_ratios=heights,
-                          hspace=0.95, wspace=0.62,
-                          left=0.062, right=0.995, top=0.955, bottom=0.035)
+    fig = plt.figure(figsize=(st.W_2COL, height))
+    left, right = 0.062, 0.995
+    y = height - TOP_PAD
 
-    for g in groups:
-        sub = d[d.group == g]
-        for k, r in enumerate(sub.itertuples()):
-            ax = fig.add_subplot(gs[start[g] + k // NCOL, k % NCOL])
+    for gi, g in enumerate(groups):
+        nr = rows[g]
+        block_h = nr * PANEL_H + (nr - 1) * WITHIN
+        gs = fig.add_gridspec(nr, NCOL, left=left, right=right,
+                              top=y / height, bottom=(y - block_h) / height,
+                              hspace=WITHIN / PANEL_H, wspace=0.44)
+        fig.text(0.004, (y + HEAD + 0.02) / height, g[0].upper() + g[1:],
+                 fontsize=st.FS_LABEL, fontweight="bold", ha="left", va="bottom")
+        fig.lines.append(plt.Line2D([0.004, 0.996], [(y + HEAD) / height] * 2,
+                                    transform=fig.transFigure, color="black",
+                                    lw=0.5))
+        for k, r in enumerate(d[d.group == g].itertuples()):
+            ax = fig.add_subplot(gs[k // NCOL, k % NCOL])
             vals = [getattr(r, gene) for gene in ac.RECEPTORS]
             order = np.argsort(-np.array(vals))
             genes = [ac.RECEPTORS[i] for i in order]
@@ -62,18 +81,11 @@ def figure1():
                 ax, [vals[i] for i in order], genes, r.unit,
                 colors=[st.BAR_BLUE if gene == "Oprl1" else st.BAR_GREY
                         for gene in genes],
-                fontsize=st.FS_TICK, linewidth=0.5, rotation=45)
-            st.panel_letter(ax, r.panel, dx=-0.40, dy=1.30)
+                fontsize=st.FS_TICK, linewidth=0.5, rotation=0)
+            st.panel_letter(ax, r.panel, dx=-0.40, dy=1.34)
             tissue = r.tissue[0].upper() + r.tissue[1:]
             ax.set_title(f"{tissue}\nn = {r.n:,}", fontsize=st.FS_NOTE, pad=3)
-            if k == 0:
-                y = ax.get_position().y1 + 0.031
-                fig.text(0.004, y + 0.003, g[0].upper() + g[1:],
-                         fontsize=st.FS_LABEL, fontweight="bold", ha="left",
-                         va="bottom")
-                fig.lines.append(plt.Line2D(
-                    [0.004, 0.996], [y] * 2, transform=fig.transFigure,
-                    color="black", lw=0.5))
+        y -= block_h + BETWEEN
     return fig
 
 
