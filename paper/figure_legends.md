@@ -69,8 +69,8 @@ See also Figure S1, Figure S3, and Table S1.
 ## Figure S1. A nuclear preparation reverses the receptor ordering, related to Figure 1
 
 Whole-cell and single-nucleus measurements of the same tissue, and the gene property that separates
-them. Solid bars are whole-cell data and hatched bars are nuclear data throughout. *Oprl1* is blue
-where the panel distinguishes genes by colour, as in Figure 1.
+them. Solid bars are whole-cell data and hatched bars are nuclear data throughout, as the key above
+the panels gives. *Oprl1* is blue where the panel distinguishes genes by colour, as in Figure 1.
 
 (A) Vagal ganglia (X), NodoMap. The whole-cell value is the unweighted mean over the atlas's four
 whole-cell deposits, 30,640 neurons; the nuclear value is the atlas's own 765 nuclei, the same
@@ -104,14 +104,17 @@ track it is the distorted one.
 
 (F) The ratio of the two, for every one of those genes, against genomic span. Grey points are
 individual genes, the black line is the median per span decile, and the dashed line is no change.
-The ratio rises from 0.43 in the shortest decile to 4.75 in the longest and crosses 1 at 21 kb.
+The ratio rises from 0.43 in the shortest decile to 4.75 in the longest and crosses 1 at 21 kb. The
+four receptors are marked, filled where they clear the 1 CPM floor and open where they do not.
 *Oprl1* at 7.1 kb sits at 0.45, the 35th percentile of the 1,982 genes within a factor of 1.6 of its
-length; *Oprk1* at 17.7 kb sits at 1.14 and the 65th percentile of its own length class; *Oprm1* at
-279.7 kb sits at 25.4 against a median of 4.45 for genes of comparable length, the 96th percentile
-of that class, so its length accounts for most of its gain and not all of it. *Oprd1* is absent from
-(E) and (F), at 0.22 CPM in whole cells and below the floor. Both panels use the vagal neurons of
-(A), one atlas and one chemistry, so the contrast is between preparations rather than between
-studies. Spans are Ensembl GRCm39 gene loci.
+length. *Oprk1* at 17.7 kb sits at 1.14 and the 65th percentile of its own length class. Both behave
+as ordinary genes of their size. *Oprm1* at 279.7 kb sits at 25.4 against a median of 4.45 for genes
+of comparable length, the 96th percentile of that class, so its length accounts for most of its
+gain and not all of it. *Oprd1* is open because it reads 0.25 CPM in whole cells and contributes
+nothing to the fit; its ratio of 21.6 is measured against that denominator and is correspondingly
+uncertain, and it is drawn so that all four receptors are visible rather than three. Both panels use
+the vagal neurons of (A), one atlas and one chemistry, so the contrast is between preparations
+rather than between studies. Spans are Ensembl GRCm39 gene loci.
 
 A nucleus holds nascent transcript that has not been spliced or exported, and single-nucleus
 quantification counts reads across the whole gene body, introns included, since restricting to

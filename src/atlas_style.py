@@ -46,6 +46,12 @@ MM = 1 / 25.4
 W_1COL, W_15COL, W_2COL = 85 * MM, 114 * MM, 174 * MM
 H_MAX = 235 * MM
 
+# Supplemental figures are supplied as separate files rather than typeset into
+# the article's columns, so the 174 mm text width does not bind them. 228 mm is
+# the widest that still prints inside the margins of both A4 and US Letter in
+# landscape, which is how a reviewer will read them.
+W_SUPP, H_SUPP = 228 * MM, 170 * MM
+
 # Arial or Helvetica, and nothing else. Helvetica is listed first for a
 # production system that licenses it; Nimbus Sans is the URW clone with
 # identical metrics, and Liberation Sans carries Arial's metrics. DejaVu, the

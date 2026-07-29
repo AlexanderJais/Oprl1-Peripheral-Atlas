@@ -94,14 +94,21 @@ def _it(*symbols):
     return " / ".join(rf"$\it{{{s}}}$" for s in symbols)
 
 
-def _prep_legend(ax):
+def _prep_key(fig, x, y):
+    """The whole-cell against nuclear key, at a figure position.
+
+    Drawn on the canvas rather than inside a panel. Inside panel A it sat on
+    top of the nuclear Oprm1 bar, which is the tallest thing in the figure, and
+    no in-axes anchor clears it.
+    """
     solid = plt.Rectangle((0, 0), 1, 1, facecolor="white", edgecolor="black",
                           linewidth=0.5)
     hatched = plt.Rectangle((0, 0), 1, 1, facecolor="white", edgecolor="black",
                             linewidth=0.5, hatch=NUC_HATCH)
-    ax.legend([solid, hatched], ["whole cell", "nuclear"], loc="upper right",
-              fontsize=st.FS_NOTE, handlelength=1.3, handleheight=1.0,
-              borderpad=0.2, labelspacing=0.3, handletextpad=0.4)
+    fig.legend([solid, hatched], ["whole cell", "nuclear"], loc="upper left",
+               bbox_to_anchor=(x, y), ncol=2, fontsize=st.FS_NOTE,
+               handlelength=1.3, handleheight=1.0, borderpad=0.0,
+               columnspacing=1.1, handletextpad=0.4)
 
 
 def _paired_receptor_bars(ax, whole, nuclear, ylim):
@@ -137,15 +144,16 @@ def figureS1():
     # The four measured panels across the top, the two genome-wide panels below
     # at half the count and so twice the width. Each row gets its own gridspec:
     # the rows differ in column count and only the top row is titled.
-    PANEL_H, BELOW = 1.45, 0.38
+    PANEL_H, BELOW = 1.60, 0.38
     TITLED, BARE = 0.36, 0.42
-    TOP_PAD, BOT_PAD = TITLED + 0.04, BELOW + 0.06
+    KEY = 0.20                      # the preparation key, above every panel
+    TOP_PAD, BOT_PAD = TITLED + KEY + 0.04, BELOW + 0.06
     height = TOP_PAD + 2 * PANEL_H + BELOW + BARE + BOT_PAD
 
     st.set_theme()
     plt.rcParams["hatch.linewidth"] = 0.4
-    fig = plt.figure(figsize=(st.W_2COL, height))
-    left, right = 0.105, 0.99
+    fig = plt.figure(figsize=(st.W_SUPP, height))
+    left, right = 0.075, 0.99
     axes = []
     y = height - TOP_PAD
     for ncol, wspace in ((4, 0.62), (2, 0.34)):
@@ -167,7 +175,7 @@ def figureS1():
     nu_n = int(nod[(nod.prep == "nuclear") & (nod.gene == "Oprl1")].n_cells.iloc[0])
     ax.set_title(f"Vagal ganglia (X)\n{wc_n:,} cells, {nu_n:,} nuclei",
                  fontsize=st.FS_NOTE, pad=3)
-    _prep_legend(ax)
+    _prep_key(fig, left, 1 - 0.02)
 
     # (B) A second tissue, a second laboratory, the same inversion.
     ax = axes[1]
@@ -228,11 +236,16 @@ def figureS1():
     ax.plot(dec.span_med, dec.median_ratio, "-", color="black", linewidth=0.8,
             zorder=4)
     ax.axhline(1.0, color="black", lw=0.5, ls=(0, (3, 2)), zorder=3)
-    offsets = {"Oprl1": (-4, -11), "Oprm1": (-21, 5), "Oprk1": (4, 3)}
+    offsets = {"Oprl1": (-4, -11), "Oprm1": (-21, 5), "Oprk1": (4, 3),
+               "Oprd1": (-21, 4)}
     for gene in rec.index:
         colour = st.BAR_BLUE if gene == "Oprl1" else "black"
+        # Oprd1 sits below the expression floor the fit was computed on, so it
+        # is drawn open: shown, and visibly not carrying the result.
+        filled = bool(rec.loc[gene, "above_floor"])
         ax.scatter([rec.loc[gene, "span_kb"]], [rec.loc[gene, "ratio"]], s=14,
-                   c=colour, edgecolors="black", linewidths=0.4, zorder=5)
+                   c=colour if filled else "white", edgecolors=colour,
+                   linewidths=0.6, zorder=5)
         ax.annotate(gene, (rec.loc[gene, "span_kb"], rec.loc[gene, "ratio"]),
                     fontsize=st.FS_TICK, fontstyle="italic", zorder=5,
                     xytext=offsets.get(gene, (4, 3)), textcoords="offset points")
@@ -245,7 +258,7 @@ def figureS1():
     return fig
 
 
-def emit(fig, name):
+def emit(fig, name, max_w=174.5, max_h=235.0):
     """Write the figure and refuse it if it breaks the journal's limits."""
     OUT.mkdir(parents=True, exist_ok=True)
     # A tight bounding box would crop to the drawn content and hand the journal
@@ -259,10 +272,10 @@ def emit(fig, name):
     plt.close(fig)
 
     over = []
-    if w > 174.5:
-        over.append(f"width {w:.1f} mm exceeds 174 mm")
-    if h > 235.0:
-        over.append(f"height {h:.1f} mm exceeds 235 mm")
+    if w > max_w:
+        over.append(f"width {w:.1f} mm exceeds {max_w:.0f} mm")
+    if h > max_h:
+        over.append(f"height {h:.1f} mm exceeds {max_h:.0f} mm")
     # Nothing may sit outside the canvas, or writing it untrimmed clips it.
     for edge, past in (("left", -tight.x0), ("bottom", -tight.y0),
                        ("right", tight.x1 - w / 25.4),
@@ -276,4 +289,5 @@ def emit(fig, name):
 
 if __name__ == "__main__":
     emit(figure1(), "Figure1")
-    emit(figureS1(), "FigureS1")
+    emit(figureS1(), "FigureS1",
+         max_w=st.W_SUPP * 25.4 + 0.5, max_h=st.H_SUPP * 25.4)

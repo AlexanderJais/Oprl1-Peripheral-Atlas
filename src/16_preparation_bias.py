@@ -156,11 +156,17 @@ def main() -> int:
           "one distorted by it:")
     print(dec.to_string(index=False))
 
-    # Where the four receptors sit on that distribution.
-    rec = keep[keep.gene.isin(ac.RECEPTORS)].set_index("gene")
-    rec = rec.reindex([g for g in ac.RECEPTORS if g in rec.index])
+    # Where the four receptors sit on that distribution. Taken from the
+    # unfiltered frame and flagged, so a receptor below the floor is visible as
+    # a receptor below the floor rather than as a receptor that vanished.
+    rec = d[d.gene.isin(ac.RECEPTORS)].copy()
+    rec["ratio"] = rec.nuclear_CPM / rec.whole_cell_CPM.where(rec.whole_cell_CPM > 0)
+    rec["above_floor"] = ((rec.whole_cell_CPM >= MIN_CPM)
+                          & (rec.nuclear_CPM >= MIN_CPM))
+    rec = rec.set_index("gene").reindex(ac.RECEPTORS)
     rec["pct_all_genes"] = [
-        round(float((keep.ratio < v).mean() * 100), 1) for v in rec.ratio]
+        round(float((keep.ratio < v).mean() * 100), 1) if np.isfinite(v) else np.nan
+        for v in rec.ratio]
     # Also against genes of its own length, which is the comparison that says
     # whether length alone accounts for where a receptor lands.
     band = []
@@ -172,12 +178,13 @@ def main() -> int:
     print("\n  The receptors on that distribution, against all genes and "
           "against genes of their own length:")
     print(rec[["span_kb", "whole_cell_CPM", "nuclear_CPM", "ratio",
-               "pct_all_genes", "n_peers", "peer_median_ratio",
+               "above_floor", "pct_all_genes", "n_peers", "peer_median_ratio",
                "pct_of_peers"]].round(3).to_string())
-    dropped = [g for g in ac.RECEPTORS if g not in rec.index]
-    if dropped:
-        print(f"  [note] {dropped} did not reach {MIN_CPM} CPM in both "
-              "preparations and is absent from this comparison")
+    below = list(rec.index[~rec.above_floor])
+    if below:
+        print(f"  [note] {below} did not reach {MIN_CPM} CPM in both "
+              "preparations, so it carries no weight in the fit and is drawn "
+              "as an open symbol")
     ac.save_table(rec.reset_index(), "preparation_bias_receptors.csv")
 
     ac.save_table(keep[["gene", "ensembl_id", "span_kb", "whole_cell_CPM",
