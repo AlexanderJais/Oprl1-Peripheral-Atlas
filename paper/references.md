@@ -3,6 +3,10 @@
 Abdulla, F.A., and Smith, P.A. (1997). Nociceptin inhibits T-type Ca2+ channel current in rat
 sensory neurons by a G-protein-independent mechanism. J. Neurosci. 17, 8721-8728.
 
+Abdulla, F.A., and Smith, P.A. (1998). Axotomy reduces the effect of analgesic opioids yet
+increases the effect of nociceptin on dorsal root ganglion neurons. J. Neurosci. 18, 9685-9694.
+PMID: 9822729.
+
 Al-Hasani, R., and Bruchas, M.R. (2011). Molecular mechanisms of opioid receptor-dependent
 signaling and behavior. Anesthesiology 115, 1363-1381.
 
@@ -21,6 +25,10 @@ dorsal root ganglia. Sci. Adv. 10, eadj9173.
 Bunzow, J.R., Saez, C., Mortrud, M., Bouvier, C., Williams, J.T., Low, M., and Grandy, D.K.
 (1994). Molecular cloning and tissue distribution of a putative member of the rat opioid receptor
 gene family that is not a mu, delta or kappa opioid receptor type. FEBS Lett. 347, 284-288.
+
+Chamberlin, J.T., Lee, Y., Marth, G.T., and Quinlan, A.R. (2024). Differences in molecular
+sampling and data processing explain variation among single-cell and single-nucleus RNA-seq
+experiments. Genome Res. 34, 179-188. PMID: 38355308.
 
 Cheng, S., Dowsett, G.K.C., Rainbow, K., Norton, M., Roberts, A.G., Phuah, P., Bewick, G.A., Lam,
 B.Y.H., Yeo, G.S.H., and Murphy, K.G. (2026). NodoMap: a single-cell and spatial transcriptomic
@@ -57,6 +65,10 @@ Liu, R., Liu, J., Chen, Z., Li, J., Liu, Z., and Sun, S. (2026). Morphological a
 diversity of spatially resolved vestibular ganglion neuron cell types. Proc. Natl. Acad. Sci. USA
 123, e2530677123. PMID: 42412930.
 
+Liu, S., Kang, W.J., Abrimian, A., Xu, J., Cartegni, L., Majumdar, S., Hesketh, P., Bekker, A.,
+and Pan, Y.X. (2021). Alternative pre-mRNA splicing of the mu opioid receptor gene, OPRM1: insight
+into complex mu opioid actions. Biomolecules 11, 1525. PMID: 34680158.
+
 Meunier, J.C., Mollereau, C., Toll, L., Suaudeau, C., Moisand, C., Alvinerie, P., Butour, J.L.,
 Guillemot, J.C., Ferrara, P., Monsarrat, B., et al. (1995). Isolation and structure of the
 endogenous agonist of opioid receptor-like ORL1 receptor. Nature 377, 532-535. PMID: 7566152.
@@ -72,6 +84,10 @@ gene. Proc. Natl. Acad. Sci. USA 93, 8666-8670.
 Reinscheid, R.K., Nothacker, H.P., Bourson, A., Ardati, A., Henningsen, R.A., Bunzow, J.R.,
 Grandy, D.K., Langen, H., Monsma, F.J., Jr., and Civelli, O. (1995). Orphanin FQ: a neuropeptide
 that activates an opioidlike G protein-coupled receptor. Science 270, 792-794.
+
+Scherrer, G., Imamachi, N., Cao, Y.Q., Contet, C., Mennicken, F., O'Donnell, D., Kieffer, B.L.,
+and Basbaum, A.I. (2009). Dissociation of the opioid receptor mechanisms that control mechanical
+and heat pain. Cell 137, 1148-1159. PMID: 19524516.
 
 Sharma, S., Littman, R., Tompkins, J.D., Arneson, D., Contreras, J., Dajani, A.-H., Ang, K.,
 Tsanhani, A., Sun, X., Jay, P.Y., et al. (2023). Tiered sympathetic control of cardiac function
@@ -105,6 +121,10 @@ with a peptide mimetic. Nature 485, 395-399. PDB: 4EA3.
 Toll, L., Bruchas, M.R., Calo, G., Cox, B.M., and Zaveri, N.T. (2016). Nociceptin/orphanin FQ
 receptor structure, signaling, ligands, functions, and interactions with opioid systems.
 Pharmacol. Rev. 68, 419-457.
+
+Wang, D., Tawfik, V.L., Corder, G., Low, S.A., Francois, A., Basbaum, A.I., and Scherrer, G.
+(2018). Functional divergence of delta and mu opioid receptor organization in CNS pain circuits.
+Neuron 98, 90-108.e5. PMID: 29576387.
 
 Weibel, R., Reiss, D., Karchewski, L., Gardon, O., Matifas, A., Filliol, D., Becker, J.A., Wood,
 J.N., Kieffer, B.L., and Gaveriaux-Ruff, C. (2013). Mu opioid receptors on primary afferent Nav1.8

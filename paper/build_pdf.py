@@ -189,6 +189,7 @@ def main() -> int:
         render(re.sub(r"^## Introduction\n", "", intro.split("\n", 1)[1],
                       flags=re.M), False),
         "<h2>Results</h2>", results_with_figures(legends),
+        "<h2>Discussion</h2>", render(demote(read("discussion"))),
         "<h2>Methods</h2>", render(demote(read("methods"))),
         '<h2 id="references">References</h2>',
         f'<div id="references">{render(read("references"))}</div>',
