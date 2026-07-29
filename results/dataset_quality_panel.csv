@@ -1,6 +1,6 @@
 division,dataset,tissue,prep,unit,n,n_samples,median_umi,top_gene,margin,margin_lo,margin_hi,support,samples_agreeing,marker_gate,ambient_check,Oprl1_log2_neuron_over_glia,Snap25_log2_neuron_over_glia,Oprl1_minus_Snap25,ambient_reason,Oprl1,Oprm1,Oprd1,Oprk1,Oprl1_pct,Oprm1_pct,Oprd1_pct,Oprk1_pct,runner_up,n_boot,over_Oprm1,Oprl1_percentile
 sensory,GSE114997,spiral (VIII),whole cell,CPM,226,,,Oprl1,inf,,,1.0,n/a,pass,not possible,,,,"deposit is 226 sorted neurons, no non-neuronal cells",,,,,,,,,,,,
-sensory,GSE102443,geniculate (VII),whole cell,FPKM,96,,,Oprl1,31.3,,,1.0,n/a,pass,not possible,,,,"deposit is 96 sorted neurons, no non-neuronal cells",,,,,,,,,,,,
+sensory,GSE102443,geniculate (VII),whole cell,FPKM,96,,,Oprl1,6.92,4.26,13.32,1.0,n/a,pass,not possible,,,,"deposit is 96 sorted neurons, no non-neuronal cells",,,,,,,,,,,,
 sensory,GSE309608,vestibular (VIII),whole cell,CPM,6596,4.0,55172.0,Oprl1,4.29,3.854,4.808,1.0,4/4,pass,run,2.119,1.887,0.232,,19.879,1.775,0.09,4.634,57.57,6.66,0.49,9.67,Oprk1,10000.0,11.2,66.2
 sensory,GSE135801,geniculate (VII),whole cell,CPM,454,,,Oprl1,4.02,0.99,36.7,0.974,n/a,pass,not possible,,,,"deposit is Phox2b-sorted neurons, no non-neuronal cells",,,,,,,,,,,,
 sensory,iPain,trigeminal (V),whole cell,CPM,2773,,,Oprl1,2.08,1.41,3.26,1.0,n/a,pass,not possible,,,,source h5ad is 0.6 GB and was not retained; not re-derived,,,,,,,,,,,,

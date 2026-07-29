@@ -1,6 +1,6 @@
 group,panel,dataset,tissue,unit,n,Oprl1,Oprm1,Oprd1,Oprk1,top,margin,support,n_boot
 sensory,a,GSE114997,spiral (VIII),CPM,226,41.94,0.0,0.0,0.0,Oprl1,inf,1.0,10000
-sensory,b,GSE102443,geniculate (VII),FPKM,96,5.73,0.18,0.31,0.83,Oprl1,31.3,1.0,10000
+sensory,b,GSE102443,geniculate (VII),FPKM,96,5.73,0.18,0.31,0.83,Oprl1,6.92,1.0,10000
 sensory,c,GSE309608,vestibular (VIII),CPM,6596,19.88,1.78,0.09,4.63,Oprl1,4.29,1.0,10000
 sensory,d,GSE135801,geniculate (VII),CPM,454,18.98,0.01,4.72,3.61,Oprl1,4.02,0.974,10000
 sensory,e,iPain,trigeminal (V),CPM,2773,13.24,6.36,1.46,5.12,Oprl1,2.08,1.0,10000

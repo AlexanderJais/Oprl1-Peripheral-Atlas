@@ -14,8 +14,9 @@ the panel.
 genes are present in the annotation, so the three zeros are measured absences.
 
 (B and D) Geniculate ganglion (VII) on two platforms from two laboratories. (B) GSE102443, full-
-length SMART-seq, FPKM, 31.30-fold over the second receptor, bootstrap support 1.000. (D)
-GSE135801, 3' droplet, 4.02-fold, support 0.974 (95% interval 0.99 to 36.70).
+length SMART-seq, FPKM, 6.92-fold over the second receptor (4.26 to 13.32), support 1.000, and
+31.30-fold over *Oprm1*, which is the lowest of the four here. (D) GSE135801, 3' droplet,
+4.02-fold, support 0.974 (95% interval 0.99 to 36.70).
 
 (C) Vestibular ganglion (VIII), GSE309608, four mice, 4.29-fold (3.85 to 4.81), support 1.000,
 same ordering in each mouse.

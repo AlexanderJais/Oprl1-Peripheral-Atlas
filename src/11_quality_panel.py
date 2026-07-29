@@ -44,9 +44,14 @@ import atlas_common as ac
 # Populations not handled by src/10_peripheral_ganglia.py, with the reason each
 # missing check is missing. Numbers come from the scripts that produced them.
 LEGACY = [
+    # Margin over the runner-up, as everywhere else in this panel. The 31.30
+    # this row carried until now is Oprl1 over Oprm1, which is the comparison
+    # the geniculate section of the README makes and not the runner-up: Oprm1
+    # is the lowest of the four here and Oprk1 is second. These are the
+    # bootstrap's own numbers, from results/geniculate_rank_support.csv.
     dict(dataset="GSE102443", tissue="geniculate (VII)", division="sensory",
-         unit="FPKM", n=96, prep="whole cell", top_gene="Oprl1", margin=31.30,
-         margin_lo=np.nan, margin_hi=np.nan, support=1.000, median_umi=np.nan,
+         unit="FPKM", n=96, prep="whole cell", top_gene="Oprl1", margin=6.92,
+         margin_lo=4.26, margin_hi=13.32, support=1.000, median_umi=np.nan,
          samples_agreeing="n/a",
          ambient_reason="deposit is 96 sorted neurons, no non-neuronal cells"),
     dict(dataset="GSE135801", tissue="geniculate (VII)", division="sensory",
@@ -112,10 +117,28 @@ def load_computed():
     d = pd.read_csv(path)
     amb = pd.read_csv(ac.RES / "peripheral_ambient_checks.csv")
 
-    snap = (amb[amb.gene == "Snap25"]
-            .set_index("dataset")["log2_enrichment"].to_dict())
+    # The ambient table was written before the celiac ganglion was renamed out
+    # of its British spelling and has not been re-derived since, because its
+    # source matrices are not in the repository. Both spellings are accepted
+    # here so the lookup does not miss, which it did silently: the Snap25
+    # column simply came back empty for that one population.
+    snap = {k.replace("coeliac", "celiac"): v for k, v in
+            (amb[amb.gene == "Snap25"]
+             .set_index("dataset")["log2_enrichment"].items())}
     d["label"] = d.dataset + " (" + d.tissue + ")"
     d["Snap25_log2_neuron_over_glia"] = d.label.map(snap)
+
+    # Oprl1's enrichment is only interpretable against Snap25's in the same
+    # dissociation, so a population that has one and not the other is a lookup
+    # that missed rather than a check that could not run.
+    lost = d.label[d.Oprl1_log2_neuron_over_glia.notna()
+                   & d.Snap25_log2_neuron_over_glia.isna()]
+    if len(lost):
+        raise ac.SanityCheckError(
+            "ambient check ran but no Snap25 enrichment was found for "
+            f"{list(lost)}; peripheral_ambient_checks.csv names its populations "
+            "differently from peripheral_receptor_levels.csv")
+
     d["marker_gate"] = "pass"
     d["unit"] = "CPM"
     d["prep"] = "whole cell"

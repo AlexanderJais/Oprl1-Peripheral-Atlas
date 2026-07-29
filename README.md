@@ -863,6 +863,8 @@ python3 src/13_gpcr_rank.py                  # Oprl1 among all GPCRs and figure 
 python3 src/14_otic_lineage.py               # the otic lineage E9.5 to P25, spiral subtypes
 python3 src/15_human_ganglia.py              # human ganglia and the cross-species control
 python3 src/09_main_figures.py               # consolidated figures 1 and 3
+python3 paper/figures.py                     # manuscript figures, to Cell Press specification
+python3 paper/tables.py                      # manuscript table S1, the inventory behind figure 1
 python3 -m pytest tests -q                   # 33 unit tests
 ```
 
