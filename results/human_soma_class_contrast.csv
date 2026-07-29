@@ -1,0 +1,5 @@
+gene,human_LTMR_proprioceptive_TPM,human_nociceptive_TPM,human_ratio,human_p,mouse_myelinated_CPM,mouse_nociceptive_CPM,mouse_ratio
+OPRL1,0.856,0.4964,1.7244,4.51e-06,17.0758,8.686,1.9659
+OPRM1,1.1153,13.1833,0.0846,5.07e-50,4.022,10.3398,0.389
+OPRD1,1.234,6.4217,0.1922,7.08e-16,,,
+OPRK1,0.865,2.5384,0.3408,0.0149,,,

@@ -1,0 +1,5 @@
+gene,exonic_kb,n_peers,TPM,TPM_percentile,pct_detected,detection_percentile
+OPRL1,3.64,10062,0.607,36.941,7.729,38.765
+OPRM1,21.032,1290,8.755,75.736,57.21,43.14
+OPRD1,9.317,6846,4.555,54.543,40.716,43.244
+OPRK1,5.67,10111,1.923,42.33,19.604,37.904

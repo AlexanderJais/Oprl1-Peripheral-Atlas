@@ -1,0 +1,5 @@
+gene,n_expressing,median_um_expressing,n_silent,median_um_silent,p
+OPRL1,82,57.6301,979,51.3877,1.02e-05
+OPRM1,607,51.2389,454,53.4463,4.28e-05
+OPRD1,432,51.0022,629,52.4787,0.0527
+OPRK1,208,52.7872,853,51.8195,0.108
