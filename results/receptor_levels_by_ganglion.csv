@@ -8,10 +8,13 @@ sensory,f,NodoMap,nodose (X),CPM,26047,11.9,9.86,0.13,4.63,Oprl1,1.21,1.0,10000
 sensory,g,NodoMap,jugular (X),CPM,4593,9.62,8.33,0.92,0.9,Oprl1,1.16,0.898,10000
 sensory,h,iPain,dorsal root,CPM,31802,9.31,8.23,0.2,2.78,Oprl1,1.13,1.0,10000
 sympathetic,i,GSE232789,celiac,CPM,247,25.033,0.421,0.026,0.564,Oprl1,44.41,1.0,10000
-sympathetic,j,GSE231766,superior cervical,CPM,1382,18.68,0.27,0.57,0.73,Oprl1,25.72,1.0,10000
-sympathetic,k,GSE78845,thoracic chain,CPM,298,62.3,1.48,3.9,4.24,Oprl1,14.69,1.0,10000
-sympathetic,l,GSE231924,stellate,CPM,1303,23.928,4.837,5.04,5.116,Oprl1,4.68,1.0,10000
-parasympathetic and enteric,m,GSE232789,sphenopalatine,CPM,2014,19.502,0.292,0.04,0.015,Oprl1,66.86,1.0,10000
-parasympathetic and enteric,n,GSE330884,intrinsic cardiac,CPM,4513,11.127,3.045,0.364,0.0,Oprl1,3.65,1.0,10000
-parasympathetic and enteric,o,GSE263422,"enteric submucosal, P24",CPM,7787,35.567,0.179,16.142,3.77,Oprl1,2.2,1.0,10000
-parasympathetic and enteric,p,GSE263422,"enteric submucosal, P7",CPM,1648,26.698,0.74,2.294,122.506,Oprk1,4.59,1.0,10000
+sympathetic,j,GSE232789,pelvic,CPM,1444,16.332,0.504,0.43,0.46,Oprl1,32.42,1.0,10000
+sympathetic,k,GSE231766,superior cervical,CPM,1382,18.68,0.27,0.57,0.73,Oprl1,25.72,1.0,10000
+sympathetic,l,GSE232789,lumbar chain,CPM,887,24.757,1.675,0.033,0.393,Oprl1,14.78,1.0,10000
+sympathetic,m,GSE78845,thoracic chain,CPM,298,62.3,1.48,3.9,4.24,Oprl1,14.69,1.0,10000
+sympathetic,n,GSE232789,stellate,CPM,2589,27.55,0.562,0.031,4.53,Oprl1,6.08,1.0,10000
+sympathetic,o,GSE231924,stellate,CPM,1303,23.928,4.837,5.04,5.116,Oprl1,4.68,1.0,10000
+parasympathetic and enteric,p,GSE232789,sphenopalatine,CPM,2014,19.502,0.292,0.04,0.015,Oprl1,66.86,1.0,10000
+parasympathetic and enteric,q,GSE330884,intrinsic cardiac,CPM,4513,11.127,3.045,0.364,0.0,Oprl1,3.65,1.0,10000
+parasympathetic and enteric,r,GSE263422,"enteric submucosal, P24",CPM,7787,35.567,0.179,16.142,3.77,Oprl1,2.2,1.0,10000
+parasympathetic and enteric,s,GSE263422,"enteric submucosal, P7",CPM,1648,26.698,0.74,2.294,122.506,Oprk1,4.59,1.0,10000

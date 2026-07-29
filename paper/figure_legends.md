@@ -3,10 +3,11 @@
 ## Figure 1. *Oprl1* is the highest-expressed opioid receptor gene in peripheral neurons
 
 Mean expression of the four opioid receptor genes in each of 19 peripheral neuronal populations,
-grouped by division of the peripheral nervous system. Bars are pseudobulk means over all neurons
-of the population, in the unit each dataset was measured in, ordered within each panel from
-highest to lowest. *Oprl1* is blue and the other three receptors are gray. Sample size is the
-number of neurons contributing to the panel.
+grouped by division of the peripheral nervous system. The pelvic ganglion carries both sympathetic
+and parasympathetic neurons and is grouped with the sympathetic block. Bars are pseudobulk means
+over all neurons of the population, in the unit each dataset was measured in, ordered within each
+panel from highest to lowest. *Oprl1* is blue and the other three receptors are gray. Sample size
+is the number of neurons contributing to the panel.
 
 (A) Spiral ganglion, GSE114997, full-length SMART-seq, median 2,678,701 reads per neuron. *Oprl1*
 41.94 CPM in 74.8% of neurons; *Oprm1*, *Oprd1*, and *Oprk1* detected in no cell. All four genes
@@ -28,34 +29,37 @@ ordering in each mouse.
 (H) Dorsal root ganglion, iPain atlas, whole-cell neurons only, 1.13-fold (1.08 to 1.19), the
 narrowest margin measured and the second largest sample.
 
-(I to L) Sympathetic ganglia. Celiac 44.41-fold (20.42 to 197.63), superior cervical 25.72-fold
-(15.93 to 52.14), thoracic chain 14.69-fold (9.35 to 27.27), stellate 4.68-fold (3.02 to 8.08).
-Support 1.000 throughout. (I) is from GSE232789, (J) from the two untreated animals of GSE231766,
-(K) from GSE78845, and (L) from GSE231924, which reports cardiac-projecting neurons and places
-*Oprl1* first in each of eight mice.
+(I to O) Sympathetic ganglia, ordered by margin. Celiac 44.41-fold (20.42 to 197.63), pelvic
+32.42-fold (22.00 to 54.20), superior cervical 25.72-fold (15.93 to 52.14), lumbar chain
+14.78-fold (12.00 to 18.83), thoracic chain 14.69-fold (9.35 to 27.27), stellate 6.08-fold (5.16
+to 7.27), stellate 4.68-fold (3.02 to 8.08). Support 1.000 throughout. (I), (J), (L), and (N) are
+from GSE232789; (K) from the two untreated animals of GSE231766; (M) from GSE78845; (O) from
+GSE231924, which profiles cardiac-projecting neurons and places *Oprl1* first in each of eight
+mice. The stellate ganglion appears twice, in (N) and (O), from two deposits, two laboratories,
+and two neuron-calling routes.
 
-(M and N) Parasympathetic ganglia. (M) Sphenopalatine ganglion, GSE232789, 66.86-fold (40.54 to
+(P and Q) Parasympathetic ganglia. (P) Sphenopalatine ganglion, GSE232789, 66.86-fold (40.54 to
 132.54), the largest margin in the study. These neurons are cholinergic and not noradrenergic
 (*Slc18a3* 252 CPM, *Chat* 26, *Th* 2, *Dbh* 42) against *Th* 390 to 840 CPM in the sympathetic
-ganglia of the same experiment. (N) Intrinsic cardiac nervous system, GSE330884, three mice,
+ganglia of the same experiment. (Q) Intrinsic cardiac nervous system, GSE330884, three mice,
 3.65-fold (3.29 to 4.08), the only population in this division in which *Oprm1* is the second
 receptor.
 
-(O and P) Enteric submucosal neurons of the small intestine at two ages, GSE263422, one laboratory
-and one platform. (O) Postnatal day 24, *Oprl1* first at 2.20-fold (2.05 to 2.37) in all three
-samples. (P) Postnatal day 7, *Oprk1* first at 122.51 CPM against *Oprl1* 26.70, 4.59-fold (4.04
+(R and S) Enteric submucosal neurons of the small intestine at two ages, GSE263422, one laboratory
+and one platform. (R) Postnatal day 24, *Oprl1* first at 2.20-fold (2.05 to 2.37) in all three
+samples. (S) Postnatal day 7, *Oprk1* first at 122.51 CPM against *Oprl1* 26.70, 4.59-fold (4.04
 to 5.24) in both samples. *Oprk1* falls to 3.77 CPM at 1.1% detection by day 24 while *Oprl1*
 holds between 26 and 36 CPM.
 
 All panels use whole-cell data. Both iPain atlases are majority single-nucleus and are restricted
 here to `suspension_type == "cell"`; pooling preparations compresses the trigeminal margin from
 2.08-fold to 1.18-fold, for the reason given in Figure S1. Neurons were called on raw counts with
-glial and immune barcodes excluded, and every population passed the same marker gate and
-ambient-RNA check before any receptor value was read from it. Margins are the ratio of the highest
-to the second-highest receptor; intervals in parentheses are 95% bootstrap intervals over 10,000
+glial and immune barcodes excluded, and every population passed the same marker gate and ambient-
+RNA check before any receptor value was read from it. Margins are the ratio of the highest to the
+second-highest receptor; intervals in parentheses are 95% bootstrap intervals over 10,000
 resamples of the cells, and support is the fraction of those resamples retaining the observed top
-receptor. Five populations (I, M, and the lumbar chain, pelvic, and stellate ganglia of Table S1)
-come from a single experiment in which six autonomic ganglia were dissected and sequenced
-together.
+receptor. Panels (I), (J), (L), (N), and (P) come from a single experiment in which six autonomic
+ganglia were dissected and sequenced together, so laboratory, platform, and sequencing depth are
+constant across those five.
 
 See also Figure S1, Figure S3, and Table S1.

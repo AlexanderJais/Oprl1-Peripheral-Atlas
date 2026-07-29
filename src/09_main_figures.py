@@ -39,18 +39,27 @@ def figure1():
     d = pd.read_csv(ac.RES / "receptor_levels_by_ganglion.csv")
     groups = list(dict.fromkeys(d.group))
     block = {g: int(np.ceil((d.group == g).sum() / NCOL)) for g in groups}
-    nrow = sum(block.values())
+
+    # A thin empty row between blocks. Without it the division rule lands on the
+    # rotated gene labels of the row above, which hang below their axes.
+    SPACER = 0.36
+    heights, start = [], {}
+    for i, g in enumerate(groups):
+        if i:
+            heights.append(SPACER)
+        start[g] = len(heights)
+        heights += [1.0] * block[g]
 
     st.set_theme()
-    fig = plt.figure(figsize=(st.W_2COL, 1.62 * nrow + 0.30))
-    gs = fig.add_gridspec(nrow, NCOL, hspace=1.02, wspace=0.62,
-                          left=0.062, right=0.995, top=0.945, bottom=0.045)
+    fig = plt.figure(figsize=(st.W_2COL, 1.50 * sum(heights) + 0.30))
+    gs = fig.add_gridspec(len(heights), NCOL, height_ratios=heights,
+                          hspace=0.95, wspace=0.62,
+                          left=0.062, right=0.995, top=0.955, bottom=0.035)
 
-    row0 = 0
     for g in groups:
         sub = d[d.group == g]
         for k, r in enumerate(sub.itertuples()):
-            ax = fig.add_subplot(gs[row0 + k // NCOL, k % NCOL])
+            ax = fig.add_subplot(gs[start[g] + k // NCOL, k % NCOL])
             vals = [getattr(r, gene) for gene in ac.RECEPTORS]
             order = np.argsort(-np.array(vals))
             genes = [ac.RECEPTORS[i] for i in order]
@@ -63,17 +72,13 @@ def figure1():
             tissue = r.tissue[0].upper() + r.tissue[1:]
             ax.set_title(f"{tissue}\nn = {r.n:,}", fontsize=st.FS_NOTE, pad=3)
             if k == 0:
-                # The rule sits above the two-line tissue label of the first
-                # panel in the block, so the division name never reads as part
-                # of it.
-                y = ax.get_position().y1 + 0.052
-                fig.text(0.004, y + 0.004, g[0].upper() + g[1:],
+                y = ax.get_position().y1 + 0.031
+                fig.text(0.004, y + 0.003, g[0].upper() + g[1:],
                          fontsize=st.FS_LABEL, fontweight="bold", ha="left",
                          va="bottom")
                 fig.lines.append(plt.Line2D(
                     [0.004, 0.996], [y] * 2, transform=fig.transFigure,
                     color="black", lw=0.5))
-        row0 += block[g]
 
     st.save(fig, "figure1_oprl1_across_ganglia")
 
