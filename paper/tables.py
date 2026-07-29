@@ -31,23 +31,37 @@ import atlas_common as ac
 
 OUT = Path(__file__).resolve().parent / "tables"
 
-# Deposit to study and chemistry. Provenance for the manuscript rather than
-# analysis output, taken from the Provenance section of README.md. A deposit
-# whose publication this survey did not establish carries an em dash rather
-# than a guess.
+# Deposit to study, chemistry and DOI. Provenance for the manuscript rather
+# than analysis output. Every study here was taken from the deposit itself
+# rather than from a search on the tissue: eleven of the twelve GEO records
+# name their publication, by citation field or in the paper's own data
+# availability statement, and GSE309608 carries the BioProject the PNAS paper
+# deposits under (PRJNA1335542) along with the same six contributors and the
+# same title. Full citations are in paper/references.md.
 PROVENANCE = {
-    "GSE114997": ("Shrestha et al., 2018", "SMART-seq, full-length"),
-    "GSE102443": ("Dvoryanchikov et al., 2017", "SMART-seq, full-length"),
-    "GSE309608": ("--", "10x droplet, 3'"),
-    "GSE135801": ("Zhang et al., 2019", "droplet, 3'"),
-    "iPain": ("Bhuiyan et al., 2024 (iPain Atlas)", "10x droplet, 3'"),
-    "NodoMap": ("Cheng et al., 2026 (NodoMap)", "10x droplet, 3'"),
-    "GSE232789": ("--", "10x droplet, 3'"),
-    "GSE231766": ("Ziegler et al., 2023", "10x droplet, 3'"),
-    "GSE78845": ("Furlan et al., 2016", "full-length"),
-    "GSE231924": ("--", "10x droplet, 3'"),
-    "GSE330884": ("--", "10x droplet, 3'"),
-    "GSE263422": ("--", "10x droplet, 3'"),
+    "GSE114997": ("Shrestha et al., 2018", "SMART-seq, full-length",
+                  "10.1016/j.cell.2018.07.007"),
+    "GSE102443": ("Dvoryanchikov et al., 2017", "SMART-seq, full-length",
+                  "10.1038/s41467-017-01095-1"),
+    "GSE309608": ("Liu et al., 2026", "10x droplet, 3'",
+                  "10.1073/pnas.2530677123"),
+    "GSE135801": ("Zhang et al., 2019", "droplet, 3'",
+                  "10.1016/j.cell.2019.08.031"),
+    "iPain": ("Bhuiyan et al., 2024", "10x droplet, 3'",
+              "10.1126/sciadv.adj9173"),
+    "NodoMap": ("Cheng et al., 2026", "10x droplet, 3'",
+                "10.1016/j.cpblue.2026.100072"),
+    "GSE232789": ("Sivori et al., 2024", "10x droplet, 3'",
+                  "10.7554/eLife.91576"),
+    "GSE231766": ("Ziegler et al., 2023", "10x droplet, 3'",
+                  "10.1126/science.abn6366"),
+    "GSE78845": ("Furlan et al., 2016", "full-length", "10.1038/nn.4376"),
+    "GSE231924": ("Sharma et al., 2023", "10x droplet, 3'",
+                  "10.7554/eLife.86295"),
+    "GSE330884": ("Xu et al., 2026", "10x droplet, 3'",
+                  "10.1016/j.cell.2026.06.040"),
+    "GSE263422": ("Li et al., 2025", "10x droplet, 3'",
+                  "10.1038/s41593-025-01962-x"),
 }
 
 # Values the manuscript states that results/dataset_quality_panel.csv leaves
@@ -74,7 +88,7 @@ SAMPLES_AGREEING_FROM_NOTES = {
 MARGIN_TOL = 0.02
 
 COLUMNS = [
-    "panel", "division", "population", "dataset", "study", "platform",
+    "panel", "division", "population", "dataset", "study", "study_doi", "platform",
     "preparation", "unit", "n_neurons", "n_samples", "median_library",
     "Oprl1", "Oprm1", "Oprd1", "Oprk1", "Oprl1_pct_detected",
     "top_receptor", "runner_up", "margin", "margin_lo", "margin_hi",
@@ -187,7 +201,7 @@ def build() -> pd.DataFrame:
         q = qual.loc[k]
         levels = pd.Series({g: getattr(r, g) for g in ac.RECEPTORS})
         top, second, margin = ordering(levels)
-        study, platform = PROVENANCE[r.dataset]
+        study, platform, doi = PROVENANCE[r.dataset]
 
         rows.append({
             "panel": str(r.panel).upper(),
@@ -195,6 +209,7 @@ def build() -> pd.DataFrame:
             "population": r.tissue,
             "dataset": r.dataset,
             "study": study,
+            "study_doi": doi,
             "platform": platform,
             "preparation": q.prep,
             "unit": r.unit,
@@ -270,6 +285,7 @@ def render(tbl: pd.DataFrame) -> str:
         "Population": t.population,
         "Deposit": t.dataset,
         "Study": t.study,
+        "DOI": t.study_doi,
         "Platform": t.platform,
         "Preparation": t.preparation,
         "Neurons": t.n_neurons.map("{:,}".format),

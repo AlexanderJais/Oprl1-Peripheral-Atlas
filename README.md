@@ -932,13 +932,15 @@ python3 -m pytest tests -q                   # 33 unit tests
 - GSE135801 Zhang et al. 2019, *Cell* (Zuker lab), 454 Phox2b+ geniculate neurons
 - GSE166648 Ludwig et al., dorsal vagal complex snRNA-seq, 72,128 nuclei
 - GSE78845 Furlan et al. 2016, 298 mouse thoracic sympathetic neurons, full-length
-- GSE231766 Ziegler et al. 2023, four mouse superior cervical ganglia, 10x
-- GSE231924 cardiac-projecting neurons of the mouse stellate ganglion, 10x, 1,303 neurons
-- GSE232789 six mouse autonomic ganglia in one experiment: stellate, celiac, lumbar chain,
-  sphenopalatine and two pelvic, 10x
-- GSE330884 mouse intrinsic cardiac nervous system, three samples, 10x
-- GSE263422 mouse small-intestine enteric neurons at P7 and P24, 10x
-- GSE309608 four mouse vestibular ganglia, 10x
+- GSE231766 Ziegler et al. 2023, *Science*, four mouse superior cervical ganglia, 10x
+- GSE231924 Sharma et al. 2023, *eLife*, cardiac-projecting neurons of the mouse stellate
+  ganglion, 10x, 1,303 neurons
+- GSE232789 Sivori et al. 2024, *eLife*, six mouse autonomic ganglia in one experiment: stellate,
+  celiac, lumbar chain, sphenopalatine and two pelvic, 10x
+- GSE330884 Xu et al. 2026, *Cell*, mouse intrinsic cardiac nervous system, three samples, 10x
+- GSE263422 Li et al. 2025, *Nat Neurosci*, mouse small-intestine enteric neurons at P7 and P24,
+  10x
+- GSE309608 Liu et al. 2026, *PNAS*, four mouse vestibular ganglia, 10x
 - IUPHAR/BPS Guide to Pharmacology, `targets_and_families.csv`, for the GPCR list
 - GSE114997 Shrestha et al. 2018, *Cell*, 226 spiral ganglion neurons, SMART-seq
 - GSE165502 mouse cochlea at E14.5, E15.5, E16.5, E17.5, E18.5 and P3, SMART-seq2

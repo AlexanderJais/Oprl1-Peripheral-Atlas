@@ -4,27 +4,27 @@
 
 ## (a) Provenance and sample
 
-| Panel | Division                    | Population              | Deposit   | Study                              | Platform               | Preparation | Neurons | Samples | Median library |
-|-------|-----------------------------|-------------------------|-----------|------------------------------------|------------------------|-------------|---------|---------|----------------|
-| A     | sensory                     | spiral (VIII)           | GSE114997 | Shrestha et al., 2018              | SMART-seq, full-length | whole cell  | 226     | --      | 2,678,701      |
-| B     | sensory                     | geniculate (VII)        | GSE102443 | Dvoryanchikov et al., 2017         | SMART-seq, full-length | whole cell  | 96      | --      | --             |
-| C     | sensory                     | vestibular (VIII)       | GSE309608 | --                                 | 10x droplet, 3'        | whole cell  | 6,596   | 4       | 55,172         |
-| D     | sensory                     | geniculate (VII)        | GSE135801 | Zhang et al., 2019                 | droplet, 3'            | whole cell  | 454     | --      | --             |
-| E     | sensory                     | trigeminal (V)          | iPain     | Bhuiyan et al., 2024 (iPain Atlas) | 10x droplet, 3'        | whole cell  | 2,773   | --      | --             |
-| F     | sensory                     | nodose (X)              | NodoMap   | Cheng et al., 2026 (NodoMap)       | 10x droplet, 3'        | whole cell  | 26,047  | --      | 1,570          |
-| G     | sensory                     | jugular (X)             | NodoMap   | Cheng et al., 2026 (NodoMap)       | 10x droplet, 3'        | whole cell  | 4,593   | --      | 1,570          |
-| H     | sensory                     | dorsal root             | iPain     | Bhuiyan et al., 2024 (iPain Atlas) | 10x droplet, 3'        | whole cell  | 31,802  | --      | --             |
-| I     | sympathetic                 | celiac                  | GSE232789 | --                                 | 10x droplet, 3'        | whole cell  | 247     | 1       | 56,023         |
-| J     | sympathetic                 | pelvic                  | GSE232789 | --                                 | 10x droplet, 3'        | whole cell  | 1,444   | 2       | 40,986         |
-| K     | sympathetic                 | superior cervical       | GSE231766 | Ziegler et al., 2023               | 10x droplet, 3'        | whole cell  | 1,382   | 2       | 9,885          |
-| L     | sympathetic                 | lumbar chain            | GSE232789 | --                                 | 10x droplet, 3'        | whole cell  | 887     | 1       | 73,326         |
-| M     | sympathetic                 | thoracic chain          | GSE78845  | Furlan et al., 2016                | full-length            | whole cell  | 298     | --      | 33,099         |
-| N     | sympathetic                 | stellate                | GSE232789 | --                                 | 10x droplet, 3'        | whole cell  | 2,589   | 1       | 27,931         |
-| O     | sympathetic                 | stellate                | GSE231924 | --                                 | 10x droplet, 3'        | whole cell  | 1,303   | --      | --             |
-| P     | parasympathetic and enteric | sphenopalatine (VII)    | GSE232789 | --                                 | 10x droplet, 3'        | whole cell  | 2,014   | 1       | 37,416         |
-| Q     | parasympathetic and enteric | intrinsic cardiac       | GSE330884 | --                                 | 10x droplet, 3'        | whole cell  | 4,513   | 3       | 52,533         |
-| R     | parasympathetic and enteric | enteric submucosal, P24 | GSE263422 | --                                 | 10x droplet, 3'        | whole cell  | 7,787   | 3       | 12,874         |
-| S     | parasympathetic and enteric | enteric submucosal, P7  | GSE263422 | --                                 | 10x droplet, 3'        | whole cell  | 1,648   | 2       | 8,974          |
+| Panel | Division                    | Population              | Deposit   | Study                      | DOI                          | Platform               | Preparation | Neurons | Samples | Median library |
+|-------|-----------------------------|-------------------------|-----------|----------------------------|------------------------------|------------------------|-------------|---------|---------|----------------|
+| A     | sensory                     | spiral (VIII)           | GSE114997 | Shrestha et al., 2018      | 10.1016/j.cell.2018.07.007   | SMART-seq, full-length | whole cell  | 226     | --      | 2,678,701      |
+| B     | sensory                     | geniculate (VII)        | GSE102443 | Dvoryanchikov et al., 2017 | 10.1038/s41467-017-01095-1   | SMART-seq, full-length | whole cell  | 96      | --      | --             |
+| C     | sensory                     | vestibular (VIII)       | GSE309608 | Liu et al., 2026           | 10.1073/pnas.2530677123      | 10x droplet, 3'        | whole cell  | 6,596   | 4       | 55,172         |
+| D     | sensory                     | geniculate (VII)        | GSE135801 | Zhang et al., 2019         | 10.1016/j.cell.2019.08.031   | droplet, 3'            | whole cell  | 454     | --      | --             |
+| E     | sensory                     | trigeminal (V)          | iPain     | Bhuiyan et al., 2024       | 10.1126/sciadv.adj9173       | 10x droplet, 3'        | whole cell  | 2,773   | --      | --             |
+| F     | sensory                     | nodose (X)              | NodoMap   | Cheng et al., 2026         | 10.1016/j.cpblue.2026.100072 | 10x droplet, 3'        | whole cell  | 26,047  | --      | 1,570          |
+| G     | sensory                     | jugular (X)             | NodoMap   | Cheng et al., 2026         | 10.1016/j.cpblue.2026.100072 | 10x droplet, 3'        | whole cell  | 4,593   | --      | 1,570          |
+| H     | sensory                     | dorsal root             | iPain     | Bhuiyan et al., 2024       | 10.1126/sciadv.adj9173       | 10x droplet, 3'        | whole cell  | 31,802  | --      | --             |
+| I     | sympathetic                 | celiac                  | GSE232789 | Sivori et al., 2024        | 10.7554/eLife.91576          | 10x droplet, 3'        | whole cell  | 247     | 1       | 56,023         |
+| J     | sympathetic                 | pelvic                  | GSE232789 | Sivori et al., 2024        | 10.7554/eLife.91576          | 10x droplet, 3'        | whole cell  | 1,444   | 2       | 40,986         |
+| K     | sympathetic                 | superior cervical       | GSE231766 | Ziegler et al., 2023       | 10.1126/science.abn6366      | 10x droplet, 3'        | whole cell  | 1,382   | 2       | 9,885          |
+| L     | sympathetic                 | lumbar chain            | GSE232789 | Sivori et al., 2024        | 10.7554/eLife.91576          | 10x droplet, 3'        | whole cell  | 887     | 1       | 73,326         |
+| M     | sympathetic                 | thoracic chain          | GSE78845  | Furlan et al., 2016        | 10.1038/nn.4376              | full-length            | whole cell  | 298     | --      | 33,099         |
+| N     | sympathetic                 | stellate                | GSE232789 | Sivori et al., 2024        | 10.7554/eLife.91576          | 10x droplet, 3'        | whole cell  | 2,589   | 1       | 27,931         |
+| O     | sympathetic                 | stellate                | GSE231924 | Sharma et al., 2023        | 10.7554/eLife.86295          | 10x droplet, 3'        | whole cell  | 1,303   | --      | --             |
+| P     | parasympathetic and enteric | sphenopalatine (VII)    | GSE232789 | Sivori et al., 2024        | 10.7554/eLife.91576          | 10x droplet, 3'        | whole cell  | 2,014   | 1       | 37,416         |
+| Q     | parasympathetic and enteric | intrinsic cardiac       | GSE330884 | Xu et al., 2026            | 10.1016/j.cell.2026.06.040   | 10x droplet, 3'        | whole cell  | 4,513   | 3       | 52,533         |
+| R     | parasympathetic and enteric | enteric submucosal, P24 | GSE263422 | Li et al., 2025            | 10.1038/s41593-025-01962-x   | 10x droplet, 3'        | whole cell  | 7,787   | 3       | 12,874         |
+| S     | parasympathetic and enteric | enteric submucosal, P7  | GSE263422 | Li et al., 2025            | 10.1038/s41593-025-01962-x   | 10x droplet, 3'        | whole cell  | 1,648   | 2       | 8,974          |
 
 ## (b) Levels, ordering and quality control
 

@@ -11,6 +11,13 @@ those of Figure 1. The table the journal receives is
 provenance and sample and (b) levels, ordering and quality control. Both are written by
 `paper/tables.py` from the tables under `results/`.
 
+Study and DOI name the publication that generated each deposit, taken from the deposit itself
+rather than from a search on the tissue: eleven of the twelve GEO records name their publication,
+either in the citation field or in the paper's own data availability statement. GSE309608 is the
+exception and is matched by its BioProject accession (PRJNA1335542), its six contributors and its
+title, all of which the PNAS paper carries. Full citations are in
+[`paper/references.md`](references.md).
+
 Divisions are the blocks of Figure 1. The pelvic ganglion carries both sympathetic and
 parasympathetic neurons and is grouped with the sympathetic block, as in the figure;
 `results/dataset_quality_panel.csv` records it as mixed autonomic. All nineteen populations are
@@ -46,8 +53,6 @@ carried over from a comparable population:
 - **Median library** is not recorded for panels B, D, E, H and O. The two iPain populations were
   not re-derived from their source matrices, and the GSE231924 deposit carries no library sizes.
 - **Detection** is not recorded for panels E and H, the two iPain populations, for the same reason.
-- **Study** carries an em dash for a deposit whose publication this survey did not establish. The
-  accession is the citable identifier in those rows.
 - **Panel A** has no margin: the spiral ganglion quantifies all four receptors and detects one, so
   there is no second receptor to divide by. The three zeros are measured absences, not a reference
   gap.
