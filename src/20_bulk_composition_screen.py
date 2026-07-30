@@ -338,8 +338,24 @@ def screen_one(gse, title, n, symbols=None):
             continue
 
         def level(g):
+            """A gene's mean level over this group's columns.
+
+            A counts matrix has to be divided by library size before columns can
+            be averaged. A TPM, FPKM or RPKM matrix has already been divided, by
+            a denominator its depositor chose; dividing it again by the column
+            sum of the screened genes rescales each column by an arbitrary
+            factor. That leaves the ordering within a column intact -- it is one
+            scalar per column -- but it corrupts every level, and it corrupts
+            comparison of one gene between two groups, which is what the subtype
+            panel and the axotomy pairs both do. So a length-normalised matrix is
+            read as deposited.
+            """
             v = rows.get(g)
-            return float(np.mean(v[idx] / tot * 1e6)) if v is not None else np.nan
+            if v is None:
+                return np.nan
+            if unit == "length-normalised":
+                return float(np.mean(v[idx]))
+            return float(np.mean(v[idx] / tot * 1e6))
 
         row = {**base, "group": group, "n_columns": len(cc), "unit": unit}
         row.update({g: round(level(g), 3) for g in MARKERS + INJURY + ac.RECEPTORS})
