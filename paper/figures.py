@@ -335,7 +335,7 @@ def figureS3():
 
 
 def figure3():
-    """Bulk ganglion tissue: composition, nerve injury, and neuronal subtype."""
+    """Bulk ganglion tissue: the ordering over deposits, and nerve injury."""
     scr = pd.read_csv(ac.RES / "bulk_composition_screen.csv")
     axo = pd.read_csv(ac.RES / "bulk_axotomy_pairs.csv")
 
@@ -344,10 +344,6 @@ def figure3():
     # group with its reason, and this figure is about peripheral ganglia.
     NOT_PERIPHERAL = re.compile(r"cortex|hippocamp|brain|spinal|striat|"
                                 r"arcuate|\bArc|hypothal", re.I)
-    # Series whose Atf3 is raised by an experimental nerve lesion rather than by
-    # handling; they carry (A) and (B) and are excluded from (C).
-    CHRONIC_LESION_SERIES = {"GSE97090", "GSE149770", "GSE161342", "GSE138769",
-                             "GSE67130", "GSE188922"}
     read = scr[(scr.verdict == "read")
                & ~scr.group.str.contains(NOT_PERIPHERAL)].copy()
     # A deposit that publishes FPKM and counts of the same samples appears
@@ -356,11 +352,10 @@ def figure3():
         r"^(FPKM|count|TPM)\.", "", regex=True)
     read = read.sort_values("unit").drop_duplicates("set")
 
-    # The bottom row carries subtype names at 45 degrees, the longest of which
-    # is "Nonpeptidergic Nociceptor", so the two rows need different clearance
-    # beneath them.
+    # The top row carries receptor names at 45 degrees and the bottom row two
+    # short words, so the rows need different clearance beneath them.
     PANEL_H, ABOVE = 1.50, 0.34
-    BELOW_TOP, BELOW_BOTTOM = 0.34, 0.46
+    BELOW_TOP, BELOW_BOTTOM = 0.44, 0.34
     height = ABOVE + PANEL_H + (BELOW_TOP + ABOVE) + PANEL_H + BELOW_BOTTOM
 
     st.set_theme()
@@ -369,14 +364,55 @@ def figure3():
     row1 = height - ABOVE
     gs1 = fig.add_gridspec(1, 2, left=left, right=right, top=row1 / height,
                            bottom=(row1 - PANEL_H) / height,
-                           wspace=0.34, width_ratios=[1, 1.25])
+                           wspace=0.34, width_ratios=[1, 1])
     axA, axB = fig.add_subplot(gs1[0, 0]), fig.add_subplot(gs1[0, 1])
     row2 = row1 - PANEL_H - BELOW_TOP - ABOVE
     gs2 = fig.add_gridspec(1, 2, left=left, right=right, top=row2 / height,
                            bottom=(row2 - PANEL_H) / height, wspace=0.34)
     axC, axD = fig.add_subplot(gs2[0, 0]), fig.add_subplot(gs2[0, 1])
 
-    # (A) and (B): every quantity is a level, so the lesion and the receptors
+    # (A) Where each receptor falls in the ordering, over every group that
+    # cleared the gate. A rank is the one quantity that survives the fact that
+    # these are eighteen laboratories on eighteen normalisations.
+    rk = read[ac.RECEPTORS].rank(axis=1, ascending=False)
+    tally = pd.DataFrame({g: rk[g].value_counts().reindex([1, 2, 3, 4]).fillna(0)
+                          for g in ac.RECEPTORS})
+    x = np.arange(len(ac.RECEPTORS))
+    bottom = np.zeros(len(ac.RECEPTORS))
+    for rank, shade in zip([1, 2, 3, 4], ["#2F2F2F", "#7A7A7A", "#B4B4B4", "#E2E2E2"]):
+        v = tally.loc[rank].values
+        axA.bar(x, v, 0.62, bottom=bottom, color=shade, edgecolor="black",
+                linewidth=0.4, zorder=3, label=f"{rank}")
+        bottom += v
+    axA.set_xticks(x)
+    axA.set_xticklabels(ac.RECEPTORS, rotation=45, ha="right",
+                        fontstyle="italic", fontsize=st.FS_TICK)
+    axA.set_ylabel("groups", fontsize=st.FS_LABEL)
+    axA.set_xlim(-0.6, len(ac.RECEPTORS) - 0.4)
+    # Every bar is the same height, so there is no room for a key beside them;
+    # the axis is given headroom and the key sits in it.
+    axA.set_ylim(0, bottom.max() * 1.38)
+    axA.legend(title="rank", loc="upper center", fontsize=st.FS_NOTE, ncol=4,
+               frameon=False, handlelength=0.9, columnspacing=0.6,
+               handletextpad=0.35, title_fontsize=st.FS_NOTE)
+
+    # (B) The levels those ranks came from, one point per group.
+    for i, gene in enumerate(ac.RECEPTORS):
+        v = read[gene].replace(0, np.nan).dropna()
+        jitter = (np.arange(len(v)) % 7 - 3) * 0.035
+        axB.plot(np.full(len(v), i) + jitter, v, "o", ms=2.6,
+                 mfc=RECEPTOR_FILL[gene], mec="black", mew=0.3, ls="none",
+                 alpha=0.9, zorder=3)
+        axB.plot([i - 0.28, i + 0.28], [v.median()] * 2, "-", color="black",
+                 lw=1.1, zorder=4)
+    axB.set_yscale("log")
+    axB.set_xticks(x)
+    axB.set_xticklabels(ac.RECEPTORS, rotation=45, ha="right",
+                        fontstyle="italic", fontsize=st.FS_TICK)
+    axB.set_xlim(-0.6, len(ac.RECEPTORS) - 0.4)
+    axB.set_ylabel("mean expression (CPM)", fontsize=st.FS_LABEL)
+
+    # (C) and (D): every quantity is a level, so the lesion and the receptors
     # are read on the same axis rather than as a change in a ratio.
     def paired(ax, genes, colours):
         x = [0, 1]
@@ -395,49 +431,12 @@ def figure3():
         ax.set_xticklabels(["control", "nerve injury"], fontsize=st.FS_TICK)
         ax.set_ylabel("mean expression (CPM)", fontsize=st.FS_LABEL)
 
-    paired(axA, ["Atf3"], [st.HIGHLIGHT])
-    axA.legend(loc="upper left", fontsize=st.FS_NOTE, frameon=False,
+    paired(axC, ["Atf3"], [st.HIGHLIGHT])
+    axC.legend(loc="upper left", fontsize=st.FS_NOTE, frameon=False,
                handletextpad=0.3, borderpad=0.1)
-    paired(axB, ["Oprl1", "Oprm1"], [st.BAR_BLUE, RECEPTOR_FILL["Oprm1"]])
-    axB.legend(loc="upper right", fontsize=st.FS_NOTE, frameon=False, ncol=2,
+    paired(axD, ac.RECEPTORS, [RECEPTOR_FILL[g] for g in ac.RECEPTORS])
+    axD.legend(loc="lower left", fontsize=st.FS_NOTE, frameon=False, ncol=2,
                handletextpad=0.3, borderpad=0.1, columnspacing=1.0)
-
-    # (C) The acute question, which (A) and (B) do not answer: those are
-    # chronic lesions over days, while dissociation is an hour of enzyme. Here
-    # Atf3 is read as a continuous measure of how hard a preparation was
-    # handled, in groups carrying no experimental lesion.
-    lesion = scr.gse.isin(CHRONIC_LESION_SERIES)
-    q = scr[(scr.Atf3 > 0) & (scr.Oprl1 > 0) & (scr.Snap25 > 0) & ~lesion
-            & ~scr.group.str.contains(NOT_PERIPHERAL)].copy()
-    for mask, marker, face, label in (
-            (q.Snap25_over_Plp1 < 5, "o", st.BAR_BLUE, "ganglion tissue"),
-            (q.Snap25_over_Plp1 >= 5, "^", "white", "purified neurons")):
-        axC.plot(q.loc[mask, "Atf3"], q.loc[mask, "Oprl1"], marker, ms=3.6,
-                 mfc=face, mec="black", mew=0.4, ls="none", zorder=3, label=label)
-    axC.set_xscale("log"); axC.set_yscale("log")
-    axC.set_xlabel(r"$\it{Atf3}$ (CPM)", fontsize=st.FS_LABEL)
-    axC.set_ylabel(r"$\it{Oprl1}$ (CPM)", fontsize=st.FS_LABEL)
-    axC.legend(loc="lower left", fontsize=st.FS_NOTE, frameon=False,
-               handletextpad=0.3, borderpad=0.1)
-
-    # (D) The two receptors against each other, so neither axis is a ratio and
-    # the diagonal carries the comparison.
-    tissue = read.Snap25_over_Plp1 < 5
-    for mask, marker, face, label in (
-            (tissue, "o", st.BAR_BLUE, "ganglion tissue"),
-            (~tissue, "^", "white", "purified neurons")):
-        axD.plot(read.loc[mask, "Oprm1"].clip(lower=0.01),
-                 read.loc[mask, "Oprl1"].clip(lower=0.01), marker,
-                 ms=3.6, mfc=face, mec="black", mew=0.4, ls="none",
-                 zorder=3, label=label)
-    lim = (0.004, 1000)
-    axD.plot(lim, lim, "--", color="black", lw=0.5, zorder=2)
-    axD.set_xscale("log"); axD.set_yscale("log")
-    axD.set_xlim(*lim); axD.set_ylim(*lim)
-    axD.set_xlabel(r"$\it{Oprm1}$ (CPM)", fontsize=st.FS_LABEL)
-    axD.set_ylabel(r"$\it{Oprl1}$ (CPM)", fontsize=st.FS_LABEL)
-    axD.legend(loc="lower right", fontsize=st.FS_NOTE, frameon=False,
-               handletextpad=0.3, borderpad=0.1)
 
     # On a log axis spanning less than two decades matplotlib labels the minor
     # ticks as well, which fills the axis with 3 x 10^2 and its neighbours.

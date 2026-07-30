@@ -865,11 +865,17 @@ python3 src/15_human_ganglia.py              # human ganglia and the cross-speci
 python3 src/09_main_figures.py               # consolidated figures 1 and 3
 python3 src/17_prevalence_decomposition.py   # prevalence against level in positive cells
 python3 src/18_ordering_sign_test.py         # the ordering tested at the deposit
+python3 src/16_preparation_bias.py           # nuclear against whole cell, genome-wide
 python3 src/19_dissociation_signature.py     # dissociation against gene length
+python3 src/20_bulk_composition_screen.py    # 223 GEO bulk series, gated on composition and unit
+python3 src/21_intron_content.py             # exonic against intronic length
+python3 src/22_human_soma_types.py           # human DRG somata by cell type, GSE249746
+python3 src/23_macaque_soma_types.py         # macaque DRG neurons by cell type, GSE165553/66
+python3 src/24_bulk_ordering_stats.py        # the ordering statistics behind figure 3
 python3 paper/figures.py                     # manuscript figures, to Cell Press specification
 python3 paper/tables.py                      # manuscript table S1, the inventory behind figure 1
 python3 paper/build_pdf.py                   # the whole manuscript as one PDF
-python3 -m pytest tests -q                   # 33 unit tests
+python3 -m pytest tests -q                   # 37 unit tests
 ```
 
 | figure | contents |

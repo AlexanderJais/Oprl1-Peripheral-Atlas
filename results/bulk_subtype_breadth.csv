@@ -1,0 +1,5 @@
+gene,subtypes_first,mean_rank,min_level,max_level,fold_range
+Oprl1,3,1.875,0.875,10.768,12.3
+Oprm1,5,1.625,1.425,207.858,145.9
+Oprd1,0,2.75,0.305,10.449,34.3
+Oprk1,0,3.75,0.013,1.845,141.9

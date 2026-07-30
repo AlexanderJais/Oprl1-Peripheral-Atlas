@@ -116,3 +116,41 @@ Several of the largest sensory ganglion atlases are single-nucleus, which is con
 may have reinforced, the prevailing view that *Oprm1* is the dominant opioid receptor of peripheral
 neurons. That view predates those atlases and rests on pharmacology, conditional knockouts and
 reporter lines rather than on transcript counts.
+
+## The ordering holds in bulk ganglion tissue from seventeen independent deposits
+
+Both preparations considered so far dissociate the tissue and count single cells. Bulk RNA
+sequencing of a whole ganglion does neither: it sequences cytoplasmic and nuclear RNA together,
+which removes the nuclear enrichment of Figure 2, and it is normally reported in a
+length-normalised unit, which is what comparing one gene with another requires. We screened 223
+GEO series of peripheral nervous tissue and kept the column groups that are neuron-rich enough to
+be reporting neurons, at *Snap25* above 100 and *Snap25* over *Plp1* above 0.05, and that publish a
+length-normalised unit rather than counts. Fifty-two groups from 17 series clear both gates; 44
+further groups are neuron-rich but supply counts only, and their orderings are recorded unread.
+
+*Oprl1* is the highest of the four in 43 of the 52 groups and *Oprm1* in 9, at a median margin of
+1.84-fold over the runner-up (Figure 3A, sign test against a four-face null, p = 3.8 x 10^-18).
+Counting each deposit once, and only where *Oprl1* leads every group that deposit contributes, 15
+of 17 (p = 7.4 x 10^-8). *Oprl1* never ranks last: it takes first place 43 times, second 5 and
+third 4. *Oprm1* ranks last in 12 of the 52 and *Oprk1* in 30. The median level across the 52
+groups is 6.22 for *Oprl1*, 2.83 for *Oprd1*, 1.62 for *Oprm1* and 0.38 for *Oprk1* (Figure 3B).
+
+One deposit sequenced purified subtypes rather than whole ganglion, and it shows what the ordering
+is made of. Across eight genetically labelled dorsal root ganglion populations sequenced on one
+protocol (Zheng et al., 2019), *Oprl1* ranks first in the two Aβ low-threshold mechanoreceptor
+populations and in the proprioceptor, at 10.77, 9.23 and 6.63, and *Oprm1* ranks first in the
+peptidergic and non-peptidergic nociceptors and the C-LTMR (Figure S3). *Oprm1* wins more
+populations than *Oprl1*, 5 against 3, and has the marginally better mean rank, 1.63 against 1.88.
+It wins them by varying 146-fold across the eight, from 1.43 in the Aβ rapidly adapting
+mechanoreceptor to 207.86 in the peptidergic nociceptor. *Oprl1* varies 12-fold over the same eight
+populations, against 34-fold for *Oprd1* and 142-fold for *Oprk1*. The distinction the panel makes
+is not which receptor reaches the highest level in some neuron but which is present across
+neurons: at the level of a whole ganglion, a receptor confined to one population contributes to the
+average only in proportion to that population's size, and that is why the bulk deposits rank
+*Oprl1* first while *Oprm1* reaches far higher levels than *Oprl1* ever does.
+
+Seven of the deposits publish a matched control and nerve-injury arm. *Atf3* rises in all seven, by
+a median 6.9-fold, so the lesion registers. All four receptors fall in all seven, *Oprl1* to 0.48
+of control, *Oprd1* to 0.49, *Oprm1* to 0.70 and *Oprk1* to 0.81 (Figures 3C and 3D). Axotomy
+suppresses the opioid receptor family as a whole rather than any one of its members, and it does
+not reorder them.

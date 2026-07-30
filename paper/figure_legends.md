@@ -183,42 +183,33 @@ experiment, shown in (B), reverses in the same direction.
 ## Figure 3. The four opioid receptor genes in bulk RNA-seq of ganglion tissue
 
 Public bulk RNA-seq of mouse peripheral ganglia, screened for neuronal content and for a
-length-normalised unit before any receptor value was read. Levels are the mean CPM over the samples
-of a group. *Oprl1* is blue and the other three receptors are graded grey, as in Figure S1.
+length-normalised unit before any receptor value was read: 223 GEO series, of which 52 column groups
+from 17 series clear both gates. Levels are the mean over the samples of a group, in the unit each
+deposit published, and are compared between genes within a group and never between deposits.
+*Oprl1* is blue and the other three receptors are graded grey, as in Figure S1. Deposits that
+publish both a length-normalised and a count matrix of the same samples are entered once. Two cortex
+groups clear the gates, since a neuronal gate does not distinguish brain from ganglion, and are
+excluded.
 
-(A and B) Seven control-against-nerve-injury comparisons drawn from four series, each pair taken
+(A) Where each receptor falls in the within-group ordering, over the 52 groups. A rank is the
+statistic that survives 17 laboratories on 17 normalisations. *Oprl1* is first in 43, second in 5,
+third in 4 and last in none; *Oprm1* is first in 9 and last in 12; *Oprd1* is second in 38 and never
+first; *Oprk1* is last in 30. Sign test for *Oprl1* first against a four-face null, p = 3.8 x
+10^-18 over groups, and p = 7.4 x 10^-8 over the 17 deposits counted once, where a deposit counts
+only if *Oprl1* leads every group it contributes. Bars fall short of 52 where a receptor is absent
+from a deposit's annotation, which is a missing value and not a zero.
+
+(B) The levels those ranks were taken from, one point per group, with the median marked. Medians are
+6.22 for *Oprl1*, 2.83 for *Oprd1*, 1.62 for *Oprm1* and 0.38 for *Oprk1*. Groups at zero are
+omitted rather than drawn at the axis floor.
+
+(C and D) Seven control-against-nerve-injury comparisons drawn from four series, each pair taken
 from one laboratory, one protocol and one unit, so that the lesion is the only difference between
-the two arms. A line joins the two arms of one comparison. (A) *Atf3*, whose median rises from 82 to 595 CPM. (B) *Oprl1* and *Oprm1*. *Oprl1* runs from 7.0 to 26.6 CPM in the control arms and from
-7.0 to 12.5 CPM after injury, and is lower after injury in all seven; *Oprm1* is lower in seven of
-seven.
-
-(C) *Oprl1* against *Atf3* in the groups that carry no experimental lesion, so that *Atf3* reads
-the handling a preparation received rather than a nerve injury. (A) and (B) measure a chronic
-lesion over days; dissociation is an hour of enzyme, and this panel is the nearest test of it these
-data allow. It does not resolve. Across the 111 groups there is no relationship (r = -0.02 on log
-axes); among the 30 purified sets, where dissociation is certain, r = -0.45, but leaving out any
-one series moves it between -0.19 and -0.77 and it is not significant without GSE227968, and the
-three series with three or more purified groups give -0.42, -0.05 and +0.05. A partial correlation
-holding *Snap25* fixed reaches -0.86, but *Oprl1* correlates with *Snap25* at +0.63, so the
-covariate rather than *Atf3* carries that number and it is not evidence. No deposit varies
-dissociation while holding tissue, study and composition fixed, which is the comparison this
-question needs.
-
-(D) *Oprl1* against *Oprm1* in the 50 peripheral sample sets that clear both gates, one point per
-set, with the deposits that publish both a length-normalised and a count matrix of the same samples
-entered once. Two cortex groups clear the gates, since a neuronal gate does not distinguish brain
-from ganglion, and are excluded here. The dashed line is equality. Circles are groups in which *Snap25* is below five times *Plp1*,
-which is ganglion tissue; triangles are groups above that, which are purified neurons. A level of
-zero is drawn at the axis floor. *Oprl1* is the higher of the two in 31 of the 31 circles and in 10
-of the 19 triangles.
-
-The screen read 223 series and 315 column groups. A group is read only if *Snap25* reaches 100 CPM
-and five per cent of *Plp1*, and only if the deposit supplies TPM, FPKM or RPKM, since counts scale
-with transcript length and an ordering read from them would compare transcript sizes. Groups that
-fail either gate are kept in `results/bulk_composition_screen.csv` with the reason. Matrices holding
-more than one tissue are split by column name before anything is computed.
-
-See also Figure 1, Figure S3, and Table S1.
+the two arms. A line joins the two arms of one comparison, and every quantity is a level rather than
+a change in a ratio. (C) *Atf3* rises in all seven, by a median 6.9-fold, so the lesion registers.
+(D) All four receptors fall in all seven: *Oprl1* to a median 0.48 of its control arm, *Oprd1* 0.49,
+*Oprm1* 0.70, *Oprk1* 0.81. Axotomy suppresses the family rather than any one member, and does not
+reorder it.
 
 ## Figure S1. The lead is a difference in prevalence, related to Figure 1
 
@@ -278,13 +269,20 @@ undissociated tissue.
 ## Figure S3. The four receptors across purified dorsal root ganglion subtypes, related to Figure 1
 
 Eight purified dorsal root ganglion neuronal subtypes, GSE131230, in the deposit's own order, from
-the bulk screen behind Figure 3. *Snap25* exceeds *Plp1* by 48- to 112-fold in these groups, so
+the bulk screen behind Figure 3. *Snap25* exceeds *Plp1* by 47- to 111-fold in these groups, so
 they are neurons rather than ganglion tissue; they were dissociated and sorted, and *Atf3* runs
-from 20 to 154 CPM across them. Levels are mean CPM and colours are those of Figure S1.
+from 11 to 61 across them. Levels are the mean of the deposit's own length-normalised unit and
+colours are those of Figure S1.
 
-*Oprm1* reaches 528.76 CPM in peptidergic nociceptors, 118.70 in C-LTMRs and 27.86 in
-non-peptidergic nociceptors, against *Oprl1* at 4.93, 6.56 and 1.44. *Oprl1* reaches 15.68 CPM in
-Aβ RA-LTMRs, 20.53 in Aβ SA1-LTMRs and 11.95 in proprioceptors, against *Oprm1* at 2.43, 18.23 and
-4.09. The dorsal root ganglion mean in Figure 1H, where *Oprl1* leads by 1.13-fold over all
-neurons, therefore averages populations that differ in direction rather than measuring a small
-difference common to them.
+*Oprm1* reaches 207.86 in peptidergic nociceptors, 48.00 in C-LTMRs and 16.99 in non-peptidergic
+nociceptors, against *Oprl1* at 1.97, 2.63 and 0.88. *Oprl1* reaches 9.23 in Aβ RA-LTMRs, 10.77 in
+Aβ SA1-LTMRs and 6.63 in proprioceptors, against *Oprm1* at 1.42, 7.65 and 2.32. *Oprm1* is first in
+five of the eight populations and *Oprl1* in three, and the two have almost the same mean rank, 1.63
+against 1.88.
+
+What separates them is range rather than rank. Over the eight populations *Oprl1* varies 12.3-fold,
+*Oprd1* 34.3-fold, *Oprk1* 141.9-fold and *Oprm1* 145.9-fold. The dorsal root ganglion mean in
+Figure 1H, where *Oprl1* leads by 1.13-fold over all neurons, therefore averages populations that
+differ in direction rather than measuring a small difference common to them; and a receptor confined
+to one population enters that average only in proportion to the population's size, which is why the
+bulk deposits of Figure 3 rank *Oprl1* first while *Oprm1* reaches levels *Oprl1* never approaches.
