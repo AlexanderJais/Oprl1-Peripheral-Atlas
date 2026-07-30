@@ -220,8 +220,13 @@ def stream_matrix(path, sep, symbols):
                     pass
             return ok >= 0.8 * len(head)
 
+        # An unnamed numeric column is a row counter, not a sample. GSE131230
+        # deposits one, and read as a sample it reports each gene's row number:
+        # Snap25 came out at 5999 and cleared the neuronal gate on it.
         cols = [j for j in range(width)
-                if not NOT_A_SAMPLE.search(str(header[j])) and looks_numeric(j)]
+                if str(header[j]).strip()
+                and not NOT_A_SAMPLE.search(str(header[j]))
+                and looks_numeric(j)]
         if len(cols) < 3:
             return {}, None, []
 
